@@ -1,0 +1,814 @@
+{template 'web/_header'}
+{template 'web/order/tabs'}
+
+<script type="text/javascript" src="../addons/sz_yi/static/js/dist/area/cascade.js"></script>
+
+
+<style type="text/css">
+    .main .form-horizontal .form-group{margin-bottom:0;}
+    .main .form-horizontal .modal .form-group{margin-bottom:15px;}
+    #modal-confirmsend .control-label{margin-top:0;}
+    .ad2 {display: none;}
+</style>
+<div class="main">
+    <form class="form-horizontal form" action="" method="post">
+        {if $item['transid']}<div  class="alert alert-error"><i class="fa fa-lightbulb"></i> 此为微信支付订单，必须要提交发货状态！</div>{/if}
+        <input type="hidden" name="id" value="{$item['id']}" />
+        <input type="hidden" name="token" value="{$_W['token']}" />
+        <input type="hidden" name="dispatchid" value="{$dispatch['id']}" />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                订单信息
+            </div>
+            <div class="panel-body">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝</label>
+                <div class="col-sm-9 col-xs-12">
+                    <img src='{$member['avatar']}' style='width:100px;height:100px;padding:1px;border:1px solid #ccc' />
+                         {$member['nickname']}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员信息</label>
+                <div class="col-sm-9 col-xs-12">
+                    <div class='form-control-static'>ID: {$member['id']} 姓名: {$member['realname']} / 手机号: {$member['mobile']} /微信号: {$member['weixin']}</div>
+                </div>
+            </div>
+                
+                {if $item['transid']}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信交易号 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{$item['transid']}</p>
+                    </div>
+                </div>
+                {/if}
+                      <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">订单编号 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{$item['ordersn']} </p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">订单金额 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="form-control-static"><table cellspacing="0" cellpadding="0">
+							<tr>
+								<td  style='border:none;text-align:right;'>商品小计：</td>
+								<td  style='border:none;text-align:right;;'>￥{php echo number_format( $item['goodsprice'] ,2)}</td>
+							</tr>
+							<tr>
+								<td  style='border:none;text-align:right;'>运费：</td>
+								<td  style='border:none;text-align:right;;'>￥{php echo number_format( $item['olddispatchprice'],2)}</td>
+							</tr>
+							{if $item['discountprice']>0}
+							<tr>
+								<td  style='border:none;text-align:right;'>会员折扣：</td>
+								<td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['discountprice'],2)}</td>
+							</tr>
+							{/if}
+							
+							{if $item['deductprice']>0}
+							<tr>
+								<td  style='border:none;text-align:right;'>积分抵扣：</td>
+								<td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['deductprice'],2)}</td>
+							</tr>
+							{/if}
+							{if $item['deductcredit2']>0}
+							<tr>
+								<td  style='border:none;text-align:right;'>余额抵扣：</td>
+								<td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['deductcredit2'],2)}</td>
+							</tr> 
+							{/if}
+							{if $item['deductenough']>0}
+							<tr>
+								<td  style='border:none;text-align:right;'>满额立减：</td>
+								<td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['deductenough'],2)}</td>
+							</tr>
+							{/if}
+							{if $item['couponprice']>0}
+							<tr>
+								<td  style='border:none;text-align:right;'>优惠券优惠：</td>
+								<td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['couponprice'],2)}</td>
+							</tr>
+							{/if}
+							{if intval($item['changeprice'])!=0}
+							<tr>
+								<td  style='border:none;text-align:right;'>卖家改价：</td>
+								<td  style='border:none;text-align:right;;'><span style="{if 0<$item['changeprice']}color:green{else}color:red{/if}">{if 0<$item['changeprice']}+{else}-{/if}￥{php echo number_format(abs($item['changeprice']),2)}</span></td>
+							</tr>
+						         {/if}
+							{if intval($item['changedispatchprice'])!=0}
+							<tr>
+								<td  style='border:none;text-align:right;'>卖家改运费：</td>
+								<td  style='border:none;text-align:right;;'><span style="{if 0<$item['changedispatchprice']}color:green{else}color:red{/if}">{if 0<$item['changedispatchprice']}+{else}-{/if}￥{php echo abs($item['changedispatchprice'])}</span></td>
+							</tr>
+						         {/if} 
+						<tr>
+								<td style='border:none;text-align:right;'>应收款：</td>
+								<td  style='border:none;text-align:right;color:green;'>￥{php echo number_format($item['price'],2)}</td>
+							</tr>
+									{ifp 'order.op.changeprice'}
+			{if empty($item['statusvalue'])}
+							<tr>
+								<td style='border:none;text-align:right;'></td>
+								<td  style='border:none;text-align:right;color:green;'><a href="javascript:;" class="btn btn-link " onclick="changePrice('{$item['id']}')">修改价格</a></td>
+							</tr>
+							{/if}  {/if}
+						</table></div>
+                    </div>
+                </div>
+				{if !empty($coupon)}
+				  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">使用优惠券 :</label>
+                    <div class="col-sm-9 col-xs-12">
+						<p class="form-control-static">
+							<a href="{php echo $this->createPluginWebUrl('coupon/coupon',array('op'=>'post','id'=>$coupon['id']))}" target='_blank'>
+								
+							[{$coupon['id']}]{$coupon['couponname']}</a> - 
+						  
+						   {if $coupon['backtype']==0}
+						  立减 {$coupon['deduct']} 元
+						  {else if $coupon['backtype']==1}
+						  打 {$coupon['discount']} 折
+						  {else if $coupon['backtype']==2}
+						  {if $coupon['backmoney']>0}返 {$coupon['backmoney']} 余额;{/if}
+						  {if $coupon['backcredit']>0}返 {$coupon['backcredit']} 积分;{/if}
+						  {if $coupon['backredpack']>0}返 {$coupon['backredpack']} 红包;{/if}
+						  <b>返利方式: </b>
+						    {if $item['backwhen']==0}
+						  交易完成后（过退款期限）
+						  {else if $item['backwhen']==1}
+						 订单完成后（收货后）
+						  {else}
+						  订单付款后
+						  {/if}
+						  <b>返利情况: </b> {if empty($coupon['back'])}
+						  <span class='label label-default'>未返利</span>
+						  {else}
+						  <span class='label label-danger'>已返利 {php echo data('Y-m-d H:i',$coupon['backtime'])}</span>
+						  {/if}
+						  {/if} 
+					</p>
+				  </div>
+				  </div>
+				{/if}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">配送方式 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">
+							{if empty($item['addressid'])}
+                                {if $item['isverify']==1}
+                                    线下核销
+                                {elseif $item['isvirtual']==1}
+                                    虚拟物品
+                                {elseif !empty($item['virtual'])}
+                                    虚拟物品(卡密)自动发货<!--virtual-->
+                                {elseif $item['dispatchtype']==1}
+                                    自提
+                                {/if}
+
+                            {else}
+                                {if empty($dispatchtype)}
+                                快递
+                                {/if}
+                            {/if}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">付款方式 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">
+                            {if $item['paytype'] == 0}未支付{/if}
+                            {if $item['paytype'] == 1}余额支付{/if}
+                            {if $item['paytype'] == 11}后台付款{/if}
+                            {if $item['paytype'] == 21}微信支付{/if}
+                            {if $item['paytype'] == 22}支付宝支付{/if}
+                            {if $item['paytype'] == 23}银联支付{/if}
+                            {if $item['paytype'] == 3}货到付款{/if}
+
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">订单状态 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">
+                            {if $item['status'] == 0}<span class="label label-info">待付款</span>{/if}
+                            {if $item['status'] == 1}<span class="label label-info">待发货</span>{/if}
+                            {if $item['status'] == 2}<span class="label label-info">待收货</span>{/if}
+                            {if $item['status'] == 3}<span class="label label-success">已完成</span>{/if}
+                            {if $item['status'] == -1}
+                              {if !empty($refund) && $refund['status']==1}
+                                <span class="label label-default">已退款</span> {if !empty($refund['refundtime'])}退款时间: {php echo date('Y-m-d H:i:s',$refund['refundtime'])}{/if}
+                                {else}
+                              <span class="label label-default">已关闭</span>
+                              {/if}
+                            {/if}
+                        </p>
+                    </div>
+                </div>
+                 {if !empty($refund) && $refund['status']==1}
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">退款时间 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="form-control-static">{php echo date('Y-m-d H:i:s',$item['refundtime'])}</div>
+                    </div>
+                </div>
+                {/if}
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">下单日期 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{php echo date('Y-m-d H:i:s', $item['createtime'])}</p>
+                    </div>
+                </div>
+                {if $item['status']>=1}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">付款时间 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{php echo date('Y-m-d H:i:s', $item['paytime'])}</p>
+                    </div>
+                </div>
+                {/if}
+                
+                {if $item['status']>=2 && !empty($item['addressid']) }
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">发货信息 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">快递公司: {$item['expresscom']}  <br/>快递单号: {$item['expresssn']} <br/>发货时间: {php echo date('Y-m-d H:i:s', $item['sendtime'])}<br/>
+									   <button type='button' class='btn btn-default' onclick='express_find(this,"{$item['id']}")' >查看物流</button>
+						</p>
+                    </div>
+                </div>
+                {/if}
+                  
+                {if $item['status']>=2 && !empty($item['virtual']) }
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">发货信息 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{php echo str_replace("\n","<br/>", $item['virtual_str'])}
+						
+									   
+						</p>
+                    </div>
+                </div>
+                {/if}
+                
+                {if $item['status']>=3}
+                {if $item['isverify']==1}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">核销信息 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">
+                            消费码: {$item['verifycode']}<br/> 
+                            核销时间: {php echo date('Y-m-d H:i:s', $item['finishtime'])}<br/>
+			 {if !empty($saler)}
+                            核销人:  {$saler['nickname']}( {$saler['salername']} )<br/>
+							{/if}
+                           {if !empty($store)}
+			    核销门店: {$store['storename']}<br/>
+                           {/if}
+                        </p>
+                    </div>
+                </div>
+                {else}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">完成时间 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{php echo date('Y-m-d H:i:s', $item['finishtime'])}</p>
+                    </div>
+                </div>
+                {/if}
+                
+                {/if}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">备注 :</label>
+                    <div class="col-sm-9 col-xs-12"><textarea style="height:150px;" class="form-control" name="remark" cols="70">{$item['remark']}</textarea></div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                         <br/>
+                        <button type='submit' name='saveremark' class='btn btn-default'>保存备注</button>
+                    </div>
+                </div>
+        </div>
+    </form>
+        {if p('commission') && count($agents)>0}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                分销商信息
+            </div>
+            <div class="panel-body">
+                {if !empty($agents[0])}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">一级分销商 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">
+							<a href="{php echo $this->createWebUrl('member/list',array('op'=>'detail','id'=>$agents[0]['id']))}" target='_blank'>
+							<img src='{$agents[0]['avatar']}' style="width:30px;height:30px;padding:1px;border:1px solid #ccc" /> {$agents[0]['nickname']} 
+								  </a>
+								 <b>ID:</b> {$agents[0]['id']} <b>姓名:</b> {$agents[0]['realname']}  <b>手机号:</b> {$agents[0]['mobile']} 
+								
+							<b>佣金:</b> {$commission1} 元
+								 </p>
+							
+                    </div>
+                </div>
+                {/if}
+                {if !empty($agents[1])}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">二级分销商 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">
+							<a href="{php echo $this->createWebUrl('member/list',array('op'=>'detail','id'=>$agents[1]['id']))}" target='_blank'>
+								<img src='{$agents[1]['avatar']}' style="width:30px;height:30px;padding:1px;border:1px solid #ccc" /> {$agents[1]['nickname']} 
+									 </a>
+							<b>ID:</b> {$agents[1]['id']} <b>姓名:</b> {$agents[1]['realname']}  <b>手机号:</b> {$agents[1]['mobile']}
+							<b>佣金:</b> {$commission2} 元
+						</p>
+                    </div>
+                </div>
+                {/if}
+                {if !empty($agents[2])}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">三级分销商 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">
+														<a href="{php echo $this->createWebUrl('member/list',array('op'=>'detail','id'=>$agents[2]['id']))}" target='_blank'>
+							<img src='{$agents[2]['avatar']}' style="width:30px;height:30px;padding:1px;border:1px solid #ccc" />  {$agents[2]['nickname']} 
+								 </a>
+							<b>ID:</b> {$agents[2]['id']} <b>姓名:</b> {$agents[2]['realname']} <b>手机号:</b> {$agents[2]['mobile']}
+								<b>佣金:</b> {$commission3} 元						
+								 
+								 </p>
+                    </div>
+                </div>
+                {/if}
+				
+				{ifp 'commission.changecommission'}
+				  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">
+							<a href='javascript:;' class='btn btn-default' onclick="commission_change('{$item['id']}')">修改佣金</a>
+						</p>
+                    </div>
+                </div>
+							
+							{/if}
+            </div>
+        </div>
+        {/if}
+        {if !empty($item['addressid'])}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              收件人信息
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">姓名 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static ad1">{$user['realname']}</p>
+                        <p class="form-control-static ad2"><input type="text" name="realname" id="realname" value="{$user['realname']}" class="form-control" style="width:130px;display:inline;"></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">手机 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static ad1">{$user['mobile']}</p>
+                        <p class="form-control-static ad2"><input type="text" name="mobile" id="mobile" value="{$user['mobile']}" class="form-control" style="width:130px;display:inline;"></p>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">地址 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static ad1" id="d_address">{$user['address']}
+                        </p>
+
+                        {ifp 'order.op.changeaddress'}
+                        <p class="form-control-static ad2" id="e_address">
+                            <select id="sel-provance" onChange="selectCity();" class="select form-control" style="width:130px;display:inline;">
+                                <option value="" selected="true">省/直辖市</option>
+                            </select>
+                            <select id="sel-city" onChange="selectcounty(0)" class="select form-control" style="width:135px;display:inline;">
+                                <option value="" selected="true">请选择</option>
+                            </select>
+                            <select id="sel-area" class="select form-control" style="width:130px;display:inline;">
+                                <option value="" selected="true">请选择</option>
+                            </select>
+                            <input type="text" name="address_info" id="address_info" class="form-control changeprice_orderprice" style="width:300px;display:inline;" value="{php echo $address_info}">
+                        </p>
+
+                        <button type='button' name='editaddress' id='editaddress' class='btn btn-default ad1'>编辑信息</button>
+                        <button type='button' name='saveaddress' id='saveaddress' class='btn btn-default ad2'>保存信息</button>
+                        <button type='button' name='backaddress' id='backaddress' class='btn btn-default ad2' style="margin-left:50px;">返回</button>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {elseif $item['isverify']==1 || !empty($item['virtual']) ||!empty($item['isvirtual'])}
+		{if $show==1}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               联系人
+            </div>
+            <div class="panel-body">
+                   <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">联系人姓名 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{$user['carrier_realname']} </p>
+                    </div>
+                </div>
+               <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">联系人手机 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{$user['carrier_mobile']}  </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+		{/if} 
+        {else}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+               自提信息
+            </div>
+            <div class="panel-body">
+                   <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">自提人姓名 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{$user['carrier_realname']} /  {$user['carrier_mobile']}</p>
+                    </div>
+                </div>
+               <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">自提地点 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{$user['address']} (联系人： {$user['realname']} / {$user['mobile']} ) </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/if}
+      
+
+    {if $diyform_flag == 1}
+	
+	{if !empty($order_data)}
+   <div class='panel-heading'>
+        订单统一表单信息
+    </div>
+    <div class='panel-body'>
+        <!--<span>diyform</span>-->
+    
+       {php $datas = $order_data}
+        {loop $order_fields $key $value}
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">{php echo $value['tp_name']}</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="form-control-static">
+
+                    {if $value['data_type'] == 0 || $value['data_type'] == 1 || $value['data_type'] == 2 || $value['data_type'] == 6}
+                    {php echo str_replace("\n","<br/>",$datas[$key])}
+
+                    {else if $value['data_type'] == 3}
+                    {if !empty($datas[$key])}
+                    {loop $datas[$key] $k1 $v1}
+                    {php echo $v1}
+                    {/loop}
+                    {/if}
+
+                    {else if $value['data_type'] == 5}
+                    {if !empty($datas[$key])}
+                    {loop $datas[$key] $k1 $v1}
+                    <a target="_blank" href="{php echo tomedia($v1)}"><img style='width:100px;;padding:1px;border:1px solid #ccc'  src="{php echo tomedia($v1)}"></a>
+                    {/loop}
+                    {/if}
+
+                    {else if $value['data_type'] == 7}
+                    {php echo $datas[$key]}
+
+                    {else if $value['data_type'] == 8}
+                    {if !empty($datas[$key])}
+                    {loop $datas[$key] $k1 $v1}
+                    {php echo $v1}
+                    {/loop}
+                    {/if}
+
+                    {else if $value['data_type'] == 9}
+                    {php echo $datas[$key]['province']!='请选择省份'?$datas[$key]['province']:''}-{php echo $datas[$key]['city']!='请选择城市'?$datas[$key]['city']:''}
+                    {/if}
+                </div>
+
+            </div>
+        </div>
+
+        {/loop}
+     
+    </div>
+	{/if}
+	  {if count($goods)==1 &&  !empty($goods[0]['diyformdata'])}
+    <div class='panel-heading'>
+        其他信息
+    </div>
+    <div class='panel-body'>
+        <!--<span>diyform</span>-->
+      
+		{php $datas = $goods[0]['diyformdata']}
+        {loop $goods[0]['diyformfields'] $key $value}
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">{php echo $value['tp_name']}</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="form-control-static">
+
+                    {if $value['data_type'] == 0 || $value['data_type'] == 1 || $value['data_type'] == 2 || $value['data_type'] == 6}
+                    {php echo str_replace("\n","<br/>",$datas[$key])}
+
+                    {else if $value['data_type'] == 3}
+                    {if !empty($datas[$key])}
+                    {loop $datas[$key] $k1 $v1}
+                    {php echo $v1}
+                    {/loop}
+                    {/if}
+
+                    {else if $value['data_type'] == 5}
+                    {if !empty($datas[$key])}
+                    {loop $datas[$key] $k1 $v1}
+                    <a target="_blank" href="{php echo tomedia($v1)}"><img style='width:100px;;padding:1px;border:1px solid #ccc'  src="{php echo tomedia($v1)}"></a>
+                    {/loop}
+                    {/if}
+
+                    {else if $value['data_type'] == 7}
+                    {php echo $datas[$key]}
+
+                    {else if $value['data_type'] == 8}
+                    {if !empty($datas[$key])}
+                    {loop $datas[$key] $k1 $v1}
+                    {php echo $v1}
+                    {/loop}
+                    {/if}
+
+                    {else if $value['data_type'] == 9}
+                    {php echo $datas[$key]['province']!='请选择省份'?$datas[$key]['province']:''}-{php echo $datas[$key]['city']!='请选择城市'?$datas[$key]['city']:''}
+                    {/if}
+                </div>
+
+            </div>
+        </div>
+
+        {/loop}
+    
+    </div>    {/if}
+    {/if}
+        {if !empty($refund)}
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                退款申请
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">退款原因 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{$refund['reason']}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">退款说明 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p class="form-control-static">{php echo empty($refund['content'])?'无':$refund['content']}</p>
+                    </div>
+                </div>
+                {if $refund['status']==1}
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">退款时间 :</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="form-control-static">{php echo date('Y-m-d H:i:s',$item['refundtime'])}</div>
+                    </div>
+                </div>
+                {/if}
+                
+                {ifp 'order.op.refund'}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        {if $refund['status']==0}
+                        <a class="btn btn-danger btn-sm" href="javascript:;" onclick="$('#modal-refund').find(':input[name=id]').val('{$item['id']}')" data-toggle="modal" data-target="#modal-refund">处理退款申请</a>
+                        {elseif $refund['status']==-1}
+                        <span class='label label-default'>已拒绝</span>
+                        {elseif $refund['status']==1}
+                        <span class='label label-danger'>已退款</span>
+                        {/if}
+                    </div>
+                </div> 
+                {/if}
+
+            </div>
+        </div>
+        {/if}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                商品信息</span>
+            </div>
+            <div class="panel-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                        <tr>
+                            <th style="width:5%;">ID</th>
+                            <th style="width:10%;">商品标题</th>
+                            <th style="width:15%;">商品规格</th>
+                            <th style="width:10%;">商品编号</th>
+                            <th style="width:10%;">商品条码</th>
+                       
+                            <th style="width:20%;">现价/原价/成本价</th>
+                            <th style="width:10%;">属性</th>
+                            <th style="width:5%;">购买数量</th>
+                            <th style="width:10%;color:red;">折扣前/折扣后</th>
+                            
+                            <th style="width:10%;">操作</th>
+                        </tr>
+                    </thead>
+                    {loop $item['goods'] $goods}
+                    <tr>
+                        <td>{$goods['id']}</td>
+                        <td>
+                            {if $category[$goods['pcate']]['name']}
+                            <span class="text-error">[{$category[$goods['pcate']]['name']}] </span>{/if}{if $children[$goods['pcate']][$goods['ccate']][1]}
+                            <span class="text-info">[{$children[$goods['pcate']][$goods['ccate']][1]}] </span>
+                            {/if}
+                            {$goods['title']}
+                        </td>
+                        <td><span class="label label-info">{$goods['optionname']}</span></td>
+                        <td>{$goods['goodssn']}</td>
+                        <td>{$goods['productsn']}</td>
+                        <td>{$goods['marketprice']}元 / {$goods['productprice']}元 / {$goods['costprice']}元</td>
+                        <td>{if $goods['status']==1}<span class="label label-success">上架</span>{else}<span class="label label-error">下架</span>{/if}&nbsp;<span class="label label-info">{if $goods['type'] == 1}实体商品{else}虚拟商品{/if}</span></td>
+                        <td>{$goods['total']}</td>
+                        <td style='color:red;font-weight:bold;'>{$goods['orderprice']}/{$goods['realprice']}
+						{if intval($goods['changeprice'])!=0}
+						<br/>(改价{if $goods['changeprice']>0}+{/if}{php echo number_format(abs($goods['changeprice']),2)})
+							{/if}
+						</td>
+                        <td>  
+                            <a href="{php echo $this->createWebUrl('shop/goods', array('id' => $goods['id'], 'op' => 'post'))}" class="btn btn-default btn-sm" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                        </td>
+                    </tr>
+					{if count($item['goods'])>1 && $diyform_flag==1 && !empty($goods['diyformdata'])}
+					<tr>
+						<td colspan='10' style="background:#FCF8E3">
+							 
+							<a href='javascript:;' class='btn btn-default' hide="1" onclick="showDiyInfo(this)">查看用户信息</a>
+							<div style='display:none'>
+							  
+		{php $datas = $goods['diyformdata']}
+        {loop $goods['diyformfields'] $key $value}
+        <div class="form-group">
+            <label class="col-xs-1 control-label">{php echo $value['tp_name']}</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="form-control-static">
+
+                    {if $value['data_type'] == 0 || $value['data_type'] == 1 || $value['data_type'] == 2 || $value['data_type'] == 6}
+                    {php echo str_replace("\n","<br/>",$datas[$key])}
+
+                    {else if $value['data_type'] == 3}
+                    {if !empty($datas[$key])}
+                    {loop $datas[$key] $k1 $v1}
+                    {php echo $v1}
+                    {/loop}
+                    {/if}
+
+                    {else if $value['data_type'] == 5}
+                    {if !empty($datas[$key])}
+                    {loop $datas[$key] $k1 $v1}
+                    <a target="_blank" href="{php echo tomedia($v1)}"><img style='width:100px;;padding:1px;border:1px solid #ccc'  src="{php echo tomedia($v1)}"></a>
+                    {/loop}
+                    {/if}
+
+                    {else if $value['data_type'] == 7}
+                    {php echo $datas[$key]}
+
+                    {else if $value['data_type'] == 8}
+                    {if !empty($datas[$key])}
+                    {loop $datas[$key] $k1 $v1}
+                    {php echo $v1}
+                    {/loop}
+                    {/if}
+
+                    {else if $value['data_type'] == 9}
+                    {php echo $datas[$key]['province']!='请选择省份'?$datas[$key]['province']:''}-{php echo $datas[$key]['city']!='请选择城市'?$datas[$key]['city']:''}
+                    {/if}
+                </div>
+
+            </div>
+        </div>
+
+        {/loop}
+       
+					</div>		
+						</td>
+					</tr>
+					{/if}
+                    {/loop}
+                    <tr>
+                        <td colspan="10">
+                            
+                           {template 'web/order/ops'}
+                           
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+		<script language="javascript">
+			function showDiyInfo(obj){
+				var hide = $(obj).attr('hide');
+				if(hide=='1'){
+					$(obj).next().slideDown();
+				}
+				else{
+					$(obj).next().slideUp();
+				}
+				$(obj).attr('hide',hide=='1'?'0':'1');
+			}
+
+            {ifp 'order.op.changeaddress'}
+            cascdeInit("{php echo isset($user['province'])?$user['province']:''}","{php echo isset($user['city'])?$user['city']:''}","{php echo isset($user['area'])?$user['area']:''}");
+
+            $('#editaddress').click(function() {
+                show_address(1);
+            });
+
+            $('#backaddress').click(function() {
+                show_address(0);
+            });
+
+            $('#saveaddress').click(function() {
+                var url = "{php echo $this->createWebUrl('order/list',array('op'=>'saveaddress'))}";
+                var id ={php echo $id};
+                var realname = $('#realname').val();
+                var mobile = $('#mobile').val();
+                var provance = $('#sel-provance').val();
+                var city = $('#sel-city').val();
+                var area = $('#sel-area').val();
+                var address = $('#address_info').val();
+
+                if(realname==''){
+                    alert('请填写收件人姓名!');
+                    return false;
+                }
+
+                if(mobile==''){
+                    alert('请填写收件人手机!');
+                    return false;
+                }
+
+                if(provance=='请选择省份'){
+                    alert('请选择省份!');
+                    return false;
+                }
+
+                if(address==''){
+                    alert('请填写详细地址!');
+                    return false;
+                }
+
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    data: {id:id,realname:realname,mobile:mobile,provance:provance,city:city,area:area,address:address},
+                    success:function(json){
+                        var result = json.result;
+                        if(json.status==1){
+                            location.reload();
+                        } else {
+                            alert(result);
+                        }
+                    }
+                });
+            });
+
+            function show_address(flag) {
+                if (flag == 1) {
+                    $('.ad1').hide();
+                    $('.ad2').show();
+                } else {
+                    $('.ad1').show();
+                    $('.ad2').hide();
+                }
+            }
+            {/if}
+
+			</script>
+{template 'web/order/modals'}
+  {if  p('commission')}
+		  
+		   {template 'commission/changecommission'}
+		  {/if}
+
+{template 'web/_footer'}
+

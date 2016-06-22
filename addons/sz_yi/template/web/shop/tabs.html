@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs">
+    {ifp 'shop.goods.view'}<li {if $_GPC['p'] == 'goods' || empty($_GPC['p'])} class="active" {/if}><a href="{php echo $this->createWebUrl('shop/goods')}">商品管理</a></li>{/if}
+    {ifp 'shop.category.view'}<li {if $_GPC['p'] == 'category'} class="active" {/if}><a href="{php echo $this->createWebUrl('shop/category')}">商品分类管理</a></li>{/if}
+    {ifp 'shop.dispatch.view'}<li {if $_GPC['p'] == 'dispatch'} class="active" {/if}><a href="{php echo $this->createWebUrl('shop/dispatch')}">配送方式</a></li>{/if}
+    {ifp 'shop.adv.view'}<li {if $_GPC['p'] == 'adv'} class="active" {/if}><a href="{php echo $this->createWebUrl('shop/adv')}">幻灯片管理</a></li>{/if}
+    {ifp 'shop.notice.view'}<li {if $_GPC['p'] == 'notice'} class="active" {/if}><a href="{php echo $this->createWebUrl('shop/notice')}">公告管理</a></li>{/if}
+    {ifp 'shop.comment.view'}<li {if $_GPC['p'] == 'comment'} class="active" {/if}><a href="{php echo $this->createWebUrl('shop/comment')}">评价管理</a></li>{/if}
+</ul>

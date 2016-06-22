@@ -1,0 +1,185 @@
+{template 'common/header-gw'}
+<ol class="breadcrumb">
+	<li><a href="./?refresh"><i class="fa fa-home"></i></a></li>
+	<li><a href="{url 'system/welcome'}">系统</a></li>
+	<li class="active">{if intval($_GPC['status']) == 1}审核用户{else}用户列表{/if}</li>
+</ol>
+<script type="text/javascript">
+	var u ={};
+	u.deny = function(uid){
+		var uid = parseInt(uid);
+		if(isNaN(uid)) {
+			return;
+		}
+		if(!confirm('确认要禁用/解禁此用户吗? ')) {
+			return;
+		}
+		$.post('{php echo url('user/permission');}', {'do': 'deny', uid: uid}, function(dat){
+			if(dat == 'success') {
+				location.href = location.href;
+			} else {
+				util.message('操作失败, 请稍后重试. ' + dat);
+			}
+		});
+	};
+	u.del = function(uid){
+		var uid = parseInt(uid);
+		if(isNaN(uid)) {
+			return;
+		}
+		if(!confirm('确认要删除此用户吗? ')) {
+			return;
+		}
+		$.post('{php echo url('user/edit');}', {'do': 'delete', uid: uid}, function(dat){
+			if(dat == 'success') {
+				location.href = location.href;
+			} else {
+				util.message('操作失败, 请稍后重试. ' + dat);
+			}
+		});
+	};
+</script>
+<ul class="nav nav-tabs">
+	<li {if intval($_GPC['status']) != 1}class="active"{/if}><a href="{php echo url('user/display');}">用户列表</a></li>
+	{if !empty($settings['verify'])}
+	<li {if intval($_GPC['status']) == 1}class="active"{/if}><a href="{php echo url('user/display', array('status' => 1));}">审核用户</a></li>
+	{/if}
+	<li><a href="{php echo url('user/create');}">添加用户</a></li>
+</ul>
+<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="user">
+			<input type="hidden" name="a" value="display">
+			<input type="hidden" name="status" value="{$_GPC['status']}">
+			<input type="hidden" name="endtime" value="{$endtime}">
+			<input type="hidden" name="group" value="{$_GPC['group']}">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">状态</label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+					<div class="btn-group">
+						<a href="{php echo filter_url('status:-1');}" class="btn {if $_GPC['status'] == -1 || $_GPC['status'] == ''}btn-primary{else}btn-default{/if}">不限</a>
+						<a href="{php echo filter_url('status:2');}" class="btn {if $_GPC['status'] == 2}btn-primary{else}btn-default{/if}">启用</a>
+						<a href="{php echo filter_url('status:1');}" class="btn {if $_GPC['status'] == 1}btn-primary{else}btn-default{/if}">禁用</a>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">套餐结束时间</label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+					<div class="btn-group">
+						<a href="{php echo filter_url('endtime:0');}" class="btn {if $endtime == 0}btn-primary{else}btn-default{/if}">不限</a>
+						<a href="{php echo filter_url('endtime:-1');}" class="btn {if $endtime == -1}btn-primary{else}btn-default{/if}">已到期</a>
+						<a href="{php echo filter_url('endtime:3');}" class="btn {if $endtime == 3}btn-primary{else}btn-default{/if}">三天内</a>
+						<a href="{php echo filter_url('endtime:15');}" class="btn {if $endtime == 15}btn-primary{else}btn-default{/if}">半月内</a>
+						<a href="{php echo filter_url('endtime:30');}" class="btn {if $endtime == 30}btn-primary{else}btn-default{/if}">一月内</a>
+						<a href="{php echo filter_url('endtime:90');}" class="btn {if $endtime == 90}btn-primary{else}btn-default{/if}">三月内</a>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">用户组</label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+					<div class="btn-group">
+						<a href="{php echo filter_url('group:0');}" class="btn {if $_GPC['group'] == 0}btn-primary{else}btn-default{/if}">不限</a>
+						{loop $usergroups $group}
+						<a href="{php echo filter_url("group:" . $group['id']);}" class="btn {if $_GPC['group'] == $group['id']}btn-primary{else}btn-default{/if}">{$group['name']}</a>
+						{/loop}
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">用户名</label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+					<input class="form-control" name="username" id="" type="text" value="{$_GPC['username']}">
+				</div>
+				<div class="pull-right col-xs-12 col-sm-2 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="rule panel panel-default">
+	<div class="table-responsive panel-body">
+	<table class="table table-hover">
+		<thead class="navbar-inner">
+			<tr>
+				<th style="width:150px;">用户名</th>
+				<th style="width:200px;">身份</th>
+				<th style="width:100px;">状态</th>
+				<th style="min-width:180px;">注册时间</th>
+				<th style="min-width:180px;">服务开始时间 ~~ 结束时间</th>
+				<th></th>
+				<th style="width:50px;">操作</th>
+				<th style="width:100px;"></th>
+				<th style="width:70px;"></th>
+				<th style="width:100px;"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{loop $users $user}
+			<tr>
+				<td>{if !$user['founder']}<a href="{php echo url('user/edit', array('uid' => $user['uid']))}">{$user['username']}</a>{else}{$user['username']}{/if}</td>
+				<td>
+				{if $user['founder']}
+					<span class="label label-success">管理员</span>
+				{elseif isset($usergroups[$user['groupid']])}
+					<span class="label label-info">{$usergroups[$user['groupid']]['name']}</span>
+				{else}
+					<span class="label label-error">未分配</span>
+				{/if}
+				</td>
+				<td>
+					{if intval($user['status']) != 2}
+						<span class="label label-danger">被禁止</span>
+					{else}
+						<span class="label label-success">正常状态</span>
+					{/if}
+				</td>
+				<td>{php echo date('Y-m-d H:i:s', $user['joindate'])}</td>
+				<td>
+					{php echo date('Y-m-d', $user['starttime'])}
+					~~
+					{if empty($user['endtime'])}
+						永久有效
+					{else}
+						{php echo date('Y-m-d', $user['endtime'])}
+					{/if}
+				</td>
+				<td>
+					{if $user['endtime'] != 0 && $user['endtime'] <= TIMESTAMP}
+						<span class="label label-danger">服务已到期</span>
+					{/if}
+				</td>
+				<td>
+					<div>
+						<a href="{php echo url('user/edit', array('uid' => $user['uid']))}">编辑</a>&nbsp;&nbsp;
+					</div>
+				</td>
+				{if empty($user['founder'])}
+				<td>
+					<div>
+						<a href="{php echo url('user/permission', array('uid' => $user['uid']))}">查看操作权限</a>
+					</div>
+				</td>
+				<td>
+					<div>
+						<a href="javascript:;" onclick="u.deny('{$user['uid']}');">{if intval($user['status']) == 2}禁止{else}启用{/if}用户</a>&nbsp;&nbsp;
+					</div>
+				</td>
+				<td>
+					<div>
+						<a href="javascript:;" onclick="u.del('{$user['uid']}');">删除用户</a>
+					</div>
+				</td>
+				{/if}
+			</tr>
+			{/loop}
+		</tbody>
+	</table>
+	</div>
+</div>
+{$pager}
+{template 'common/footer-gw'}

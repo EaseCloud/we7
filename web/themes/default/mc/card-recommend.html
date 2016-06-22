@@ -1,0 +1,123 @@
+{php $newUI = true;}
+{template 'common/header'}
+{template 'mc/card-nav'}
+{if $op == 'post'}
+<div classs="clearfix">
+	<form action="" class="form-horizontal form" method="post" enctype="multipart/form-data" id="form1">
+		<input type="hidden" name="id" value="{$recommend['id']}"/>
+		<div class="panel panel-default">
+			<div class="panel-heading">每日推荐</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐名称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" class="form-control" name="title" value="{$recommend['title']}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐图片</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('thumb', $recommend['thumb']);}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" class="form-control" name="displayorder" value="{$recommend['displayorder']}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">链接</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_link('url', $recommend['url']);}
+						<div class="help-block">你可以选择系统链接，也可以自己设定链接。自己设定的链接，必须和合法的url</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group" style="margin-left:0px">
+			<input type="hidden" name="token" value="{$_W['token']}"/>
+			<input type="submit" name="submit" value="提交" class="btn btn-primary"/>
+		</div>
+	</form>
+</div>
+<script>
+	$(function(){
+		$('#form1').submit(function(){
+			if(!$.trim($(':text[name="title"]').val())) {
+				util.message('推荐标题不能为空', '', 'error');
+				return false;
+			}
+			if(!$.trim($(':text[name="thumb"]').val())) {
+				util.message('推荐图片不能为空', '', 'error');
+				return false;
+			}
+			if(!$.trim($(':text[name="url"]').val())) {
+				util.message('推荐链接不能为空', '', 'error');
+				return false;
+			}
+		});
+	});
+</script>
+{else if $op == 'list'}
+<div class="clearfix">
+	<form action="" method="post" class="form-horizontal" role="form">
+		<div style="margin-bottom:20px">
+			是否开启每日推荐:
+			<input type="checkbox" name="recommend_status" value="1" {if intval($setting['recommend_status'])==1} checked="checked" {/if}/>
+			<a href="{php echo url('mc/card/recommend/', array('op' => 'post'));}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> 添加每日推荐</a>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead>
+					<tr>
+						<th>标题</th>
+						<th>排序</th>
+						<th>添加时间</th>
+						<th class="text-right">操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					{loop $recommends $recommend}
+					<tr>
+						<td>
+							{if !empty($recommend['thumb'])}
+							<img src="{php echo tomedia($recommend['thumb']);}" alt="" width="40" border="1"/>
+							{/if}
+							{$recommend['title']}
+						</td>
+						<td>{$recommend['displayorder']}</td>
+						<td>{php echo date('Y-m-d H:i', $recommend['addtime']);}</td>
+						<td class="text-right">
+							<a href="{php echo url('mc/card/recommend', array('op' => 'post', 'id' => $recommend['id']));}" class="btn btn-default">编辑</a>
+							<a href="{php echo url('mc/card/recommend', array('op' => 'del', 'id' => $recommend['id']));}" onclick="if(!confirm('确定删除吗')) return false;" class="btn btn-default">删除</a>
+						</td>
+					</tr>
+					{/loop}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{$pager}
+	</form>
+</div>
+<script type="text/javascript">
+	require(['jquery.ui', 'bootstrap.switch'], function($){
+		$(":checkbox[name='recommend_status']").bootstrapSwitch();
+		$(":checkbox[name='recommend_status']").on('switchChange.bootstrapSwitch', function(e, state){
+			$this = $(this);
+			var status = this.checked ? 1 : 0;
+			$.post("{php echo url('mc/card/ajax', array('op' => 'other', 'field' => 'recommend_status'));}", {status:status}, function(resp){
+				if(resp != 'success') {
+					util.message(resp, '', 'error');
+					return false;
+				} else {
+					util.message('操作成功', location.href, 'success');
+				}
+			});
+		});
+	});
+</script>
+{/if}
+{template 'common/footer'}

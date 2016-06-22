@@ -1,0 +1,343 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $do == 'manage'} class="active"{/if}><a href="{php echo url('mc/card/manage');}">会员卡管理</a></li>
+	{if $do == 'record'}<li class="active"><a href="{php echo url('mc/card/manage');}">消费记录</a></li>{/if}
+</ul>
+{if ($do == 'manage') && ($setting['status'] == 1)}
+<style>
+	.label{line-height: 2}
+	.danger{position: relative}
+</style>
+<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form" id="form">
+			<input type="hidden" name="c" value="mc">
+			<input type="hidden" name="a" value="card">
+			<input type="hidden" name="do" value="manage">
+			<input type="hidden" name="token" value="{$_W['token']}">
+			<input type="hidden" name="status" value="{$status}">
+			<input type="hidden" name="num" value="{$num}">
+			<input type="hidden" name="endtime" value="{$endtime}">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">使用状态</label>
+				<div class="col-sm-8 col-xs-12">
+					<div class="btn-group">
+						<a href="{php echo filter_url('status:-1');}" class="btn {if $status == '-1'}btn-primary{else}btn-default{/if}">不限</a>
+						<a href="{php echo filter_url('status:1');}" class="btn {if $status == 1}btn-primary{else}btn-default{/if}">启用</a>
+						<a href="{php echo filter_url('status:0');}" class="btn {if $status == 0}btn-primary{else}btn-default{/if}">禁用</a>
+					</div>
+				</div>
+			</div>
+			{if $setting['nums_status'] == 1}
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">{$setting['nums_text']}</label>
+				<div class="col-sm-8 col-xs-12">
+					<div class="btn-group">
+						<a href="{php echo filter_url('num:-1');}" class="btn {if $num == -1}btn-primary{else}btn-default{/if}">不限</a>
+						<a href="{php echo filter_url('num:1');}" class="btn {if $num == 1}btn-primary{else}btn-default{/if}">未用完</a>
+						<a href="{php echo filter_url('num:0');}" class="btn {if $num == 0}btn-primary{else}btn-default{/if}">已用完</a>
+					</div>
+				</div>
+			</div>
+			{/if}
+			{if $setting['nums_status'] == 1}
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">{$setting['times_text']}</label>
+				<div class="col-sm-8 col-xs-12">
+					<div class="btn-group">
+						<a href="{php echo filter_url('endtime:-1');}" class="btn {if $endtime == -1}btn-primary{else}btn-default{/if}">不限</a>
+						<a href="{php echo filter_url('endtime:0');}" class="btn {if $endtime == 0}btn-primary{else}btn-default{/if}">已到期</a>
+						<a href="{php echo filter_url('endtime:7');}" class="btn {if $endtime == 7}btn-primary{else}btn-default{/if}">7天内到期</a>
+						<a href="{php echo filter_url('endtime:14');}" class="btn {if $endtime == 14}btn-primary{else}btn-default{/if}">半月内到期</a>
+						<a href="{php echo filter_url('endtime:30');}" class="btn {if $endtime == 30}btn-primary{else}btn-default{/if}">一月内到期</a>
+						<a href="{php echo filter_url('endtime:90');}" class="btn {if $endtime == 90}btn-primary{else}btn-default{/if}">三月内到期</a>
+					</div>
+				</div>
+			</div>
+			{/if}
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">卡号</label>
+				<div class="col-sm-8 col-xs-12">
+					<input type="text" class="form-control" name="cardsn" value="{$_GPC['cardsn']}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">姓名/手机号</label>
+				<div class="col-sm-8 col-xs-12">
+					<input type="text" class="form-control" name="keyword" value="{$_GPC['keyword']}" />
+				</div>
+				<div class="pull-right col-xs-12 col-sm-3 col-md-2 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-body table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th width="150">卡号/所属用户组</th>
+				<th width="150">姓名/手机号</th>
+				<th width="150">积分/余额</th>
+				{if $setting['nums_status'] == 1}
+					<th width="80">{$setting['nums_text']}</th>
+				{/if}
+				{if $setting['times_status'] == 1}
+					<th  width="150">{$setting['times_text']}</th>
+				{/if}
+				<th width="150">领卡时间</th>
+				<th width="140">是否开启</th>
+				<th width="250" class="text-right">操作</th>
+			</tr>
+		</thead>
+		{loop $list $row}
+			<tr {if $row['is_birth'] == 1}class="danger"{/if}>
+				<td>
+					{$row['cardsn']}<br>
+					{$_W['account']['groups'][$row['groupid']]['title']}
+				</td>
+				<td>
+					{$row['realname']}
+					<br>
+					{$row['mobile']}
+				</td>
+				<td>
+					<span class="label label-default">积分:{$row['credit1']}</span>
+					<br>
+					<span class="label label-info">余额:{$row['credit2']}</span>
+				</td>
+				{if $setting['nums_status'] == 1}
+					<td>
+						{if !$row['nums']}
+							<span class="label label-danger">已用完</span>
+						{else}
+							<span class="label label-success">{$row['nums']}次</span>
+						{/if}
+					</td>
+				{/if}
+				{if $setting['times_status'] == 1}
+					<td>
+						{if $row['endtime'] < time()}
+							<span class="label label-danger">{php echo date('Y-m-d', $row['endtime']);} 已到期</span>
+						{else}
+							<span class="label label-success">{php echo date('Y-m-d', $row['endtime']);}</span>
+						{/if}
+					</td>
+				{/if}
+				<td>{php echo date('Y-m-d H:i', $row['createtime']);}</td>
+				<td class="switch">
+					<input type="checkbox" value="1" {if intval($row['status'])==1} checked="checked" {/if} data="{$row['id']}"/>
+				</td>
+				<td class="text-right">
+					<div class="btn-group" style="margin-bottom: 5px">
+						<a href="javascript:;" title="改卡号" class="btn btn-default modal-trade-cardsn" data-type="cardsn" data-uid="{$row['uid']}">改卡号</a>
+						<a href="javascript:;" title="积分" class="btn btn-default modal-trade-credit1" data-type="credit1" data-uid="{$row['uid']}">积分</a>
+						<a href="javascript:;" title="余额" class="btn btn-default modal-trade-credit2" data-type="credit2" data-uid="{$row['uid']}">余额</a>
+						<a href="javascript:;" title="消费" class="btn btn-default modal-trade-consume" data-type="consume" data-uid="{$row['uid']}">消费</a>
+					</div>
+					<br>
+					<div class="btn-group">
+					<a class="btn btn-default" href="{php echo url('mc/card/delete', array('cardid' => $row['id']));}" onclick="return confirm('此操作不可恢复，确认删除？');return false;">删除</a>
+					<a class="btn btn-default" href="{php echo url('mc/card/record', array('uid' => $row['uid']));}">消费记录</a>
+					{if $setting['times_status'] == 1 || $setting['nums_status'] == 1}
+						<a class="btn btn-warning manage" href="javascript:;" data-uid="{$row['uid']}">充值/消费</a>
+					{/if}
+					</div>
+				</td>
+			</tr>
+		{/loop}
+	</table>
+</div>
+</div>
+{$pager}
+
+<div class="modal fade" id="manage-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<ul class="nav nav-pills">
+					{if $setting['nums_status'] == 1}
+						<li role="presentation" data-id="nums_plus" class="active"><a href="#nums_plus" aria-controls="home" role="tab" data-toggle="tab">{$setting['nums_text']}充值</a></li>
+						<li role="presentation" data-id="nums_times"><a href="#nums_times" aria-controls="profile" role="tab" data-toggle="tab">{$setting['nums_text']}消费</a></li>
+					{/if}
+					{if $setting['times_status'] == 1}
+						<li role="presentation" data-id="times_plus"><a href="#times_plus" aria-controls="messages" role="tab" data-toggle="tab">{$setting['times_text']}充值</a></li>
+						<li role="presentation" data-id="times_times"><a href="#times_times" aria-controls="messages" role="tab" data-toggle="tab">{$setting['times_text']}消费</a></li>
+					{/if}
+				</ul>
+			</div>
+			<div class="modal-body">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary">提交</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	require(['bootstrap.switch', 'util', 'trade'], function($, u, trade){
+		trade.init();
+
+		{if $setting['times_status'] == 1 || $setting['nums_status'] == 1}
+			$('.manage').click(function(){
+				var uid = $(this).data('uid');
+				$.post("{php echo url('mc/card/modal');}", {'uid':uid}, function(data){
+					if(data != 'error') {
+						$('#manage-modal .modal-body').html(data);
+						$('#manage-modal').modal('show');
+
+						$('#manage-modal .btn-primary').unbind('click');
+						$('#manage-modal .btn-primary').click(function(){
+							var id = $('#manage-modal .modal-header li.active').data('id');
+							$('#manage-modal #' + id + '>form').submit();
+							return false;
+						});
+					} else {
+						u.message('系统出错', '', 'error');
+						return false;
+					}
+				});
+			});
+		{/if}
+
+		$('.switch :checkbox').bootstrapSwitch();
+		$('.switch :checkbox').on('switchChange.bootstrapSwitch', function(e, state){
+			$this = $(this);
+			var cardid = $this.attr('data');
+			var status = this.checked ? 1 : 0;
+			$.post(location.href, {cardid:cardid, status:status}, function(resp){
+				if(resp != 'success') {
+					util.message('操作失败, 请稍后重试.')
+				}
+				{if !empty($module)}
+				else {
+					window.setTimeout(function(){location.href = location.href;}, 300);
+				}
+				{else}
+					if (status == 1) {
+						$this.parent().parent().parent().prev().html('<span class="label label-success">可用</span>');
+					} else {
+						$this.parent().parent().parent().prev().html('<span class="label label-warning">禁用</span>');
+					}
+				{/if}
+			});
+		});
+	});
+</script>
+{/if}
+
+{if $do == 'record'}
+<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+			<input type="hidden" name="c" value="mc">
+			<input type="hidden" name="a" value="card">
+			<input type="hidden" name="do" value="record">
+			<input type="hidden" name="type" value="{$type}">
+			<input type="hidden" name="uid" value="{$uid}">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">类型</label>
+				<div class="col-sm-8 col-xs-12">
+					<div class="btn-group">
+						<a href="{php echo filter_url('type:');}" class="btn {if $type == ''}btn-primary{else}btn-default{/if}">不限</a>
+						{if $setting['nums_status'] == 1}
+						<a href="{php echo filter_url('type:nums');}" class="btn {if $type == 'nums'}btn-primary{else}btn-default{/if}">{$setting['nums_text']}</a>
+						{/if}
+						{if $setting['times_status'] == 1}
+						<a href="{php echo filter_url('type:times');}" class="btn {if $type == 'times'}btn-primary{else}btn-default{/if}">{$setting['times_text']}</a>
+						{/if}
+						<a href="{php echo url('stat/credit1',array('uid' => $_GPC['uid']));}" target="_blank" class="btn btn-default">积分消费记录</a>
+						<a href="{php echo url('stat/credit2',array('uid' => $_GPC['uid']));}" target="_blank" class="btn btn-default">余额消费记录</a>
+						<a href="{php echo url('stat/cash',array('uid' => $_GPC['uid']));}" target="_blank" class="btn btn-default">现金消费记录</a>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">时间</label>
+				<div class="col-sm-8 col-xs-12">
+					{php echo tpl_form_field_daterange('endtime', array('start' => date('Y-m-d', $starttime), 'end' => date('Y-m-d', $endtime)));}
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="alert alert-warning">
+	<i class="fa fa-info-circle"></i>
+	{if $setting['nums_status'] == 1}{$setting['nums_text']}剩余：<strong>{$card['nums']}次</strong>{/if}
+	{if $setting['times_status'] == 1}{$setting['times_text']}：<strong>{php echo date('Y-m-d', $card['endtime']);}到期</strong>{/if}
+</div>
+<div class="panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+			<tr>
+				<th>类型</th>
+				<th>充值/消费</th>
+				<th width="500">详情</th>
+				<th width="250">备注</th>
+				<th>时间</th>
+			</tr>
+			</thead>
+			{loop $list $row}
+			<tr>
+				<td>
+					{if $row['type'] == 'nums'}
+					<span class="label label-default">{$setting['nums_text']}</span>
+					{else}
+					<span class="label label-info">{$setting['times_text']}</span>
+					{/if}
+				</td>
+				<td>
+					{if $row['type'] == 'nums'}
+						{if $row['model'] == 1}
+							<span class="label label-success">充值{$row['tag']}次</span>
+						{else}
+							<span class="label label-danger">消费{$row['tag']}次</span>
+						{/if}
+					{else}
+						{if $row['model'] == 1}
+							<span class="label label-success">服务延长{$row['tag']}天</span>
+						{else}
+							<span class="label label-danger">服务减少{$row['tag']}天</span>
+						{/if}
+					{/if}
+					<br>
+					<span class="label label-warning" style="line-height:2.5">收费{$row['fee']}元</span>
+				</td>
+
+				<td>
+					<span style="cursor:pointer" data-toggle="popover" data-placement="bottom" data-content="{$row['note']}">{php echo cutstr($row['note'], 45);}</span>
+				</td>
+				<td>
+					<span style="cursor:pointer" data-toggle="popover" data-placement="bottom" data-content="{$row['remark']}">{php echo cutstr($row['remark'], 30);}</span>
+				</td>
+				<td>{php echo date('Y-m-d H:i', $row['addtime']);}</td>
+			</tr>
+			{/loop}
+		</table>
+	</div>
+</div>
+{$pager}
+<script>
+	require(['bootstrap'],function($){
+		$('.daterange').on('apply.daterangepicker', function(ev, picker) {
+			$('#form1')[0].submit();
+		});
+
+		$('[data-toggle="popover"]').hover(function(){
+			$(this).popover('show');
+		}, function(){
+			$(this).popover('hide');
+		});
+	});
+</script>
+{/if}
+{template 'common/footer'}

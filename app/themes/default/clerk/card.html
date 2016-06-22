@@ -1,0 +1,123 @@
+{template 'common/header'}
+<style>
+	body{background:#d2e6e9;}
+	.charge.panel{margin:.5em; border:none;}
+	.charge.panel-info>.panel-heading {background: -webkit-gradient(linear, 0 0, 100% 0, from(#ebebeb), to(#f3f9fa), color-stop(30%, #f5f9f9)); color:#666666; border:none;}
+	a{color:#666666;}a:hover{color: #3ebacc;}
+	.charge .btn.btn-primary{background: #56c6d6; color: #FFF; border: 0;}
+	.charge i{display:inline-block; width:15px; height:15px; text-align:center; line-height:15px;}
+	.text-danger-bold{font-weight: bold;font-size: 16px;color: #d9534f}
+	.alert{padding:5px}
+	.text-hight{color:red;font-weight: bold;font-size: 18px;}
+</style>
+<div class=" panel panel-info charge">
+	<div class="panel-heading">
+		<h4>会员卡消费</h4>
+	</div>
+	<div class="panel-body">
+		<form method="post" action="{php echo url('clerk/card');}" role="form" id="form1" class="form-horizontal form">
+			<input type="hidden" name="uid" value="{$uid}"/>
+			<div class="form-group">
+				<div class="col-xs-12">
+					<strong class="text-danger">
+						<i class="fa fa-info-circle"></i> 会员UID:{$member['uid']}, 手机号：{$member['mobile']}<br>
+						<i class="fa fa-info-circle"></i> 会员组：{$_W['account']['groups'][$member['groupid']]['title']}<br>
+						<i class="fa fa-info-circle"></i> 余额：{$member['credit2']}, 积分：{$member['credit1']}
+					</strong>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					<select name="store_id" id="store_id" class="form-control">
+						{loop $stores $store}
+						<option value="{$store['id']}">{$store['business_name']}</option>
+						{/loop}
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					<input type="text" class="form-control" name="credit" value="" placeholder="消费金额"/>
+					<div class="help-block"><strong class="text-danger">{$tips}</strong></div>
+				</div>
+			</div>
+			<div class="form-group" style="display: none" id="discount">
+				<div class="col-xs-12">
+					<span>实际支付金额 <span class="text-hight" id="price"></span></span>
+					<input type="hidden" name="last_credit" value="0"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					<input type="hidden" name="token" value="{$_W['token']}">
+					<input type="submit" name="submit" class="btn btn-primary btn-block" value="提交">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+	require(['util'], function(u){
+		$(':text[name="credit"]').keyup(function(){
+			var credit = parseFloat($(this).val());
+			if(isNaN(credit)) {
+				return false;
+			}
+			var price = credit;
+			{if $card_setting['discount_type'] > 0 && !empty($mine_discount)}
+				var discount = '{php echo json_encode($mine_discount);}';
+				discount = $.parseJSON(discount);
+				var type = "{$card_setting['discount_type']}";
+
+				discount.condition = parseFloat(discount.condition);
+				discount.discount = parseFloat(discount.discount);
+				if(credit >= discount.condition) {
+					if(type == 1) {
+						price = credit - discount.discount;
+					} else {
+						if(!discount.discount) {
+							discount.discount = 1;
+						}
+						price = credit * discount.discount;
+					}
+					if(price < 0) {
+						price = 0;
+					}
+				}
+			{/if}
+
+			if(price >= 0) {
+				$('#price').html(price+'元');
+				$(':hidden[name="last_credit"]').val(price);
+				$('#discount').show();
+			}
+		});
+
+		$('#form1').submit(function(){
+			{if !empty($stores)}
+				var store = $('#store_id').val();
+				if(!store) {
+					u.message('请选择消费门店', '', 'error');
+					return false;
+				}
+			{/if}
+			var member_credit = parseFloat("{$member['credit2']}");
+			var credit = parseFloat($('#form1 :text[name="credit"]').val());
+			var last_credit = parseFloat($('#form1 :hidden[name="last_credit"]').val());
+			if(isNaN(credit)) {
+				u.message('请输入消费金额', '', 'error');
+				return false;
+			}
+			if(isNaN(last_credit) || !last_credit) {
+				u.message('实际支付金额错误', '', 'error');
+				return false;
+			}
+			if(member_credit < last_credit) {
+				u.message('余额不够，请先充值', '', 'error');
+				return false;
+			}
+		});
+	});
+</script>
+
+{template 'common/footer'}

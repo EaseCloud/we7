@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs">
+    {ifp 'verify.keyword'}<li {if $_GPC['method']=='keyword'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('verify/keyword')}">关键词设置</a></li>{/if}
+    {ifp 'verify.store'}<li {if $_GPC['method']=='store'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('verify/store')}">核销门店管理</a></li>{/if}
+    {ifp 'verify.saler'}<li  {if $_GPC['method']=='saler'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('verify/saler')}">核销员管理</a></li>{/if}
+</ul>

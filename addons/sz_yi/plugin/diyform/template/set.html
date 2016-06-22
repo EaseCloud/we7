@@ -1,0 +1,174 @@
+{template 'web/_header'}
+{template 'tabs'}
+
+<form id="setform" action="" method="post" class="form-horizontal form">
+    <div class='panel panel-default'>
+
+        <div class='panel-heading'>
+            基础设置
+        </div>
+        <div class='panel-body'>
+
+            <div class="alert alert-danger">警告：当模板中已经添加数据后切换自定义表单模板有可能导致无法使用！</div>
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员资料</label>
+
+                
+				
+                <div class="col-sm-9 col-xs-12">
+					
+		{ifp 'diyform.set.save'}
+                    <label class="radio radio-inline" style="float: left;">
+                        <input type="radio" value="0" name="setdata[user_diyform_open]" {if empty($set['user_diyform_open'])}checked{/if}> 关闭
+                    </label>
+                    <label class="radio radio-inline" style="float: left;">
+                        <input type="radio" value="1" name="setdata[user_diyform_open]" {if $set['user_diyform_open'] == 1}checked{/if}> 启用
+                    </label>
+
+              
+                    <select id="user_diyform" name="setdata[user_diyform]" class="form-control" style="width:167px; float: left;margin-left:10px">
+		<option value="0" {if $set['user_diyform']==0}selected{/if}>--选择自定义表单--</option>
+                        {loop $form_list $key $value}
+                        <option value="{$value['id']}" {if $set['user_diyform']==$value['id']}selected{/if}>{$value['title']}</option>
+                        {/loop}
+                    </select>
+		{else}
+		<div class="form-control-static">
+		       {if $set['user_diyform_open'] == 1}
+			   开启 -   {loop $form_list $key $value}{if $set['user_diyform']==$value['id']}{$value['title']}{/if}{/loop}
+			   {else}
+			   关闭
+			   {/if}
+		  </div>
+		{/if}
+                </div>
+                
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">分销商申请资料</label>
+
+            
+                <div class="col-sm-9 col-xs-12">
+	{ifp 'diyform.set.save'}
+					
+                    <label class="radio radio-inline" style="float: left;">
+                        <input type="radio" value="0" name="setdata[commission_diyform_open]" {if empty($set['commission_diyform_open'])}checked{/if}> 关闭
+                    </label>
+                    <label class="radio radio-inline" style="float: left;">
+                        <input type="radio" value="1" name="setdata[commission_diyform_open]" {if $set['commission_diyform_open'] == 1}checked{/if}> 启用
+                    </label>
+
+                 
+                    <select id="commission_diyform" name="setdata[commission_diyform]" class="form-control" style="width:167px; float: left;margin-left:10px;">
+			 <option value="0" {if $set['commission_diyform']==0}selected{/if}>--选择自定义表单--</option>
+                        {loop $form_list $key $value}
+                        <option value="{$value['id']}" {if $set['commission_diyform']==$value['id']}selected{/if}>{$value['title']}</option>
+                        {/loop}
+                    </select>
+
+				 {else}
+		<div class="form-control-static">
+		       {if $set['commission_diyform_open'] == 1}
+			   开启 -   {loop $form_list $key $value}{if $set['commission_diyform']==$value['id']}{$value['title']}{/if}{/loop}
+			   {else}
+			   关闭
+			   {/if}
+		  </div>
+		{/if}
+                </div>
+               
+
+            </div>
+			
+			
+			<div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">订单统一下单表单</label>
+
+             
+                <div class="col-sm-9 col-xs-12">
+					   {ifp 'diyform.set.save'}
+                    <label class="radio radio-inline" style="float: left;">
+                        <input type="radio" value="0" name="setdata[order_diyform_open]" {if empty($set['order_diyform_open'])}checked{/if}> 关闭
+                    </label>
+                    <label class="radio radio-inline" style="float: left;">
+                        <input type="radio" value="1" name="setdata[order_diyform_open]" {if $set['order_diyform_open'] == 1}checked{/if}> 启用
+                    </label>
+
+                 
+                    <select id="commission_diyform" name="setdata[order_diyform]" class="form-control" style="width:167px; float: left;margin-left:10px;">
+						<option value="0" {if $set['order_diyform']==0}selected{/if}>--选择自定义表单--</option>
+                        {loop $form_list $key $value}
+                        <option value="{$value['id']}" {if $set['order_diyform']==$value['id']}selected{/if}>{$value['title']}</option>
+                        {/loop}
+                    </select>    
+					  <span class="help-block">&nbsp;&nbsp;全局统一设置，购买任意产品，在确认订单页面都需要填写</span>
+					   {else}
+				 <div class="form-control-static">
+		       {if $set['order_diyform_open'] == 1}
+			   开启 -   {loop $form_list $key $value}{if $set['order_diyform']==$value['id']}{$value['title']}{/if}{/loop}
+			   {else}
+			   关闭
+			   {/if}
+		  </div>
+					 {/if}
+					 
+		
+                </div>
+            
+
+            </div>
+			
+
+<!--            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">订单模式</label>
+
+                {ifp 'diyform.set.save'}
+                <div class="col-sm-9 col-xs-12">
+                    <label class="radio radio-inline" style="float: left;">
+                        <input type="radio" value="1" name="setdata[diymode]" {if empty($set['diymode']) || $set['diymode'] == 1}checked{/if}> 点击立即购买时填写
+                    </label>
+                    <label class="radio radio-inline" style="float: left;">
+                        <input type="radio" value="2" name="setdata[diymode]" {if $set['diymode'] == 2}checked{/if}> 确认订单时填写
+                    </label>
+
+                </div> 
+                {/if}
+
+            </div>-->
+
+            <!--div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">发货提醒</label>
+
+                <div class="col-sm-9 col-xs-12">
+                    {ifp 'diyform.set.save'}
+                    <input type="text" name="tm[send]" class="form-control" value="{$set['tm']['send']}"/>
+
+                    <div class="help-block">公众平台模板消息编号: OPENTM203331384</div>
+                    {if p('creditshop')}
+                    <div class="help-block">与“积分商城”插件发货提醒模板消息一致，如果公众平台已经添加，无需重复添加，直接复制即可</div>
+                    {/if}
+                    {else}
+                    <input type="hidden" name="tm[send]" value="{$set['tm']['send']}"/>
+
+                    <div class="form-control-static">{$set['tm']['send']}</div>
+                    {/if}
+                </div>
+            </div-->
+
+            {ifp 'diyform.set.save'}
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+
+                <div class="col-sm-9">
+                    <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"/>
+                    <input type="hidden" name="token" value="{$_W['token']}"/>
+                </div>
+            </div>
+        </div>
+        {/if}
+
+</form>
+{template 'common/footer'}

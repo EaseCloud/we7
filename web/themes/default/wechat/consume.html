@@ -1,0 +1,139 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	{if $do == 'record'}<li class="active"><a href="javascript:;">卡券核销</a></li>{/if}
+</ul>
+<style>
+	.text-danger{color:red;}
+</style>
+{if $do == 'record'}
+<div class="alert alert-info">
+	<i class="fa fa-info-circle"></i> 微信卡券功能需要您的公众号为认证订阅号或认证服务号，并且在微信公众平台开通了“卡券功能插件”
+</div>
+<div class="clearfix">
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+				<input type="hidden" name="c" value="wechat">
+				<input type="hidden" name="a" value="consume">
+				<input type="hidden" name="do" value="record"/>
+				<input type="hidden" name="op" value="list"/>
+				<input type="hidden" name="card_id" value="{$card_id}"/>
+				<input type="hidden" name="status" value="{$_GPC['status']}"/>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+					<div class="col-sm-7 col-lg-8 col-md-8 col-xs-12">
+						<a class="btn btn-default {if $_GPC['status'] == '0' || $_GPC['status'] == ''}btn-primary{/if}" href="{php echo url('wechat/consume/record', array('op' => 'list', 'status' => '0', 'card_id' => $card_id))}">不限</a>
+						<a class="btn btn-default {if $_GPC['status'] == '1'}btn-primary{/if}" href="{php echo url('wechat/consume/record', array('op' => 'list', 'status' => '1', 'card_id' => $card_id))}">未使用</a>
+						<a class="btn btn-default {if $_GPC['status'] == '2'}btn-primary{/if}" href="{php echo url('wechat/consume/record', array('op' => 'list', 'status' => '2', 'card_id' => $card_id))}">已失效</a>
+						<a class="btn btn-default {if $_GPC['status'] == '3'}btn-primary{/if}" href="{php echo url('wechat/consume/record', array('op' => 'list', 'status' => '3', 'card_id' => $card_id))}">已核销</a>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">code码</label>
+					<div class="col-sm-7 col-lg-8 col-md-8 col-xs-12">
+						<input class="form-control" name="code" placeholder="code码" type="text" value="{$_GPC['code']}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝昵称</label>
+					<div class="col-sm-7 col-lg-8 col-md-8 col-xs-12">
+						<input class="form-control" name="nickname" placeholder="粉丝昵称" type="text" value="{$_GPC['nickname']}">
+					</div>
+					<div class="col-xs-12 col-sm-3 col-md-2 col-lg-1">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<form class="form-horizontal" action="" method="post" onkeydown="if(event.keyCode==13){return false;}">
+		<div class="panel panel-default">
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead class="navbar-inner">
+					<tr>
+						<th width="150">卡券名称</th>
+						<th width="80">场景名称/id</th>
+						<th width="90">领取方式</th>
+						<th width="90">领取人</th>
+						<th width="90">转赠人</th>
+						<th width="120">code码</th>
+						<th width="80">状态</th>
+						<th width="120">领取时间</th>
+						<th width="120">使用时间</th>
+						<th width="80">核销员</th>
+						<th width="80">核销门店</th>
+						<th style="width:250px; text-align:right;">操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					{loop $data $dca}
+					<tr>
+						<td>{$cards[$dca['card_id']]['title']}</td>
+						<td>
+							{if $outers[$dca['outer_id']]['name']}
+							{$outers[$dca['outer_id']]['name']}/{$dca['outer_id']}
+							{else}
+							{$dca['outer_id']}
+							{/if}
+						</td>
+						<td>
+							{if $dca['givebyfriend'] == 1}
+							<span class="label label-danger">朋友赠送</span>
+							{else}
+							<span class="label label-success">自己领取</span>
+							{/if}
+						</td>
+						<td>
+							{if $nicknames[$dca['openid']]['nickname']}
+							{$nicknames[$dca['openid']]['nickname']}
+							{else}
+							{php echo cutstr($dca['openid'], 8);}
+							{/if}
+						</td>
+						<td>
+							{if $nicknames[$dca['friend_openid']]['nickname']}
+							{$nicknames[$dca['friend_openid']]['nickname']}
+							{else}
+							{php echo cutstr($dca['friend_openid'], 8);}
+							{/if}
+						</td>
+						<td>{$dca['code']}</td>
+						<td>
+							{if $dca['status'] == 1}
+							<span class="label label-success">未使用</span>
+							{elseif $dca['status'] == 2}
+							<span class="label label-warning">已失效</span>
+							{elseif $dca['status'] == 3}
+							<span class="label label-danger">已核销</span>
+							{/if}
+						</td>
+						<td>
+							{php echo date('Y-m-d H:i:s', $dca['addtime']);}
+						</td>
+						<td>
+							{if $dca['usetime']}
+								{php echo date('Y-m-d H:i:s', $dca['usetime']);}
+							{/if}
+						</td>
+						<td>{$dca['clerk_cn']}</td>
+						<td>{$dca['store_cn']}</td>
+						<td style="text-align:right;">
+							{if $dca['status'] == 1}
+							<a href="{php echo url('wechat/consume/record', array('op' => 'unavailable', 'id' => $dca['id']))}" title="设置为失效" onclick="if(!confirm('设置为失效后将不可恢复，确定设置失效吗?')) return false;">设置为失效</a>&nbsp;-&nbsp;
+							<a href="{php echo url('wechat/consume/record', array('op' => 'consume', 'id' => $dca['id']))}" title="核销卡券" onclick="if(!confirm('确定操作吗?')) return false;">核销卡券</a>&nbsp;-&nbsp;
+							{/if}
+							<a href="{php echo url('wechat/consume/record', array('op' => 'unavailable', 'del' => 1, 'id' => $dca['id']))}" title="删除" onclick="if(!confirm('删除后不可恢复，确定删除吗?')) return false;">删除</a>
+						</td>
+					</tr>
+					{/loop}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{$pager}
+	</form>
+</div>
+{/if}
+{template 'common/footer'}

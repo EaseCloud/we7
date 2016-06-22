@@ -1,0 +1,243 @@
+{template 'web/_header'}
+{template 'tabs'}
+<div class='alert alert-danger'>
+	此功能仅超级管理员可见
+</div>
+{if $operation == 'post'}
+<div class="main">
+    <form id="dataform" action="" method="post" class="form-horizontal form" >
+        <input type="hidden" name="id" value="{$item['id']}" />
+        <div class='panel panel-default'>
+            <div class='panel-heading'>
+                权限设置
+            </div>
+ 
+                 <div class='panel-body'>
+                 
+					 
+                 <div class="form-group type-wechat">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>  选择公众号</label>
+                    <div class="col-sm-5">
+                        <input type='hidden' id='acid' name='acid' value="{$account['acid']}" />
+                        <div class='input-group'>
+                            <input type="text" name="account" maxlength="30" value="{$account['name']}" id="account" class="form-control" readonly />
+                            <div class='input-group-btn'>
+                                <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-menus1').modal();">选择公众号</button>
+                                <button class="btn btn-danger" type="button" onclick="$('#acid').val('');$('#account').val('');">清除选择</button>
+                            </div>
+                        </div>
+                        <div id="modal-module-menus1"  class="modal fade" tabindex="-1">
+                            <div class="modal-dialog" style='width: 920px;'>
+                                <div class="modal-content">
+                                    <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3>选择公众号</h3></div>
+                                    <div class="modal-body" >
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="keyword" value="" id="search-kwd1" placeholder="请输入公众号名/用户名" />
+                                                <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="search_wechats();">搜索</button></span>
+                                            </div>
+                                        </div>
+                                        <div id="module-menus1" style="padding-top:5px;"></div>
+                                    </div>
+                                    <div class="modal-footer"><a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</a></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="form-group form-plugins">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">开放插件</label>
+                    <div class="col-sm-9 col-xs-12">
+                         <label class='checkbox-inline'>
+                             <input type='checkbox' name='plugins[]' class='plugin-all' value=''/> 全选
+                         </label>
+                        <br/>
+                        
+                         {loop $plugins $plugin}
+                         <label class='checkbox-inline' style='margin:0;margin-right:5px;'>
+                             <input type='checkbox' name='plugins[]' class='plugin-item' value='{$plugin['identity']}' {if in_array($plugin['identity'],$item_plugins)} checked{/if} /> {$plugin['name']}
+                         </label>
+                        {/loop}
+                    </div>
+                </div> 
+                <div class="form-group"></div>
+                  <div class="form-group">
+                   <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                   <div class="col-sm-9 col-xs-12">
+                       <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+                       <input type="hidden" name="token" value="{$_W['token']}" />
+                       <input type="button" name="back" onclick='history.back()' style='margin-left:10px;' value="返回列表" class="btn btn-default" />
+                   </div>
+                  </div>
+                
+                
+            </div>
+        </div>
+    
+    </form>
+</div>
+<script language='javascript'>
+    function checkAll(obj){
+          var allcheck = true;
+           $('.plugin-item').each(function(){
+                if(!$(this).get(0).checked){
+                     allcheck =false;
+                     return false;
+                }
+            });
+            $(".plugin-all").get(0).checked = allcheck;
+    }
+ $(function(){
+     $('.plugin-item').click(function(){
+          checkAll();
+     });
+     $('.plugin-all').click(function(){
+         var check = $(this).get(0).checked;
+        $('.plugin-item').each(function(){
+            $(this).get(0).checked = check;
+         });
+     })
+     $(":radio[name=type]").click(function(){
+         if($(this).val()=='0'){
+             $('.type-wechat').hide();
+             $('.type-user').show();
+         }
+         else{
+              $('.type-wechat').show();
+             $('.type-user').hide();
+         }
+     })
+ })
+   $('form').submit(function(){
+       var type =$(":radio[name=type]:checked").val();
+       if(type=='0'){
+        if ($(':input[name=user]').isEmpty()) {
+             Tip.focus($(':input[name=user]'), '请选择用户!');
+             return false;
+        }
+    }else{
+        if ($(':input[name=account]').isEmpty()) {
+             Tip.focus($(':input[name=account]'), '请选择公众号!');
+             return  false;
+        }
+    }
+        return true;
+       
+   })
+  
+</script>
+{elseif $operation == 'display'}
+<form action="" method="get" class='form form-horizontal'>
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" plugins="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="sz_yi" />
+                <input type="hidden" name="do" value="plugin" />
+                <input type="hidden" name="p"  value="perm" />
+                <input type="hidden" name="method"  value="plugins" />
+                <input type="hidden" name="op" value="display" />
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+                    <div class="col-xs-12 col-sm-8 col-lg-9">
+                        <input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}" placeholder="可搜索公众号名称">
+                    </div>
+                </div>
+                   <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+                    <div class="col-xs-12 col-sm-8 col-lg-9">
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                    </div>
+                </div>
+              
+            </form>
+        </div>
+    </div>
+    
+    <div class='panel panel-default'>
+        <div class='panel-heading'>
+            插件管理
+        </div>
+        <div class='panel-body'>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>公众号</th>
+                        <th>开放插件</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {loop $list $row}
+                    <tr>
+                      
+                        <td>
+                            {if !empty($row['username']) && empty($row['type']) }用户: {$row['username']}{/if}
+                            {if !empty($row['name']) && $row['type']==1}{$row['name']}{/if}
+							  {if empty($row['type'])}
+                          <label class='label label-default'>失效</label>
+                          {/if}
+                        </td>
+                        <td>
+                            {loop $row['plugins'] $p}
+                            {$p['name']};
+                            {/loop}
+                        </td>
+                        <td>
+                            <a class='btn btn-default' href="{php echo $this->createPluginWebUrl('perm/plugins', array('op' => 'post', 'id' => $row['id']))}"><i class="fa fa-edit"></i></a>
+                            <a class='btn btn-default'  href="{php echo $this->createPluginWebUrl('perm/plugins', array('op' => 'delete', 'id' => $row['id']))}" onclick="return confirm('确认删除此操作员吗？');
+                                    return false;"><i class="fa fa-remove"></i></a></td>
+                    </tr>
+                    {/loop}
+                    <tr>
+                        <td colspan="4">
+                                 <a class='btn btn-default' href="{php echo $this->createPluginWebUrl('perm/plugins', array('op' => 'post'))}"><i class="fa fa-plus"></i> 添加新权限</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {$pager}
+ 
+        </div>
+ 
+    </div>
+</form>
+
+
+
+{/if}
+<script language='javascript'>
+ 
+                function search_users() {
+		$("#module-menus").html("正在搜索....")
+		$.get('{php echo $this->createPluginWebUrl('perm/plugins',array('op'=>'query_user'));}', {
+			keyword: $.trim($('#search-kwd').val())
+		}, function(dat){
+			$('#module-menus').html(dat);
+		});
+	}
+	function select_user(o) {
+	             $("#uid").val(o.uid);
+          	             $("#user").val( o.username  );
+                             $("#modal-module-menus .close").click();
+	}
+        
+        function search_wechats() { 
+		$("#module-menus1").html("正在搜索....")
+		$.get('{php echo $this->createPluginWebUrl('perm/plugins',array('op'=>'query_wechat'));}', {
+		    keyword: $.trim($('#search-kwd1').val())
+		}, function(dat){
+		    $('#module-menus1').html(dat);
+		});
+	}
+	function select_wechat(o) {
+	             $("#acid").val(o.acid);
+          	             $("#account").val( o.name);
+                             $("#modal-module-menus1 .close").click();
+	}
+    </script>
+{template 'web/_footer'}

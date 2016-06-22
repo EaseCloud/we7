@@ -1,0 +1,6 @@
+{template 'common/header'}
+<form action="{php echo url('mc/cash/wechat/');}" method="post">
+	<input type="hidden" name="params" value="{$params}"/>
+	<input name="submit" type="submit" class="btn btn-success btn-block" value="微信支付">
+</form>
+{template 'common/footer'}

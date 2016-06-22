@@ -1,0 +1,107 @@
+{template 'common/header'}
+<style media="all" type="text/css">
+	ul,li {padding:0; margin:0; border:0;}
+	body{background:#d2e6e9; padding-bottom:63px;}
+	.scroll-container .list-group {list-style:none; padding:0; margin:0; width:100%; text-align:left;}
+	.scroll-container .list-group .list-group-item{border:none; background:#d2e6e9;}
+	.scroll-container .list-group .list-group-item .con{background:#ffffff; width:280px; margin:0 auto;}
+	.scroll-container .list-group .list-group-item .list-hd{padding:5px 20px;}
+	.scroll-container .list-group .list-group-item .list-hd h5{font-weight:bold; margin-bottom:2px; font-size:16px; color:#444444;}
+	.scroll-container .list-group .list-group-item .list-hd p{color:#b8b8b9;}
+	.scroll-container .list-group .list-group-item .list-con img{display:block; width:90%; margin:0 auto;}
+	.scroll-container .list-group .list-group-item .list-con .derpn{padding:10px 10px 0 10px; border-top:1px dotted rgb(204, 204, 204); margin-top:10px;display:none;}
+	.scroll-container .list-group .list-group-item .list-ft{width:290px; background: transparent url('resource/images/ft-bg.png') no-repeat 0 0; background-size: 100% auto; height: 44px; line-height: 48px; overflow: hidden; position:relative; left:-5px; top:5px; padding:0 0 0 15px;}
+	.scroll-container .list-group .list-group-item .list-ft b{color: #56c6d6; font-size: 30px; margin-right:5px;}
+	.scroll-container .list-group .list-group-item .list-ft .btns{width:105px; text-align:center; font-size:18px; color:#ffffff; line-height:44px;}
+	.scroll-container .list-group .list-group-item .list-ft .btns a{color:#ffffff;}
+	.scroll-container .load-more{padding:10px;text-align:center;font-size:1em;}
+	.btn-group-top-box{padding:10px 0; border-bottom:1px solid #a5d7de; font-family:Helvetica, Arial, sans-serif; text-align:center; width:100%;}
+	.btn-group-top{overflow:hidden;}
+	.btn-group-top .btn{ -webkit-box-shadow:none; box-shadow:none; border-color:#5ac5d4; color:#5ac5d4; background:#d1e5e9; padding:6px;}
+	.btn-group-top .btn:hover{color:#FFF; background:#addbe1;}
+	.btn-group-top .btn.active{color:#FFF; background:#5ac5d4;}
+	.btn.use{background:#56c6d6; color:#FFF; border:0; border-radius:4px;}
+	.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus{background-color:#5ac5d4; border-color:#5ac5d4;}
+	.pagination>li>a, .pagination>li>span{color:#5ac5d4; border:1px solid #a5d7de;}
+</style>
+<div class="btn-group-top-box">
+	<div class="btn-group btn-group-top">
+		<a href="{php echo url('activity/exchange', array('dtype' => '1'))}" class="btn btn-default {if ($dtype == 1) || ($dtype == 0)}active{/if}">折扣券</a>
+		<a href="{php echo url('activity/exchange', array('dtype' => '2'))}" class="btn btn-default {if $dtype == 2}active{/if}">代金券</a>
+		<a href="{php echo url('activity/exchange', array('dtype' => '3'))}" class="btn btn-default {if $dtype == 3}active{/if}">实体物品</a>
+		<!--a href="{php echo url('activity/exchange', array('dtype' => '5'))}" class="btn btn-default {if $dtype == 5}active{/if}">活动参与次数</a-->
+	</div>
+</div>
+<div class="scroll-container ng-cloak" ng-controller="exchangeCtrl">
+	<div class="wrapper">
+		<ul class="list-group" >
+			<li class="list-group-item" ng-repeat="entry in entries">
+				<div class="con">
+					<div class="list-hd">
+						<h5>{{entry.title}}({{entry.credittype_cn}})</h5>
+						<p>有效期至{{entry.endtime}}</p>
+					</div>
+					<div class="list-con">
+						<img src="{{entry.thumb}}">
+						<div class="derpn">
+							{{entry.description}}
+						</div>
+					</div>
+					<div class="list-ft">
+						<div class="pull-left">{{entry.credit_cn}}:<b>{{entry.credit}}</b></div>
+						<div class="pull-right btns"><a href="{{entry.url}}">立即兑换</a></div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript">
+	require(['angular', 'iscroll'], function(angular, iScroll){
+		$(function(){
+			var elm = $('.scroll-container');
+			var myScroll = new iScroll(elm[0], {});
+			angular.module('app', []).controller('exchangeCtrl', function($scope, $http){
+				$scope.more = {
+					loading: false
+				};
+				$scope.entries = {php echo json_encode($list)};
+				
+				$scope.load = function(){
+					if($scope.more.loading) {
+						return;
+					}
+					$scope.more.loading = true;
+					var page = parseInt($("#page").attr('title')) + 1;
+					$("#page").attr('title', page);
+					var params = {page:page};
+					$http.post(location.href, params).success(function(dat){
+						if($.isArray(dat)) {
+							$.each(dat, function(){
+								$scope.entries.push(this);
+							});
+							myScroll.refresh();
+						} else if(dat == 'dataempty') {
+							
+						}
+						$scope.more.loading = false;
+					}).error(function(){
+						$scope.more.loading = false;
+					});
+				}
+			});
+			angular.bootstrap(document, ['app']);
+			$('.con').click(function(){
+				var description = $(this).find('.derpn').text();
+				if (description.indexOf('<') >= 0) {
+					$(this).find('.derpn').html(description);
+				}
+				$(this).find('.derpn').slideToggle(500);
+			});
+		});
+	});
+</script>
+
+{template 'common/toolbar'}
+{template 'common/footer'}
+

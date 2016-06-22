@@ -1,0 +1,35 @@
+{php define(MUI, true);}
+{template 'common/header'}
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<a class="mui-btn mui-btn-link mui-btn-nav mui-pull-right" href="#check-date">
+		筛选
+	</a>
+	<h1 class="mui-title">账单</h1>
+</header>
+{if $op == 'index'} 
+<div class="mui-content trading-record">
+	<ul class="mui-table-view">
+		{loop $orders $order}
+		<li class="mui-table-view-cell">
+			<a href="{php echo $this->createMobileUrl('trading-detail',array('op' => 'detail', 'id' => $order['id']))}">
+				<div class="mui-row">
+					<div class="mui-col-xs-2 mui-text-muted">
+						<span class="mui-block">{php echo date('Y-m-d', $order['paytime'])}</span>
+						<span class="mui-block">{php echo date("H:i", $order['paytime'])}</span>
+					</div>
+					<div class="mui-col-xs-3 mui-text-center">
+						<img src="images/avatar.png" alt="" class="mui-img-circle"/>
+					</div>
+					<div class="mui-col-xs-7">
+						<div><span class="mui-big">+{$order['final_fee']} </span></div>
+						<div class="mui-ellipsis">{$order['body']}</div>
+					</div>
+				</div>
+			</a>
+		</li>
+		{/loop}
+	</ul>
+</div>
+{/if}
+{template 'common/footer'}

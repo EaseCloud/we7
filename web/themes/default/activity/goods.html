@@ -1,0 +1,366 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $do == 'display'}class="active"{/if}><a href="{php echo url('activity/goods/display', array());}">管理实物兑换</a></li>
+	<li {if $do == 'post' && !$id}class="active"{/if}><a href="{php echo url('activity/goods/post', array());}">添加实物兑换</a></li>
+	{if $do == 'post' && $id}<li class="active"><a href="{php echo url('activity/goods/post', array('id' => $id));}">编辑实物兑换</a></li>{/if}
+	<li {if $do == 'record'}class="active"{/if}><a href="{php echo url('activity/goods/record');}">实物兑换记录</a></li>
+	<li {if $do == 'deliver'}class="active"{/if}><a href="{php echo url('activity/goods/deliver');}">发货记录</a></li>
+	{if $do == 'receiver' && $id}<li class="active"><a href="{php echo url('activity/goods/receiver', array('id' => $id));}">编辑收货人信息</a></li>{/if}
+</ul>
+{if $do == 'post'}
+<style>
+	.text-danger{color:red;}
+</style>
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				兑换真实物品
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 兑换名称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="title" class="form-control" value="{$item['title']}" />
+						<span class="help-block">此设置项为当前礼品兑换设置一个名称。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 兑换内容</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="extra[title]" class="form-control" value="{$item['extra']['title']}" />
+						<span class="help-block">此设置项设置当前礼品兑换的礼品名称。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 积分类型</label>
+					<div class="col-sm-9 col-xs-12">
+						<select name="credittype" class="form-control">
+							{loop $creditnames $key $credit}
+							<option value="{$key}" {if $key == $item['credittype']}selected{/if}>{$credit}</option>
+							{/loop}
+						</select>
+						<span class="help-block">此设置项设置当前礼品兑换需要消耗的积分类型,如:金币、积分、贡献等。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">积分数量</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="credit" class="form-control" value="{$item['credit']}" />
+						<span class="help-block">此设置项设置当前礼品兑换需要消耗的积分数量。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">使用期限</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_daterange('datelimit', array('start' => date('Y-m-d', $item['starttime']),'end' => date('Y-m-d', $item['endtime'])), '')}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 每人最大兑换次数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="pretotal" class="form-control" value="{$item['pretotal']}" />
+						<span class="help-block">此设置项设置每个用户最大兑换次数。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 兑换总数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="total" class="form-control" value="{$item['total']}" />
+						<span class="help-block">此设置项设置兑换总量。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 封面</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('thumb', $item['thumb'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 说明</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_ueditor('description', $item['description'])}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input name="id" type="hidden" value="{$item['id']}">
+			<input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+{elseif $do == 'display'}
+<div class="main">
+	<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+		<input type="hidden" name="c" value="activity" />
+		<input type="hidden" name="a" value="goods" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">兑换名称</label>
+				<div class="col-sm-7 col-lg-9 col-xs-12">
+					<input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}">
+				</div>
+				<div class="pull-right col-xs-12 col-sm-3 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="table-responsive panel-body">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width:50px">图标</th>
+					<th style="width:100px;">标题</th>
+					<th style="width:80px;">领取条件</th>
+					<th style="width:90px;">可兑换次数</th>
+					<th style="width:80px;">已兑换</th>
+					<th style="width:80px;">总量</th>
+					<th style="width:150px;">有效时间</th>
+					<th style="text-align:right; width:120px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td><img width="40" src="{$item['thumb']}"></td>
+					<td>{$item['title']}</td>
+					<td>{$item['credit']} {$creditnames[$item['credittype']]}</td>
+					<td>{$item['pretotal']} 次</td>
+					<td>{$item['num']} 个</td>
+					<td>{$item['total']} 个</td>
+					<td>{php echo date('Y-m-d', $item['starttime'])} - {php echo date('Y-m-d', $item['endtime'])}</td>
+					<td style="text-align:right;">
+						<a href="{php echo url('activity/goods/post', array('id' => $item['id']))}" title="编辑">编辑</a>&nbsp;-&nbsp;
+						<a href="{php echo url('activity/goods/del', array('id' => $item['id']))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" title="删除">删除</a>
+						<a href="{php echo url('activity/goods/record', array('exid' => $item['id']))}" title="兑换记录">兑换记录</a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		</div>
+	</div>
+	{$pager}
+</div>
+{elseif $do == 'record'}
+<div class="main">
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="activity">
+			<input type="hidden" name="a" value="goods">
+			<input type="hidden" name="do" value="record">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑换标题</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						<select class="form-control" name="exid">
+							{loop $exchanges $exchange}
+								<option value="{$exchange['id']}" {if $_GPC['exid'] == $exchange['id']}selected{/if}>{$exchange['title']}</option>
+							{/loop}
+						</select>	
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">用户UID</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						<input class="form-control" name="uid" id="" type="text" value="{$_GPC['uid']}">	
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑奖日期</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						{php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+					</div>
+					<div class="pull-right col-xs-12 col-sm-3 col-lg-2">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+	<div class="table-responsive panel-body">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:80px; text-align:center;">用户ID</th>
+					<th style="width:80px; text-align:center;">标题</th>
+					<th style="width:150px; text-align:center;">图标</th>
+					<th style="width:150px; text-align:center;">兑换物品</th>
+					<th style="width:150px; text-align:center;">兑换时间</th>
+					<th style="width:120px; text-align:center;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td class="text-center">{$item['uid']}</td>
+					<td class="text-center">{$item['title']}</td>
+					<td class="text-center"><img src="{$item['thumb']}" style="max-width:50px; max-height: 30px;"></td>
+					<td class="text-center">{$item['extra']['title']}</td>
+					<td class="text-center">{php echo date('Y-m-d H:i', $item['createtime'])}</td>
+					<td class="text-center">
+						<a onclick="if(!confirm('删除后不可恢复,您确定删除吗?')) return false;"  href="{php echo url('activity/goods/record-del', array('id' => $item['tid']))}" class="btn btn-default btn-sm" title="删除兑换记录"><i class="fa fa-times"></i></a>
+						<a href="{php echo url('activity/goods/receiver', array('id' => $item['tid']))}" class="btn btn-default btn-sm" title="收货人信息"><i class="fa fa-truck"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+	</div>
+	</div>
+	{$pager}
+</div>
+{elseif $do == 'deliver'}
+<div class="main">
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="activity">
+			<input type="hidden" name="a" value="goods">
+			<input type="hidden" name="do" value="deliver">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑换标题</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						<select class="form-control" name="exid">
+							{loop $exchanges $exchange}
+								<option value="{$exchange['id']}" {if $_GPC['exid'] == $exchange['id']}selected{/if}>{$exchange['title']}</option>
+							{/loop}
+						</select>	
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">用户UID</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						<input class="form-control" name="uid" id="" type="text" value="{$_GPC['uid']}">		
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑奖日期</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						{php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+					</div>
+					<div class="pull-right col-xs-12 col-sm-3 col-lg-2">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+	<div class="table-responsive panel-body">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:60px;">用户ID</th>
+					<th style="width:80px;">标题</th>
+					<th style="width:100px;">兑换物品</th>
+					<th style="width:100px;">收件人</th>
+					<th style="width:100px;">收件人电话</th>
+					<th style="width:100px;">收件人邮编</th>
+					<th style="width:150px;">收件地址</th>
+					<th style="width:80px;">状态</th>
+					<th style="text-align:center;width:80px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['uid']}</td>
+					<td>{$item['title']}</td>
+					<td>{$item['extra']['title']}</td>
+					<td>{$item['name']}</td>
+					<td>{$item['mobile']}</td>
+					<td>{$item['zipcode']}</td>
+					<td>{$item['province']} {$item['city']} {$item['district']} {$item['address']}</td>
+					<td>
+						{if $item['status'] == 0}
+							<span class="label label-danger">待发货</span>
+						{elseif $item['status'] == 1}
+							<span class="label label-warning">已发货</span>
+						{elseif $item['status'] == 2}
+							<span class="label label-success">已收货</span>	
+						{elseif $item['status'] == -1}
+							<span class="label label-default">已关闭</span>	
+						{/if}
+					</td>
+					<td style="text-align:center;">
+						<a href="{php echo url('activity/goods/receiver',array('id'=>$item['tid']));}" title="编辑">编辑</a>
+						<!--  <a onclick="return confirm('确定要删除当前物品吗？');" href="{php echo url('activity/exchange/shipping',array('op'=>'delete','id'=>$item['id']));}" title="删除">删除</a>-->
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+	</div>
+	</div>
+	{$pager}
+</div>
+{elseif $do == 'receiver'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				收货人信息
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">收货人姓名</label>
+					<div class="col-sm-9">
+						<input type="text" name="realname" class="form-control" value="{$shipping['name']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">收货人电话</label>
+					<div class="col-sm-9">
+						<input type="text" name="mobile" class="form-control" value="{$shipping['mobile']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">邮寄地址</label>
+					<div class="col-sm-9">
+						{php echo tpl_fans_form('reside', array('province' => $shipping['province'], 'city' => $shipping['city'], 'district' => $shipping['district']));}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">收货人邮编</label>
+					<div class="col-sm-9">
+						<input type="text" name="zipcode" class="form-control" value="{$shipping['zipcode']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">收件地址</label>
+					<div class="col-sm-9">
+						<input type="text" name="address" class="form-control" value="{$shipping['address']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+					<div class="col-sm-9">
+						<label class="radio-inline"><input type="radio" value="0" {if $shipping['status'] == 0}checked{/if} name="status">待发货</label>
+						<label class="radio-inline"><input type="radio" value="1" {if $shipping['status'] == 1}checked{/if} name="status">已发货</label>
+						<label class="radio-inline"><input type="radio" value="2" {if $shipping['status'] == 2}checked{/if} name="status">已收货</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-12">
+				<input name="id" type="hidden" value="{$id}">
+				<input name="submit" type="submit" value="保存" class="btn btn-primary">
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+		</div>
+	</form>
+</div>
+{/if}
+{template 'common/footer'}

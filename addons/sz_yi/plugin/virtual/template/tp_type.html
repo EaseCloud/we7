@@ -1,0 +1,22 @@
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>{if $key=='key'}主键(不可删除){else}自定义键名{/if}</label>
+                    <div class="col-sm-1">
+                             {ife 'virtual.temp' $item}
+                        <input type="text" name="tp_kw[]" class="form-control" value="{$key}" placeholder="英文键值" {if $key=='key'}mk="1" readonly{/if} />
+                               {else}
+                               <div class='form-control-static'>{$key}</div>
+                               {/if}
+                    </div>
+                    <div class="col-sm-3">
+                            {ife 'virtual.temp' $item}
+                        <input type="text" name="tp_name[]" class="form-control" value="{$name}" placeholder="名称，如：激活码" {if $key=='key'} style="width:522px;"{/if} />
+                               {else}
+                               <div class='form-control-static'>{$name}</div>
+                               {/if}
+                    </div>
+                     {ife 'virtual.temp' $item}
+                     {if $key!='key'}<a class="btn btn-default" href='javascript:;' onclick='removeType(this)'><i class='icon icon-remove fa fa-times'></i> 删除</a>{/if}
+                     {/if}
+                </div>
+
+    

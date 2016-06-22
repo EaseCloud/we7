@@ -1,0 +1,51 @@
+{template 'common/header-cms'}
+<div class="notice-show container">
+	{if $do == 'list'}
+		<ol class="breadcrumb">
+			<li><a href="./index.php">系统首页</a></li>
+			<li><a href="{php echo url('article/notice-show/list');}">公告列表</a></li>
+			<li class="active">{if !$cateid}所有公告{else}{$categroys[$cateid]['title']}{/if}</li>
+		</ol>
+		<div class="category-btn">
+			<a href="{php echo url('article/notice-show/list');}" class="btn {if !$cateid}btn-primary{else}btn-default{/if}">所有公告</a>
+			{loop $categroys $key $categroy}
+				{if $key}
+					<a href="{php echo url('article/notice-show/list', array('cateid' => $categroy['id']));}" class="btn {if $cateid == $categroy['id']}btn-primary{else}btn-default{/if}">{$categroy['title']}</a>
+				{/if}
+			{/loop}
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h5>公告列表</h5>
+			</div>
+			<div class="panel-body">
+				<ul>
+					{loop $data $da}
+						<li><a href="{php echo url('article/notice-show/detail', array('id' => $da['id']));}">{$da['title']}</a><span class="date">{php echo date('Y-m-d', $da['createtime']);}</span></li>
+					{/loop}
+				</ul>
+			</div>
+		</div>
+		{$pager}
+	{/if}
+	{if $do == 'detail'}
+		<ol class="breadcrumb">
+			<li><a href="./index.php">系统首页</a></li>
+			<li class="active"><a href="{php echo url('article/notice-show/list');}">公告列表</a></li>
+			<li class="active">{$notice['title']}</li>
+		</ol>
+		<div class="panel panel-default">
+			<div class="panel-heading text-center">
+				<h6>{$notice['title']}</h6>
+				<div class="small text-center text-muted">
+					<span>{php echo date('Y-m-d H:i', $notice['createtime']);}</span>
+					<span>阅读：{$notice['click']}次</span>
+				</div>
+			</div>
+			<div class="panel-body">
+				{$notice['content']}
+			</div>
+		</div>
+	{/if}
+</div>
+{template 'common/footer-cms'}

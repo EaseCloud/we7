@@ -1,0 +1,29 @@
+{if !empty($_GPC['a']) && $_GPC['a'] != 'appstore'}
+{template 'common/header-gw'}
+			<ol class="breadcrumb">
+				<li><a href="./?refresh"><i class="fa fa-home"></i></a></li>
+				<li class=""><a href="{url 'system/welcome'}">系统</a></li>
+				<li class="active">{$title}</li>
+			</ol>
+			<div class="clearfix">
+				<iframe src="{$iframe}" marginheight="0" marginwidth="0" frameborder="0" width="100%" style="{if in_array($do, array('profile', 'sms')) }height:900px;{/if}" scrolling="no" allowTransparency="true"></iframe>
+			</div>
+		</div>
+	</div>
+</div>
+<style>
+	.container-fluid:{padding-bottom:30px;}
+</style>
+{else}
+{template 'common/header-base'}
+<iframe src="{$iframe}" marginheight="0" marginwidth="0" frameborder="0" width="100%" scrolling="auto" allowTransparency="true" id="iframe" name="iframe"></iframe>
+<style>
+	body{overflow:hidden; background:#FFF; display:flex;}
+	.gw-container{width:100%;}
+</style>
+<script>
+	$("#iframe, body").height($(window).height());
+</script>
+{/if}
+</body>
+</html>

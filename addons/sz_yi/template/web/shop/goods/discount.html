@@ -1,0 +1,187 @@
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员等级浏览权限</label>
+    <div class="col-sm-9 col-xs-12 chks">
+           {ife 'shop.goods' $item}
+       <label class="checkbox-inline">
+           <input type="checkbox" class='chkall' name="showlevels" value="" {if $item['showlevels']==''}checked="true"{/if}  /> 全部会员等级
+       </label>
+       <label class="checkbox-inline">
+           <input type="checkbox" class='chksingle' name="showlevels[]" value="0" {if $item['showlevels']!='' && is_array($item['showlevels']) && in_array('0', $item['showlevels'])} checked="true"{/if}  />  {php echo empty($shop['levelname'])?'普通等级':$shop['levelname']}
+       </label>
+       {loop $levels $level}
+          <label class="checkbox-inline">
+           <input type="checkbox" class='chksingle' name="showlevels[]" value="{$level['id']}" {if $item['showlevels']!='' && is_array($item['showlevels'])  && in_array($level['id'], $item['showlevels'])}checked="true"{/if}  /> {$level['levelname']}
+          </label>
+       {/loop}
+       {else}
+       <div class='form-control-static'>
+           {if $item['showlevels']==''}
+              全部会员等级
+           {else}
+           {if $item['showlevels']!='' && is_array($item['showlevels']) && in_array('0', $item['showlevels'])}
+              {php echo empty($shop['levelname'])?'普通等级':$shop['levelname']}; 
+           {/if}
+           {loop $levels $level}
+                   {if $item['showlevels']!='' && is_array($item['showlevels'])  && in_array($level['id'], $item['showlevels'])}
+                      {$level['levelname']}; 
+                   {/if}
+            {/loop}
+       {/if}
+       </div>
+       
+       {/if}
+    </div>
+</div>   
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员等级购买权限</label>
+    <div class="col-sm-9 col-xs-12 chks" >
+              {ife 'shop.goods' $item}
+              
+       <label class="checkbox-inline">
+           <input type="checkbox" class='chkall' name="buylevels" value="" {if $item['buylevels']=='' }checked="true"{/if}  /> 全部会员等级
+       </label>
+       <label class="checkbox-inline">
+           <input type="checkbox" class='chksingle'  name="buylevels[]" value="0" {if $item['buylevels']!='' && is_array($item['buylevels'])  && in_array('0', $item['buylevels'])}checked="true"{/if}  />  {php echo empty($shop['levelname'])?'普通等级':$shop['levelname']}
+       </label>
+       {loop $levels $level}
+          <label class="checkbox-inline">
+           <input type="checkbox" class='chksingle'  name="buylevels[]" value="{$level['id']}" {if $item['buylevels']!='' && is_array($item['buylevels']) && in_array($level['id'], $item['buylevels']) }checked="true"{/if}  /> {$level['levelname']}
+          </label>
+       {/loop}
+            {else}
+       <div class='form-control-static'>
+           {if $item['buylevels']==''}
+              全部会员等级
+           {else}
+           {if $item['buylevels']!='' && is_array($item['buylevels']) && in_array('0', $item['buylevels'])}
+              {php echo empty($shop['levelname'])?'普通等级':$shop['levelname']}; 
+           {/if}
+           {loop $levels $level}
+                   {if $item['buylevels']!='' && is_array($item['buylevels'])  && in_array($level['id'], $item['buylevels'])}
+                      {$level['levelname']}; 
+                   {/if}
+            {/loop}
+       {/if}
+       </div>
+       
+       {/if}
+       
+       
+    </div>
+</div>   
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员组浏览权限</label>
+    <div class="col-sm-9 col-xs-12 chks" >
+            {ife 'shop.goods' $item}
+       <label class="checkbox-inline">
+           <input type="checkbox" class='chkall' name="showgroups" value="" {if $item['showgroups']=='' }checked="true"{/if}  /> 全部会员组
+       </label>
+       <label class="checkbox-inline">
+           <input type="checkbox" class='chksingle'  name="showgroups[]" value="0" {if $item['showgroups']!='' && is_array($item['showgroups']) && in_array('0', $item['showgroups'])}checked="true"{/if}  /> 无分组
+       </label>
+       {loop $groups $group}
+          <label class="checkbox-inline">
+           <input type="checkbox" class='chksingle'  name="showgroups[]" value="{$group['id']}" {if $item['showgroups']!=''  && in_array($group['id'], $item['showgroups']) && is_array($item['showgroups'])}checked="true"{/if}  /> {$group['groupname']}
+          </label>
+       {/loop}
+       
+          {else}
+       <div class='form-control-static'>
+           {if $item['showgroups']==''}
+              全部会员等级
+           {else}
+           {if $item['showgroups']!='' && is_array($item['showgroups']) && in_array('0', $item['showgroups'])}
+              {php echo empty($shop['levelname'])?'普通等级':$shop['levelname']}; 
+           {/if}
+           {loop $levels $level}
+                   {if $item['showgroups']!='' && is_array($item['showgroups'])  && in_array($level['id'], $item['showgroups'])}
+                      {$level['levelname']}; 
+                   {/if}
+            {/loop}
+       {/if}
+       </div>
+       
+       {/if}
+       
+    </div>
+</div>   
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员组购买权限</label>
+    <div class="col-sm-9 col-xs-12 chks" >
+            {ife 'shop.goods' $item}
+       <label class="checkbox-inline">
+           <input type="checkbox" class='chkall' name="buygroups" value="" {if $item['buygroups']=='' }checked="true"{/if}  /> 全部会员组
+       </label>
+       <label class="checkbox-inline">
+           <input type="checkbox" class='chksingle'  name="buygroups[]" value="0" {if $item['buygroups']!=''  && is_array($item['buygroups']) && in_array('0', $item['buygroups'])}checked="true"{/if}  />  无分组
+       </label>
+       {loop $groups $group}
+          <label class="checkbox-inline">
+           <input type="checkbox" class='chksingle'  name="buygroups[]" value="{$group['id']}" {if $item['buygroups']!='' &&  is_array($item['buygroups']) && in_array($group['id'], $item['buygroups']) }checked="true"{/if}  /> {$group['groupname']}
+          </label>
+       {/loop}
+          {else}
+       <div class='form-control-static'>
+           {if $item['buygroups']==''}
+              全部会员等级
+           {else}
+           {if $item['buygroups']!='' && is_array($item['buygroups']) && in_array('0', $item['buygroups'])}
+              {php echo empty($shop['levelname'])?'普通等级':$shop['levelname']}; 
+           {/if}
+           {loop $levels $level}
+                   {if $item['buygroups']!='' && is_array($item['buygroups'])  && in_array($level['id'], $item['buygroups'])}
+                      {$level['levelname']}; 
+                   {/if}
+            {/loop}
+       {/if}
+       </div>
+       
+       {/if}
+       
+    </div>
+</div>   
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-6 col-xs-6">
+      <div class='alert alert-info'>
+    只有当折扣大于0，小于10的情况下才能生效，否则按自身会员等级折扣计算
+</div>
+    </div>
+</div>  
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员等级折扣<br/>0.1-10之间</label>
+    <div class="col-sm-6 col-xs-6">
+        <div class='input-group'>
+           <div class='input-group-addon'>默认等级</div>
+           <input type='text' name='discounts[default]' class="form-control" value="{php echo $discounts['default']}" />
+           <div class='input-group-addon'>折</div>
+       </div>
+    </div>
+</div>   
+    {loop $levels $level}
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-6 col-xs-6">
+        <div class='input-group'>
+           <div class='input-group-addon'>{$level['levelname']}</div>
+           <input type='text' name='discounts[level{$level['id']}]' class="form-control"  value="{php echo $discounts['level'.$level['id']]}" />
+           <div class='input-group-addon'>折</div>
+       </div>
+    </div>
+</div>   
+{/loop}
+<script language='javascript'>
+    $('.chkall').click(function(){
+        var checked =$(this).get(0).checked;
+        if(checked) {
+            $(this).closest('div').find(':checkbox[class!="chkall"]').removeAttr('checked');
+        }
+    });
+    $('.chksingle').click(function(){
+         $(this).closest('div').find(':checkbox[class="chkall"]').removeAttr('checked');
+    })
+    
+	</script>

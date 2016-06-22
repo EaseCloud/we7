@@ -1,0 +1,60 @@
+{template 'web/_header'}
+{template 'web/sysset/tabs'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" >
+        <input type='hidden' name='setid' value="{$set['id']}" />
+        <input type='hidden' name='op' value="sms" />
+        <div class="panel panel-default">
+            <div class='panel-body'>  
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">短信账号</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.sms'}
+                        <input type="text" name="sms[account]" class="form-control" value="{$set['sms']['account']}" />
+                        {else}
+                        <input type="hidden" name="sms[account]" value="{$set['sms']['account']}"/>
+                        <div class='form-control-static'>{$set['sms']['account']}</div>
+                        {/if}
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">短信密码</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.sms'}
+                        <input type="text" name="sms[password]" class="form-control" value="{$set['sms']['password']}" />
+                        {else}
+                        <input type="hidden" name="sms[password]" value="{$set['sms']['password']}"/>
+                        <div class='form-control-static'>{$set['sms']['password']}</div>
+                        {/if}
+                    </div>
+                </div>
+                <!--
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">用于测试短信接口的手机号</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.sms'}
+                        <input type="text" name="sms[password]" class="form-control" value="{$set['sms']['password']}" />
+                        {else}
+                        <input type="hidden" name="sms[password]" value="{$set['sms']['password']}"/>
+                        <div class='form-control-static'>{$set['sms']['password']}</div>
+                        {/if}
+                    </div>
+                </div>
+                -->
+              <div class="form-group"></div>
+            <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                           {ifp 'sysset.save.sms'}
+                            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"  />
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                          {/if}
+                     </div>
+            </div>
+                       
+            </div>
+        </div>     
+    </form>
+</div>
+{template 'web/_footer'}     

@@ -1,0 +1,31 @@
+<div class="clearfix user-browser">
+	<div class="form-horizontal">
+		<table class="table tb" style="min-width:568px;">
+			<thead>
+			<tr>
+				<th style="width: 35px;" class="text-center">选择</th>
+				<th style="width: 100px;">模块名称</th>
+				<th style="width: 100px;">标识</th>
+			</tr>
+			</thead>
+			<tbody class="module-list">
+			{loop $new $row}
+			<tr id="module-{$row['name']}">
+				<td class="text-center"><input type="checkbox" id="chk_module_{$row['name']}" name="modules[]" value="{$row['name']}"></td>
+				<td><label for="chk_module_{$row['name']}" style="font-weight:normal;" class="title">{$row['title']}</label></td>
+				<td><label class="label label-info">{$row['name']}</label></td>
+			</tr>
+			{/loop}
+			</tbody>
+		</table>
+	</div>
+</div>
+<script>
+	var selected = $('#form1 input[name="module-select"]').val();
+	if(selected) {
+		selected = selected.split('@');
+		for(var j=0;j<selected.length;j++) {
+			$('#module-' + selected[j] + ' :checkbox').prop('checked', true);
+		}
+	}
+</script>

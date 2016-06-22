@@ -1,0 +1,101 @@
+{template 'web/_header'}
+{template 'web/sysset/tabs'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" >
+        <input type='hidden' name='setid' value="{$set['id']}" />
+        <input type='hidden' name='op' value="follow" />
+        <div class="panel panel-default">
+            
+              <div class='panel-heading'>
+                关注设置
+            </div>
+            
+            <div class='panel-body'>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">关注引导页</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.follow'}
+                        <input type="text" name="share[followurl]" class="form-control" value="{$set['share']['followurl']}" />
+                        <span class='help-block'>用户未关注的引导页面，建议使用短链接：<a target="_blank" href="http://www.dwz.cn">短网址</a>
+                            {else}
+                            <input type="hidden" name="share[followurl]" value="{$set['share']['followurl']}" />
+                            <div class='form-control-static'>{$set['share']['followurl']}</div>
+                            {/if}
+                    </div>
+                </div>
+            </div>
+            <div class='panel-heading'>
+                分享设置
+            </div>
+            <div class='panel-body'> 
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.follow'}
+                        <input type="text" name="share[title]" class="form-control" value="{$set['share']['title']}" />
+                        <span class="help-block">不填写默认商城名称</span>
+                        {else}
+                        <input type="hidden" name="share[title]" value="{$set['share']['title']}" />
+                        <div class='form-control-static'>{$set['share']['title']}</div>
+                        {/if}
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图标</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.follow'}
+
+                        {php echo tpl_form_field_image('share[icon]', $set['share']['icon']);}
+                        <span class="help-block">不选择默认商城LOGO</span>
+                        {else}
+                        <input type="hidden" name="share[icon]" value="{$set['share']['icon']}" />
+                        {if !empty($set['share']['icon'])}
+                        <a href='{php echo tomedia($set['share']['icon'])}' target='_blank'>
+                           <img src="{php echo tomedia($set['share']['icon'])}" style='width:100px;border:1px solid #ccc;padding:1px' />
+                        </a>
+                        {/if}
+                        {/if}
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.follow'}
+                        <textarea style="height:100px;" name="share[desc]" class="form-control" cols="60">{$set['share']['desc']}</textarea>
+                        {else}
+                        <textarea style="height:100px;display: none" name="share[desc]" class="form-control" cols="60">{$set['share']['desc']}</textarea>
+                        <div class='form-control-static'>{$set['share']['desc']}</div>
+                        {/if}
+                    </div> 
+                </div> 
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享连接</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.follow'}
+                        <input type="text" name="share[url]" class="form-control" value="{$set['share']['url']}" />
+                        <span class='help-block'>用户分享出去的连接，默认为首页</span>
+                        {else}
+                        <input type="hidden" name="share[url]" value="{$set['share']['url']}" />
+                        <div class='form-control-static'>{$set['share']['url']}</div>
+                        {/if}
+                    </div>
+                </div>
+                
+                       <div class="form-group"></div>
+            <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                           {ifp 'sysset.save.follow'}
+                            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"  />
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                          {/if}
+                     </div>
+            </div>
+                       
+            </div>
+        </div>     
+    </form>
+</div>
+{template 'web/_footer'}     

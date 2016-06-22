@@ -1,0 +1,476 @@
+{template 'common/header'}
+<style>
+.table>tbody>tr>td{vertical-align:middle;}
+</style>
+{if !empty($module)}
+	<ol class="breadcrumb" style="padding:5px 0;">
+		<li><a href="{url 'home/welcome/ext'}"><i class="fa fa-cogs"></i> &nbsp; 扩展功能</a></li>
+		<li><a href="{url 'home/welcome/ext' array('m' => $module['name'])}">{$types[$module['type']]['title']}模块 - {$module['title']}</a></li>
+		<li class="active">{$tytitle[$type['name']]}</li>
+	</ol>
+{/if}
+<ul class="nav nav-tabs">
+	<li><a href="{php echo url('site/multi/display');}">返回微站管理</a></li>
+	{if $type['name'] == 'home'}<li{if $do == 'display'} class="active"{/if}><a href="{php echo url('site/nav/home', array('m' => $m, 'multiid' => $_GPC['multiid'], 'f' => $_GPC['f']));}">微站首页导航图标</a></li>{/if}
+	{if $type['name'] == 'profile'}<li{if $do == 'display'} class="active"{/if}><a href="{php echo url('site/nav/profile', array('m' => $m, 'multiid' => $_GPC['multiid'], 'f' => $_GPC['f']));}">个人中心功能条目</a></li>{/if}
+	{if empty($module)}
+	<li{if $do == 'post' && empty($id)} class="active"{/if}><a href="{php echo url('site/nav/' . $type['name'], array('foo' => 'post', 'multiid' => $_GPC['multiid'], 'f' => $_GPC['f']));}"><i class="fa fa-plus"></i> 添加条目</a></li>
+	{/if}
+	{if $do == 'post' && !empty($id)}
+	<li class="active"><a href="{php echo url('site/nav/' . $type['name'], array('id' => $id, 'foo' => 'post', 'multiid' => $_GPC['multiid'], 'f' => $_GPC['f']));}"><i class="fa fa-edit"></i> 编辑条目</a></li>
+	{/if}
+</ul>
+{if $do == 'post'}
+<form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+<div class="main">
+	<input type="hidden" name="id" value="{$id}" />
+	<input type="hidden" name="foo" value="post" />
+	<input type="hidden" name="do" value="{$_GPC['do']}" />
+	<input type="hidden" name="templateid" value="{$template['id']}">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			微站导航
+		</div>
+		<div class="panel-body">
+		{if $_GPC['do'] != 'profile'}
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">分配到微站</label>
+				<div class="col-sm-9 col-xs-12">
+					<select class="form-control" name="multid">
+						{loop $multis $multi}
+							<option value="{$multi['id']}" {if $item['multiid'] == $multi['id'] || $_GPC['multiid'] == $multi['id']}selected{/if}>{$multi['title']}{if $multi['id'] == $default_site}[默认微站]{/if}</option>
+						{/loop}
+					</select>
+					<span class="help-block">每个导航链接只能在一个微站上使用。</span>
+				</div>
+			</div>
+		{/if}
+		{if $_GPC['do'] == 'home'}
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">导航显示位置</label>
+				<div class="col-sm-9 col-xs-12">
+					<select name="section" class="form-control">
+					<option value="0">不设置位置</option>
+					<?php for ($i=1; $i<=10; $i++) {?>
+					<option {if $item['section'] == $i} selected{/if} value="{$i}">位置{$i}</option>
+					<?php }?>
+					</select>
+					<span class="help-block">
+						设置位置后可以将导航菜单显示到模板对应的位置中。（可以同时设置多个导航在同一个位置中，会根据排序大小依次显示），显示的位置必须要有模板支持。
+					</span>
+					<strong class="text-danger">注意：如果您添加了模板未设置的位置时，该链接将不会显示，您可以在导航列表中查看。</strong>
+				</div>
+			</div>
+		{/if}
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">名称</label>
+				<div class="col-sm-9 col-xs-12">
+					<input name="position" type="hidden" value="{$type['position']}" />
+					<input type="text" class="form-control" name="title" id="name" value="{$item['name']}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">描述</label>
+				<div class="col-sm-9 col-xs-12">
+					<textarea style="height:200px;" class="form-control" name="description" cols="70">{$item['description']}</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">链接</label>
+				<div class="col-sm-9 col-xs-12">
+					{php echo tpl_form_field_link('url', $item['url']);}
+					<span class="help-block">指定这个导航的链接目标</span>
+					<strong>使用微站链接:</strong>
+					<a href="javascript:;" class="btn btn-default btn-sm" data-toggle="modal" data-target="#settel">一键拨号</a>
+					<a href="javascript:;" class="btn btn-default btn-sm" data-toggle="modal" data-target="#setnav">一键导航</a>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+				<div class="col-sm-9 col-xs-12">
+					<label for="status_1" class="radio-inline"><input autocomplete="off" type="radio" name="status" id="status_1" value="1" {if $item['status'] == 1 || empty($item)} checked="checked"{/if} /> 显示</label>
+					<label for="status_0" class="radio-inline"><input autocomplete="off" type="radio" name="status" id="status_0" value="0" {if !empty($item) && $item['status'] == 0} checked="checked"{/if} /> 隐藏</label>
+					<span class="help-block">设置导航菜单的显示状态</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+				<div class="col-sm-9 col-xs-12">
+					<input type="text" class="form-control" name="displayorder" value="{$item['displayorder']}" />
+					<span class="help-block">导航排序，越大越靠前</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			导航样式
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">图标类型</label>
+				<div class="col-sm-9 col-xs-12">
+					<label for="system" class="radio-inline" >
+						<input type="radio" value="1" name="icontype" id="system" autocomplete="off" {if empty($item['fileicon'])} checked="checked" {/if} /> 系统内置
+					</label>&nbsp;&nbsp;&nbsp;
+					<label for="define" class="radio-inline" >
+						<input type="radio" value="2" name="icontype" id="define" autocomplete="off" {if !empty($item['fileicon'])} checked="checked" {/if} /> 自定义上传
+					</label>
+					<span class="help-block">请选择系统的默认图标或者自己上传图标</span>
+				</div>
+			</div>
+			<div class="form-group system-icon">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">系统图标</label>
+				<div class="col-sm-9 col-xs-12">
+					{php echo tpl_form_field_icon('icon[icon]', $item['css']['icon']['icon']);}
+					<span class="help-block">导航的背景图标，系统提供了丰富的图标ICON</span>
+				</div>
+			</div>
+			<div class="form-group system-icon">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">图标颜色</label>
+				<div class="col-sm-9 col-xs-12">
+					{php echo tpl_form_field_color('icon[color]', $item['css']['icon']['color']);}
+					<span class="help-block">图标颜色，上传图标时此设置项无效</span>
+				</div>
+			</div>
+			<div class="form-group system-icon">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">图标大小</label>
+				<div class="col-sm-9 col-xs-12">
+					<div class="input-group">
+						<input class="form-control" type="text" name="icon[size]" id="icon" value="{if $item['css']['icon']['width']}{$item['css']['icon']['width']}{else}35{/if}">
+						<span class="input-group-addon">px</span>
+					</div>
+					<span class="help-block">图标的尺寸大小，单位为像素，上传图标时此设置项无效</span>
+				</div>
+			</div>
+			<div class="form-group define-icon" style="display:none;">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">上传图标</label>
+				<div class="col-sm-9 col-xs-12">
+					{php echo tpl_form_field_image('iconfile', $item['fileicon']);}
+					<span class="help-block">自定义上传图标图片，“系统图标”优先于此项</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group col-sm-12">
+		<input name="token" type="hidden" value="{$_W['token']}" />
+		<input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+	</div>
+</div>
+</form>
+<!-- 一键拨号 -->
+<div id="settel" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" style="width:40%;margin:200px auto;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">一键拨号</h4>
+			</div>
+			<div class="modal-body">
+				<form action="" method="post"  class="form-horizontal" role="form" enctype="multipart/form-data">
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">号码</label>
+						<div class="col-sm-9 col-xs-12">
+							<input type="text" class="form-control" name="telphone" value="" />
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="gettel">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 一键导航 -->
+<div id="setnav" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" style="width:60%;margin:200px auto;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">一键导航</h4>
+			</div>
+			<div class="modal-body">
+				<form action="" method="post"  class="form-horizontal" role="form" enctype="multipart/form-data">
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">标题</label>
+						<div class="col-sm-9 col-xs-12">
+							<input type="text" class="form-control" name="navtitle" value="" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">详细地址</label>
+						<div class="col-sm-9 col-xs-12">
+							<input type="text" class="form-control" name="address" value="" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">地理位置</label>
+						<div class="col-sm-9 col-xs-12" style="margin-left:-15px;">
+							{php echo tpl_form_field_coordinate('baidumap', $settings['baidumap'])}
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="getnav">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+		var icontype = $('input[name="icontype"]:checked').val();
+		if (icontype == 1) {
+			$(".system-icon").show();
+			$(".define-icon").hide();
+		} else {
+			$(".system-icon").hide();
+			$(".define-icon").show();
+		}
+		/*获取一键拨号信息*/
+		$('#gettel').click(function() {
+			var tel = $(":text[name='telphone']").val();
+			$(":text[name='url']").val('tel:' + tel);
+		});
+		/*获取一键导航信息*/
+		$('#getnav').click(function() {
+			var title = $(":text[name='navtitle']").val();
+			var address = $(":text[name='address']").val();
+			var lng = $(":text[name='baidumap[lng]']").val();
+			var lat = $(":text[name='baidumap[lat]']").val();
+			var navinfo = 'http://api.map.baidu.com/marker?location=' + lat + ','+ lng + '&title=' + title + '&name=' + title + '&content=' + address + '&output=html&src=we7';
+			$(":text[name='url']").val(navinfo);
+		});
+		/*选择图标类型按钮切换*/
+		$("#system").click(function() {
+			$(".system-icon").show();
+			$(".define-icon").hide();
+		});
+		$("#define").click(function() {
+			$(".system-icon").hide();
+			$(".define-icon").show();
+		});
+</script>
+{elseif $do == 'display'}
+<script type="text/javascript">
+	require(['bootstrap.switch'], function($){
+		$(function(){
+			$(':checkbox').bootstrapSwitch();
+			$(':checkbox').on('switchChange.bootstrapSwitch', function(e, state){
+				$this = $(this);
+				var dat = $this.attr('data');
+				var ret = this.checked ? 1 : 0;
+				$.post(location.href, {dat: dat, ret: ret}, function(resp){
+					if(resp != 'success') {
+						util.message('操作失败, 请稍后重试.')
+					}
+					{if !empty($module)}
+					else {
+						window.setTimeout(function(){location.href = location.href;}, 300);
+					}
+					{/if}
+				});
+			});
+		});
+	});
+</script>
+
+{if $_GPC['do'] != 'profile'}
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+				<input type="hidden" name="c" value="site" />
+				<input type="hidden" name="a" value="nav" />
+				<input type="hidden" name="f" value="{$_GPC['f']}" />
+				{if $_GPC['do'] == 'home'}
+					<input type="hidden" name="do" value="home" />
+				{elseif $_GPC['do'] == 'shortcut'}
+					<input type="hidden" name="do" value="shortcut" />
+				{/if}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">微站</label>
+					<div class="col-sm-9 col-md-8 col-lg-8 col-xs-12">
+						<select class="form-control" name="multiid" id="search">
+							{loop $multis $multi}
+								<option value="{$multi['id']}" {if $multi['id'] == $_GPC['multiid'] || ($multi['id'] == $default_site && $_GPC['multiid'] == '')}selected{/if}>{$multi['title']}{if $default_site == $multi['id']}[默认微站]{/if}</option>
+							{/loop}
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		$('#search').change(function(){
+			$('#form1').submit();
+		});
+	</script>
+{/if}
+{if $_GPC['do'] == 'home'}
+<div class="panel panel-warning">
+	<div class="panel-body">
+		当前使用的风格为：{$style['name']}，模板文件为：{$template['title']}（/app/themes/{$template['name']}）。{if !empty($template['sections'])}此模板提供 <span class="label label-warning">{$template['sections']}</span> 个导航位置，您可以指定导航在特定的位置显示，未指位置的导航将无法显示{else}此模板未提供导航位置功能{/if}
+	</div>
+</div>
+{/if}
+<form action="" method="post">
+<div class="clearfix">
+	<div class="stat panel panel-default">
+		{if $type['name'] == 'home'}
+		<div class="panel-heading">
+			选择要显示在微站首页的信息 <span class="text-muted">这里提供了{if $mod}"{$mod['title']}"功能中{/if}能够显示在微站首页的信息, 你可以选择性的自定义或显示隐藏</span>
+		</div>
+		{/if}
+		{if $type['name'] == 'profile'}
+		<div class="panel-heading">
+			选择要显示在微站个人中心的信息 <span class="text-muted">这里提供了{if $mod}"{$mod['title']}"功能中{/if}能够显示在微站个人中心的信息, 你可以选择性的自定义或显示隐藏</span>
+		</div>
+		{/if}
+		{if $type['name'] == 'shortcut'}
+		<div class="panel-heading">
+			选择要显示在微站快捷选项的信息 <span class="text-muted">这里提供了{if $mod}"{$mod['title']}"功能中{/if}能够显示在微站快捷选项的信息(需要微站模板支持), 你可以选择性的自定义或显示隐藏</span>
+		</div>
+		{/if}
+		
+		<div class="table-responsive panel-body" style="overflow: visible">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+				<tr>
+					<th class="text-center" style="width:50px;">ID</th>
+					<th class="text-center" style="width:60px;;">图标</th>
+					<th class="text-center" style="width:150px">标题</th>
+					<th class="text-center" style="width:200px;">链接</th>
+					<th class="text-center" style="width:80px;">来源</th>
+					<th class="text-center" style="width:80px;">排序</th>
+					{if $_GPC['do'] == 'home' && !empty($template['sections'])}<th class="text-center" style="width:100px;">位置</th>{/if}
+					<th class="text-right" style="width:130px;">是否在微站上显示</th>
+					<th class="text-center" style="width:100px;">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				{loop $ds $item}
+				{if empty($module)}
+					{if $item['status'] || empty($item['module'])}
+					<tr>
+						<td class="text-center" style="width:50px;">{$item['id']}</td>
+						<td class="text-center" style="width:60px;">
+							{if !empty($item['icon'])}
+							<img src="{php echo tomedia($item['icon']);}" style="width:30px !important;" />
+							{else}
+							<i class="{$item['css']['icon']['icon']} fa fa-2x"></i>
+							{/if}
+						</td>
+						<td class="text-center" style="width:150px;">
+							{if $item['remove']}
+							<input type="text" class="form-control input-sm" name="title[{$item['id']}]" value="{$item['title']}" />
+							{else}
+							{$item['title']}
+							{/if}
+						</td>
+						<td style="width:200px; white-space:nowrap;overflow: visible">
+							{php echo tpl_form_field_link('url['.$item['id'].']', $item['url'], array('css' => array('input' => ' input-sm', 'btn' => ' btn-sm')));}
+						</td>
+						<td class="text-center" style="width:80px;">
+							{if $item['module']}{$modules[$item['module']]['title']}{/if}
+							{$froms[$item['from']]}
+						</td>
+						<td class="text-center" style="width:80px;">
+							{if $item['remove']}
+							<input type="text" class="form-control input-sm" name="displayorder[{$item['id']}]" value="{$item['displayorder']}" />
+							{else}
+							无效
+							{/if}
+						</td>
+						{if $_GPC['do'] == 'home' && !empty($template['sections'])}
+						<td class="text-center" style="width:100px;">
+							<select name="section[{$item['id']}]" class="form-control">
+								<option value="0">不显示</option>
+								<?php for ($i = 1; $i <= $template['sections']; $i++) {?>
+								<option {if $item['section'] == $i} selected{/if} value="{$i}">位置{$i}</option>
+								<?php }?>
+							</select>
+						</td>
+						{/if}
+						<td class="text-right" style="width:130px;">
+							<input type="checkbox" value="1"{if intval($item['status'])==1} checked="checked"{/if} data="{php echo base64_encode(json_encode($item));}"/>
+						</td>
+						<td class="text-center" style="width:100px;">
+							<div class="text-center" >
+								<a href="{php echo url('site/nav/'.$_GPC['do'], array('id' => $item['id'],'foo' =>'post', 'multiid' => $_GPC['multiid'], 'f' => $_GPC['f']));}" class="btn btn-default btn-sm">编辑</a>
+								<a href="{php echo url('site/nav/'.$_GPC['do'], array('id' => $item['id'],'foo'=>'delete', 'name' => $modulename));}" class="btn btn-default btn-sm">删除</a>
+							</div>
+						</td>
+					</tr>
+					{/if}
+				{else}
+				<tr>
+					<td class="text-center" style="width:50px;">{$item['id']}</td>
+					<td class="text-center" style="width:60px;">
+						{if !empty($item['icon'])}
+						<img src="{php echo tomedia($item['icon']);}" style="width:30px !important;" />
+						{else}
+						<i class="{$item['css']['icon']['icon']} fa fa-2x"></i>
+						{/if}
+					</td>
+					<td class="text-center" style="width:150px;">
+						{if $item['remove']}
+						<input type="text" class="form-control input-sm" name="title[{$item['id']}]" value="{$item['title']}" />
+						{else}
+						{$item['title']}
+						{/if}
+					</td>
+					<td class="text-center" style="width:200px; white-space:nowrap;overflow: visible" >
+						{if $item['remove']}
+						{php echo tpl_form_field_link('url['.$item['id'].']', $item['url'], array('css' => array('input' => ' input-sm', 'btn' => ' btn-sm')));}
+						{else}
+						{$item['url']}
+						{/if}
+					</td>
+					<td class="text-center" style="width:80px;">
+						{if $item['module']}"{$modules[$item['module']]['title']}" {/if}
+					</td>
+					<td class="text-center"  style="width:80px;">
+						{if $item['remove']}
+						<input type="text" class="form-control input-sm" name="displayorder[{$item['id']}]" value="{$item['displayorder']}" />
+						{else}
+						无效
+						{/if}
+					</td>
+					{if $_GPC['do'] == 'home' && !empty($template['sections'])}
+					<td class="text-center" style="width:100px;">
+						<select name="section" class="form-control">
+							<option value="0">不设置位置</option>
+							<?php for ($i=1; $i<=10; $i++) {?>
+							<option {if $item['section'] == $i} selected{/if} value="{$i}">位置{$i}</option>
+							<?php }?>
+						</select>
+					</td>
+					{/if}
+					<td class="text-right" style="width:130px;">
+						<input type="checkbox" value="1"{if intval($item['status'])==1} checked="checked"{/if} data="{php echo base64_encode(json_encode($item));}"/>
+					</td>
+					<td class="text-center" style="width:100px;">
+						{if $item['remove']}
+						<div class="text-center">
+							<a class="btn btn-default btn-sm" href="{php echo url('site/nav/'.$_GPC['do'], array('id' => $item['id'],'foo' =>'post'));}" title="编辑">编辑</a>
+							<a class="btn btn-default btn-sm" href="{php echo url('site/nav/'.$_GPC['do'], array('id' => $item['id'],'foo'=>'delete', 'name' => $modulename));}" title="删除">删除</a>
+						</div>
+						{/if}
+					</td>
+				</tr>
+				{/if}
+				{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="form-group col-sm-12">
+		<input name="token" type="hidden" value="{$_W['token']}" />
+		<input type="hidden" name="foo" value="saves" />
+		<input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+	</div>
+</div>
+</form>
+{/if}
+{template 'common/footer'}

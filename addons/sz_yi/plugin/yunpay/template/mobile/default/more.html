@@ -1,0 +1,80 @@
+{if $article_sys['article_temp']==0}
+    {loop $articles $article}
+        <a href="{php echo $this->createPluginMobileUrl('article',array('aid'=>$article['id']))}">
+            <div class="line-main">
+                <div class="line">
+                    <div class="img">
+                        {if !empty($article['resp_img'])}
+                            <img src="{$article['resp_img']}"/>
+                        {else}
+                            <p style='line-height: 12px; font-size: 12px; padding: 6px; text-align: center; color: #999;'>no img</p>
+                        {/if}
+                    </div>
+                    <div class="info" >
+                        <div class="title">{$article['article_title']}</div>
+                        <div class="ico-main">
+                            {if $article['article_rule_money']>0 || !empty($article['article_rule_credit'])}
+                                <div class="ico">
+                                    {if $article['article_rule_money']>0}
+                                        {$article['article_rule_money']}元余额
+                                    {/if}
+                                    {if !empty($article['article_rule_credit'])}
+                                        {$article['article_rule_credit']}个积分
+                                    {/if}
+                                </div>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    {/loop}
+{else if $article_sys['article_temp']==1}
+        {loop $articles $k  $v}
+            <div class="list">
+                <div class="date">{$k}</div>
+                    {if count($v['articles'])==1}
+                        <a href="{php echo $this->createPluginMobileUrl('article',array('aid'=>$v['articles'][0]['id']))}">
+                            <div class="title">{$v['articles'][0]['article_title']}</div>
+                            <div class="img"><img src="{$v['articles'][0]['resp_img']}" /></div>
+                            <div class="desc">{$v['articles'][0]['resp_desc']}</div>
+                            <div class="read">
+                                <span class="left">阅读原文</span>
+                                <span class="right"><span class="ico"></span></span>
+                            </div>
+                        </a>
+                    {else}
+                        {loop $v['articles'] $index $vv}
+                            {if $index==0}
+                                <a href="{php echo $this->createPluginMobileUrl('article',array('aid'=>$vv['id']))}">
+                                    <div class="img">
+                                        <img src="{$vv['resp_img']}" />
+                                        <div class="img-title"><p>{$vv['article_title']}</p></div>
+                                    </div>
+                                </a>
+                            {else}
+                                <a href="{php echo $this->createPluginMobileUrl('article',array('aid'=>$vv['id']))}">
+                                    <div class="line">
+                                        <div class="icon"><img src="{$vv['resp_img']}" /></div>
+                                        <div class="title">{$vv['article_title']}</div>
+                                    </div>
+                                </a>
+                            {/if}
+                        {/loop}
+                    {/if}
+            </div>
+        {/loop}	 
+{else if $article_sys['article_temp']==2}
+    {loop $articles $article}
+        <a href="{php echo $this->createPluginMobileUrl('article',array('aid'=>$article['id']))}">
+            <div class="line">
+                <div class="img"><img src="{$article['resp_img']}"/></div>
+                <div class="info">
+                    <div class="title">{$article['article_title']}</div>
+                    <div class="desc">{if !empty($article['resp_desc'])}{$article['resp_desc']}{else}编辑比较懒还没有填写介绍...{/if}</div>
+                    <div class="date">{$article['article_author']} {$article['article_date_v']}</div>
+                </div>
+            </div>
+        </a>
+    {/loop}
+{/if}

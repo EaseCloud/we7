@@ -1,0 +1,99 @@
+<style type='text/css'>
+    body { width:100%;}
+ 
+    .img-thumbnail { width:100px; height:100px;}
+    .img-nickname { height:25px;line-height:25px;width:90px;margin-left:5px;margin-right:5px;position: absolute;bottom:55px;color:#fff;text-align: center;background:rgba(0,0,0,0.7)}
+</style>
+ 
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">兑换方式</label>
+    <div class="col-sm-6 col-xs-6">
+        {ife 'creditshop.goods' $item}
+        <label class="radio-inline"><input type="radio" name="isverify" value="0" {if empty($item['isverify'])}checked="true"{/if}  /> 需要快递</label>
+        <label class="radio-inline"><input type="radio" name="isverify" value="1" {if $item['isverify'] == 1}checked="true"{/if}   /> 线下兑换</label>
+        <span class='help-block'>如果是线下兑换产品，则无填写地址</span>
+        {else}
+        <div class='form-control-static'>
+            {if empty($item['isverify']) || $item['isverify'] == 1}不支持{else}支持{/if}
+        </div>
+        {/if}
+    </div>
+</div>   
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">线下兑换门店选择</label>
+    <div class="col-sm-9 col-xs-12 chks">
+       {ife 'creditshop.goods' $item}
+        <div class='input-group'>
+            <input type="text" name="store" maxlength="30" class="form-control" readonly />
+            <div class='input-group-btn'>
+                <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-menus').modal();">选择门店</button>
+            </div>
+        </div>
+   
+     <div style="margin-top:.5em;" class="input-group multi-audio-details clear-fix" id='stores'>
+         {loop $stores $store}
+            <div style="height: 40px; position:relative; float: left; margin-right: 18px;" class="multi-audio-item" storeid="{$store['id']}">
+                <div class="input-group">
+                    <input type="hidden" value="{$store['id']}" name="storeids[]">
+                    <input type="text" value="{$store['storename']}" readonly="" class="form-control">
+                    <div class="input-group-btn"><button type="button" onclick="remove_store(this)" class="btn btn-default"><i class="fa fa-remove"></i></button></div>
+                    </div>
+             </div>
+         {/loop}
+     </div>
+          <span class='help-block'>如果不选择门店，则此商品支持在所有门店兑换</span>
+
+        <div id="modal-module-menus"  class="modal fade" tabindex="-1">
+            <div class="modal-dialog" style='width: 920px;'>
+                <div class="modal-content">
+                    <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3>选择门店</h3></div>
+                    <div class="modal-body" >
+                        <div class="row">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="keyword" value="" id="search-kwd" placeholder="请输入门店名称" />
+                                <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="search_stores();">搜索</button></span>
+                            </div>
+                        </div>
+                        <div id="module-menus" style="padding-top:5px;"></div>
+                    </div>
+                    <div class="modal-footer"><a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</a></div>
+                </div>
+
+            </div>
+        </div>
+          {else}
+          <div class='form-control-static'>
+             {loop $stores $store}
+                  {$store['storename']}; 
+             {/loop}
+         </div>
+          {/if}
+    </div>
+  
+</div>
+<script language='javascript'>
+         function search_stores() {
+		$("#module-menus").html("正在搜索....")
+		$.get('{php echo $this->createPluginWebUrl('verify/store',array('op'=>'query'))}', {
+			keyword: $.trim($('#search-kwd').val())
+		}, function(dat){
+			$('#module-menus').html(dat);
+		});
+	}
+                    function remove_store(obj){
+                         var storeid = $(obj).closest('.multi-audio-item').attr('storeid');
+                         $('.multi-audio-item[storeid="' + storeid +'"]').remove();
+                    }
+	function select_store(o) {
+                        if($('.multi-audio-item[storeid="' + o.id +'"]').length>0){
+                            return;
+                        }
+                        var html ='<div style="height: 40px; position:relative; float: left; margin-right: 18px;" class="multi-audio-item" storeid="' + o.id +'">';
+                html+='<div class="input-group">';
+                    html+='<input type="hidden" value="' + o.id +'" name="storeids[]">';
+                    html+='<input type="text" value="' + o.storename +'" readonly="" class="form-control">';
+                    html+='<div class="input-group-btn"><button type="button" onclick="remove_store(this)" class="btn btn-default"><i class="fa fa-remove"></i></button></div>';
+             html+='</div></div>';
+                        $('#stores').append(html);
+ 	}
+</script>

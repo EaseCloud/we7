@@ -1,0 +1,6 @@
+<ul class="nav nav-tabs">
+	<li {if $do == 'notice'} class="active"{/if}><a href="{php echo url('mc/card/notice');}">通知管理</a></li>
+	<li {if $do == 'credit'} class="active"{/if}><a href="{php echo url('mc/card/credit');}">积分策略</a></li>
+	<li {if $do == 'recommend'} class="active"{/if}><a href="{php echo url('mc/card/recommend');}">每日推荐</a></li>
+	<li {if $do == 'sign'} class="active"{/if}><a href="{php echo url('mc/card/sign');}">签到列表</a></li>
+</ul>

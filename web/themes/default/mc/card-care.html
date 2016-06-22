@@ -1,0 +1,238 @@
+{php $newUI = true;}
+{template 'common/header'}
+{template 'mc/card-nav'}
+{if $op == 'post'}
+<div classs="clearfix">
+	<form action="" class="form-horizontal form" method="post" enctype="multipart/form-data" id="form1">
+		<input type="hidden" name="id" value="{$care['id']}"/>
+		<div class="panel panel-default">
+			<div class="panel-heading">节日关怀</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">节日名称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" class="form-control" name="title" value="{$care['title']}"/>
+						<div class="help-block">不超过30个字符</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">节日类型</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="type" value="1" {if !$care['type'] || $care['type'] == 1}checked{/if} onclick="$('#type2').hide();$('#type1').show();"/> 节日
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="type" value="2" {if $care['type'] == 2}checked{/if} onclick="$('#type1').hide();$('#type2').show();"/> 会员生日节日
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">适用人群</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="groupid" value="0" {if !$care['groupid']}checked{/if}/> 全部会员
+						</label>
+						{loop $_W['account']['groups'] $group}
+						<label class="radio-inline">
+							<input type="radio" name="groupid" value="{$group['groupid']}" {if $care['groupid'] == $group['groupid']}checked{/if}/> {$group['title']}
+						</label>
+						{/loop}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">赠送类型</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group">
+							<span class="input-group-addon">积分</span>
+							<input type="text" name="credit1" value="{$care['credit1']}" class="form-control"/>
+						</div>
+						<br>
+						<div class="input-group">
+							<span class="input-group-addon">余额</span>
+							<input type="text" name="credit2" value="{$care['credit2']}" class="form-control"/>
+						</div>
+						<br>
+						<div class="input-group">
+							<span class="input-group-addon">已选:<span id="coupon-title">{$coupon['title']}</span></span>
+							<input type="hidden" name="couponid" id="coupon-id" value="{$care['couponid']}">
+							<input type="text" name="keyword" value="" placeholder="优惠券标题" class="form-control">
+							<span class="input-group-btn">
+								<button class="btn btn-primary" type="button" id="select-coupon">搜索优惠券</button>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" id="type1" {if $care['type'] == 2}style="display:none"{/if}>
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">赠送及消息发送时间</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_date('granttime', $care['granttime']);}
+					</div>
+				</div>
+				<div class="form-group" id="type2" {if $care['type'] == 1 || !$care['type']}style="display:none"{/if}>
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">赠送及消息发送时间</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group">
+							<span class="input-group-addon">生日前</span></span>
+							<input type="text" name="days" value="{$care['days']}" class="form-control">
+							<span class="input-group-addon">天</span>
+							<input type="text" name="time" value="{$care['time']}" class="form-control">
+							<span class="input-group-addon">点</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">营销</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="checkbox-inline">
+							<input type="checkbox" name="show_in_card" value="1" {if $care['show_in_card'] == 1}checked{/if}/> 在会员卡界面展示
+						</label>
+						<textarea name="content" cols="30" rows="5" class="form-control" placeholder="请输入活动说明" style="margin-top:10px">{$care['content']}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">短信通知</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="checkbox-inline">
+							<input type="checkbox" name="sms_notice" value="1" {if $care['sms_notice'] == 1}checked{/if} onclick="if(this.checked){$('#sms').show();}else{$('#sms').hide();}"/> 短信通知 (需要购买短信)
+						</label>
+						<div class="input-group" style="margin-top: 15px;display: none" id="sms">
+							<input type="text" name="" value="{$setting['coupon']}" class="form-control" placeholder="手机号">
+							<span class="input-group-btn">
+								<button class="btn btn-primary" type="button">预览</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group" style="margin-left:0px">
+			<input type="hidden" name="token" value="{$_W['token']}"/>
+			<input type="submit" name="submit" value="提交" class="btn btn-primary"/>
+		</div>
+	</form>
+</div>
+<div class="modal fade" id="counpon-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document" style="width:800px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">选择优惠券</h4>
+			</div>
+			<div class="modal-body table-responsive">
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		$('#form1').submit(function(){
+			if(!$.trim($(':text[name="title"]').val())) {
+				util.message('通知标题不能为空', '', 'error');
+				return false;
+			}
+			var credit1 = parseInt($(':text[name="credit1"]').val());
+			var credit2 = parseInt($(':text[name="credit2"]').val());
+			var couponid = parseInt($('#couponid').val());
+			if(!credit1 && !credit2 && !couponid) {
+				util.message('赠送类型错误', '', 'error');
+				return false;
+			}
+			var type = $(':radio[name="type"]:checked').val();
+			if(type == 2) {
+				var days = parseInt($(':text[name="days"]').val());
+				var time = parseInt($(':text[name="time"]').val());
+				if(isNaN(days) || isNaN(time)) {
+					util.message('赠送及消息发送时间错误', '', 'error');
+					return false;
+				}
+			}
+		});
+
+		//选择优惠券
+		$('#select-coupon').click(function(){
+			var keyword = $.trim($(':text[name="keyword"]').val());
+			$.post("{php echo url('mc/card/coupon')}", {'keyword':keyword}, function(data){
+				if(data == 'empty') {
+					util.message('没有有效的优惠券,请先添加优惠券', '', 'error');
+					return false;
+				}
+				$('#counpon-Modal').find('.modal-body').html(data);
+				$('#counpon-Modal').modal('show');
+				$('#counpon-Modal a.btn-default').off('click');
+				$('#counpon-Modal').on('click', 'a.btn-default', function(){
+					var id = $(this).data('id');
+					var title = $(this).data('title');
+					$('#coupon-id').val(id);
+					$('#coupon-title').html(title);
+					$('#counpon-Modal').modal('hide');
+				});
+				return false;
+			});
+		});
+	});
+</script>
+{else if $op == 'list'}
+<div class="clearfix">
+	<form action="" method="post" class="form-horizontal" role="form">
+		<div class="form-group">
+			<div class="col-sm-8 col-lg-9 col-xs-12">
+				<a href="{php echo url('mc/card/care/', array('op' => 'post'));}" target="_blank" class="btn btn-success col-lg-2"><i class="fa fa-plus"></i> 添加节日关怀</a>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead>
+					<tr>
+						<th>标题</th>
+						<th>目标人群</th>
+						<th>在会员卡界面展示</th>
+						<th>赠送时间</th>
+						<th class="text-right">操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					{loop $cares $care}
+					<tr>
+						<td>
+							{if !empty($care['thumb'])}
+							<img src="{php echo tomedia($care['thumb']);}" alt="" width="40" border="1"/>
+							{/if}
+							{$care['title']}
+						</td>
+						<td>
+							{if !$care['groupid']}
+							<span class="label label-success">全部会员</span>
+							{else}
+							<span class="label label-danger">{$_W['account']['groups'][$care['groupid']]['title']}</span>
+							{/if}
+						</td>
+						<td>
+							{if !$care['show_in_card']}
+								<span class="label label-danger">不显示</span>
+							{else}
+								<span class="label label-success">显示</span>
+							{/if}
+						</td>
+						<td>
+							{if $care['type'] == 1}
+								{php echo date('Y-m-d H:i', $care['granttime']);}
+							{else}
+								生日前{$care['days']}天{$care['time']}点
+							{/if}
+						</td>
+						<td class="text-right">
+							<a href="{php echo url('mc/card/care', array('op' => 'post', 'id' => $care['id']));}" class="btn btn-default">编辑</a>
+							<a href="{php echo url('mc/card/care', array('op' => 'del', 'id' => $care['id']));}" onclick="if(!confirm('确定删除吗')) return false;" class="btn btn-default">删除</a>
+						</td>
+					</tr>
+					{/loop}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{$pager}
+	</form>
+</div>
+{/if}
+{template 'common/footer'}

@@ -1,0 +1,75 @@
+{template 'common/header'}
+<style>
+	body{background:#d2e6e9;}
+	.charge.panel{margin:.5em; border:none;}
+	.charge.panel-info>.panel-heading {background: -webkit-gradient(linear, 0 0, 100% 0, from(#ebebeb), to(#f3f9fa), color-stop(30%, #f5f9f9)); color:#666666; border:none;}
+	a{color:#666666;}a:hover{color: #3ebacc;}
+	.charge .btn.btn-primary{background: #56c6d6; color: #FFF; border: 0;}
+	.charge i{display:inline-block; width:15px; height:15px; text-align:center; line-height:15px;}
+	.text-danger-bold{font-weight: bold;font-size: 16px;color: #d9534f}
+	.alert{padding:5px}
+	.text-hight{color:red;font-weight: bold;font-size: 18px;}
+</style>
+
+<div class=" panel panel-info charge">
+	<div class="panel-heading">
+		<h4>核销优惠券</h4>
+	</div>
+	<div class="panel-body">
+		<form method="post" action="{php echo url('clerk/token');}" role="form" id="form1" class="form-horizontal form">
+			<input type="hidden" name="uid" value="{$uid}"/>
+			<input type="hidden" name="id" value="{$id}"/>
+			<div class="form-group">
+				<div class="col-xs-12">
+					<strong class="text-danger">
+						<i class="fa fa-info-circle"></i> 会员UID:{$member['uid']}, 手机号：{$member['mobile']}<br>
+						<i class="fa fa-info-circle"></i> 会员组：{$_W['account']['groups'][$member['groupid']]['title']}<br>
+						<i class="fa fa-info-circle"></i> 余额：{$member['credit2']}, 积分：{$member['credit1']}
+					</strong>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					优惠券类型：
+					{if $data['type'] == 1}
+					<span class="label label-success">折扣券</span>
+					{else}
+					<span class="label label-success">代金券</span>
+					{/if}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					优惠券名称：{$data['title']}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					使用条件：满<span class="text-hight">{$data['condition']}</span>元可使用。
+					{if $data['type'] == 1}
+					折扣：<span class="text-hight">{php echo $data['discount'] * 10}</span> 折
+					{else}
+					减免：<span class="text-hight">{$data['discount']}</span>元
+					{/if}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					使用期限：{php echo date('Y-m-d', $data['starttime']);} ~ {php echo date('Y-m-d', $data['endtime']);}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					核销员：<span class="text-hight"> {$clerk['name']}</span>, Id:<span class="text-hight"> {$clerk['id']}</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					<input type="hidden" name="token" value="{$_W['token']}">
+					<input type="submit" name="submit" class="btn btn-primary btn-block" value="确认核销">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{template 'common/footer'}

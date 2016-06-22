@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs">
+    
+    {if $_GPC['p'] == 'recharge' && $_GPC['op']=='credit1'}
+    <li class="active"><a href="{php echo $this->createWebUrl('finance/recharge',array('op'=>'credit1'))}">充值积分</a></li>
+    {/if}
+    
+    {if $_GPC['p'] == 'recharge' && $_GPC['op']=='credit2'}
+    <li class="active"><a href="{php echo $this->createWebUrl('finance/recharge',array('op'=>'credit2'))}">充值余额</a></li>
+    {/if}
+    {ifp 'finance.recharge.view'}<li {if empty($_GPC['p']) || ( $_GPC['p'] == 'log' && $_GPC['type']==0)} class="active" {/if}><a href="{php echo $this->createWebUrl('finance/log',array('type'=>0))}">充值记录</a></li>{/if}
+    {ifp 'finance.withdraw.view'}<li {if $_GPC['p'] == 'log' && $_GPC['type']==1} class="active" {/if}><a href="{php echo $this->createWebUrl('finance/log',array('type'=>1))}">提现申请</a></li>{/if}
+    {ifp 'finance.downloadbill'}<li {if $_GPC['p'] == 'downloadbill' } class="active" {/if}><a href="{php echo $this->createWebUrl('finance/downloadbill')}">下载对账单</a></li>{/if}
+    
+</ul> 
+ 

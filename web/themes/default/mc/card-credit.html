@@ -1,0 +1,86 @@
+{php $newUI = true;}
+{template 'common/header'}
+{template 'mc/card-nav'}
+<div classs="clearfix">
+	<div style="margin-bottom:20px">
+		是否开启签到功能:
+		<input type="checkbox" name="sign_status" value="1" {if intval($setting['sign_status'])==1} checked="checked" {/if}/>
+	</div>
+	<form action="" class="form-horizontal form" method="post" enctype="multipart/form-data" id="form1">
+		<input type="hidden" name="id" value="{$care['id']}"/>
+		<div class="panel panel-default">
+			<div class="panel-heading">积分策略</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">签到奖励</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group">
+							<span class="input-group-addon">每天签到奖励</span>
+							<input type="text" class="form-control" name="sign[everydaynum]" value="{$set['sign']['everydaynum']}"/>
+							<span class="input-group-addon">积分</span>
+						</div>
+						<br/>
+						<div class="input-group">
+							<span class="input-group-addon">连续</span>
+							<input type="text" class="form-control" name="sign[lastday]" value="{$set['sign']['lastday']}"/>
+							<span class="input-group-addon">天签到奖励</span>
+							<input type="text" class="form-control" name="sign[lastnum]" value="{$set['sign']['lastnum']}"/>
+							<span class="input-group-addon">积分</span>
+						</div>
+						<span class="help-block">连续奖励的天数必须大于1天。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享奖励</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group">
+							<span class="input-group-addon">人每天最多可获取</span>
+							<input type="text" class="form-control" name="share[times]" value="{$set['share']['times']}"/>
+							<span class="input-group-addon">次，每次奖励</span>
+							<input type="text" class="form-control" name="share[num]" value="{$set['share']['num']}"/>
+							<span class="input-group-addon">积分</span>
+						</div>
+						<div class="help-block">分享奖励需要您设置"每日推荐", 用户在每日分享页面分享后,将获得奖励</div>
+						<br/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">积分攻略</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_ueditor('content', $set['content']);}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group" style="margin-left:0px">
+			<input type="hidden" name="token" value="{$_W['token']}"/>
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"/>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	require(['jquery.ui', 'bootstrap.switch'], function($){
+		$('#form1').submit(function(){
+			var everydaynum = parseInt($(':text[name="sign[everydaynum]"]').val());
+			if(isNaN(everydaynum) || !everydaynum) {
+				util.message('每天签到奖励积分必须大于0', '', 'error');
+				return false;
+			}
+		});
+
+		$(":checkbox[name='sign_status']").bootstrapSwitch();
+		$(":checkbox[name='sign_status']").on('switchChange.bootstrapSwitch', function(e, state){
+			$this = $(this);
+			var status = this.checked ? 1 : 0;
+			$.post("{php echo url('mc/card/ajax', array('op' => 'other', 'field' => 'sign_status'));}", {status:status}, function(resp){
+				if(resp != 'success') {
+					util.message(resp, '', 'error');
+					return false;
+				} else {
+					util.message('操作成功', location.href, 'success');
+				}
+			});
+		});
+	});
+</script>
+{template 'common/footer'}

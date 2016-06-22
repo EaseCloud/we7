@@ -1,0 +1,54 @@
+{template 'common/header'}
+<style>
+	body{background:#d2e6e9;}
+	.charge.panel{margin:.5em; border:none;}
+	.charge.panel-info>.panel-heading {background: -webkit-gradient(linear, 0 0, 100% 0, from(#ebebeb), to(#f3f9fa), color-stop(30%, #f5f9f9)); color:#666666; border:none;}
+	a{color:#666666;}a:hover{color: #3ebacc;}
+	.charge .btn.btn-primary{background: #56c6d6; color: #FFF; border: 0;}
+	.text-danger-bold{font-weight: bold;font-size: 16px;color: #d9534f}
+	.alert{padding:5px}
+	.text-hight{color:red;font-weight: bold;font-size: 18px;}
+
+	.tools{display:block; float:left; width:30%;margin-right:5%; text-align:center; background:#EEE; color:#333; text-decoration:none;}
+	.tools > i{display:block; font-size:40px; margin:15px auto 0 auto;}
+	.tools > span{display:block;}
+</style>
+<div class=" panel panel-info charge">
+	<div class="panel-heading">
+		<h4>店员操作</h4>
+	</div>
+	<div class="panel-body">
+		<div class="form-group">
+			<div class="col-xs-12">
+				<div class="alert alert-warning">
+					Hi, <span class="text-danger-bold">{$clerk['name']}</span>,
+					今天是 <span class="text-danger-bold">{php echo date('Y-m-d');} 星期{php echo date('N');}</span>。
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<a href="javascript:;" id="scanqrcode" class="tools img-rounded">
+					<i class="fa fa-qrcode"></i>
+					<span>扫一扫</span>
+				</a>
+				<a href="{php echo url('mc/home');}" class="tools img-rounded">
+					<i class="fa fa-user"></i>
+					<span>个人中心</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$('#scanqrcode').click(function(){
+		wx.ready(function(){
+			wx.scanQRCode({
+				needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+				scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+				success: function (res) {
+					var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+				}
+			});
+		});
+	});
+</script>
+{template 'common/footer'}

@@ -1,0 +1,57 @@
+{template 'common/header'}
+<style>
+	ul,li {padding:0; margin:0; border:0;}
+	body{background:#d2e6e9; padding-bottom:63px;}
+	.card-info .card-top{ position:relative; width:100%; color:#fff; background-color:#a9d92d; padding:21px 12px 12px;}
+	.card-top .logo img{width:38px; height:38px; border-radius:100%; margin-right:10px;}
+	.card-top .title{font-size:24px; margin-bottom:10px;}
+	.card-top .sub-title{margin-bottom:10px;}
+	.card-top .border-img{position: absolute; bottom: -1px; left: 0; width: 100%; height: 5px; background: url(./resource/images/card_tpl.png) repeat-x;}
+	.card-bottom{background:#fff; margin-bottom:15px; text-align:center; padding:15px 0;}
+	.card-bottom .bar-code img{width:100%; height:auto; margin-bottom:5px;}
+	.card-bottom .tips{margin:10px 0;}
+	.wx-card .operate{background:#fff; padding:15px 10px;}
+	.wx-card .operate input{margin-bottom:5px;}
+</style>
+
+<form action="" method="post" id="form1">
+	<input type="hidden" name="token" value="{$_W['token']}"/>
+	<div class="wx-card">
+		<div class="card-info">
+			<div class="card-top" style="background: {$colors[$card['color']]}">
+				<div class="logo">
+					<img src="{$card['logo_url']}" alt="" class="img-circle">
+					<span>{$card['brand_name']}</span>
+				</div>
+				<div class="title text-center">{$card['title']}</div>
+				<div class="sub-title text-center">{$card['sub_title']}</div>
+				<div class="date text-center">
+					{if $card['date_info']['time_type'] == 1}
+					有效期:{$card['date_info']['time_limit_start']}~{$card['date_info']['time_limit_end']}
+					{else}
+					有效期:领取后{$card['date_info']['deadline']}天后生效,{$card['date_info']['limit']}天有效
+					{/if}
+				</div>
+				<div class="border-img"></div>
+			</div>
+			<div class="card-bottom">
+				<div class="text-muted">code码：{$record['code']}</div>
+			</div>
+		</div>
+		<div class="operate">
+			<a href="javascript:;" class="btn btn-default btn-block" style="margin-bottom: 20px">核销店员:{$clerk['name']}</a>
+			<input type="submit" class="btn btn-success btn-block" name="submit" value="确定核销"/>
+		</div>
+	</div>
+</form>
+<script>
+	require(['util'], function(u){
+		$('#form1').submit(function(){
+			if(!confirm('确定核销该卡券?')) {
+				return false;
+			}
+			return true;
+		});
+	});
+</script>
+{template 'common/footer'}

@@ -1,0 +1,100 @@
+{template 'common/header'}
+<style media="all" type="text/css">
+	ul,li {padding:0; margin:0; border:0;}
+	body{background:#d2e6e9; padding-bottom:63px;}
+	.btn-group-top-box{padding:10px 0; border-bottom:1px solid #a5d7de; font-family:Helvetica, Arial, sans-serif; text-align:center; width:100%;}
+	.btn-group-top{overflow:hidden;}
+	.btn-group-top .btn{ -webkit-box-shadow:none; box-shadow:none; border-color:#5ac5d4; color:#5ac5d4; background:#d1e5e9; padding:6px;}
+	.btn-group-top .btn:hover{color:#FFF; background:#addbe1;}
+	.btn-group-top .btn.active{color:#FFF; background:#5ac5d4;}
+	.btn.use{background:#56c6d6; color:#FFF; border:0; border-radius:4px;}
+
+	.coupon-main{overflow:hidden;}
+	.coupon-main .list-coupon{width:270px; margin:10px auto; overflow:hidden; padding:0px; background:transparent;}
+	.coupon-main .list-coupon li{background:#FFF; margin-bottom:15px; overflow:hidden;}
+	.coupon-main .list-coupon li .list-coupon-hd{padding:0 10px 0 15px; height:35px; line-height:35px; overflow:hidden;}
+	.coupon-main .list-coupon li .list-coupon-hd .pull-left,.coupon-main .list-coupon li .list-coupon-hd .pull-right{font-size:14px;}
+	.coupon-main .list-coupon li .list-coupon-content{width:96%; height:95px; margin:0 2% 5px 2%; overflow:hidden; background:#5ac5d4; position:relative;}
+	.coupon-main .list-coupon li .list-coupon-content a{text-decoration:none; font-size:14px; color:#FFF; display:block; width:100%;}
+	.coupon-main .list-coupon li .list-coupon-content img{width:70%; margin:0 auto; height:95px;}
+	.coupon-main .list-coupon li .list-coupon-content span{display:inline-block; text-align:center; line-height:95px; float:right; width:28%;}
+	.coupon-main .list-coupon li .list-coupon-content i{position:absolute; right:30%; top:45%; font-size:18px; color:#5ac5d4;}
+	.coupon-main .list-coupon li .list-coupon-ft{border-top:1px #DDD dashed; padding:0 15px;}
+	.coupon-main .list-coupon li .list-coupon-ft > span{display:block; font-size:14px; font-weight:bold; padding:10px 0;}
+	.coupon-main .list-coupon li .list-coupon-ft > div{display:none; padding:10px 0; border-top:1px #DDD solid;}
+	.coupon-main .list-coupon li .list-coupon-ft-bg{width:270px; background:url('resource/images/coupon-ft-bg.png') repeat-x center bottom; -webkit-background-size:100% auto; height:4px; position:absolute;}
+	.coupon-main .list-coupon li.used .list-coupon-content{background:#BBB;}
+	.coupon-main .list-coupon li.used .list-coupon-content i{color:#BBB;}
+
+	.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus{background-color:#5ac5d4; border-color:#5ac5d4;}
+	.pagination>li>a, .pagination>li>span{color:#5ac5d4; border:1px solid #a5d7de;}
+
+
+	.scroll-container .list-group {list-style:none; padding:0; margin:0; width:100%; text-align:left;}
+	.scroll-container .list-group .list-group-item{border:none; background:#d2e6e9;}
+	.scroll-container .list-group .list-group-item .con{background:#ffffff; width:280px; margin:0 auto;}
+	.scroll-container .list-group .list-group-item .list-hd{padding:5px 20px;}
+	.scroll-container .list-group .list-group-item .list-hd h5{font-weight:bold; margin-bottom:2px; font-size:16px; color:#444444;}
+	.scroll-container .list-group .list-group-item .list-hd p{color:#b8b8b9;}
+	.scroll-container .list-group .list-group-item .list-con img{display:block; width:90%; margin:0 auto;}
+	.scroll-container .list-group .list-group-item .list-con .derpn{padding:10px 10px 0 10px; border-top:1px dotted rgb(204, 204, 204); margin-top:10px;display:none;}
+	.scroll-container .list-group .list-group-item .list-ft{width:290px; background: transparent url('resource/images/ft-bg.png') no-repeat 0 0; background-size: 100% auto; height: 44px; line-height: 48px; overflow: hidden; position:relative; left:-5px; top:5px; padding:0 0 0 15px;}
+	.scroll-container .list-group .list-group-item .list-ft b{color: #56c6d6; font-size: 30px; margin-right:5px;}
+	.scroll-container .list-group .list-group-item .list-ft .btns{width:105px; text-align:center; font-size:18px; color:#ffffff; line-height:44px;}
+	.scroll-container .list-group .list-group-item .list-ft .btns a{color:#ffffff;}
+	.scroll-container .list-group .list-group-item .list-ft .btns.disabled a{color:#CCC;}
+	.scroll-container .load-more{padding:10px;text-align:center;font-size:1em;}
+	.no-info{height:40px;line-height:40px;text-align:center;color:#5ac5d4;font-size:18px}
+	.no-info a{}
+</style>
+
+<div class="scroll-container">
+	<div class="wrapper">
+		<h3 style="text-align:center;color:#5ac5d4">优惠券列表</h3>
+		<ul class="list-group" >
+			{if !empty($cards)}
+			{loop $cards $list}
+			<li class="list-group-item">
+				<div class="con">
+					<div class="list-hd">
+						<h5>{$list['title']}({if $list['type'] == 1}折扣券{else}代金券{/if})</h5>
+						<p>有效期至{php echo date('Y年m月d日', $list['endtime']);}</p>
+					</div>
+					<div class="list-con">
+						<img src="{php echo tomedia($list['thumb'])}">
+						<div class="derpn">
+							{php echo htmlspecialchars_decode($list['description'])}
+						</div>
+					</div>
+					<div class="list-ft">
+						<div class="pull-left">{$creditnames[$list['credittype']]}:<b>{$list['credit']}</b></div>
+						{if $list['is_grant']}
+							<div class="pull-right btns"><a href="{php echo url('mc/grant', array('id' => $list['grant_url']))}">立即领取</a></div>
+						{else}
+							<div class="pull-right btns disabled"><a href="javascript:;">已领取</a></div>
+						{/if}
+					</div>
+				</div>
+			</li>
+			{/loop}
+			{else}
+			<li class="no-info"><i class="fa fa-info-circle"></i> 没有可领取的优惠券。<a href="{php echo url('mc/home');}">个人中心</a></li>
+			{/if}
+		</ul>
+		<div class="btn-group-top-box">
+			<div class="btn-group btn-group-top">
+				{$pager}
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('.con').click(function(){
+		var description = $(this).find('.derpn').text();
+		if (description.indexOf('<') >= 0) {
+			$(this).find('.derpn').html(description);
+		}
+		$(this).find('.derpn').slideToggle(500);
+	});
+</script>
+{template 'common/footer'}

@@ -1,0 +1,24 @@
+  <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">提供商家</label>
+                        <div class="col-sm-9 col-xs-12">
+                                {ife 'creditshop.goods' $item}
+                             <input type='text' class='form-control' name='subtitle' value="{$item['subtitle']}" />
+                             {else}
+                             <div class='form-control-static'>{$item['subtitle']}</div>
+                             {/if}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">商家介绍</label>
+                        <div class="col-sm-9 col-xs-12">
+                                 {ife 'creditshop.goods' $item}
+                             {php echo tpl_ueditor('subdetail',$item['subdetail'])}
+                             {else}
+                                <textarea id='subdetail' style='display:none'>{$item['subdetail']}</textarea>
+                            <a href='javascript:preview_html("#subdetail")' class="btn btn-default">查看内容</a>
+                            {/if}
+                        </div>
+                    </div>
+                
+                

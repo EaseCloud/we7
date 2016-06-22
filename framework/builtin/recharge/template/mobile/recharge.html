@@ -1,0 +1,84 @@
+{template 'common/header'}
+<style>
+	body{background:#d2e6e9;}
+	/*手机余额充值*/
+	.charge.panel{margin:.5em; border:none;}
+	.charge.panel-info>.panel-heading {background: -webkit-gradient(linear, 0 0, 100% 0, from(#ebebeb), to(#f3f9fa), color-stop(30%, #f5f9f9)); color:#666666; border:none;}
+	a{color:#666666;}a:hover{color: #3ebacc;}
+	.charge .btn.btn-primary{background: #56c6d6; color: #FFF; border: 0;}
+	.charge i{display:inline-block; width:15px; height:15px; text-align:center; line-height:15px;}
+</style>
+<div class=" panel panel-info charge">
+	<div class="panel-heading">
+		<h4>会员卡充值</h4>
+	</div>
+	<div class="panel-body">
+		<form  method="post" role="form" id="form1">
+			<input type="hidden" name="c" value="entry" />
+			<input type="hidden" name="m" value="recharge" />
+			<input type="hidden" name="i" value="{$_W['uniacid']}" />
+			<input type="hidden" name="do" value="pay" />
+			<div class="form-group input-group">
+				<div class="input-group-addon"><i class="fa fa-user"></i></div>
+				<input type="text" class="form-control" placeholder="" value="{$name}" readonly>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon"><i class="fa fa-money"></i></div>
+					<input type="text" name="credit" class="form-control" placeholder="充值金额">
+				</div>
+				{if !empty($recharge)}
+					<div class="help-block"><span class="text-danger">如果填写金额,将已填写的金额为最终充值金额</span></div>
+				{/if}
+			</div>
+			{if !empty($recharge)}
+				<div class="form-group clearfix">
+					{loop $recharge $key $row}
+					{if !empty($row['back']) && !empty($row['condition'])}
+						<a href="javascript:;" class="btn btn-warning {if $_GPC['fee'] == $row['condition']}btn-danger{/if} col-lg-3 recharge" data-value="{$row['condition']}" data-key="{$key}" style="margin-left:5px;margin-top:8px;">充{$row['condition']}送{$row['back']}{if $row['backtype']=='1'}积分{else}元{/if}</a>
+					{/if}
+ 					{/loop}
+				</div>
+			{/if}
+			<div class="form-group">
+				<input type="hidden" name="select" value="" id="select">
+				<input type="hidden" name="select_key" value="" id="select_key">
+				<input type="hidden" name="token" value="{$_W['token']}">
+				<input type="submit" name="submit" class="btn btn-primary btn-block" value="立即充值">
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+	require(['util'], function(u){
+		$('.recharge').click(function(){
+			var has_danger = $(this).hasClass('btn-danger');
+			$('#select').val(0);
+			$('#select_key').val(0); 
+			$('.recharge').removeClass('btn-danger');
+			if(has_danger) {
+				$(this).removeClass('btn-danger');
+			} else {
+				$(this).addClass('btn-danger');
+				$('input[name="credit"]').val(0);
+				$('#select').val($(this).data('value'));
+				$('#select_key').val($(this).data('key'));
+			}
+			return false;
+		});
+
+		$('#form1').submit(function(){
+			var credit = parseFloat($('#form1 :text[name="credit"]').val());
+			var select = $('#form1 a.recharge.btn-danger').size();
+			if(select == 1) {
+				$('#select').val($('#form1 a.recharge.btn-danger').data('value'));
+			}
+			if(isNaN(credit) && !$('#select').val()) {
+				u.message('请输入或选择充值金额', '', 'error');
+				return false;
+			}
+		});
+	});
+</script>
+{template 'common/toolbar'}
+

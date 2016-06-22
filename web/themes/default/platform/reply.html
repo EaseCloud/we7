@@ -1,0 +1,133 @@
+{template 'common/header'}
+{if !in_array($m, $sysmods)}
+<ol class="breadcrumb" style="padding:5px 0;">
+	<li><a href="./?refresh"><i class="fa fa-cogs"></i> &nbsp; 扩展功能</a></li>
+	<li><a href="{url 'home/welcome/ext' array('m' => $module['name'])}">{$types[$module['type']]['title']}模块 - {$module['title']}</a></li>
+	<li class="active">管理 {$module['title']}</li>
+</ol>
+{/if}
+<ul class="nav nav-tabs">
+	<li class="active"><a href="{url 'platform/reply' array('m' => $m)}">管理{$module['title']}</a></li>
+	<li><a href="{url 'platform/reply/post' array('m' => $m)}"><i class="fa fa-plus"></i> 添加{$module['title']}</a></li>
+	{if !empty($site_urls)}
+		{loop $site_urls $site_url}
+			<li><a href="{$site_url['url']}"> {$site_url['title']}</a></li>
+		{/loop}
+	{/if}
+</ul>
+<div class="clearfix">
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="platform">
+			<input type="hidden" name="a" value="reply">
+			<input type="hidden" name="m" value="{$_GPC['m']}" />
+			<input type="hidden" name="status" value="{$status}" />
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">状态</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<div class="btn-group">
+							<a href="{php echo filter_url('status:-1');}"  class="btn {if $_GPC['status'] == '-1'|| $_GPC['status'] == ''}btn-primary{else}btn-default{/if}">所有</a>
+							<a href="{php echo filter_url('status:1');}"  class="btn {if $_GPC['status']== '1'}btn-primary{else}btn-default{/if}">启用</a>
+							<a href="{php echo filter_url('status:0');}"  class="btn {if $_GPC['status'] == '0'}btn-primary{else}btn-default{/if}">禁用</a>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+					<div class="col-sm-8 col-xs-12">
+							<input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}">
+					</div>
+					<div class="col-xs-12 col-sm-2 col-lg-1 text-right">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<form action="{php echo url('platform/reply/delete');}" method="post" class="form-horizontal" role="form" id="form1">
+	<input type="hidden" name="m" value="{$m}"/>
+	{if !empty($replies)}
+	<div>
+		{loop $replies $row}
+		<div class="panel panel-default">
+			<div class="panel-heading clearfix">
+				<label class="checkbox-inline" style="padding-top:0"><input type="checkbox" name="rid[]" value="{$row['id']}"/> {$row['name']}</label>
+				<span class="pull-right">
+					{if $row['displayorder'] > 0}
+						{if $row['displayorder'] == '255'}
+							<span class="label label-primary">置顶</span>
+						{else}
+							<span class="label label-info">优先级 {$row['displayorder']}</span>
+						{/if}
+					{/if}
+					{if $row['status'] == '0'}<span class="label label-danger">已禁用</span>{/if}
+				</span>
+			</div>
+			<div class="panel-body">
+				{loop $row['keywords'] $kw}
+				<span class="label label-default" data-toggle="tooltip" data-placement="top" title="{if $kw['type']==1}等于{elseif $kw['type']==2}包含{elseif $kw['type']==3}正则{/if}">{$kw['content']}</span>&nbsp;
+				{if $kw['type'] == 4}<span class="label label-info" data-toggle="tooltip" data-placement="top" title="托管">优先级在{$row['displayorder']}之下直接生效</span>{/if}
+				{/loop}
+			</div>
+			<div class="panel-footer clearfix">
+				<div class="btn-group pull-right">
+					<a class="btn btn-default btn-sm" href="{php echo url('platform/reply/post', array('m' => $m, 'rid' => $row['id']))}"><i class="fa fa-edit"></i> 编辑</a>
+					<a class="btn btn-default btn-sm" href="{php echo url('platform/reply/delete', array('m' => $m, 'rid' => $row['id']))}" onclick="return confirm('删除规则将同时删除关键字与回复，确认吗？');return false;"><i class="fa fa-times"></i> 删除</a>
+					<a class="btn btn-default btn-sm" href="{php echo url('platform/stat/trend', array('id' => $row['id'], 'm' => $row['module']))}"><i class="fa fa-bar-chart-o"></i> 使用率走势</a>
+					{if $row['options']}
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+							功能选项
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" style="min-width:0px;">
+							{loop $row['options'] $opt}
+								<li><a href="{$opt['url']}">{$opt['title']}</a></li>
+							{/loop}
+						</ul>
+					</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+		{/loop}
+	</div>
+	<div>
+		<label class="checkbox-inline" style="margin-top:-30px;margin-left:17px"><input type="checkbox" name="select_all" id="select_all" value="1"/></label>
+		<input type="submit" class="btn btn-danger" value="删除" onclick="if(!confirm('确定删除选中的规则吗？')) return false;"/>
+		<input type="hidden" name="token" value="{$_W['token']}"/>
+	</div>
+	{/if}
+	</form>
+	{$pager}
+</div>
+<script>
+require(['bootstrap'], function($){
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip();
+		$('#select_all').click(function(){
+			$('#form1 :checkbox').prop('checked', $(this).prop('checked'));
+		});
+		$('#form1 :checkbox').click(function(){
+			if(!$(this).prop('checked')) {
+				$('#select_all').prop('checked', false);
+			} else {
+				var flag = 0;
+				$('#form1 :checkbox[name="rid[]"]').each(function(){
+					if(!$(this).prop('checked') && !flag) {
+						flag = 1;
+					}
+				});
+				if(flag) {
+					$('#select_all').prop('checked', false);
+				} else {
+					$('#select_all').prop('checked', true);
+				}
+			}
+		});
+	})
+});
+</script>
+{template 'common/footer'}

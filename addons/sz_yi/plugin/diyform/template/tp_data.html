@@ -1,0 +1,36 @@
+<?php if (!empty($num)) {
+    for($i=1;$i<=$num;$i++) {
+?>
+        <tr>
+            {loop $item['fields'] $key $name}
+                <td>
+                    <input type="text" name="tp_value_{$key}[]" class="form-control" value="" placeholder="请填写 {$name}" {if $key=='key'}mk="1"{/if} />
+                </td>
+            {/loop}
+            <td>
+                <a class="btn btn-default" href="javascript:;" title="删除" onclick="removeType(this)"><i class="fa fa-remove"></i></a>
+            </td>
+             <input type="hidden" name="tp_id[]" value="" />
+        </tr>
+<?php } } else { ?>
+            <tr>
+                    {php $data['fields'] = iunserializer($data['fields']) }
+                    {if !empty($data['edit'])}
+                        {loop $data['fields'] $k=>$v}
+                                <td>
+                                    <input type="text" name="tp_value_{$k}[]" class="form-control" value="{$v}" placeholder="" {if $kk=='key'}mk="1"{/if} />
+                                </td>
+                        {/loop} 
+                    {else}
+                         {loop $item['fields'] $key $name}
+                            <td>
+                                <input type="text" name="tp_value_{$key}[]" class="form-control" value="" placeholder="请填写 {$name}" {if $key=='key'}mk="1"{/if} />
+                            </td>
+                        {/loop}
+                    {/if} 
+                    
+                    
+               <td>禁止<br>删除</td>
+               <input type="hidden" name="tp_id[]" value="{$data['id']}" />
+           </tr>
+<?php } ?>   

@@ -1,0 +1,109 @@
+{template 'common/header'}
+{template 'mc/header'}
+<style>
+	.add-address-main{padding: 10px;}
+	.district .row .col-sm-4{margin-bottom:10px;}
+	.add-address-main{color:#606366; background:transparent url('resource/images/home-bg.jpg') no-repeat; background-size:100% 100%;}
+</style>
+<div class="" id="addAddressPanel">
+	<div class="add-address-main">
+		<form action="" method="post" class="form-horizontal">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">收货人：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="realname" name="realname" placeholder="请输入收货人姓名">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">联系电话：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="mobile" name="mobile" placeholder="请输入您的联系电话">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">邮政编码：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="请输入邮编">
+				</div>
+			</div>
+			<!--<div class="form-group">-->
+				<!--<label class="col-sm-3 control-label">地区</label>-->
+				<!--<div class="col-sm-9">{php echo tpl_fans_form('reside',array('province' => $profile['resideprovince'],'city' => $profile['residecity'],'district' => $profile['residedist']));}</div>-->
+			<!--</div>-->
+			<div class="form-group district">
+				<label class="col-sm-3 control-label">地区:</label>
+				<div class="col-sm-9">
+					<script type="text/javascript">
+					require(['jquery', 'district'], function($, d){
+						$(function(){
+							d.render(
+								{province: $('#p')[0], city: $('#c')[0], district: $('#d')[0]},
+								{province: '', city: '', district: ''},
+								{withTitle: true}
+							);
+						});
+					});
+					</script>
+					<div class="row">
+						<div class="col-sm-4">
+							<select id="p" class="form-control" name="province"></select>
+						</div>
+						<div class="col-sm-4">
+							<select id="c" class="form-control" name="city"></select>
+						</div>
+						<div class="col-sm-4">
+							<select id="d" class="form-control" name="area"></select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">详细地址：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="address" name="address" placeholder="请输入您的详细地址">
+				</div>
+			</div>
+			<input type="hidden" id="addressid" value="" />
+			<div class="form-group">
+				<div class="col-sm-12">
+					<input name="submit" type="submit" value="保存" class="btn btn-primary btn-block use js-test" />
+					<input type="hidden" name="token" value="{$_W['token']}" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">(function ($) {	
+	$('.js-test').click(function () {
+		var realname = $('#realname').val();
+		var mobile = $('#mobile').val();
+		var province = $('#p').val();
+		var city = $('#c').val();
+		var area = $('#d').val();
+		var address = $('#address').val();
+		var zipcode = $('#zipcode').val();
+		if (!realname) {
+			alert('请输入您的真实姓名！');
+			return false;
+		}
+		if (!mobile) {
+			alert('请输入您的手机号码！');
+			return false;
+		}
+		if (mobile.search(/^([0-9]{11})?$/) == -1) {
+			alert('请输入正确的手机号码！');
+			return false;
+		}
+		if (!zipcode) {
+			alert('请输入邮政编码！');
+			return false;
+		}
+		if (!address) {
+			alert('请输入您的详细地址！');
+			return false;
+		}
+	});
+})(jQuery);
+</script>
+{template 'mc/footer'}
+{template 'common/footer'}

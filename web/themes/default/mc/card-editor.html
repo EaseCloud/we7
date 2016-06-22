@@ -1,0 +1,115 @@
+{template 'common/header'}
+<link href="./resource/css/app.css" rel="stylesheet">
+<ul class="nav nav-tabs">
+	<li class="active"><a href="{php echo url('mc/card/editor');}">会员卡设置</a></li>
+</ul>
+<div class="alert alert-info">
+	<div>
+		<i class="fa fa-info-circle"></i>
+		会员在进行余额充值，会员组变更，会员积分变更，会员卡计次充值，会员卡计时充值等操作时，系统会进行微信模板消息通知。<a href="{php echo url('mc/tplnotice');}">设置模板消息</a>
+	</div>
+	<div>
+		<i class="fa fa-info-circle"></i>
+		开启会员卡功能后,请先对会员卡进行设置,然后提交保存.
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		是否启用会员卡：
+		<input type="checkbox" name="flag" value="1" {if intval($setting['status'])==1} checked="checked" {/if} data="{$setting['id']}"/>
+	</div>
+</div>
+{if empty($setting) || $setting['status'] == 1}
+<form action="" method="post">
+	<div class="usercard shopNav" ng-controller="commonCtrl">
+		<div class="app clearfix" ng-controller="userCardCtrl">
+			<input type="hidden" name="wapeditor[params]" id="wapeditor-params" value="{{submit.params}}" />
+			<input type="hidden" name="wapeditor[html]" id="wapeditor-html" value="{{submit.html}}" />
+			<div class="app-preview">
+				<div class="app-header"></div>
+				<div class="app-content">
+					<div class="system-card">
+						<div class="inner">
+							<div class="clearfix">
+								<div ng-if="module['id'] && module['id'] == 'cardBasic'" id="module-{{module.index}}" name="{{module.id}}" index="{{module.index}}" ng-class="{'modules-actions': activeItem.index == module.index, 'js-sorttable' : !module.issystem}" ng-repeat="module in activeModules | orderBy:'displayorder'"  ng-style="{'border' : module.issystem ? 'none' : ''}">
+									<div ng-init="displayPanel = ('widget-'+(module['id'].toLowerCase())+'-display.html')" ng-include="displayPanel" ng-click="editItem(module.index)"></div>
+									<!--自定义模块编辑部分-->
+									<div class="text-right action-wrap">
+										<span class="label-default action edit" ng-click="editItem(module.index)">编辑</span>
+										<!--span class="label-default action app-add">加内容</span-->
+										<span class="label-default action remove" data-container="body" data-toggle="popover" data-placement="left" ng-click="deleteItem(module.index)">删除</span>
+									</div>
+								</div>
+
+								<div class="modules">
+									<div ng-if="module['id'] && module['id'] != 'cardBasic'" id="module-{{module.index}}" name="{{module.id}}" index="{{module.index}}" ng-class="{'modules-actions': activeItem.index == module.index, 'js-sorttable' : true}" ng-repeat="module in activeModules | orderBy:'displayorder'">
+										<div ng-init="displayPanel = ('widget-'+(module['id'].toLowerCase())+'-display.html')" ng-include="displayPanel" ng-click="editItem(module.index)"></div>
+										<!--自定义模块编辑部分-->
+										<div class="text-right action-wrap">
+											<span class="label-default action edit" ng-click="editItem(module.index)">编辑</span>
+											<!--span class="label-default action app-add">加内容</span-->
+											<span class="label-default action remove" data-container="body" data-toggle="popover" data-placement="left" ng-click="deleteItem(module.index)" ng-if="module['id'] != 'cardActivity' && module['id'] != 'cardNums' && module['id'] != 'cardTimes'">删除</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="app-region">
+					<div class="arrow-top"></div>
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h4 class="text-center">添加内容</h4>
+							<ul class="app-add-filed clearfix">
+								<li ng-repeat="m in modules" ng-if="!m.issystem" ng-click="addItem(m['id'])"><a id="{{m['id']}}" class="btn btn-default" href="#" ng-bind="m['name']"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="app-side">
+				<div ng-init="editorPanel = ('widget-'+(editorid.toLowerCase())+'-editor.html'.toLowerCase())" ng-show="activeItem.id == editorid" ng-repeat="editorid in editors" test="{{editorPanel}}" ng-include="editorPanel" id="editor{{editorid}}" class="editor"></div>
+			</div>
+			<div class="shop-preview col-xs-12 col-sm-9 col-lg-10">
+				<div class="text-center alert alert-warning">
+					<button type="submit" class="btn btn-primary js-editor-submit">上架</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+{/if}
+{php echo tpl_ueditor('')}
+<script type="text/javascript">
+	$(function(){
+		$('.app-preview').click(function(){
+			return false;
+		});
+		require(['wapeditor', 'bootstrap.switch'], function() {
+			$(":checkbox[name='flag']").bootstrapSwitch();
+			$(':checkbox').on('switchChange.bootstrapSwitch', function(e, state){
+				$this = $(this);
+				var status = this.checked ? 1 : 0;
+				$.post("{php echo url('mc/card/ajax', array('op' => 'status'));}", {status:status}, function(resp){
+					if(resp != 'success') {
+						util.message('操作失败, 请稍后重试.')
+					} else {
+						util.message('操作成功', location.href, 'success');
+					}
+				});
+			});
+			creditnames = {'credit1' : '{$unisetting['creditnames']['credit1']['title']}', 'credit2' : '{$unisetting['creditnames']['credit2']['title']}'};
+			activeModules = {php echo !empty($setting['params']) ? $setting['params'] : 'null'};
+			fansFields = {php echo json_encode($fields);};
+			discounts = {php echo json_encode($discounts);};
+			angular.bootstrap(document, ['app']);
+		});
+		$('.modules').click(function(){
+			return false;
+		});
+	});
+</script>
+
+
+{template 'common/footer'}

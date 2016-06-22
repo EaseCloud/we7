@@ -1,0 +1,53 @@
+<style>
+	.table{margin-bottom: 0}
+	.table td, .table th{text-align: center}
+</style>
+<form class="table-responsive" method="post" action="{php echo url('mc/creditmanage/manage')}" id="form1">
+	<input type="hidden" name="do" value="manage">
+	<input type="hidden" name="uid" value="{$data['uid']}">
+	<input name="token" type="hidden" value="{$_W['token']}"/>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>UID</th>
+				<th>姓名</th>
+				<th>手机</th>
+				<th style="width:350px">邮箱</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{$data['uid']}</td>
+				<td>{if $data['realname']} {$data['realname']} {else} 未完善 {/if}</td>
+				<td>{if $data['mobile']} {$data['mobile']} {else} 未完善 {/if}</td>
+				<td>{$data['email']}</td>
+			</tr>
+			{loop $creditnames $index $creditname}
+			<tr>
+				<th>{$creditname['title']}</th>
+				<td>{$data[$index]}</td>
+				<td>
+					<label class="radio-inline"><input type="radio" name="{$index}_type" value="1" checked> 增加</label>
+					<label class="radio-inline"><input type="radio" name="{$index}_type" value="2"> 减少</label>
+				</td>
+				<td>
+					<input type="text" name="{$index}_value"  value="" class="form-control">
+				</td>
+			</tr>
+			{/loop}
+			<tr>
+				<th>店员密码</th>
+				<td colspan="3">
+					<input type="password" name="password" class="form-control" value="">
+				</td>
+			</tr>
+			<tr>
+				<th>积分操作备注</th>
+				<td colspan="3">
+					<textarea class="form-control" name="remark"></textarea>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+

@@ -1,0 +1,118 @@
+{template 'web/_header'}
+{template 'web/finance/tabs'}
+
+{if $operation=='credit1'}
+
+<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+<div class="panel panel-default">
+    
+    <div class="panel-heading">
+        积分充值
+    </div>
+    <div class="panel-body">
+           <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝</label>
+                <div class="col-sm-9 col-xs-12">
+                    <img src='{$profile['avatar']}' style='width:100px;height:100px;padding:1px;border:1px solid #ccc' />
+                         {$profile['nickname']}
+                </div>
+            </div>
+           <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">OPENID</label>
+                <div class="col-sm-9 col-xs-12">
+                    <div class="form-control-static">{$profile['openid']}</div>
+                </div>
+            </div>
+        
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员信息</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="form-control-static">姓名: {$profile['realname']} / 手机号: {$profile['mobile']}</div>
+            </div>
+        </div>
+        
+         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">当前积分</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="form-control-static">{$profile['credit1']}</div>
+            </div>
+        </div>
+           <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">充值积分</label>
+            <div class="col-sm-9 col-xs-12">
+                 <input type="text" name="num" class="form-control" value="" />
+            </div>
+           </div>
+        
+           <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-xs-12">
+                    <input type="hidden" name="openid" value="{$_GPC['openid']}" />
+                    <input type="hidden" name="token" value="{$_W['token']}" />
+                    <input name="submit" type="submit" value="充 值" class="btn btn-primary span2" onclick="return confirm('确认充值？');return false;" >
+            </div>
+           </div>
+  
+        </div>
+    </div>
+ 
+</form>
+
+{else if $operation=='credit2'}
+
+<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+<div class="panel panel-default">
+    
+    <div class="panel-heading">
+        余额充值
+    </div>
+    <div class="panel-body">
+         <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝</label>
+                <div class="col-sm-9 col-xs-12">
+                    <img src='{$profile['avatar']}' style='width:100px;height:100px;padding:1px;border:1px solid #ccc' />
+                         {$profile['nickname']}
+                </div>
+            </div>
+        <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">OPENID</label>
+                <div class="col-sm-9 col-xs-12">
+                    <div class="form-control-static">{$profile['openid']}</div>
+                </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员信息</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="form-control-static">姓名: {$profile['realname']} / 手机号: {$profile['mobile']}</div>
+            </div>
+        </div>
+         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">当前余额</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="form-control-static">{$profile['credit2']}</div>
+            </div>
+        </div>
+           <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">充值金额</label>
+            <div class="col-sm-9 col-xs-12">
+                 <input type="text" name="num" class="form-control" value="" />
+            </div>
+           </div>
+        
+           <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-xs-12">
+                    <input type="hidden" name="openid" value="{$_GPC['openid']}" />
+                    <input type="hidden" name="token" value="{$_W['token']}" />
+                    <input name="submit" type="submit" value="充 值" class="btn btn-primary span2" onclick="return confirm('确认充值？');return false;">
+            </div>
+           </div>
+  
+        </div>
+    </div>
+ 
+</form>
+
+{/if}
+{template 'web/_footer'}

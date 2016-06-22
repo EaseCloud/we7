@@ -1,0 +1,190 @@
+{template 'common/header-gw'}
+<ol class="breadcrumb">
+	<li><a href="./?refresh"><i class="fa fa-home"></i></a></li>
+	<li><a href="{url 'system/welcome'}">系统</a></li>
+	<li class="active">查看日志</li>
+</ol>
+<ul class="nav nav-tabs">
+	<li{if $do == 'wechat' || $do == 'detail'} class="active"{/if}><a href="{php echo url('system/logs/wechat');}">微信日志</a></li>
+	<li{if $do == 'system'} class="active"{/if}><a href="{php echo url('system/logs/system');}">系统日志</a></li>
+	<li{if $do == 'database'} class="active"{/if}><a href="{php echo url('system/logs/database');}">数据库日志</a></li>
+	<li{if $do == 'sms'} class="active"{/if}><a href="{php echo url('system/logs/sms');}">短信发送日志</a></li>
+</ul>
+<div class="clearfix">
+	<h5 class="page-header">日志信息</h5>
+	<!-- 筛选功能 -->
+	{if ($do != 'wechat')}
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="system">
+			<input type="hidden" name="a" value="logs">
+			<input type="hidden" name="do" value="{$do}">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-1 control-label">日期范围</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						{php echo tpl_form_field_daterange('time', array('starttime'=>$_GPC['time']['start'],'endtime'=>$_GPC['time']['end']));}
+					</div>
+                    {if $do != 'sms'}
+                    <div class="pull-right col-xs-12 col-sm-1 col-lg-2">
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                    </div>
+                    {/if}
+				</div>
+                {if $do == 'sms'}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 col-lg-1 control-label">手机号</label>
+                    <div class="col-sm-6 col-lg-8 col-xs-12">
+                        <input type="text" class="form-control" name="mobile" value="{$_GPC['mobile']}">
+                    </div>
+                    <div class="pull-right col-xs-12 col-sm-1 col-lg-2">
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                    </div>
+                </div>
+                {/if}
+			</form>
+		</div>
+	</div>
+	{/if}
+	
+	<!-- 微信日志 -->
+	{if ($do == 'wechat')}
+		<div class="panel panel-info">
+			<div class="panel-heading">筛选</div>
+			<div class="panel-body">
+				<form action="./index.php" method="get" class="form-horizontal" role="form">
+				<input type="hidden" name="c" value="system">
+				<input type="hidden" name="a" value="logs">
+				<input type="hidden" name="do" value="{$do}">
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 col-lg-1 control-label">日期选择</label>
+						<div class="col-sm-6 col-lg-8 col-xs-12">
+							<select name="searchtime" class="form-control">
+							{loop $tree $row}
+							<option value="{$row}" {if $_GPC['searchtime'] == $row}selected{/if}>{$row}</option>
+							{/loop}
+						</select>
+						</div>
+						<div class="pull-right col-xs-12 col-sm-1 col-lg-2">
+							<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<pre>
+		{$contents}
+		</pre>
+		<!-- <div class="table-responsive">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+					<tr>
+						<th style="width:350px;">日志类型</th>
+						<th>日志文件</th>
+						<th>记录时间</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $item}
+					<tr>
+						<td><a href="#">{$item['type']}</a></td>
+						<td><a href="#">{$item['filename']}</a></td>
+						<td>{$item['createtime']}</td>
+						<td>
+							<a href="{php echo url('system/logs/detail', array('more' => $item['filename']))}" title="查看详情" class="btn btn-default btn-sm">查看详情</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div> -->
+	{/if}
+	
+	<!-- 系统日志 -->
+	{if ($do == 'system')}
+	<div class="panel panel-default">
+		<div class="table-responsive panel-body">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+					<tr>
+						<th style="width:150px;">日志类型</th>
+						<th style="width:150px;">页面执行时间</th>
+						<th style="width:150px;">页面URL</th>
+						<th style="width:200px;">日志记录时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $item}
+					<tr>
+						<td>{$item['type']}</td>
+						<td>{$item['runtime']}</td>
+						<td><a href="{$item['runurl']}" target="_blank" >{$item['runurl']}</a></td>
+						<td>{$item['createtime']}</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+	{/if}
+	
+	<!-- 数据据日志 -->
+	{if ($do == 'database')}
+	<div class="panel panel-default">
+		<div class="table-responsive panel-body">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+					<tr>
+						<th style="width:150px;">日志类型</th>
+						<th style="width:150px;">SQL执行时间</th>
+						<th style="width:150px;">SQL语句</th>
+						<th style="width:200px;">日志记录时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $item}
+					<tr>
+						<td>{$item['type']}</td>
+						<td>{$item['runtime']}</td>
+						<td>{$item['runsql']}</td>
+						<td>{$item['createtime']}</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+	{/if}
+    {if $do == 'sms'}
+    <div class="panel panel-default">
+        <div class="table-responsive panel-body">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th style="width:150px;">接收手机</th>
+                    <th style="width:150px;">发送内容</th>
+                    <th style="width:150px;">错误报告</th>
+                    <th style="width:200px;">发送时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $list $item}
+                <tr>
+                    <td>{$item['mobile']}</td>
+                    <td>{$item['content']}</td>
+                    <td>{$item['result']}</td>
+					<td>{php echo date('Y-m-d H:i:s', $item['createtime'])}</td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {$pager}
+    {/if}
+</div>
+{template 'common/footer-gw'}

@@ -1,0 +1,86 @@
+{php define(MUI, true);}
+{template 'common/header'}
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">账单详情</h1>
+</header>
+<div class="mui-content trading-detail">
+	<ul class="mui-table-view">
+		<li class="mui-table-view-cell">
+			<div class="mui-text-muted">交易成功</div>
+			<div class="mui-b account">+{$order['final_fee']}</div>
+		</li>
+		<li class="mui-table-view-cell mui-media">
+			<a href="#">
+				<img src="images/avatar.png" alt="" class="mui-media-object mui-pull-left mui-img-rounded"/>
+				<div class="mui-media-body company">{$store_name['business_name']}</div>
+			</a>
+		</li>
+	</ul>
+	<ul class="mui-table-view">
+		<li class="mui-table-view-cell">
+			<label>订单详情</label>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>付款说明</label>
+			<span class="mui-text-muted mui-ml15">{$order['body']}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>订单编号</label>
+			<span class="mui-text-muted mui-ml15">{$order['uniontid']}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>支付方式</label>
+			<span class="mui-text-muted mui-ml15">{$types[$order['type']]}-{$trade_types[$order['trade_type']]}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>第三方支付订单id</label>
+			<span class="mui-text-muted mui-ml15">{$order['transaction_id']}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>支付者</label>
+			<span class="mui-text-muted mui-ml15">{if !empty($order['nickname'])}{$order['nickname']}{else}未知{/if}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>支付者openid</label>
+			<span class="mui-text-muted mui-ml15">{$order['openid']}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>创建时间</label>
+			<span class="mui-text-muted mui-ml15">{php echo date('Y-m-d H:i:s', $order['createtime'])}</span>
+		</li>
+	</ul>
+	<ul class="mui-table-view">
+		<li class="mui-table-view-cell">
+			<label>支付详情</label>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>应付金额(元)</label>
+			<span class="mui-text-muted mui-ml15">{$order['fee']}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>积分抵现(元)</label>
+			<span class="mui-text-muted mui-ml15">{$order['credit1_fee']}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>余额支付(元)</label>
+			<span class="mui-text-muted mui-ml15">{$order['credit2']}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>线上支付(元)</label>
+			<span class="mui-text-muted mui-ml15">{$order['cash']}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>实付金额(元)</label>
+			<span class="mui-text-muted mui-ml15">{$order['final_fee']}</span>
+		</li>
+		<li class="mui-table-view-cell">
+			<label>支付时间</label>
+			<span class="mui-text-muted mui-ml15">{php echo date('Y-m-d H:i:s', $order['paytime'])}</span>
+		</li>
+		<li class="mui-table-view-cell mui-text-info">
+			<a href="#" class="mui-block mui-text-center">对此订单有疑问?</a>
+		</li>
+	</ul>
+</div>
+{template 'common/footer'}

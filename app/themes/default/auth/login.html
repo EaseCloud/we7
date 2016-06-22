@@ -1,0 +1,150 @@
+{template 'common/header'}
+<script>
+	require(['angular', 'bootstrap', 'util'], function(angular, $, u){
+		angular.module('app', []).controller('loginPanel', function($scope, $http){
+			$scope.label = {
+				basic: {
+					error: false
+				},
+				code: {
+					countDown : '',
+					error: false
+				},
+				running: false
+			};
+			$scope.ret = {
+				basic: {
+					username : '',
+					password : ''
+				},
+				code: {
+					username : '',
+					password : ''
+				}
+			};
+			$scope.login = function(){
+				if($scope.label.running) {
+					return;
+				}
+				var ret = $scope.ret;
+				var mode = angular.element('li.active a[data-toggle="tab"]').attr('href') == '#basic' ? 'basic' : 'code';
+				if(ret[mode].username == '' || ret[mode].password == '') {
+					$scope.label[mode].error = true;
+					return;
+				}
+				$scope.label[mode].error = false;
+
+				$scope.label.running = true;
+				var params = angular.copy(ret[mode]);
+				params.mode = mode;
+				$http.post(location.href, params).success(function(dat){
+					if(dat != 'success') {
+						u.message(dat);
+					} else {
+						location.reload();
+					}
+					$scope.label.running = false;
+				});
+			};
+		});
+		angular.bootstrap(document, ['app']);
+
+		$(function(){
+			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				if($(e.target).attr('href') == '#code') {
+					$('#code').addClass('fadeInRight');
+				} else {
+					$('#basic').addClass('fadeInLeft');
+				}
+			});
+			$('.btn-sender').on('click', function(){
+				var mode = $('li.active a[data-toggle="tab"]').attr('href') == '#basic' ? 'basic' : 'code';
+				if(mode == 'basic') {
+					return;
+				}
+				var scope = angular.element('.ng-container').scope();
+				if(!scope.ret.code.username) {
+					u.message('请输入邮箱或者手机号.');
+					return;
+				}
+				u.sendCode(this, scope.ret.code.username, function(ret, message){
+					if(ret == 'failed') {
+						u.message('发送验证码失败. 详情: ' + message);
+					}
+				});
+			});
+		});
+	});
+</script>
+<style>
+	body{background:#d2e6e9;}
+	.panel{margin:.5em; border:none;}
+	.panel-info>.panel-heading {background: -webkit-gradient(linear, 0 0, 100% 0, from(#ebebeb), to(#f3f9fa), color-stop(30%, #f5f9f9)); color:#666666; border:none;}
+	a{color:#666666;}a:hover{color: #3ebacc;}
+	.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{color: #3ebacc;}
+	.actions{margin:.8em auto;}
+	.nav.nav-tabs{margin-bottom:.8em;}
+	.btn.btn-primary{background: #56c6d6; color: #FFF; border: 0;}
+</style>
+<div class="ng-cloak panel panel-info ng-container" ng-controller="loginPanel">
+	<div class="panel-heading">
+		<h4>确认身份</h4>
+	</div>
+	<div class="panel-body">
+	<form name="theform" method="post" role="form" ng-submit="login();">
+		<ul class="nav nav-tabs" role="tablist">
+			{if $ltype == 'code'}
+				<li class="active"><a href="#code" role="tab" data-toggle="tab">验证码登录</a></li>
+			{elseif $ltype == 'password'}
+				<li class="active"><a href="#basic" role="tab" data-toggle="tab">账号登录</a></li>
+			{else}
+				<li class="active"><a href="#basic" role="tab" data-toggle="tab">账号登录</a></li>
+				<li><a href="#code" role="tab" data-toggle="tab">验证码登录</a></li>
+			{/if}
+		</ul>
+		<div class="tab-content">
+			{if $ltype !== 'code'}
+				<div class="tab-pane animated active" id="basic">
+					<div class="form-group has-feedback" ng-class="{'has-error': label.basic.error}">
+						<label class="control-label sr-only"></label>
+						<input ng-model="ret.basic.username" type="text" class="form-control" placeholder="手机号/邮箱">
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="label.basic.error"></span>
+					</div>
+					<div class="form-group has-feedback" ng-class="{'has-error': label.basic.error}">
+						<label class="control-label sr-only"></label>
+						<input ng-model="ret.basic.password" type="password" class="form-control" placeholder="密码">
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="label.basic.error"></span>
+					</div>
+				</div>
+			{/if}
+			{if $ltype !== 'password'}
+				<div class="tab-pane animated {if $ltype == 'code'}active{/if}" id="code">
+					<div class="form-group has-feedback" ng-class="{'has-error': label.code.error}">
+						<label class="control-label sr-only"></label>
+						<input ng-model="ret.code.username" type="text" class="form-control" placeholder="手机号/邮箱">
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="label.code.error"></span>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-warning btn-block btn-sender" uniacid="{$_W['uniacid']}">获取验证码</button>
+					</div>
+					<div class="form-group has-feedback" ng-class="{'has-error': label.code.error}">
+						<label class="control-label sr-only"></label>
+						<input ng-model="ret.code.password" type="text" class="form-control" placeholder="验证码">
+						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="label.code.error"></span>
+					</div>
+				</div>
+			{/if}
+		</div>
+		<button type="submit" class="btn btn-primary btn-block">登录</button>
+	</form>
+	<div class="clearfix actions">
+		{if $uc_setting['status'] == 1}
+			<a class="pull-left" href="{url 'auth/login/uc' array('forward' => $_GPC['forward'])}#wechat_redirect">使用{$uc_setting['title']}账号登录</a>
+			<a class="pull-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+		{/if}
+		<a class="pull-left" href="{url 'auth/register' array('forward' => $_GPC['forward'])}#wechat_redirect">免费注册</a>
+		<a class="pull-right" href="{url 'auth/forget' array('forward' => $_GPC['forward'])}#wechat_redirect">找回密码</a>
+	</div>
+	</div>
+</div>
+{template 'common/footer'}

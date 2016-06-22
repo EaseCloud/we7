@@ -1,0 +1,100 @@
+{template 'common/header'}
+<style media="all" type="text/css">
+	ul,li {padding:0; margin:0; border:0;}
+	html{overflow-y:hidden;}
+	.scroll-container {position:absolute;z-index:1;background:#fff;overflow:hidden;width:100%;top:0;bottom:48px;left:0;}
+	.scroll-container .wrapper{position:absolute;width:100%;padding-bottom:1em;}
+	.scroll-container .list-group {position:relative; list-style:none; padding:0; margin:0; width:100%; text-align:left;}
+	.scroll-container .list-group .list-group-item .items{float:left; text-align:center;}
+	.scroll-container .list-group .list-group-item .icons{width:20%;height:60px;line-height:55px;text-align:left}
+	.scroll-container .list-group .list-group-item .icons .discount{font-size:24px;font-weight:bold}
+	.scroll-container .list-group .list-group-item .infos{width:60%; text-align:left; font-size:14px;}
+	.scroll-container .list-group .list-group-item .btns{width:20%;  padding-top:15px;}
+	.scroll-container .list-group .list-group-item .detail{border:1px solid #eee; padding:5px;}
+	.scroll-container .list-group .list-group-item .detail h5{padding:5px; font-weight:bolder;border-bottom:1px dashed #eee}
+	.scroll-container .load-more{padding:10px;text-align:center;font-size:1em;}
+</style>
+
+<div class="scroll-container ng-cloak" ng-controller="exchangeCtrl">
+	<ul class="nav nav-tabs" style="margin-bottom:10px">
+		<li {if $type == 3}class="active"{/if}><a href="{php echo url('activity/exchange/mine',array('type'=>3));}">我的实体礼品</a></li>
+		<li {if $type == 5}class="active"{/if}><a href="{php echo url('activity/exchange/mine',array('type'=>5));}">活动参与次数</a></li>
+	</ul>
+
+	<div class="wrapper">
+		<ul class="list-group" >
+			{if $type == 3}
+				<li class="list-group-item" ng-repeat="entry in entries">
+					<div class="clearfix">
+						<div class="items icons"><img src="{$_W['attachurl']}{{entry.exchange.thumb}}" width="60" height="60"></div>
+						<div class="items infos">{{entry.exchange.title}}<br>{{entry.exchange.extra.title}}<br>{{entry.createtime_cn}}</div>
+						<div class="items btns">
+							{{entry.status_cn}}
+							
+						</div>
+					</div>
+					<div class="detail" style="display:none">
+						<h5>使用详情：</h5>
+						<div>1、单笔订单仅使用一张优惠券<br>2、次优惠券不与店内其他优惠活动共用<br>3、不记名，不兑换现金，不找零<br>4、该优惠券最终解释权归本餐厅所有</div>
+					</div>
+				</li>		
+			{elseif $type == 5}
+			
+			
+			
+			{/if}
+		</ul>
+		<div class="load-more">
+			<a href="javascript:;" class="btn btn-default btn-block" ng-click="load();">
+				<i class="fa fa-arrow-down" ng-class="{'fa-circle-o-notch fa-spin': more.loading, 'fa-arrow-down': !more.loading}"></i> {{more.loading ? '正在加载' : '查看更多'}}
+			</a>
+		</div>
+		<div id="page" title="{$pindex}" class="hide"></div>
+	</div>
+</div>
+<script type="text/javascript">
+	require(['angular', 'iscroll'], function(angular, iScroll){
+		$(function(){
+			var elm = $('.scroll-container');
+			var myScroll = new iScroll(elm[0], {});
+
+			$('.list-group-item').click(function(){
+				$(this).find('.detail').slideToggle(function(){
+					myScroll.refresh();
+				});
+			});
+
+			angular.module('app', []).controller('exchangeCtrl', function($scope, $http){
+				$scope.more = {
+					loading: false
+				};
+				$scope.entries = {php echo json_encode($list)};
+
+				$scope.load = function(){
+					if($scope.more.loading) {
+						return;
+					}
+					$scope.more.loading = true;
+					var page = parseInt($("#page").attr('title')) + 1;
+					$("#page").attr('title', page);
+					var params = {page:page};
+					$http.post(location.href, params).success(function(dat){
+						if($.isArray(dat)) {
+							$.each(dat, function(){
+								$scope.entries.push(this);
+							});
+							myScroll.refresh();
+						} else if(dat == 'dataempty') {
+							
+						}
+						$scope.more.loading = false;
+					}).error(function(){
+						$scope.more.loading = false;
+					});
+				}
+			});
+			angular.bootstrap(document, ['app']);
+		});
+	});
+</script>
+{template 'common/footer'}

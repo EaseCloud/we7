@@ -1,0 +1,132 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li class="{if $_GPC['status'] == '2'}active{/if}"><a href="{php echo url('activity/consume/display', array('type' => $type, 'status' => '2'));}">已核销{$types[$type]['title']}</a></li>
+	<li class="{if $_GPC['status'] == '1'}active{/if}"><a href="{php echo url('activity/consume/display', array('type' => $type, 'status' => '1'));}">未核销{$types[$type]['title']}</a></li>
+</ul>
+<div class="main">
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+				<input type="hidden" name="c" value="activity">
+				<input type="hidden" name="a" value="consume">
+				<input type="hidden" name="do" value="display">
+				<input type="hidden" name="type" value="{$type}">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">code码</label>
+					<div class="col-sm-7 col-lg-8 col-md-8 col-xs-12">
+						<input class="form-control" name="code" placeholder="code码" type="text">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">{$types[$type]['title']}标题</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						<select class="form-control" name="couponid">
+							<option value="0">不限</option>
+							{loop $coupons $coupon}
+							<option value="{$coupon['couponid']}" {if $_GPC['couponid'] == $coupon['couponid']}selected{/if}>{$coupon['title']}</option>
+							{/loop}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">用户ID</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						<input class="form-control" name="uid" id="" type="text" value="{$_GPC['uid']}">
+					</div>
+				</div>
+				{if $_GPC['status'] == '2'}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">核销员</label>
+					<div class="col-sm-6 col-md-8 col-lg-8 col-xs-12">
+						<select class="form-control" name="clerk_id">
+							<option value="">不限</option>
+							{loop $clerks $clerk}
+							<option value="{$clerk['id']}" {if $_GPC['clerk_id'] == $clerk['id']}selected{/if}>{$clerk['name']}</option>
+							{/loop}
+						</select>
+					</div>
+				</div>
+				{/if}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">{$types[$type]['title']}状态</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						<select class="form-control" name="status">
+							<option>不限</option>
+							{loop $status $k $v}
+							<option value="{$k}" {if $_GPC['status'] == $k} selected {/if}>{$v}</option>
+							{/loop}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑奖日期</label>
+					<div class="col-sm-6 col-lg-8 col-xs-12">
+						{php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+					</div>
+					<div class="pull-right col-xs-12 col-sm-3 col-lg-2">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="table-responsive panel-body">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+				<tr>
+					<th style="width:80px; text-align:center;">用户ID</th>
+					<th style="width:80px; text-align:center;">标题</th>
+					<th style="width:80px; text-align:center;">图标</th>
+					<th style="width:80px; text-align:center;">{if $type == 1}折扣{else}面额{/if}</th>
+					<th style="width:150px; text-align:center;">兑换时间</th>
+					<th style="width:150px; text-align:center;">折扣券状态</th>
+					{if $_GPC['status'] == '2'}
+					<th style="width:100px;">核销人</th>
+					<th style="width:100px;">核销门店</th>
+					<th style="width:150px; text-align:center;">使用时间</th>
+					{/if}
+					<th style="width:80px; text-align:center;">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				{loop $list $item}
+				<tr>
+					<td class="text-center">{$item['uid']}</td>
+					<td class="text-center">{$item['title']}</td>
+					<td class="text-center"><img src="{$item['thumb']}" style="max-width:50px; max-height: 30px;"></td>
+					<td class="text-center">{$item['discount']}</td>
+					<td class="text-center">{php echo date('Y-m-d H:i', $item['granttime'])}</td>
+					<td class="text-center">
+						{if $item['status'] == 1}
+						<span class="label label-success">未使用</span>
+						{else}
+						<span class="label label-danger">已使用</span>
+						{/if}
+					</td>
+					{if $_GPC['status'] == '2'}
+					<td>{$item['clerk_cn']}</td>
+					<td>{if !empty($item['store_cn'])}{$item['store_cn']}{else}系统后台{/if}</td>
+					<td class="text-center">
+						{if $item['status'] == 1}
+						{else}
+						{php echo date('Y-m-d H:i', $item['usetime'])}
+						{/if}
+					</td>
+					{/if}
+					<td class="text-center">
+						{if $item['status'] !== '2'}
+						<a onclick="if(!confirm('您确定核销吗?')) return false;"  href="{php echo url('activity/consume/consume', array('id' => $item['recid'], 'type' => $item['type']))}" class="btn btn-default btn-sm" title="核销优惠券">核销</a>
+						{/if}
+						<a onclick="if(!confirm('删除后不可恢复,您确定删除吗?')) return false;"  href="{php echo url('activity/consume/del', array('id' => $item['recid'], 'type' => $item['type']))}" class="btn btn-default btn-sm" title="删除兑换记录">删除</a>
+					</td>
+				</tr>
+				{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+</div>
+{template 'common/footer'}

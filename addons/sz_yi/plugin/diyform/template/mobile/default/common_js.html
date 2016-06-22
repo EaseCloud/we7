@@ -1,0 +1,85 @@
+
+{php $i=0;}
+{loop $fields $k1 $v1}
+
+    {if ($v1['data_type'] == 7) || ($v1['data_type'] == 8)}
+        var currYear = (new Date()).getFullYear();
+        var opt = {};
+        opt.date = {preset: 'date'};
+        opt.datetime = {preset: 'datetime'};
+        opt.time = {preset: 'time'};
+        opt.default = {
+            theme: 'android-ics light',
+            display: 'modal',
+            mode: 'scroller',
+            lang: 'zh',
+            startYear: currYear - 100,
+            endYear: currYear
+        };
+
+        {if $v1['data_type'] == 7}
+        $("#field_data{php echo $i}").scroller('destroy').scroller($.extend(opt['date'], opt['default']));
+        {/if}
+
+        {if $v1['data_type'] == 8}
+        $("#field_data{php echo $i}_0").scroller('destroy').scroller($.extend(opt['date'], opt['default']));
+        $("#field_data{php echo $i}_1").scroller('destroy').scroller($.extend(opt['date'], opt['default']));
+        {/if}
+
+    {/if}
+
+    {if $v1['data_type'] == 9}
+         cascdeInit("{php echo isset($f_data[$k1]['province'])?$f_data[$k1]['province']:''}","{php echo isset($f_data[$k1]['city'])?$f_data[$k1]['city']:''}",0,{php echo $i});
+    {/if}
+
+{php $i++;}
+{/loop}
+
+
+$('.minus_del').click(function() {
+    $(this).parent().remove();
+    core.json('util/uploader', {op: 'remove', file: $(this).parent().data('img')}, function(rjson) {
+        if (rjson.status == 1) {
+
+        }
+        $('.plus').show();
+    }, false, true);
+});
+
+$('.plus input').change(function() {
+    core.loading('正在上传');
+    var comment =$(this).closest('.img_info');
+    var ogid = comment.data('ogid');
+    var max = comment.data('max');
+ 
+
+    $.ajaxFileUpload({
+        url: core.getUrl('util/uploader'),
+        data: {file: "imgFile" + ogid},
+        secureuri: false,
+        fileElementId: 'imgFile' + ogid,
+        dataType: 'json',
+        success: function(res, status) {
+            core.removeLoading();
+            var obj = $(tpl('tpl_img', res));
+            $('.images',comment).append(obj);
+
+            $('.minus',comment).click(function() {
+                core.json('util/uploader', {op: 'remove', file: $(obj).data('img')}, function(rjson) {
+                    if (rjson.status == 1) {
+                        $(obj).remove();
+                    }
+                    $('.plus',comment).show();
+                }, false, true);
+            });
+
+            if ($('.img',comment).length >= max) {
+                $('.plus',comment).hide();
+            }
+        }, error: function(data, status, e) {
+            core.removeLoading();
+            core.tip.show('上传失败!');
+        }
+    });
+});
+

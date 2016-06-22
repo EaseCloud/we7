@@ -1,0 +1,91 @@
+{template 'web/_header'}
+{template 'tabs'}
+<style type='text/css'>
+.trhead td {  background:#efefef;text-align: center}
+.trbody td {  text-align: center; vertical-align:top;border-left:1px solid #ccc;overflow: hidden;}
+.goods_info{position:relative;width:60px;}
+.goods_info img {width:50px;background:#fff;border:1px solid #CCC;padding:1px;}
+.goods_info:hover {z-index:1;position:absolute;width:auto;}
+.goods_info:hover img{width:320px; height:320px;}
+</style>
+{if $operation=='display'}
+<div class="panel panel-info">
+    <div class="panel-heading">筛选</div>
+    <div class="panel-body">
+        <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+            <input type="hidden" name="c" value="site" />
+            <input type="hidden" name="a" value="entry" />
+            <input type="hidden" name="m" value="sz_yi" />
+            <input type="hidden" name="do" value="plugin" />
+            <input type="hidden" name="p" value="supplier" />
+            <input type="hidden" name="method" value="supplier_apply" />
+            <input type="hidden" name="op" value="display" />
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">会员信息</label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                    <input type="text" class="form-control"  name="uid" value="{$_GPC['uid']}" placeholder='搜索供货商ID'/> 
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">提现单号</label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                    <input type="text" class="form-control"  name="applysn" value="{$_GPC['applysn']}"/> 
+                </div> 
+            </div>
+			<div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                       <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					<input type="hidden" name="token" value="{$_W['token']}" />
+                </div>
+            </div>    
+        </form>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">总数：{$total}</div>
+    <div class="panel-body">
+        <table class="table table-hover table-responsive">
+            <thead class="navbar-inner" >
+                <tr>
+                    <th style='width:5%;'>供应商ID</th>
+                    <th style='width:15%;'>提现单号</th>
+                    <th style='width:5%;'>开户名</th>
+                    <th style='width:10%;'>电话</th>
+                    <th style='width:10%;'>开户银行</th>
+                    <th style='width:15%;'>银行卡号</th>
+                    <th style='width:10%;'>提现金额</th>
+                    <th style='width:10%;'>申请时间</th>
+                    <th style='width:10%;'>打款</th>
+                    <th style='width:10%;'>状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list $row}
+                    {if !empty($row['uid'])}
+                        <tr>
+                            <td>{$row['uid']}</td>
+                            <td>{$row['applysn']}</td>
+                            <td>{$row['accountname']}</td>
+                            <td>{$row['telephone']}</td>
+                            <td>{$row['accountbank']}</td>
+                            <td>{$row['banknumber']}</td>
+                            <td>{$row['apply_money']}</td>
+                            <td><?php echo date('Y-m-d H:i:s',$row['apply_time']);?></td>
+                            <td>{php echo $row['type'] == 1 ? "银行卡" : "微信余额"}</td>
+                            <td  style="overflow:visible;">
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-xs-9">
+                                    <a href="{php echo $this->createPluginWebUrl('supplier/supplier_apply/detail',array('id' => $row['id']));}">通过</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {/if}
+                {/loop}
+            </tbody>
+        </table>
+    </div>
+</div>
+{/if}
+{template 'common/footer'}

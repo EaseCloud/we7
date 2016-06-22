@@ -1,0 +1,13 @@
+<ul class="nav nav-tabs">
+
+    {ifp 'perm.role'}<li {if $_GPC['method']=='role'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('perm/role')}">角色管理</a></li>{/if}
+    {ifp 'perm.user'}<li {if $_GPC['method']=='user'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('perm/user')}">操作员管理</a></li>{/if}
+    {ifp 'perm.log'}<li {if $_GPC['method']=='log'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('perm/log')}">系统操作日志</a></li>{/if}
+    
+    {if $_W['isfounder']}
+    <li  {if $_GPC['method']=='setting'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('perm/setting')}">插件信息设置</a></li>
+   <li  {if $_GPC['method']=='plugins'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('perm/plugins')}">公众号插件权限设置</a></li>
+    <li {if $_GPC['method']=='set'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('perm/set')}">基础设置</a></li>
+   {/if}
+</ul>
+ 

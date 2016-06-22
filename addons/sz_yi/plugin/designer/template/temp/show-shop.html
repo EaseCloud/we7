@@ -1,0 +1,53 @@
+<!-- 样式1 -->
+<div class="fe-mod fe-mod-9" ng-class="{'fe-mod-select':Item.id == focus}" ng-show="Item.params.style == 1">
+    <img ng-src="{{Item.params.bgimg}}"/>
+    <div class="fe-mod-9-menu" ng-show="Item.params.menu == 1"  ng-style="{'color':Item.params.navcolor}">
+        <a href="{{Item.data[0]}}"><div onclick="location = ''" class="fe-mod-9-nav fe-mod-9-nav-on"><i class="fa fa-home"></i><br>首页</div></a>
+        <a href="{{Item.data[1]}}"><div class="fe-mod-9-nav"><i class="fa fa-suitcase"></i><br>全部商品</div></a>
+        <a href="{{Item.data[2]}}"><div class="fe-mod-9-nav"><i class="fa fa-tags"></i><br>促销商品</div></a>
+        <a href="{{Item.data[3]}}"><div class="fe-mod-9-nav"><i class="fa fa-volume-up"></i><br>店铺公告</div></a>
+    </div>
+    <div class="fe-mod-9-shopname" ng-show="Item.params.name == 1">
+        <div class="fe-mod-9-name">{{system[0].shop.name|| 'XX商城'}}</div>
+    </div>
+    <div class="fe-mod-9-shoplogo" ng-show="Item.params.logo == 1"> 
+        <div class="fe-mod-9-shoplogo-img">
+            <img ng-src="{{system[0].shop.logo|| '../addons/sz_yi/plugin/designer/template/imgsrc/init-data/init-icon.png'}}"/>
+        </div>
+    </div>
+</div>
+<!-- 样式2 -->
+<div class="fe-mod fe-mod-10" ng-class="{'fe-mod-select':Item.id == focus}" ng-show="Item.params.style == 2">
+    <div class="fe-mod-del" ng-click="delItem(Item.id)">移除</div>
+    <img ng-src="{{Item.params.bgimg}}"/>
+    <div class="fe-mod-10-shoplogo" ng-show="Item.params.logo == 1">
+        <img ng-src="{{system[0].shop.logo|| '../addons/sz_yi/plugin/designer/template/imgsrc/init-data/init-icon.png'}}"/>
+    </div>
+    <div class="fe-mod-10-shopname" ng-show="Item.params.name == 1">{{system[0].shop.name|| 'XX商城'}}</div>
+    <div class="fe-mod-10-menu" ng-show="Item.params.menu == 1" ng-style="{'color':Item.params.navcolor}">
+        <a href="{{Item.data[0]}}">
+            <div class="fe-mod-10-nav">
+                <span><i class="fa fa-home" ng-style="{'color':Item.params.navcolor}"></i></span>
+                <nav>首页</nav>
+            </div>
+        </a>
+        <a href="{{Item.data[1]}}">
+            <div class="fe-mod-10-nav">
+                <span><i class="fa fa-suitcase" ng-style="{'color':Item.params.navcolor}"></i></span>
+                <nav>全部商品</nav>
+            </div>
+        </a>
+        <a href="{{Item.data[2]}}">
+            <div class="fe-mod-10-nav">
+                <span><i class="fa fa-tags" ng-style="{'color':Item.params.navcolor}"></i></span>
+                <nav>促销商品</nav>
+            </div>
+        </a>
+        <a href="{{Item.data[3]}}">
+            <div class="fe-mod-10-nav">
+                <span><i class="fa fa-volume-up" ng-style="{'color':Item.params.navcolor}"></i></span>
+                <nav>店铺公告</nav>
+            </div>
+        </a>
+    </div>
+</div>

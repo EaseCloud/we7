@@ -1,0 +1,10 @@
+<ul class="nav nav-tabs">
+    
+    {ifp 'virtual.temp'}<li {if $_GPC['method']=='temp'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('virtual/temp')}" style="cursor: pointer;">模板管理</a></li>{/if}
+    {ifp 'virtual.category'}<li {if $_GPC['method']=='category'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('virtual/category')}" style="cursor: pointer;">分类管理</a></li>{/if}
+     {ifp 'virtual.data'}
+    {if $_GPC['method']=='data' && $operation=='post'}<li class="active"><a href="javascript:;" style="cursor: pointer;">添加数据</a></li>{/if}
+    {if $_GPC['method']=='data' && $operation=='display'}<li class="active"><a href="javascript:;" style="cursor: pointer;">数据列表</a></li>{/if} 
+    {/if}
+     {ifp 'virtual.set'}<li {if $_GPC['method']=='set'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('virtual/set')}" style="cursor: pointer;">基础设置</a></li>{/if}
+</ul>

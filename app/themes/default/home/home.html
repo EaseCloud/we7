@@ -1,0 +1,26 @@
+{template 'common/header'}
+<style type="text/css">
+body{
+	font:{$_W['styles']['fontsize']} {$_W['styles']['fontfamily']};
+	color:{if empty($_W['styles']['fontcolor'])}#555{else}{$_W['styles']['fontcolor']}{/if};
+	padding:0;
+	margin:0;
+	background-image:url('{if empty($_W['styles']['indexbgimg'])}./themes/default/images/bg_index.jpg{else}{$_W['styles']['indexbgimg']}{/if}');
+	background-size:cover;
+	background-color:{if empty($_W['styles']['indexbgcolor'])}#fbf5df{else}{$_W['styles']['indexbgcolor']}{/if};
+	{$_W['styles']['indexbgextra']}
+}
+a{color:{$_W['styles']['linkcolor']}; text-decoration:none;}
+{$_W['styles']['css']}
+.home-container{width:58%;overflow:hidden;margin:.6em .3em;}
+.home-container .box-item{float:left;display:block;text-decoration:none;outline:none;width:5em;height:6em;margin:.1em;background:rgba(0, 0, 0, 0.3);text-align:center;color:#ccc;}
+.home-container i{display:block;height:45px; margin: 5px auto; font-size:35px; padding-top:10px; width:45px;}
+.home-container span{color:{$_W['styles']['fontnavcolor']};display:block; width:90%; margin:0 5%;  overflow:hidden; height:20px; line-height:20px;}
+.footer{color:#dddddd;}
+</style>
+<div class="home-container clearfix">
+	{data func="site_navs" item="row"}
+		{$row['html']}
+	{/data}
+</div>
+{template 'common/footer'}

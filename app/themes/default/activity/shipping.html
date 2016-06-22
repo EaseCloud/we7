@@ -1,0 +1,74 @@
+{template 'common/header'}
+<style>
+	.panel{margin:.5em;padding:.5em;}
+	.actions{margin:.8em auto;}
+	.nav.nav-tabs{margin-bottom:.8em;}
+</style>
+<script type="text/javascript">
+	$("#form1").submit(function(){
+		if($("#realname").val().trim() == '') {
+			util.message('请填写收货人姓名');
+			return false;
+		}
+		if($("#mobile").val().trim() == '') {
+			util.message('请填写收货人电话');
+			return false;
+		}
+		var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
+		if (!reg.test($('#mobile').val())) {
+			util.message('收货人电话格式不正确');
+			return false;
+		}
+		if($("#zipcode").val().trim() == '') {
+			util.message('请填写收货人邮编');
+			return false;
+		}
+		if($("#zipcode").val().trim() == '') {
+			util.message('请填写收货人邮编');
+			return false;
+		}
+		if($("#address").val().trim() == '') {
+			util.message('请填写收货人地址');
+			return false;
+		}
+		
+	});
+</script>
+<div class="panel">
+	<div class="page-header">
+		<h4>邮寄人信息</h4>
+	</div>
+	<form name="theform" method="post" id="form1" action="">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#basic">邮寄人信息</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane animated active">
+				<div class="form-group">
+					<label class="control-label">收货人姓名</label>
+					<input name="realname" id="realname" type="text" class="form-control" placeholder="收货人姓名" value="{$shipping['realname']}">
+				</div>
+				<div class="form-group">
+					<label class="control-label">收货人电话</label>
+					<input name="mobile" id="mobile" type="text" class="form-control" placeholder="收货人电话" value="{$shipping['mobile']}">
+				</div>
+				<div class="form-group">
+					<label class="control-label">收货人邮编</label>
+					<input name="zipcode" id="zipcode" type="text" class="form-control" placeholder="收货人邮编" value="{$shipping['zipcode']}">
+				</div>
+				<div class="form-group">
+					<label class="control-label">邮寄省市县(区)</label>
+					{php echo tpl_fans_form('reside', array('province' => $shipping['province'], 'city' => $shipping['city'], 'district' => $shipping['district']));}
+				</div>
+				<div class="form-group">
+					<label class="control-label">收货人地址</label>
+					<input name="address" id="address" type="text" class="form-control" placeholder="收货人地址" value="{$shipping['address']}">
+				</div>
+			</div>
+		</div>
+		<input type="hidden" name="token" value="{$_W['token']}" />
+		<input type="hidden" name="exid" value="{$shipping['exid']}" >
+		<input type="submit" name="submit" class="btn btn-primary btn-block" value="提交资料">
+	</form>
+</div>
+{template 'common/footer'}

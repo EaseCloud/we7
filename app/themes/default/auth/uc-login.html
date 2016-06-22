@@ -1,0 +1,79 @@
+{template 'common/header'}
+<script>
+	require(['angular', 'bootstrap', 'util'], function(angular, $, u){
+		angular.module('app', []).controller('loginPanel', function($scope, $http){
+			$scope.label = {
+					error: false,
+					running: false
+			};
+			$scope.ret = {
+				username : '',
+				password : ''
+			};
+			$scope.login = function(){
+				if($scope.label.running) {
+					return;
+				}
+				var ret = $scope.ret;
+				if(ret.username == '' || ret.password == '') {
+					$scope.label.error = true;
+					return;
+				}
+				$scope.label.error = false;
+
+				$scope.label.running = true;
+				var params = angular.copy(ret);
+				$http.post(location.href, params).success(function(dat){
+					if(dat != 'success') {
+						u.message(dat);
+					} else {
+						location.reload();
+					}
+					$scope.label.running = false;
+				});
+			};
+		});
+		angular.bootstrap(document, ['app']);
+	});
+</script>
+<style>
+	body{background:#d2e6e9;}
+	.panel{margin:.5em; border:none;}
+	.panel-heading {background: -webkit-gradient(linear, 0 0, 100% 0, from(#ebebeb), to(#f3f9fa), color-stop(30%, #f5f9f9)); color:#666666; border:none;}
+	.actions{margin:.8em auto;}
+	.nav.nav-tabs{margin-bottom:.8em;}
+	a{color:#666666;}a:hover{color: #3ebacc;}
+	.btn.btn-primary{background: #56c6d6; color: #FFF; border: 0;}
+</style>
+<div class="ng-cloak panel panel-info ng-container" ng-controller="loginPanel">
+	<div class="panel-heading">
+		<h4>确认身份</h4>
+	</div>
+	<div class="panel-body">
+	<form name="theform" method="post" role="form" ng-submit="login();">
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="active"><a>{$uc_setting['title']}账号登陆</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane animated active">
+				<div class="form-group has-feedback" ng-class="{'has-error': label.error}">
+					<label class="control-label sr-only"></label>
+					<input ng-model="ret.username" type="text" class="form-control" placeholder="手机号/邮箱">
+					<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="label.error"></span>
+				</div>
+				<div class="form-group has-feedback" ng-class="{'has-error': label.error}">
+					<label class="control-label sr-only"></label>
+					<input ng-model="ret.password" type="password" class="form-control" placeholder="密码">
+					<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="label.error"></span>
+				</div>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block">登录</button>
+	</form>
+	<div class="clearfix actions">
+		<a class="pull-left" href="{url 'auth/register' array('forward' => $_GPC['forward'])}#wechat_redirect">免费注册</a>
+		<a class="pull-right" href="{url 'auth/forget' array('forward' => $_GPC['forward'])}#wechat_redirect">找回密码</a>
+	</div>
+	</div>
+</div>
+{template 'common/footer'}

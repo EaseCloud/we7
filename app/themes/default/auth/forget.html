@@ -1,0 +1,153 @@
+{template 'common/header'}
+<script>
+	require(['angular', 'bootstrap', 'util'], function(angular, $, u){
+		angular.module('app', []).controller('forgetPanel', function($scope, $http){
+			$scope.label = {
+				forget: {
+					countDown : '',
+					error: false
+				}, 
+				reset: {
+					error: false
+				}
+			};
+			$scope.ret = {
+				forget: {
+					username : '',
+				},
+				reset: {
+					username : '', 
+					code : '',
+					password : '',
+					repassword : ''
+				}
+			};
+			$scope.resetpassword = function(){
+				var ret = $scope.ret;
+				var mode = 'reset';
+				if(ret[mode].code == '' || ret[mode].password == '' || ret[mode].repassword == '') {
+					$scope.label[mode].error = true;
+					return;
+				}
+				if(ret[mode].password.length < 6) {
+					u.message('密码不能少于六位数');
+					return ;
+				}
+				if(ret[mode].password != ret[mode].repassword) {
+					u.message('两次密码输入不一致');
+					return ;
+				}
+				$scope.label[mode].error = false;
+
+				var params = angular.copy(ret[mode]);
+				params.mode = mode;
+				params.username 
+				console.dir(params)
+				$http.post(location.href, params).success(function(dat){
+					if(dat != 'success') {
+						u.message(dat);
+					} else {
+						u.message('修改成功,正跳转到登陆界面');
+						setTimeout(function(){
+							location.href = "{url 'auth/login' array('forward' => $_GPC['forward'])}#wechat_redirect";
+						}, 2000);
+					}
+				});
+			};
+		});
+		angular.bootstrap(document, ['app']);
+
+		$(function(){
+			$('.btn-sender').on('click', function(){
+				var scope = angular.element('.ng-container').scope();
+				if(!scope.ret.reset.username) {
+					u.message('请输入邮箱或者手机号.');
+					return;
+				}
+				u.sendCode(this, scope.ret.reset.username, function(ret, message){
+					if(ret == 'failed') {
+						u.message('发送验证码失败. 详情: ' + message);
+						return;
+					} else {
+						$('#form1').hide();
+						$('#form2').show();
+					}
+				});
+			});
+		});
+	});
+</script>
+<style>
+	body{background:#d2e6e9;}
+	.panel{margin:.5em; border:none;}
+	.panel-info>.panel-heading {background: -webkit-gradient(linear, 0 0, 100% 0, from(#ebebeb), to(#f3f9fa), color-stop(30%, #f5f9f9)); color:#666666; border:none;}
+	a{color:#666666;}
+	.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{color: #3ebacc;}
+	.actions{margin:.8em auto;}
+	.nav.nav-tabs{margin-bottom:.8em;}
+	.btn.btn-primary{background: #56c6d6; color: #FFF; border: 0;}
+</style>
+<div class="ng-cloak panel panel-info ng-container" ng-controller="forgetPanel">
+	<div class="panel-heading">
+		<h4>找回密码</h4>
+	</div>
+	<div class="panel-body">
+	<form name="theform" method="post" role="form" id="form1">
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="active"><a role="tab" data-toggle="tab">找回密码</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane animated active" id="forget">
+				<div class="form-group has-feedback" ng-class="{'has-error': label.forget.error}">
+					<label class="control-label sr-only"></label>
+					<input ng-model="ret.reset.username" type="text" class="form-control" placeholder="手机号/邮箱">
+					<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="label.forget.error"></span>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-warning btn-block btn-sender" uniacid="{$_W['uniacid']}">获取验证码</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<form name="theform" method="post" role="form" ng-submit="resetpassword();" style="display:none" id="form2">
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="active"><a role="tab" data-toggle="tab">重置密码</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane animated active" id="reset">
+				<div class="form-group has-feedback">
+					<label class="control-label sr-only"></label>
+					<input type="text" class="form-control" placeholder="手机号/邮箱" readonly ng-model="ret.reset.username">
+				</div>
+				<div class="form-group has-feedback" ng-class="{'has-error': label.reset.error}">
+					<label class="control-label sr-only"></label>
+					<input ng-model="ret.reset.code" type="text" class="form-control" placeholder="验证码">
+					<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="label.reset.error"></span>
+				</div>
+				<div class="form-group has-feedback" ng-class="{'has-error': label.reset.error}">
+					<label class="control-label sr-only"></label>
+					<input ng-model="ret.reset.password" type="password" class="form-control" placeholder="新密码">
+					<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="label.reset.error"></span>
+				</div>
+				<div class="form-group has-feedback" ng-class="{'has-error': label.reset.error}">
+					<label class="control-label sr-only"></label>
+					<input ng-model="ret.reset.repassword" type="password" class="form-control" placeholder="确认新密码">
+					<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="label.reset.error"></span>
+				</div>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block">立即重置</button>
+	</form>
+	<div class="clearfix actions">
+		<a class="pull-left" href="{url 'auth/register' array('forward' => $_GPC['forward'])}#wechat_redirect">免费注册</a>
+		
+		{if $uc_setting['status'] == 1}
+			<a class="pull-right" href="{url 'auth/login/uc' array('forward' => $_GPC['forward'])}#wechat_redirect">使用{$uc_setting['title']}账号登录</a>
+			<a class="pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+		{/if}
+		<a class="pull-right" href="{url 'auth/login' array('forward' => $_GPC['forward'])}#wechat_redirect">立即登录</a>
+	</div>
+	</div>
+</div>
+{template 'common/footer'}

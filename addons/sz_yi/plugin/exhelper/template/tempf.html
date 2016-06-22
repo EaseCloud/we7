@@ -1,0 +1,180 @@
+{template 'web/_header'}
+{template 'tabs'}
+
+{if $operation == 'post'}
+<div class="main">
+
+    <form  {ife 'exhelper.tempf' $item}action="" method="post"{/if} class="form-horizontal form" enctype="multipart/form-data" >
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                发货单发件人信息
+            </div> 
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 发货标题</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ife 'exhelper.tempf' $item}
+                        <input type="text" name="freighttitle" class="form-control" value="{$item['freighttitle']}" />
+                        {else}
+                        <div class='form-control-static'>{$item['freighttitle']}</div>
+                        {/if} 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 经办人</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ife 'exhelper.tempf' $item}
+                        <input type="text" name="freightop" class="form-control" value="{$item['freightop']}" />
+                        {else}
+                        <div class='form-control-static'>{$item['freightop']}</div>
+                        {/if} 
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 联系电话</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ife 'exhelper.tempf' $item}
+                        <input type="text" name="freighttel" class="form-control" value="{$item['freighttel']}" />
+                        {else}
+                        <div class='form-control-static'>{$item['freighttel']}</div>
+                        {/if} 
+                    </div>
+                </div>
+                    <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 店铺名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ife 'exhelper.tempf' $item}
+                        <input type="text" name="freightshop" class="form-control" value="{$item['freightshop']}" />
+                        {else}
+                        <div class='form-control-static'>{$item['freightshop']}</div>
+                        {/if} 
+                    </div>
+                </div>
+             <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">友情提示</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ife 'exhelper.tempf' $item}
+                        <textarea name='freightremark' class='form-control'>{$item['freightremark']}</textarea>
+                        {else}
+                        <div class='form-control-static'>{$item['freightremark']}</div>
+                        {/if} 
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否为默认模板</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ife 'exhelper.tempf' $item}
+                        <label class="radio-inline">
+                            <input type="radio" name='isdefault' value="1" {if $item['isdefault']==1}checked{/if} /> 是
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name='isdefault' value="0" {if $item['isdefault']==0}checked{/if} /> 否
+                        </label>
+                      
+                      {else} 
+                       <div class='form-control-static'>{if $item['isdefault']==1}是{else}否{/if}</div>
+                        {/if}
+                      
+                    </div>
+                </div>
+             <div class='panel-body'>
+                <div class="form-group"></div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ife 'exhelper.tempf' $item}
+                        <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" onclick="return formcheck()" />
+                        <input type="hidden" name="token" value="{$_W['token']}" />
+                        {/if}
+                        <input type="button" name="back" onclick='history.back()' {ifp 'exhelper.tempf.add|exhelper.tempf.edit'}style='margin-left:10px;'{/if} value="返回列表" class="btn btn-default col-lg-1" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+</div> 
+<script language='javascript'>
+    require(['util'], function (u) {
+        $('#cp').each(function () {
+            u.clip(this, $(this).text());
+        });
+    })
+    $('form').submit(function () {
+       if($(':input[name=freighttitle]').isEmpty()){
+           Tip.focus($(':input[name=freighttitle]'),'请填写发件人!');
+           return false;
+       }
+        if($(':input[name=freightop]').isEmpty()){
+           Tip.focus($(':input[name=freightop]'),'请填写联系电话!');
+           return false;
+       }
+        if($(':input[name=freighttel]').isEmpty()){
+           Tip.focus($(':input[name=freighttel]'),'请填写发件地址!');
+           return false;
+       }
+        return true;
+    });
+</script>
+{elseif $operation == 'display'}
+     <form action="" method="post">
+<div class="panel panel-default">
+    <div class="panel-body table-responsive">
+        <table class="table table-hover">
+            <thead class="navbar-inner">
+                <tr>
+                    <th style="width:30px;">ID</th>
+                    <th>发件标题</th>					
+                    <th>经办人</th>
+                    <th>联系电话</th>
+                    <th>店铺名称</th>
+                    <th>是否默认</th>
+                    <th >操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list $row}
+                <tr>
+                    <td>{$row['id']}</td>
+                    <td>{$row['freighttitle']}</td>
+                    <td>{$row['freightop']}</td>
+                    <td>{$row['freighttel']}</td>
+                    <td>{$row['freightshop']}</td>
+                       <td> 
+                                    {if $row['isdefault']==1}
+                                    <span class='label label-success'><i class='fa fa-check'></i></span>
+                                    {/if}
+                                </td>
+                    <td style="text-align:left;">
+                  
+                        {ifp 'exhelper.tempf.view|exhelper.tempf.edit'}<a href="{php echo $this->createPluginWebUrl('exhelper/tempf', array('op' => 'post', 'id' => $row['id']))}" class="btn btn-default btn-sm"  title="{ifp 'exhelper.tempf.edit'}修改{else}查看{/if}"><i class="fa fa-edit"></i></a>{/if}
+                        {ifp 'exhelper.tempf.delete'}<a href="{php echo $this->createPluginWebUrl('exhelper/tempf', array('op' => 'delete', 'id' => $row['id']))}"class="btn btn-default btn-sm" onclick="return confirm('确认删除此模板?')" title="删除"><i class="fa fa-times"></i></a>{/if}
+                              {ifp 'exhelper.tempf.setdefault'}
+                        {if empty($row['isdefault'])}
+                        <a href="{php echo $this->createPluginWebUrl('exhelper/tempf', array('op' => 'setdefault', 'id' => $row['id']))}"class="btn btn-default btn-sm" onclick="return confirm('确认设置默认?')" title="设置默认"><i class="fa fa-check"></i></a>
+                        {/if}
+                        {/if}
+                    </td>
+                </tr>
+                {/loop} 
+                <tr>
+                    <td colspan='7'>
+                        {ifp 'exhelper.tempf.add'}
+                          <a class='btn btn-default' href="{php echo $this->createPluginWebUrl('exhelper/tempf',array('op'=>'post'))}"><i class='fa fa-plus'></i> 添加发货单信息模板</a>
+                          <input type="hidden" name="token" value="{$_W['token']}" />
+                       {/if}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {$pager}
+    </div>
+</div>
+</form>
+{/if}
+{template 'common/footer'}
+

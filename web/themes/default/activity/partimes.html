@@ -1,0 +1,161 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $do == 'display'}class="active"{/if}><a href="{php echo url('activity/partimes/display', array());}">管理</a></li>
+	<li {if $do == 'post' && !$id}class="active"{/if}><a href="{php echo url('activity/partimes/post', array());}">添加</a></li>
+	{if $id}<li class="active"><a href="{php echo url('activity/partimes/post', array('id' => $id));}">编辑</a></li>{/if}
+</ul>
+{if $do == 'post'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				兑换活动参与次数
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑换名称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="title" class="form-control" value="{$item['title']}" />
+						<span class="help-block">此设置项为当前礼品兑换设置一个名称。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑换内容</label>
+					<div class="col-sm-9 col-xs-12">
+						<select name="extra[name]" class="form-control">
+							{if $activities}
+							{loop $activities $key $activity}
+							<option value="{$key}" {if $key == $item['extra']['name']}selected{/if}>{$activity['title']}</option>
+							{/loop}
+							{/if}
+						</select>
+						<span class="help-block">此设置项设置当前礼品兑换的礼品名称。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">使用周期</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline" style="vertical-align:top"><input type="radio" name="extra[period]" value="1" checked="checked">一天</label>
+						<label class="radio-inline" style="vertical-align:top"><input type="radio" name="extra[period]" value="2" {if intval($item['extra']['period'])==2}checked="checked"{/if}>两天</label>
+						<label class="radio-inline" style="vertical-align:top"><input type="radio" name="extra[period]" value="7" {if intval($item['extra']['period'])==7}checked="checked"{/if}>一周</label>
+						<label class="radio-inline" style="vertical-align:top"><input type="radio" name="extra[period]" value="30" {if intval($item['extra']['period'])==30}checked="checked"{/if}>一月</label>
+						<label class="radio-inline" style="vertical-align:top">
+							<input type="radio" style="vertical-align:top" name="extra[period]" {if !in_array(intval($item['extra']['period']), array(1,2,7,30))}checked="checked"{/if}>
+						</label>
+						<input type="text" class="form-control" style="width:50px;display:inline" name="period" value="{if !in_array(intval($item['extra']['period']), array(1,2,7,30))}{$item['extra']['period']}{/if}"> 天
+						<span class="help-block">此设置项设置当前礼品兑换的频率。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">封面</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('thumb', $item['thumb'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">说明</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_ueditor('description', $item['description'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">积分类型</label>
+					<div class="col-sm-9 col-xs-12">
+						<select name="credittype" class="form-control">
+							{loop $creditnames $key $credit}
+							<option value="{$key}" {if $key == $item['credittype']}selected{/if}>{$credit}</option>
+							{/loop}
+						</select>
+						<span class="help-block">此设置项设置当前礼品兑换需要消耗的积分类型,如:金币、积分、贡献等。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">积分数量</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="credit" class="form-control" value="{$item['credit']}" />
+						<span class="help-block">此设置项设置当前礼品兑换需要消耗的积分数量。</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">使用期限</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_daterange('datelimit', array('start' => date('Y-m-d', $item['starttime']),'end' => date('Y-m-d', $item['endtime'])), '')}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">每人最大兑换次数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="pretotal" class="form-control" value="{$item['pretotal']}" />
+						<span class="help-block">此设置项设置每个用户最大兑换次数。</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input name="id" type="hidden" value="{$item['id']}">
+			<input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+{elseif $do == 'display'}
+<div class="main">
+	<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+		<input type="hidden" name="c" value="activity" />
+		<input type="hidden" name="a" value="partimes" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">兑换名称</label>
+				<div class="col-sm-7 col-lg-9 col-xs-12">
+					<input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}">
+				</div>
+				<div class="pull-right col-xs-12 col-sm-3 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	<div class="table-responsive">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width:150px;">标题</th>
+					<th style="width:100px">图标</th>
+					<th style="width:200px;">有效时间</th>
+					<th style="width:80px;">积分类型</th>
+					<th style="width:80px;">积分数量</th>
+					<th style="width:100px;">兑换物品</th>
+					<th style="width:130px;">每人最大兑换次数</th>
+					<th style="width:130px;">使用周期</th>
+					<th style="width:100px;">已兑换次数</th>
+					<th style="text-align:right; min-width:85px; width: 100px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['title']}</td>
+					<td><img width="30" src="{$item['thumb']}"></td>
+					<td>{php echo date('Y-m-d', $item['starttime'])} - {php echo date('Y-m-d', $item['endtime'])}</td>
+					<td><span class="label label-success">{$creditnames[$item['credittype']]}</span></td>
+					<td>{$item['credit']}</td>
+					<td>{if !empty($item['extra']['title'])}{$item['extra']['title']}{/if}</td>
+					<td>{$item['pretotal']}</td>
+					<td>{if !empty($item['extra']['period'])}{$item['extra']['period']} 天{else}未知{/if}</td>
+					<td>{$item['num']}</td>
+					<td style="text-align:right;">
+						<a href="{php echo url('activity/partimes/post', array('id' => $item['id']))}" title="编辑">编辑</a>&nbsp;-&nbsp;
+						<a href="{php echo url('activity/partimes/del', array('id' => $item['id']))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" title="删除">删除</a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+		</div>
+</div>
+{/if}
+{template 'common/footer'}

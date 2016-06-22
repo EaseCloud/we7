@@ -1,0 +1,117 @@
+<div class="tab-content">
+	{if $setting['nums_status'] == 1}
+		<div role="tabpanel" class="tab-pane active" id="nums_plus">
+			<form action="{php echo url('mc/card/submit');}" method="post">
+				<input type="hidden" name="uid" value="{$uid}"/>
+				<input type="hidden" name="type" value="nums_plus"/>
+				<div class="form-group">
+					<label for="">当前{$setting['nums_text']}: <strong class="nums text-danger">{$card['nums']}</strong>次</label>
+				</div>
+				<div class="form-group">
+					<label for="">充值金额</label>
+					<div class="input-group">
+						<input type="text" class="form-control" name="fee" value="50"/>
+						<span class="input-group-addon">元</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="">充值次数</label>
+					<div class="input-group">
+						<input type="number" class="form-control" name="nums" value="10"/>
+						<span class="input-group-addon">次</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="">备注</label>
+					<textarea class="form-control" name="remark" placeholder=""></textarea>
+				</div>
+				<div class="form-group">
+					<div class="help-block">请尽量完善信息，方便系统记录操作日志</div>
+				</div>
+			</form>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="nums_times">
+			<form action="{php echo url('mc/card/submit');}" method="post">
+				<input type="hidden" name="uid" value="{$uid}"/>
+				<input type="hidden" name="type" value="nums_times"/>
+				<div class="form-group">
+					<label for="">当前{$setting['nums_text']}: <strong class="nums text-danger">{$card['nums']}</strong>次</label>
+				</div>
+				<div class="form-group">
+					<label for="">消费次数</label>
+					<div class="input-group">
+						<input type="number" class="form-control" name="nums" value="1"/>
+						<span class="input-group-addon">次</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="">备注</label>
+					<textarea class="form-control" name="remark" placeholder=""></textarea>
+				</div>
+				<div class="form-group">
+					<div class="help-block">请尽量完善信息，方便系统记录操作日志</div>
+				</div>
+			</form>
+		</div>
+	{/if}
+	{if $setting['times_status'] == 1}
+		<div role="tabpanel" class="tab-pane" id="times_plus">
+			<form action="{php echo url('mc/card/submit');}" method="post">
+				<input type="hidden" name="uid" value="{$uid}"/>
+				<input type="hidden" name="type" value="times_plus"/>
+				<div class="form-group">
+					<label for="">当前{$setting['times_text']}: <strong class="times text-danger">{php echo date('Y-m-d', $card['endtime']);}</strong></label>
+				</div>
+				<div class="form-group">
+					<label for="">充值金额</label>
+					<div class="input-group">
+						<input type="text" class="form-control" name="fee" value="100"/>
+						<span class="input-group-addon">元</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="">设置到期时间</label>
+					{php echo tpl_form_field_date('endtime', $card['endtime']);}
+				</div>
+				<div class="form-group">
+					<label for="">或延长服务天数</label>
+					<div class="input-group">
+						<input type="number" class="form-control" name="days" value="0"/>
+						<span class="input-group-addon">天</span>
+					</div>
+					<div class="help-block">如果设置了此项，将以此项的设置为准</div>
+				</div>
+				<div class="form-group">
+					<label for="">备注</label>
+					<textarea class="form-control" name="remark" placeholder=""></textarea>
+				</div>
+				<div class="form-group">
+					<div class="help-block">请尽量完善信息，方便系统记录操作日志</div>
+				</div>
+			</form>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="times_times">
+			<form action="{php echo url('mc/card/submit');}" method="post">
+				<input type="hidden" name="uid" value="{$uid}"/>
+				<input type="hidden" name="type" value="times_times"/>
+				<div class="form-group">
+					<label for="">当前{$setting['times_text']}: <strong class="times text-danger">{php echo date('Y-m-d', $card['endtime']);}</strong></label>
+				</div>
+				<div class="form-group">
+					<label for="">设置到期时间</label>
+					{php echo tpl_form_field_date('endtime', $card['endtime']);}
+				</div>
+				<div class="form-group">
+					<label class="checkbox-inline"><input type="checkbox" name="flag" value="1"/> 或设置为已到期</label>
+				</div>
+				<div class="form-group">
+					<label for="">备注</label>
+					<textarea class="form-control" name="remark" placeholder=""></textarea>
+				</div>
+				<div class="form-group">
+					<div class="help-block">请尽量完善信息，方便系统记录操作日志</div>
+				</div>
+			</form>
+		</div>
+	{/if}
+</div>

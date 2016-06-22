@@ -1,0 +1,54 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li{if $do == 'index'} class="active"{/if}><a href="{php echo url('activity/desk/index');}">工作台</a></li>
+</ul>
+{if $do == 'index'}
+<div class="clearfix">
+	<div class="clearfix menu">
+		{if empty($permission)}
+		<div class="alert alert-danger">您没有操作权限.请联系公众号管理员</div>
+		{else}
+			{loop $permission $row}
+				<h5 class="page-header">{$row['title']}</h5>
+				<div class="clearfix">
+					{loop $row['items'] $row1}
+						<a href="{if $row1['type'] == 'url'}{$row1['url']}{else}javascript:;{/if}" class="tile img-rounded{if $row1['type'] == 'modal'} modal-trade-{$row1['url']}{/if}" data-type="{$row1['url']}">
+							<i class="{$row1['icon']}"></i>
+							<span>{$row1['title']}</span>
+						</a>
+					{/loop}
+				</div>
+			{/loop}
+		{/if}
+	</div>
+</div>
+<!-- 登陆二维码 -->
+<div class="modal fade" id="login-qrcode-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">扫描登陆二维码</h4>
+			</div>
+			<div class="modal-body" style="text-align:center;">
+				<img style="-webkit-user-select: none" src="{php echo url('utility/wxcode/qrcode', array('text' => murl('entry', array('m' => 'paycenter', 'do' => 'login'), true, true)));}">
+				<!--<span>{php echo murl('entry', array('m' => 'paycenter', 'do' => 'login'), true, true);}</span>-->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	require(['trade', 'bootstrap'], function(trade){
+		trade.init();
+
+		$('.login-qrcode').click(function(){
+			$('#login-qrcode-modal').modal('show');
+		});
+	});
+</script>
+{/if}
+{template 'common/footer'}

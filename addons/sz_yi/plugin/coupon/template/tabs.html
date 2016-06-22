@@ -1,0 +1,11 @@
+<ul class="nav nav-tabs">
+    
+ 
+   {ifp 'coupon.coupon'}<li {if $_GPC['method']=='coupon'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('coupon/coupon')}">超级券管理</a></li>{/if}
+   {ifp 'coupon.category'}<li {if $_GPC['method']=='category'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('coupon/category')}">分类管理</a></li>{/if}
+   {if $_GPC['method']=='log'} <li class="active"><a href="#">超级券记录</a></li>{/if}
+   {if $_GPC['method']=='send'} <li class="active"><a href="#">发放超级券</a></li>{/if}
+   {ifp 'coupon.center'}<li {if $_GPC['method']=='center'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('coupon/center')}">领券中心设置</a></li>{/if}
+   {ifp 'coupon.set'}<li {if $_GPC['method']=='set'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('coupon/set')}">其他设置</a></li>{/if}
+   
+</ul>

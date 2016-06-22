@@ -1,0 +1,6 @@
+<ul class="nav nav-tabs">
+    {ifp 'supplier.supplier'}<li {if $_GPC['method']=='supplier'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('supplier/supplier')}">供应商管理</a></li>{/if}
+    {ifp 'supplier.supplier_apply'}<li {if $_GPC['method']=='supplier_apply'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('supplier/supplier_apply')}">供应商提现申请</a></li>{/if}
+    {ifp 'supplier.supplier_finish'}<li {if $_GPC['method']=='supplier_finish'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('supplier/supplier_finish')}">供应商提现完成</a></li>{/if}
+    {ifp 'supplier.supplier_for'}<li {if $_GPC['method']=='supplier_for'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('supplier/supplier_for')}">会员申请供应商</a></li>{/if}
+</ul>

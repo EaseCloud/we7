@@ -1,0 +1,45 @@
+{template 'common/header'}
+<div class="clearfix">
+	<div class="clearfix menu">
+		<h5 class="page-header">基本操作</h5>
+		<div class="clearfix">
+			<a href="{php echo url('mc/card/editor');}" class="tile img-rounded">
+				<i class="fa fa-cog"></i>
+				<span>会员卡设置</span>
+			</a>
+			<a href="{php echo url('mc/card/manage');}" class="tile img-rounded">
+				<i class="fa fa-list"></i>
+				<span>会员卡管理</span>
+			</a>
+			<a href="{php echo url('mc/card/stat');}" class="tile img-rounded">
+				<i class="fa fa-bar-chart"></i>
+				<span>会员卡统计</span>
+			</a>
+			<a href="javascript:;" data-type="card" class="tile img-rounded modal-trade">
+				<i class="fa fa-gift"></i>
+				<span>发放会员卡</span>
+			</a>
+		</div>
+		<h5 class="page-header">其他设置</h5>
+		<div class="clearfix">
+			<a href="{php echo url('mc/card/notice');}" class="tile img-rounded">
+				<i class="fa fa-volume-up"></i>
+				<span>通知管理</span>
+			</a>
+			<a href="{php echo url('mc/card/credit');}" class="tile img-rounded">
+				<i class="fa fa-cny"></i>
+				<span>积分策略</span>
+			</a>
+			<a href="{php echo url('mc/card/recommend');}" class="tile img-rounded">
+				<i class="fa fa-share-alt"></i>
+				<span>每日推荐</span>
+			</a>
+		</div>
+	</div>
+</div>
+<script>
+	require(['trade', 'bootstrap'], function(trade){
+		trade.init();
+	});
+</script>
+{template 'common/footer'}

@@ -1,0 +1,72 @@
+{template 'web/_header'}
+{template 'web/sysset/tabs'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" >
+        <input type='hidden' name='setid' value="{$set['id']}" />
+        <input type='hidden' name='op' value="member" />
+        <div class="panel panel-default">
+            <div class='panel-body'>  
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">默认会员级别名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.member'}
+                        <input type="text" name="shop[levelname]" class="form-control" value="{php echo empty($set['shop']['levelname'])?'普通会员':$set['shop']['levelname']}"  />
+                        <span class="help-block">会员默认等级名称，不填写默认“普通会员”</span>
+                        {else}
+                        <input type="hidden" name="shop[levelname]" value="{$set['shop']['levelname']}" />
+                        <div class='form-control-static'>{php echo empty($set['shop']['levelname'])?'普通会员':$set['shop']['levelname']}</div>
+                        {/if}
+                    </div>
+                </div>
+	
+				
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员等级说明连接</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.member'}
+                        <input type="text" name="shop[levelurl]" class="form-control" value="{$set['shop']['levelurl']}" />
+                        {else}
+                        <input type="hidden" name="shop[levelurl]" value="{$set['shop']['levelurl']}" />
+                        <div class='form-control-static'>{$set['shop']['levelurl']}</div>
+                        {/if}
+                    </div>
+                </div>
+                	<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员等级升级依据</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.member'}
+                        <label class="radio radio-inline">
+                              <input type="radio" name="shop[leveltype]" value="0" {if empty($set['shop']['leveltype'])}checked{/if}/> 已完成的订单金额
+                        </label>
+                       <label class="radio radio-inline">
+                              <input type="radio" name="shop[leveltype]" value="1" {if $set['shop']['leveltype']==1}checked{/if}/> 已完成的订单数量
+                        </label>
+                        <span class="help-block">默认为完成订单金额</span> 
+                        {else}
+                        <input type="hidden" name="shop[leveltype]" value="{$set['shop']['leveltype']}" />
+                        <div class='form-control-static'>
+							{if empty($set['shop']['leveltype'])}
+							 已完成的订单金额
+							 {else if $set['shop']['leveltype']==1}
+							 已完成的订单数量
+							 {/if}
+						</div>
+                        {/if}
+                    </div>
+                </div>
+                       <div class="form-group"></div>
+            <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                           {ifp 'sysset.save.member'}
+                            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"  />
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                          {/if}
+                     </div>
+            </div>
+                       
+            </div>
+        </div>     
+    </form>
+</div>
+{template 'web/_footer'}     

@@ -1,0 +1,13 @@
+<ul class="nav nav-tabs">
+    {ifp 'sysset.view.shop'}<li {if $_GPC['op']=='shop'}class="active"{/if}><a href="{php echo $this->createWebUrl('sysset',array('op'=>'shop'))}">商城设置</a></li>{/if}
+    {ifp 'sysset.view.follow'}<li  {if $_GPC['op']=='follow'}class="active"{/if}><a href="{php echo $this->createWebUrl('sysset',array('op'=>'follow'))}">引导及分享设置</a></li>{/if}
+    {ifp 'sysset.view.notice'}<li  {if $_GPC['op']=='notice'}class="active"{/if}><a href="{php echo $this->createWebUrl('sysset',array('op'=>'notice'))}">提醒及模板消息设置</a></li>{/if}
+    {ifp 'sysset.view.trade'}<li  {if $_GPC['op']=='trade'}class="active"{/if}><a href="{php echo $this->createWebUrl('sysset',array('op'=>'trade'))}">交易设置</a></li>{/if}
+    {ifp 'sysset.view.pay'}<li  {if $_GPC['op']=='pay'}class="active"{/if}><a href="{php echo $this->createWebUrl('sysset',array('op'=>'pay'))}">支付方式设置</a></li>{/if}
+    {ifp 'sysset.view.template'}<li  {if $_GPC['op']=='template'}class="active"{/if}><a href="{php echo $this->createWebUrl('sysset',array('op'=>'template'))}">模板设置</a></li>{/if}
+    {ifp 'sysset.view.member'}<li  {if $_GPC['op']=='member'}class="active"{/if}><a href="{php echo $this->createWebUrl('sysset',array('op'=>'member'))}">会员设置</a></li>{/if}
+    {ifp 'sysset.view.category'}<li  {if $_GPC['op']=='category'}class="active"{/if}><a href="{php echo $this->createWebUrl('sysset',array('op'=>'category'))}">分类层级设置</a></li>{/if}
+    {ifp 'sysset.view.contact'}<li  {if $_GPC['op']=='contact'}class="active"{/if}><a href="{php echo $this->createWebUrl('sysset',array('op'=>'contact'))}">联系方式设置</a></li>{/if}
+    {ifp 'sysset.view.sms'}<li  {if $_GPC['op']=='sms'}class="active"{/if}><a href="{php echo $this->createWebUrl('sysset',array('op'=>'sms'))}">短信设置</a></li>{/if}
+    {ifp 'sysset.view.upgrade'}<li  {if $_GPC['op']=='display'}class="active"{/if}><a href="{php echo $this->createWebUrl('upgrade',array('op'=>'display'))}">系统升级</a></li>{/if}
+</ul> 

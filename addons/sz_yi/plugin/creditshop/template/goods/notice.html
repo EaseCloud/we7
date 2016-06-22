@@ -1,0 +1,67 @@
+
+<div class="form-group notice">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商家通知</label>
+                    <div class="col-sm-4">
+                        
+                        
+                            {ife 'creditshop.goods' $item}
+                            
+                        <input type='hidden' id='noticeopenid' name='noticeopenid' value="{$item['noticeopenid']}" />
+                        <div class='input-group'>
+                            <input type="text" name="saler" maxlength="30" value="{if !empty($saler)}{$saler['nickname']}/{$saler['realname']}/{$saler['mobile']}{/if}" id="saler" class="form-control" readonly />
+                            <div class='input-group-btn'>
+                                <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-menus-notice').modal();">选择通知人</button>
+                                <button class="btn btn-danger" type="button" onclick="$('#noticeopenid').val('');$('#saler').val('');$('#saleravatar').hide()">清除选择</button>
+                            </div> 
+                        </div>
+                        <span id="saleravatar" class='help-block' {if empty($saler)}style="display:none"{/if}><img  style="width:100px;height:100px;border:1px solid #ccc;padding:1px" src="{$saler['avatar']}"/></span>
+                        <span class="help-block">如果用户中奖，可指定某个商家用户，通知商品下单备货通知,如果商品为同一商家，建议使用系统统一设置</span>
+                        
+                        <div id="modal-module-menus-notice"  class="modal fade" tabindex="-1">
+                            <div class="modal-dialog" style='width: 920px;'>
+                                <div class="modal-content">
+                                    <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3>选择通知人</h3></div>
+                                    <div class="modal-body" >
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="keyword" value="" id="search-kwd-notice" placeholder="请输入粉丝昵称/姓名/手机号" />
+                                                <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="search_members();">搜索</button></span>
+                                            </div>
+                                        </div>
+                                        <div id="module-menus-notice" style="padding-top:5px;"></div>
+                                    </div>
+                                    <div class="modal-footer"><a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</a></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {else}
+                        <div class='form-control-static'>
+                            {if !empty($saler)}<img  style="width:100px;height:100px;border:1px solid #ccc;padding:1px" src="{$saler['avatar']}"/>{else}无{/if}
+                         </div>
+                        {/if}
+                    </div>
+                </div>
+<script language='javascript'>
+  
+         function search_members() {
+             if( $.trim($('#search-kwd-notice').val())==''){
+                 Tip.focus('#search-kwd-notice','请输入关键词');
+                 return;
+             }
+		$("#module-menus-notice").html("正在搜索....")
+		$.get('{php echo $this->createWebUrl('member/query')}', {
+			keyword: $.trim($('#search-kwd-notice').val())
+		}, function(dat){
+			$('#module-menus-notice').html(dat);
+		});
+	}
+	function select_member(o) {
+		$("#noticeopenid").val(o.openid);
+                                    $("#saleravatar").show();
+                                    $("#saleravatar").find('img').attr('src',o.avatar);
+		$("#saler").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
+		$("#modal-module-menus-notice .close").click();
+	}
+        
+    </script>

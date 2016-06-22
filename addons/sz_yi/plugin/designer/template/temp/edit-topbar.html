@@ -1,0 +1,196 @@
+<div class="fe-panel-editor-title">页面信息设置<span style="font-size: 12px; margin-left: 10px;"></span></div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">页面标题</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1" placeholder="页面标题，手机端的页面标题，空则使用系统默认" ng-model="Edit.params.title" />
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">页面描述</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1" placeholder="页面描述，手机端分享时显示，空则使用系统默认" ng-model="Edit.params.desc" />
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">触发关键字</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1 keyword" placeholder="触发关键字" ng-model="Edit.params.kw" ng-change="keyword(Edit.params.kw, Edit.id)" />
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">封面图片</div>
+    <div class="fe-panel-editor-con">
+        <div class="fe-panel-editor-upload" ng-click="pageImg(Edit.id, 'img')" style="height:120px; width: 120px;">
+            <img ng-src="{{Edit.params.img}}" width="100%;" height="100%" ng-show="Edit.params.img" />
+            <div class="fe-panel-editor-upload-choose2" ng-show="Edit.params.img">重新选择封面图</div>
+            <div class="fe-panel-editor-upload-choose1" ng-show="!Edit.params.img" style="line-height:116px;"><i class="fa fa-plus-circle"></i> 选择图片</div>
+        </div>
+    </div>
+</div>
+<div class="fe-panel-editor-title">页面功能开关</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">底部导航</div>
+    <div class="fe-panel-editor-con">
+     
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_footer" value="0" ng-model="Edit.params.footer" /> 不显示</label> 
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_footer" value="1" ng-model="Edit.params.footer" /> 系统默认</label>
+        {if count($menus)>0}
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_footer" value="2" ng-model="Edit.params.footer" /> 自定义菜单</label> 
+        <select ng-show="Edit.params.footer==2" name="{{Edit.id}}_footer_menu"  class="fe-panel-editor-input1" ng-model="Edit.params.footermenu" style="width:200px;">
+            {loop $menus $menu}
+                {if !empty($menu['isdefault'])}
+                <option value="{$menu['id']}" selected="">{$menu['menuname']}</option> 
+                {/if}
+            {/loop}
+
+            {loop $menus $menu}
+                {if empty($menu['isdefault'])}
+                <option value="{$menu['id']}">{$menu['menuname']}</option>
+                {/if}
+            {/loop}
+
+        </select>
+        {/if}
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">悬浮按钮</div>
+    <div class="fe-panel-editor-con">
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_floatico" value="1" ng-model="Edit.params.floatico" /> 显示</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_floatico" value="0" ng-model="Edit.params.floatico" /> 不显示</label>
+        <span style="font-size: 12px; margin-left: 10px;">提示:在线客服推荐使用<a href="http://qiao.baidu.com" target="_blank">百度商桥</a>可完美接入</span>
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">关注按钮</div>
+    <div class="fe-panel-editor-con">
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_guide" value="1" ng-model="Edit.params.guide" /> 显示</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_guide" value="0" ng-model="Edit.params.guide" /> 不显示</label>
+        <span style="font-size: 12px; margin-left: 10px;">提示:仅在未关注时显示</span>
+    </div>
+</div>
+<div class="fe-panel-editor-title" ng-show="Edit.params.floatico == 1">悬浮按钮设置</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.floatico == 1">
+    <div class="fe-panel-editor-name">图标位置</div>
+    <div class="fe-panel-editor-con">
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_floatstyle" value="left" ng-model="Edit.params.floatstyle" /> 居左</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_floatstyle" value="right" ng-model="Edit.params.floatstyle" /> 居右</label>
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.floatico == 1">
+    <div class="fe-panel-editor-name">图标宽度</div>
+    <div class="fe-panel-editor-con">
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_floatwidth" value="30px" ng-model="Edit.params.floatwidth" /> 30像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_floatwidth" value="40px" ng-model="Edit.params.floatwidth" /> 40像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_floatwidth" value="50px" ng-model="Edit.params.floatwidth" /> 50像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_floatwidth" value="60px" ng-model="Edit.params.floatwidth" /> 60像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_floatwidth" value="80px" ng-model="Edit.params.floatwidth" /> 80像素</label>
+        <label style="cursor:pointer; margin-right: 10px;">自定义：<input class="fe-panel-editor-input2" style="line-height: 20px;" value="" ng-model="Edit.params.floatwidth" /></label>
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.floatico == 1">
+    <div class="fe-panel-editor-name">顶部间距</div>
+    <div class="fe-panel-editor-con">
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_floattop" value="80px" ng-model="Edit.params.floattop" /> 80像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_floattop" value="100px" ng-model="Edit.params.floattop" /> 100像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_floattop" value="120px" ng-model="Edit.params.floattop" /> 120像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_floattop" value="150px" ng-model="Edit.params.floattop" /> 150像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_floattop" value="180px" ng-model="Edit.params.floattop" /> 180像素</label>
+        <label style="cursor:pointer; margin-right: 10px;">自定义：<input class="fe-panel-editor-input2" style="line-height: 20px;" value="" ng-model="Edit.params.floattop" /></label>
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.floatico == 1">
+    <div class="fe-panel-editor-name">目标链接</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1" placeholder="此处只可填写链接，不可填写js代码 (请以http://开头)" ng-model="Edit.params.floathref" />
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.floatico == 1">
+    <div class="fe-panel-editor-name">图标图片</div>
+    <div class="fe-panel-editor-con">
+        <div class="fe-panel-editor-upload" ng-click="pageImg(Edit.id, 'floatimg')" style="min-height:120px; width: 50px;">
+            <img ng-src="{{Edit.params.floatimg}}" width="100%;" ng-show="Edit.params.floatimg" />
+            <div class="fe-panel-editor-upload-choose2" ng-show="Edit.params.floatimg">重选</div>
+            <div class="fe-panel-editor-upload-choose1" ng-show="!Edit.params.floatimg" style="line-height:116px;"><i class="fa fa-plus-circle"></i></div>
+        </div>
+    </div>
+</div>
+<div class="fe-panel-editor-title" ng-show="Edit.params.guide == 1">关注按钮设置</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">默认标题1</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1" placeholder="默认标题1，用户访问商城首页或者邀请人不存在的时候显示" ng-model="Edit.params.guidetitle1" />
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">默认标题2</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1" placeholder="默认标题2，用户访问商城首页或者推荐人不存在的时候显示" ng-model="Edit.params.guidetitle2" />
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">邀请标题1</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1" placeholder="邀请标题1，用户被邀请进入商城时显示，可调用变量 [邀请人]、[访问者]" ng-model="Edit.params.guidetitle1s" />
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">邀请标题2</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1" placeholder="邀请标题2，用户被邀请进入商城时显示，可调用变量 [邀请人]、[访问者]" ng-model="Edit.params.guidetitle2s" />
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">按钮文字</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1" placeholder="按钮文字" ng-model="Edit.params.guidesub" />
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">标题大小</div>
+    <div class="fe-panel-editor-con">
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_guidesize" value="8px" ng-model="Edit.params.guidesize" /> 8像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_guidesize" value="10px" ng-model="Edit.params.guidesize" /> 10像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_guidesize" value="12px" ng-model="Edit.params.guidesize" /> 12像素</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{edit.id}}_guidesize" value="14px" ng-model="Edit.params.guidesize" /> 14像素</label>
+        <label style="cursor:pointer; margin-right: 10px;">自定义：<input class="fe-panel-editor-input2" style="line-height: 20px;" value="" ng-model="Edit.params.guidesize" /></label>
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">透明度</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input2" type="text" ng-model="Edit.params.guideopacity">
+        <span class="tips">例:0.8 (请填写0-1之间的数字) 建议填写0.9</span>
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">标题颜色</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input2" type="color" ng-model="Edit.params.guidecolor">
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">背景颜色</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input2" type="color" ng-model="Edit.params.guidebgcolor">
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">按钮背景颜色</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input2" type="color" ng-model="Edit.params.guidenavbgcolor">
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">按钮文字颜色</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input2" type="color" ng-model="Edit.params.guidenavcolor">
+    </div>
+</div>
+<div class="fe-panel-editor-line" ng-show="Edit.params.guide == 1">
+    <div class="fe-panel-editor-name">头像样式</div>
+    <div class="fe-panel-editor-con">
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_guidefacestyle" value="0px" ng-model="Edit.params.guidefacestyle" /> 正方形</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_guidefacestyle" value="40px" ng-model="Edit.params.guidefacestyle" /> 正圆形</label>
+    </div>
+</div>

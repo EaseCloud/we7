@@ -1,0 +1,172 @@
+{if $moudles}
+{if $enable_modules}
+<div class="page-header">
+	<h4><i class="fa fa-cubes"></i> 已启用的模块</h4>
+</div>
+<div class="panel panel-default row">
+	<div class="table-responsive panel-body">
+	<table class="table">
+		<tr>
+			<th style="width:10%"></th>
+			<th style="width:15%">模块名称</th>
+			<th>描述</th>
+		</tr>
+		{loop $enable_modules $key $row}
+		<tr>
+			<td>
+				<img alt="{$row['title']}" src="{$row['icon']}" width="48" height="48" class="img-rounded">
+			</td>
+			<td>
+				{$row['title']}
+			</td>
+			<td>
+				{$row['ability']}
+			</td>
+			<td></td>
+		</tr>
+		{/loop}
+	</table>
+</div>
+</div>
+{/if}
+{if $unenable_modules}
+<div class="page-header">
+	<h4><i class="fa fa-cubes"></i> 未启用的模块</h4>
+</div>
+<div class="panel panel-default row">
+	<div class="table-responsive panel-body">
+	<table class="table">
+		<tr>
+			<th style="width:10%"></th>
+			<th style="width:15%">模块名称</th>
+			<th>描述</th>
+			<th></th>
+		</tr>
+		{loop $unenable_modules $key $row}
+		<tr>
+			<td>
+				<img alt="{$row['title']}" src="{$row['icon']}" width="48" height="48" class="img-rounded">
+			</td>
+			<td>
+				{$row['title']}
+			</td>
+			<td>
+				{$row['ability']}
+			</td>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+		{/loop}
+	</table>
+	</div>
+</div>
+{/if}
+{else}
+	<div class="page-header">
+		<h4><i class="fa fa-plane"></i> 核心功能设置</h4>
+	</div>
+	<div class="shortcut clearfix">
+		{if $entries['cover']}
+			{loop $entries['cover'] $cover}
+			<a href="{$cover['url']}" title="{$cover['title']}">
+				<i class="fa fa-external-link-square"></i>
+				<span>{$cover['title']}</span>
+			</a>
+			{/loop}
+		{/if}
+		{if $module['isrulefields']}
+			<a href="{php echo url('platform/reply', array('m' => $m))}">
+				<i class="fa fa-comments"></i>
+				<span>回复规则列表</span>
+			</a>
+		{/if}
+		{if $entries['home'] || $entries['profile'] || $entries['shortcut']}
+			{if $entries['home']}
+				<a href="{php echo url('site/nav/home', array('m' => $m))}">
+					<i class="fa fa-home"></i>
+					<span>微站首页导航</span>
+				</a>
+			{/if}
+			{if $entries['profile']}
+				<a href="{php echo url('site/nav/profile', array('m' => $m))}">
+					<i class="fa fa-user"></i>
+					<span>个人中心导航</span>
+				</a>
+			{/if}
+			{if $entries['shortcut']}
+				<a href="{php echo url('site/nav/shortcut', array('m' => $m))}">
+					<i class="fa fa-plane"></i>
+					<span>快捷菜单</span>
+				</a>
+			{/if}
+		{/if}
+		{if $module['settings']}
+			<a href="{url 'profile/module/setting' array('m' => $m)}">
+				<i class="fa fa-cog"></i>
+				<span title="参数设置">参数设置</span>
+			</a>
+		{/if}
+	</div>
+	{if $entries['menu']}
+	<div class="page-header">
+		<h4><i class="fa fa-plane"></i> 业务功能菜单</h4>
+	</div>
+	<div class="shortcut clearfix">
+		{loop $entries['menu'] $menu}
+		<a href="{$menu['url']}" title="{$menu['title']}">
+			<i class="{$menu['icon']}"></i>
+			<span>{$menu['title']}</span>
+		</a>
+		{/loop}
+	</div>
+	{/if}
+	{if $entries['mine']}
+	<div class="page-header">
+		<h4><i class="fa fa-plane"></i> 自定义菜单</h4>
+	</div>
+	<div class="shortcut clearfix">
+		{loop $entries['mine'] $mine}
+		<a href="{$mine['url']}" title="{$mine['title']}">
+			<i class="{$mine['icon']}"></i>
+			<span>{$mine['title']}</span>
+		</a>
+		{/loop}
+	</div>
+	{/if}
+{/if}
+<script type="text/javascript">
+<!--
+	{if $_W['isfounder']}
+	function checkupgradeModule() {
+		require(['util'], function(util) {
+			if (util.cookie.get('checkupgrade_{$m}')) {
+				return;
+			}
+			$.getJSON("{url 'utility/checkupgrade/module' array('m' => $m)}", function(ret){
+				if (ret.message.errno == -1) {
+					$('body').prepend('<div id="upgrade-tips-module" class="upgrade-tips"><a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwMzEzOV8xNzEwOTZfNDAwMDgyODUwMl8yXw" target="_blank">' + ret.message.message + '</a></div>');
+					if ($('#upgrade-tips').size()) {
+						$('#upgrade-tips-module').css('top', '25px');
+					}
+				} else if (ret && ret.message && ret.message.upgrade == '1') {
+					$('body').prepend('<div id="upgrade-tips-module" class="upgrade-tips"><a class="module" href="./index.php?c=cloud&a=upgrade&">【'+ret.message.name+'】检测到新版本'+ret.message.version+'，请尽快更新！</a><span class="tips-close" onclick="checkupgradeModule_hide()"><i class="fa fa-times-circle"></i></span></div>');
+					if ($('#upgrade-tips').size()) {
+						$('#upgrade-tips-module').css('top', '25px');
+					}
+				}
+			});
+		});
+	}
+	function checkupgradeModule_hide() {
+		require(['util'], function(util) {
+			util.cookie.set('checkupgrade_{$m}', 1, 3600);
+			$('#upgrade-tips-module').hide();
+		});
+	}
+	$(function(){
+		checkupgradeModule();
+	});
+	{/if}
+//-->
+</script>

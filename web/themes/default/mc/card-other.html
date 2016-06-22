@@ -1,0 +1,33 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $do == 'other'} class="active"{/if}><a href="{php echo url('mc/card/other');}">会员卡其他功能</a></li>
+</ul>
+<div class="clearfix">
+	<div class="clearfix menu">
+		<h5 class="page-header">其他设置</h5>
+		<div class="clearfix">
+			<a href="{php echo url('mc/card/notice');}" class="tile img-rounded">
+				<i class="fa fa-volume-up"></i>
+				<span>通知管理</span>
+			</a>
+			<a href="{php echo url('mc/card/credit');}" class="tile img-rounded">
+				<i class="fa fa-cny"></i>
+				<span>积分策略</span>
+			</a>
+			<a href="{php echo url('mc/card/recommend');}" class="tile img-rounded">
+				<i class="fa fa-share-alt"></i>
+				<span>每日推荐</span>
+			</a>
+			<a href="{php echo url('mc/card/sign');}" class="tile img-rounded">
+				<i class="fa fa-hand-o-up"></i>
+				<span>签到管理</span>
+			</a>
+		</div>
+	</div>
+</div>
+<script>
+	require(['trade', 'bootstrap'], function(trade){
+		trade.init();
+	});
+</script>
+{template 'common/footer'}
