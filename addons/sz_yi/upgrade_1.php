@@ -1,96 +1,96 @@
 <?php
 
- if(!pdo_fieldexists('sz_yi_creditshop_log', 'storeid')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_creditshop_log')." ADD    `storeid` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_creditshop_log', 'storeid')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_creditshop_log') . " ADD    `storeid` int(11) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_creditshop_log', 'realname')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_creditshop_log')." ADD   `realname` varchar(255) DEFAULT '';");
+if (!pdo_fieldexists('sz_yi_creditshop_log', 'realname')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_creditshop_log') . " ADD   `realname` varchar(255) DEFAULT '';");
 }
- if(!pdo_fieldexists('sz_yi_creditshop_log', 'mobile')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_creditshop_log')." ADD   `mobile` varchar(255) DEFAULT '';");
+if (!pdo_fieldexists('sz_yi_creditshop_log', 'mobile')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_creditshop_log') . " ADD   `mobile` varchar(255) DEFAULT '';");
 }
- if(!pdo_fieldexists('sz_yi_order', 'ordersn2')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order')." ADD    `ordersn2` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_order', 'ordersn2')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order') . " ADD    `ordersn2` int(11) DEFAULT '0';");
 }
-if(!pdo_fieldexists('sz_yi_order', 'changeprice')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order')." ADD    `changeprice` decimal(10,2) DEFAULT '0.00';");
+if (!pdo_fieldexists('sz_yi_order', 'changeprice')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order') . " ADD    `changeprice` decimal(10,2) DEFAULT '0.00';");
 }
-if(!pdo_fieldexists('sz_yi_order', 'changedispatchprice')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order')." ADD    `changedispatchprice` decimal(10,2) DEFAULT '0.00';");
+if (!pdo_fieldexists('sz_yi_order', 'changedispatchprice')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order') . " ADD    `changedispatchprice` decimal(10,2) DEFAULT '0.00';");
 }
-if(!pdo_fieldexists('sz_yi_order', 'oldprice')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order')." ADD    `oldprice` decimal(10,2) DEFAULT '0.00';");
+if (!pdo_fieldexists('sz_yi_order', 'oldprice')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order') . " ADD    `oldprice` decimal(10,2) DEFAULT '0.00';");
 }
-if(!pdo_fieldexists('sz_yi_order', 'olddispatchprice')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order')." ADD    `olddispatchprice` decimal(10,2) DEFAULT '0.00';");
+if (!pdo_fieldexists('sz_yi_order', 'olddispatchprice')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order') . " ADD    `olddispatchprice` decimal(10,2) DEFAULT '0.00';");
 }
- if(!pdo_fieldexists('sz_yi_order', 'isvirtual')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order')." ADD   `isvirtual` tinyint(3) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_order', 'isvirtual')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order') . " ADD   `isvirtual` tinyint(3) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_order_goods', 'changeprice')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order_goods')." ADD    `changeprice` decimal(10,2) DEFAULT '0.00';");
+if (!pdo_fieldexists('sz_yi_order_goods', 'changeprice')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order_goods') . " ADD    `changeprice` decimal(10,2) DEFAULT '0.00';");
 }
- if(!pdo_fieldexists('sz_yi_order_goods', 'oldprice')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order_goods')." ADD    `oldprice` decimal(10,2) DEFAULT '0.00';");
+if (!pdo_fieldexists('sz_yi_order_goods', 'oldprice')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order_goods') . " ADD    `oldprice` decimal(10,2) DEFAULT '0.00';");
 }
- if(!pdo_fieldexists('sz_yi_order_goods', 'commissions')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order_goods')." ADD    `commissions` text;");
+if (!pdo_fieldexists('sz_yi_order_goods', 'commissions')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order_goods') . " ADD    `commissions` text;");
 }
- if(!pdo_fieldexists('sz_yi_goods', 'ednum')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_goods')." ADD    `ednum` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_goods', 'ednum')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_goods') . " ADD    `ednum` int(11) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_goods', 'edmoney')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_goods')." ADD     `edmoney` decimal(10,2) DEFAULT '0.00';");
+if (!pdo_fieldexists('sz_yi_goods', 'edmoney')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_goods') . " ADD     `edmoney` decimal(10,2) DEFAULT '0.00';");
 }
- if(!pdo_fieldexists('sz_yi_goods', 'edareas')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_goods')." ADD      `edareas` text;");
+if (!pdo_fieldexists('sz_yi_goods', 'edareas')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_goods') . " ADD      `edareas` text;");
 }
- if(!pdo_fieldexists('sz_yi_member', 'fixagentid')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_member')." ADD      `fixagentid` tinyint(3) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_member', 'fixagentid')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_member') . " ADD      `fixagentid` tinyint(3) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_poster', 'reccouponid')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_poster')." ADD      `reccouponid` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_poster', 'reccouponid')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_poster') . " ADD      `reccouponid` int(11) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_poster', 'reccouponnum')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_poster')." ADD        `reccouponnum` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_poster', 'reccouponnum')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_poster') . " ADD        `reccouponnum` int(11) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_poster', 'subcouponid')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_poster')." ADD         `subcouponid` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_poster', 'subcouponid')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_poster') . " ADD         `subcouponid` int(11) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_poster', 'subcouponnum')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_poster')." ADD         `subcouponnum` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_poster', 'subcouponnum')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_poster') . " ADD         `subcouponnum` int(11) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_plugin', 'category')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_plugin')." ADD         `category` varchar(255) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_plugin', 'category')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_plugin') . " ADD         `category` varchar(255) DEFAULT '0';");
 }
 /**/
- if(!pdo_fieldexists('sz_yi_goods', 'deduct2')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_goods')." ADD         `deduct2` decimal(10,2) DEFAULT '0.00';");
+if (!pdo_fieldexists('sz_yi_goods', 'deduct2')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_goods') . " ADD         `deduct2` decimal(10,2) DEFAULT '0.00';");
 }
- if(!pdo_fieldexists('sz_yi_order', 'couponid')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order')." ADD         `couponid` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_order', 'couponid')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order') . " ADD         `couponid` int(11) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_order', 'couponprice')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_order')." ADD         `couponprice` decimal(10,2) DEFAULT '0.00';");
+if (!pdo_fieldexists('sz_yi_order', 'couponprice')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_order') . " ADD         `couponprice` decimal(10,2) DEFAULT '0.00';");
 }
- if(!pdo_fieldexists('sz_yi_creditshop_goods', 'goodstype')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_creditshop_goods')." ADD      `goodstype` tinyint(3) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_creditshop_goods', 'goodstype')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_creditshop_goods') . " ADD      `goodstype` tinyint(3) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_creditshop_goods', 'couponid')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_creditshop_goods')." ADD      `couponid` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_creditshop_goods', 'couponid')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_creditshop_goods') . " ADD      `couponid` int(11) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_member_log', 'gives')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_member_log')." ADD      `gives` decimal(10,2) DEFAULT NULL;");
+if (!pdo_fieldexists('sz_yi_member_log', 'gives')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_member_log') . " ADD      `gives` decimal(10,2) DEFAULT NULL;");
 }
- if(!pdo_fieldexists('sz_yi_commission_level', 'downcount')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_commission_level')." ADD      `downcount` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_commission_level', 'downcount')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_commission_level') . " ADD      `downcount` int(11) DEFAULT '0';");
 }
- if(!pdo_fieldexists('sz_yi_commission_level', 'ordercount')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_commission_level')." ADD      `ordercount` int(11) DEFAULT '0';");
+if (!pdo_fieldexists('sz_yi_commission_level', 'ordercount')) {
+    pdo_query("ALTER TABLE " . tablename('sz_yi_commission_level') . " ADD      `ordercount` int(11) DEFAULT '0';");
 }
 
 $sql = "
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_coupon'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_coupon') . " (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `catid` int(11) DEFAULT '0',
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_coupon'). " (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_coupon_category'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_coupon_category') . " (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `name` varchar(255) DEFAULT '',
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_coupon_category'). " (
 
 
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_coupon_data'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_coupon_data') . " (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(255) DEFAULT '',
@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_coupon_data'). " (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_coupon_guess'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_coupon_guess') . " (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `couponid` int(11) DEFAULT '0',
@@ -201,7 +201,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_coupon_guess'). " (
 
 
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_coupon_log'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_coupon_log') . " (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `logno` varchar(255) DEFAULT '',
@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_coupon_log'). " (
   KEY `idx_getfrom` (`getfrom`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_poster'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_poster') . " (
    `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `type` tinyint(3) DEFAULT '0' COMMENT '1 首页 2 小店 3 商城 4 自定义',
@@ -268,7 +268,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_poster'). " (
   KEY `idx_createtime` (`createtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_poster_log'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_poster_log') . " (
  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(255) DEFAULT '',
@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_poster_log'). " (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_poster_qr'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_poster_qr') . " (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `acid` int(10) unsigned NOT NULL,
   `openid` varchar(100) NOT NULL DEFAULT '',
@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_poster_qr'). " (
   FULLTEXT KEY `idx_openid` (`openid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_poster_scan'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_poster_scan') . " (
    `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `posterid` int(11) DEFAULT '0',
@@ -326,7 +326,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_poster_scan'). " (
   FULLTEXT KEY `idx_openid` (`openid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_postera'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_postera') . " (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `type` tinyint(3) DEFAULT '0' COMMENT '1 首页 2 小店 3 商城 4 自定义',
@@ -376,7 +376,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_postera'). " (
 
 
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_postera_log'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_postera_log') . " (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(255) DEFAULT '',
@@ -401,7 +401,7 @@ CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_postera_log'). " (
 
 
 
-CREATE TABLE IF NOT EXISTS ".tablename('sz_yi_postera_qr'). " (
+CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_postera_qr') . " (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `acid` int(10) unsigned NOT NULL,
   `openid` varchar(100) NOT NULL DEFAULT '',

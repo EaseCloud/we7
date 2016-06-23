@@ -6,7 +6,7 @@ if (!defined('IN_IA')) {
 }
 global $_W, $_GPC;
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
-$openid    = m('user')->getOpenid();
+$openid = m('user')->getOpenid();
 if (empty($openid)) {
     $openid = $_GPC['openid'];
 }
@@ -27,7 +27,7 @@ if ($operation == 'display' && $_W['isajax']) {
         'uniacid' => $_W['uniacid']
     ));
     $logno = m('common')->createNO('member_log', 'logno', 'RC');
-    $log   = array(
+    $log = array(
         'uniacid' => $_W['uniacid'],
         'logno' => $logno,
         'title' => $set['shop']['name'] . "会员充值",
@@ -37,7 +37,7 @@ if ($operation == 'display' && $_W['isajax']) {
         'status' => 0
     );
     pdo_insert('sz_yi_member_log', $log);
-    $logid  = pdo_insertid();
+    $logid = pdo_insertid();
     $credit = m('member')->getCredit($openid, 'credit2');
     $wechat = array(
         'success' => false
@@ -73,7 +73,7 @@ if ($operation == 'display' && $_W['isajax']) {
         );
 
         $yunpayinfo = $pluginy->getYunpay();
-        
+
         if (isset($yunpayinfo) && $yunpayinfo['switch']) {
             $yunpay['success'] = true;
         }
@@ -102,7 +102,8 @@ if ($operation == 'display' && $_W['isajax']) {
         'weixin',
         'alipay',
         'yunpay'
-    ))) {
+    ))
+    ) {
         show_json(0, '未找到支付方式');
     }
     $log = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_member_log') . ' WHERE `id`=:id and `uniacid`=:uniacid limit 1', array(
@@ -128,23 +129,23 @@ if ($operation == 'display' && $_W['isajax']) {
         if (empty($set['pay']['weixin'])) {
             show_json(0, '未开启微信支付!');
         }
-        $wechat          = array(
+        $wechat = array(
             'success' => false
         );
-        $params          = array();
-        $params['tid']   = $log['logno'];
-        $params['user']  = $openid;
-        $params['fee']   = $money;
+        $params = array();
+        $params['tid'] = $log['logno'];
+        $params['user'] = $openid;
+        $params['fee'] = $money;
         $params['title'] = $log['title'];
         load()->model('payment');
         $setting = uni_setting($_W['uniacid'], array(
             'payment'
         ));
         if (is_array($setting['payment'])) {
-            $options           = $setting['payment']['wechat'];
-            $options['appid']  = $_W['account']['key'];
+            $options = $setting['payment']['wechat'];
+            $options['appid'] = $_W['account']['key'];
             $options['secret'] = $_W['account']['secret'];
-            $wechat            = m('common')->wechat_build($params, $options, 1);
+            $wechat = m('common')->wechat_build($params, $options, 1);
             $wechat['success'] = false;
             if (!is_error($wechat)) {
                 $wechat['success'] = true;
@@ -165,7 +166,7 @@ if ($operation == 'display' && $_W['isajax']) {
     }
 } else if ($operation == 'complete' && $_W['ispost']) {
     $logid = intval($_GPC['logid']);
-    $log   = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_member_log') . ' WHERE `id`=:id and `uniacid`=:uniacid limit 1', array(
+    $log = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_member_log') . ' WHERE `id`=:id and `uniacid`=:uniacid limit 1', array(
         ':uniacid' => $uniacid,
         ':id' => $logid
     ));
@@ -188,9 +189,9 @@ if ($operation == 'display' && $_W['isajax']) {
     }
     show_json(1);
 } else if ($operation == 'return') {
-    $logno     = trim($_GPC['out_trade_no']);
+    $logno = trim($_GPC['out_trade_no']);
     $notify_id = trim($_GPC['notify_id']);
-    $sign      = trim($_GPC['sign']);
+    $sign = trim($_GPC['sign']);
     if (empty($logno)) {
         die('充值出现错误，请重试!');
     }
@@ -217,10 +218,10 @@ if ($operation == 'display' && $_W['isajax']) {
     }
     $url = $this->createMobileUrl('member');
     die("<script>top.window.location.href='{$url}'</script>");
-}else if ($operation == 'returnyunpay') {
+} else if ($operation == 'returnyunpay') {
     $lognos = $_REQUEST['i2'];
-	$strs          = explode(':', $lognos);
-	$logno=$strs [0];
+    $strs = explode(':', $lognos);
+    $logno = $strs [0];
     if (empty($logno)) {
         die('充值出现错误，请重试!');
     }

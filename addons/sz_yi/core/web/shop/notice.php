@@ -40,7 +40,7 @@ if ($operation == 'display') {
     $notice = pdo_fetch("SELECT * FROM " . tablename('sz_yi_notice') . " WHERE id = '$id' and uniacid = '{$_W['uniacid']}'");
 } elseif ($operation == 'delete') {
     ca('shop.notice.delete');
-    $id     = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $notice = pdo_fetch("SELECT id,title  FROM " . tablename('sz_yi_notice') . " WHERE id = '$id' AND uniacid=" . $_W['uniacid'] . "");
     if (empty($notice)) {
         message('抱歉，店铺公告不存在或是已经被删除！', $this->createWebUrl('shop/notice', array(

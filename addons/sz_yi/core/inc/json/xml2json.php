@@ -1,11 +1,12 @@
 <?php
-//Ü¿ÖÚÉÌ³Ç QQ:913768135
+//èŠ¸ä¼—å•†åŸŽ QQ:913768135
 require_once 'JSON.php';
 define('DEBUG', false);
 define('MAX_RECURSION_DEPTH_ALLOWED', 25);
 define('EMPTY_STR', "");
 define('SIMPLE_XML_ELEMENT_OBJECT_PROPERTY_FOR_ATTRIBUTES', '@attributes');
 define('SIMPLE_XML_ELEMENT_PHP_CLASS', 'SimpleXMLElement');
+
 class xml2json
 {
     public static function transformXmlStringToJson($xmlStringContents)
@@ -18,15 +19,16 @@ class xml2json
         if (DEBUG) {
         }
         $jsonOutput = EMPTY_STR;
-        $array1     = xml2json::convertSimpleXmlElementObjectIntoArray($simpleXmlElementObject);
+        $array1 = xml2json::convertSimpleXmlElementObjectIntoArray($simpleXmlElementObject);
         if (($array1 != null) && (sizeof($array1) > 0)) {
-            $json       = new Services_JSON();
+            $json = new Services_JSON();
             $jsonOutput = $json->encode($array1);
             if (DEBUG) {
             }
         }
         return ($jsonOutput);
     }
+
     public static function convertSimpleXmlElementObjectIntoArray($simpleXmlElementObject, &$recursionDepth = 0)
     {
         if ($recursionDepth > MAX_RECURSION_DEPTH_ALLOWED) {
@@ -41,7 +43,7 @@ class xml2json
         }
         if (@get_class($simpleXmlElementObject) == SIMPLE_XML_ELEMENT_PHP_CLASS) {
             $copyOfsimpleXmlElementObject = $simpleXmlElementObject;
-            $simpleXmlElementObject       = get_object_vars($simpleXmlElementObject);
+            $simpleXmlElementObject = get_object_vars($simpleXmlElementObject);
         }
         if (is_array($simpleXmlElementObject)) {
             $resultArray = array();
@@ -54,8 +56,8 @@ class xml2json
                 $recursionDepth--;
             }
             if ($recursionDepth == 0) {
-                $tempArray                                                     = $resultArray;
-                $resultArray                                                   = array();
+                $tempArray = $resultArray;
+                $resultArray = array();
                 $resultArray[$callerProvidedSimpleXmlElementObject->getName()] = $tempArray;
             }
             return ($resultArray);

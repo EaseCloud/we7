@@ -17,7 +17,7 @@ if ($tpl == 'option') {
     );
     include $this->template('web/shop/tpl/spec');
 } else if ($tpl == 'specitem') {
-    $spec     = array(
+    $spec = array(
         "id" => $_GPC['specid']
     );
     $specitem = array(

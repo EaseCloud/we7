@@ -7,12 +7,12 @@ if (!empty($_POST)) {
     require '../../../../addons/sz_yi/defines.php';
     require '../../../../addons/sz_yi/core/inc/functions.php';
     require '../../../../addons/sz_yi/core/inc/plugin/plugin_model.php';
-	
-    $body          = $_REQUEST['i2'];
-    $strs          = explode(':', $body);
-	$out_trade_no = $strs[0];
+
+    $body = $_REQUEST['i2'];
+    $strs = explode(':', $body);
+    $out_trade_no = $strs[0];
     $_W['uniacid'] = $_W['weid'] = intval($strs[1]);
-    $type          = intval($strs[2]);
+    $type = intval($strs[2]);
     if ($type == 0) {
         $paylog = "\r\n-------------------------------------------------\r\n";
         $paylog .= "orderno: " . $out_trade_no . "\r\n";
@@ -27,21 +27,21 @@ if (!empty($_POST)) {
         $yunpay = $setting['payment']['yunpay'];
         if (!empty($yunpay)) {
             m('common')->paylog("setting: ok\r\n");
-           $prestr = $_REQUEST['i1'] . $_REQUEST['i2'].$yunpay['partner'].$yunpay['secret'];
-			$mysgin = md5($prestr);
-            if ($mysgin  == $_REQUEST['i3']) {
+            $prestr = $_REQUEST['i1'] . $_REQUEST['i2'] . $yunpay['partner'] . $yunpay['secret'];
+            $mysgin = md5($prestr);
+            if ($mysgin == $_REQUEST['i3']) {
                 m('common')->paylog("sign: ok\r\n");
                 if (empty($type)) {
                     $tid = $out_trade_no;
                     if (strexists($tid, 'GJ')) {
                         $tids = explode("GJ", $tid);
-                        $tid  = $tids[0];
+                        $tid = $tids[0];
                     }
-                    $sql               = 'SELECT * FROM ' . tablename('core_paylog') . ' WHERE `tid`=:tid and `module`=:module limit 1';
-                    $params            = array();
-                    $params[':tid']    = $tid;
+                    $sql = 'SELECT * FROM ' . tablename('core_paylog') . ' WHERE `tid`=:tid and `module`=:module limit 1';
+                    $params = array();
+                    $params[':tid'] = $tid;
                     $params[':module'] = 'sz_yi';
-                    $log               = pdo_fetch($sql, $params);
+                    $log = pdo_fetch($sql, $params);
                     m('common')->paylog('log: ' . (empty($log) ? '' : json_encode($log)) . "\r\n");
                     if (!empty($log) && $log['status'] == '0') {
                         m('common')->paylog("corelog: ok\r\n");
@@ -49,24 +49,23 @@ if (!empty($_POST)) {
                         if (!is_error($site)) {
                             $method = 'payResult';
                             if (method_exists($site, $method)) {
-                                $ret               = array();
-                                $ret['weid']       = $log['weid'];
-                                $ret['uniacid']    = $log['uniacid'];
-                                $ret['result']     = 'success';
-                                $ret['type']       = $log['type'];
-                                $ret['from']       = 'return';
-                                $ret['tid']        = $log['tid'];
-                                $ret['user']       = $log['openid'];
-                                $ret['fee']        = $log['fee'];
+                                $ret = array();
+                                $ret['weid'] = $log['weid'];
+                                $ret['uniacid'] = $log['uniacid'];
+                                $ret['result'] = 'success';
+                                $ret['type'] = $log['type'];
+                                $ret['from'] = 'return';
+                                $ret['tid'] = $log['tid'];
+                                $ret['user'] = $log['openid'];
+                                $ret['fee'] = $log['fee'];
                                 $ret['is_usecard'] = $log['is_usecard'];
-                                $ret['card_type']  = $log['card_type'];
-                                $ret['card_fee']   = $log['card_fee'];
-                                $ret['card_id']    = $log['card_id'];
-                                m('common')->paylog('method: execute
-');
+                                $ret['card_type'] = $log['card_type'];
+                                $ret['card_fee'] = $log['card_fee'];
+                                $ret['card_id'] = $log['card_id'];
+                                m('common')->paylog('method: execute');
                                 $result = $site->$method($ret);
                                 if (is_array($result) && $result['result'] == 'success') {
-                                    $record           = array();
+                                    $record = array();
                                     $record['status'] = '1';
                                     pdo_update('core_paylog', $record, array(
                                         'plid' => $log['plid']
@@ -74,8 +73,7 @@ if (!empty($_POST)) {
                                     exit('success');
                                 }
                             } else {
-                                m('common')->paylog('method not found!
-');
+                                m('common')->paylog('method not found!');
                             }
                         } else {
                             m('common')->paylog('error: ' . json_encode($site) . "\r\n");

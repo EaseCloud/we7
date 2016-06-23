@@ -17,7 +17,7 @@ global $_W, $_GPC;
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
 if ($operation == 'display') {
     ca('member.group.view');
-    $list    = array(
+    $list = array(
         array(
             'groupname' => '无分组',
             'membercount' => pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_member') . ' where uniacid=:uniacid and groupid=0 limit 1', array(
@@ -67,7 +67,7 @@ if ($operation == 'display') {
     }
 } elseif ($operation == 'delete') {
     ca('member.group.delete');
-    $id    = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $group = pdo_fetch("SELECT id,groupname FROM " . tablename('sz_yi_member_group') . " WHERE id = '$id'");
     if (empty($group)) {
         message('抱歉，分组不存在或是已经被删除！', $this->createWebUrl('member/group', array(

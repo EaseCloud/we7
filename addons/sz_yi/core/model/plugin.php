@@ -12,6 +12,7 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class Sz_DYi_Plugin
 {
     public function getSet($plugin = '', $key = '', $uniacid = 0)
@@ -35,6 +36,7 @@ class Sz_DYi_Plugin
         }
         return $allset[$key];
     }
+
     public function exists($pluginName = '')
     {
         $dbplugin = pdo_fetchall('select * from ' . tablename('sz_yi_plugin') . ' where identity=:identyty limit  1', array(
@@ -45,6 +47,7 @@ class Sz_DYi_Plugin
         }
         return true;
     }
+
     /*public function getAll()
     {
         global $_W;
@@ -61,18 +64,19 @@ class Sz_DYi_Plugin
         }
         return $plugins;
     }*/
-	public function getAll()
-	{
-		global $_W;
-		$plugins = m('cache')->getArray('plugins', 'global');
-		if (empty($plugins)) {
-			$plugins = pdo_fetchall('select * from ' . tablename('sz_yi_plugin') . ' order by displayorder asc');
-			m('cache')->set('plugins', $plugins, 'global');
-		}
-		return $plugins;
-	}
-	public function getCategory()
-	{
-		return array('biz' => array('name' => '业务类'), 'sale' => array('name' => '营销类'), 'tool' => array('name' => '工具类'), 'help' => array('name' => '辅助类'));
-	}
+    public function getAll()
+    {
+        global $_W;
+        $plugins = m('cache')->getArray('plugins', 'global');
+        if (empty($plugins)) {
+            $plugins = pdo_fetchall('select * from ' . tablename('sz_yi_plugin') . ' order by displayorder asc');
+            m('cache')->set('plugins', $plugins, 'global');
+        }
+        return $plugins;
+    }
+
+    public function getCategory()
+    {
+        return array('biz' => array('name' => '业务类'), 'sale' => array('name' => '营销类'), 'tool' => array('name' => '工具类'), 'help' => array('name' => '辅助类'));
+    }
 }

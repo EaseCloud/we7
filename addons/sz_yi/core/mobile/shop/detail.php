@@ -5,23 +5,23 @@ if (!defined('IN_IA')) {
     exit('Access Denied');
 }
 global $_W, $_GPC;
-$openid         = m('user')->getOpenid();
-$member         = m('member')->getMember($openid);
-$uniacid        = $_W['uniacid'];
-$goodsid        = intval($_GPC['id']);
-$goods          = pdo_fetch("SELECT * FROM " . tablename('sz_yi_goods') . " WHERE id = :id limit 1", array(
+$openid = m('user')->getOpenid();
+$member = m('member')->getMember($openid);
+$uniacid = $_W['uniacid'];
+$goodsid = intval($_GPC['id']);
+$goods = pdo_fetch("SELECT * FROM " . tablename('sz_yi_goods') . " WHERE id = :id limit 1", array(
     ':id' => $goodsid
 ));
-$shop           = set_medias(m('common')->getSysset('shop'), 'logo');
-$shop['url']    = $this->createMobileUrl('shop');
-$mid            = intval($_GPC['mid']);
+$shop = set_medias(m('common')->getSysset('shop'), 'logo');
+$shop['url'] = $this->createMobileUrl('shop');
+$mid = intval($_GPC['mid']);
 
 $shopset = m('common')->getSysset('shop');
 
 $opencommission = false;
 if (p('commission')) {
     if (empty($member['agentblack'])) {
-        $cset           = p('commission')->getSet();
+        $cset = p('commission')->getSet();
         $opencommission = intval($cset['level']) > 0;
         if ($opencommission) {
             if (empty($mid)) {
@@ -31,7 +31,7 @@ if (p('commission')) {
             }
             if (!empty($mid)) {
                 if (empty($cset['closemyshop'])) {
-                    $shop        = set_medias(p('commission')->getShop($mid), 'logo');
+                    $shop = set_medias(p('commission')->getShop($mid), 'logo');
                     $shop['url'] = $this->createPluginMobileUrl('commission/myshop', array(
                         'mid' => $mid
                     ));
@@ -41,22 +41,22 @@ if (p('commission')) {
         }
     }
 }
-$showdiyform    = 0;
+$showdiyform = 0;
 $diyform_plugin = p('diyform');
 if ($diyform_plugin) {
     $diyformtype = $goods['diyformtype'];
-    $diyformid   = $goods['diyformid'];
-    $diymode     = $goods['diymode'];
+    $diyformid = $goods['diyformid'];
+    $diymode = $goods['diymode'];
     if (!empty($diyformtype) && !empty($diyformid)) {
         $formInfo = $diyform_plugin->getDiyformInfo($diyformid);
-        $fields   = $formInfo['fields'];
-        $f_data   = $diyform_plugin->getLastData(3, $diymode, $diyformid, $goodsid, $fields, $member);
+        $fields = $formInfo['fields'];
+        $f_data = $diyform_plugin->getLastData(3, $diymode, $diyformid, $goodsid, $fields, $member);
     }
     if ($_W['isajax'] && $_GPC['op'] == 'create') {
         $insert_data = $diyform_plugin->getInsertData($fields, $_GPC['diydata']);
-        $idata       = $insert_data['data'];
-        $goods_temp  = $diyform_plugin->getGoodsTemp($goodsid, $diyformid, $openid);
-        $insert      = array(
+        $idata = $insert_data['data'];
+        $goods_temp = $diyform_plugin->getGoodsTemp($goodsid, $diyformid, $openid);
+        $insert = array(
             'cid' => $goodsid,
             'openid' => $openid,
             'diyformid' => $diyformid,
@@ -83,7 +83,7 @@ $html = $goods['content'];
 preg_match_all("/<img.*?src=[\'| \"](.*?(?:[\.gif|\.jpg]?))[\'|\"].*?[\/]?>/", $html, $imgs);
 if (isset($imgs[1])) {
     foreach ($imgs[1] as $img) {
-        $im       = array(
+        $im = array(
             "old" => $img,
             "new" => tomedia($img)
         );
@@ -100,10 +100,10 @@ if ($_W['isajax']) {
     if (empty($goods)) {
         show_json(0);
     }
-    $goods              = set_medias($goods, 'thumb');
-    $goods['canbuy']    = !empty($goods['status']) && empty($goods['deleted']);
+    $goods = set_medias($goods, 'thumb');
+    $goods['canbuy'] = !empty($goods['status']) && empty($goods['deleted']);
     $goods['timestate'] = '';
-    $goods['userbuy']   = '1';
+    $goods['userbuy'] = '1';
     if ($goods['usermaxbuy'] > 0) {
         $order_goodscount = pdo_fetchcolumn('select ifnull(sum(og.total),0)  from ' . tablename('sz_yi_order_goods') . ' og ' . ' left join ' . tablename('sz_yi_order') . ' o on og.orderid=o.id ' . ' where og.goodsid=:goodsid and  o.status>=1 and o.openid=:openid  and og.uniacid=:uniacid ', array(
             ':goodsid' => $goodsid,
@@ -114,8 +114,8 @@ if ($_W['isajax']) {
             $goods['userbuy'] = 0;
         }
     }
-    $levelid           = $member['level'];
-    $groupid           = $member['groupid'];
+    $levelid = $member['level'];
+    $groupid = $member['groupid'];
     $goods['levelbuy'] = '1';
     if ($goods['buylevels'] != '') {
         $buylevels = explode(',', $goods['buylevels']);
@@ -133,12 +133,12 @@ if ($_W['isajax']) {
     $goods['timebuy'] = '0';
     if ($goods['istime'] == 1) {
         if (time() < $goods['timestart']) {
-            $goods['timebuy']   = '-1';
+            $goods['timebuy'] = '-1';
             $goods['timestate'] = "before";
-            $goods['buymsg']    = "限时购活动未开始";
+            $goods['buymsg'] = "限时购活动未开始";
         } else if (time() > $goods['timeend']) {
             $goods['timebuy'] = '1';
-            $goods['buymsg']  = '限时购活动已经结束';
+            $goods['buymsg'] = '限时购活动已经结束';
         } else {
             $goods['timestate'] = 'after';
         }
@@ -147,7 +147,7 @@ if ($_W['isajax']) {
     if ($goods['isverify'] == 2 || $goods['type'] == 2 || $goods['type'] == 3) {
         $goods['canaddcart'] = false;
     }
-    $pics     = array(
+    $pics = array(
         $goods['thumb']
     );
     $thumburl = unserialize($goods['thumb_url']);
@@ -155,19 +155,19 @@ if ($_W['isajax']) {
         $pics = array_merge($pics, $thumburl);
     }
     unset($thumburl);
-    $pics         = set_medias($pics);
-    $marketprice  = $goods['marketprice'];
+    $pics = set_medias($pics);
+    $marketprice = $goods['marketprice'];
     $productprice = $goods['productprice'];
-    $maxprice     = $marketprice;
-    $minprice     = $marketprice;
-    $stock        = $goods['total'];
-    $allspecs     = array();
+    $maxprice = $marketprice;
+    $minprice = $marketprice;
+    $stock = $goods['total'];
+    $allspecs = array();
     if (!empty($goods['hasoption'])) {
         $allspecs = pdo_fetchall("select * from " . tablename('sz_yi_goods_spec') . " where goodsid=:id order by displayorder asc", array(
             ':id' => $goodsid
         ));
         foreach ($allspecs as &$s) {
-            $items      = pdo_fetchall("select * from " . tablename('sz_yi_goods_spec_item') . " where  `show`=1 and specid=:specid order by displayorder asc", array(
+            $items = pdo_fetchall("select * from " . tablename('sz_yi_goods_spec_item') . " where  `show`=1 and specid=:specid order by displayorder asc", array(
                 ":specid" => $s['id']
             ));
             $s['items'] = set_medias($items, 'thumb');
@@ -191,7 +191,7 @@ if ($_W['isajax']) {
         $goods['maxprice'] = $maxprice;
         $goods['minprice'] = $minprice;
     }
-    $specs  = $allspecs;
+    $specs = $allspecs;
     $params = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_goods_param') . " WHERE uniacid=:uniacid and goodsid=:goodsid order by displayorder asc", array(
         ':uniacid' => $uniacid,
         ":goodsid" => $goods['id']
@@ -219,7 +219,7 @@ if ($_W['isajax']) {
         );
         pdo_insert('sz_yi_member_history', $history);
     }
-    $level     = m('member')->getLevel($openid);
+    $level = m('member')->getLevel($openid);
     $discounts = json_decode($goods['discounts'], true);
     if (is_array($discounts)) {
         if (!empty($level['id'])) {
@@ -251,16 +251,16 @@ if ($_W['isajax']) {
             ));
         }
     }
-    $followed    = m('user')->followed($openid);
-    $followurl   = empty($goods['followurl']) ? $shop['followurl'] : $goods['followurl'];
-    $followtip   = empty($goods['followtip']) ? '如果您想要购买此商品，需要您关注我们的公众号，点击【确定】关注后再来购买吧~' : $goods['followtip'];
+    $followed = m('user')->followed($openid);
+    $followurl = empty($goods['followurl']) ? $shop['followurl'] : $goods['followurl'];
+    $followtip = empty($goods['followtip']) ? '如果您想要购买此商品，需要您关注我们的公众号，点击【确定】关注后再来购买吧~' : $goods['followtip'];
     $sale_plugin = p('sale');
-    $saleset     = false;
+    $saleset = false;
     if ($sale_plugin) {
-        $saleset            = $sale_plugin->getSet();
+        $saleset = $sale_plugin->getSet();
         $saleset['enoughs'] = $sale_plugin->getEnoughs();
     }
-    $ret        = array(
+    $ret = array(
         'goods' => $goods,
         'followed' => $followed ? 1 : 0,
         'followurl' => $followurl,
@@ -317,7 +317,7 @@ $_W['shopshare'] = array(
         'id' => $goods['id']
     ))
 );
-$com             = p('commission');
+$com = p('commission');
 if ($com) {
     $cset = $com->getSet();
     if (!empty($cset)) {

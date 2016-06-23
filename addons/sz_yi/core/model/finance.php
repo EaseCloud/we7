@@ -2,8 +2,11 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
-class Sz_DYi_Finance {
-    public function pay($openid = '', $paytype = 0, $money = 0, $trade_no = '', $desc = '') {
+
+class Sz_DYi_Finance
+{
+    public function pay($openid = '', $paytype = 0, $money = 0, $trade_no = '', $desc = '')
+    {
         global $_W, $_GPC;
         if (empty($openid)) {
             return error(-1, 'openid不能为空');
@@ -45,9 +48,9 @@ class Sz_DYi_Finance {
             ksort($pars, SORT_STRING);
             $string1 = '';
             foreach ($pars as $k => $v) {
-                $string1.= "{$k}={$v}&";
+                $string1 .= "{$k}={$v}&";
             }
-            $string1.= "key=" . $wechat['apikey'];
+            $string1 .= "key=" . $wechat['apikey'];
             $pars['sign'] = strtoupper(md5($string1));
             $xml = array2xml($pars);
             $extras = array();
@@ -80,7 +83,7 @@ class Sz_DYi_Finance {
             if (empty($resp['content'])) {
                 return error(-2, '网络错误');
             } else {
-                $arr = json_decode(json_encode((array)simplexml_load_string($resp['content'])) , true);
+                $arr = json_decode(json_encode((array)simplexml_load_string($resp['content'])), true);
                 $xml = '<?xml version="1.0" encoding="utf-8"?>' . $resp['content'];
                 $dom = new DOMDocument();
                 if ($dom->loadXML($xml)) {
@@ -103,7 +106,9 @@ class Sz_DYi_Finance {
             }
         }
     }
-    public function refund($openid, $out_trade_no, $out_refund_no, $totalmoney, $refundmoney = 0) {
+
+    public function refund($openid, $out_trade_no, $out_refund_no, $totalmoney, $refundmoney = 0)
+    {
         global $_W, $_GPC;
         if (empty($openid)) {
             return error(-1, 'openid不能为空');
@@ -137,9 +142,9 @@ class Sz_DYi_Finance {
         ksort($pars, SORT_STRING);
         $string1 = '';
         foreach ($pars as $k => $v) {
-            $string1.= "{$k}={$v}&";
+            $string1 .= "{$k}={$v}&";
         }
-        $string1.= "key=" . $wechat['apikey'];
+        $string1 .= "key=" . $wechat['apikey'];
         $pars['sign'] = strtoupper(md5($string1));
         $xml = array2xml($pars);
         $extras = array();
@@ -172,7 +177,7 @@ class Sz_DYi_Finance {
         if (empty($resp['content'])) {
             return error(-2, '网络错误');
         } else {
-            $arr = json_decode(json_encode((array)simplexml_load_string($resp['content'])) , true);
+            $arr = json_decode(json_encode((array)simplexml_load_string($resp['content'])), true);
             $xml = '<?xml version="1.0" encoding="utf-8"?>' . $resp['content'];
             $dom = new DOMDocument();
             if ($dom->loadXML($xml)) {
@@ -194,7 +199,9 @@ class Sz_DYi_Finance {
             }
         }
     }
-    public function downloadbill($starttime, $endtime, $type = 'ALL') {
+
+    public function downloadbill($starttime, $endtime, $type = 'ALL')
+    {
         global $_W, $_GPC;
         $dates = array();
         $startdate = date('Ymd', $starttime);
@@ -229,8 +236,8 @@ class Sz_DYi_Finance {
             if (is_error($dc) || strexists($dc, 'CDATA[FAIL]')) {
                 continue;
             }
-            $content.= $date . " 账单\r\n\r\n";
-            $content.= $dc . "\r\n\r\n";
+            $content .= $date . " 账单\r\n\r\n";
+            $content .= $dc . "\r\n\r\n";
         }
         $file = time() . ".csv";
         header('Content-type: application/octet-stream ');
@@ -241,7 +248,9 @@ class Sz_DYi_Finance {
         header('Pragma: public ');
         die($content);
     }
-    private function downloadday($date, $row, $wechat, $type) {
+
+    private function downloadday($date, $row, $wechat, $type)
+    {
         $url = 'https://api.mch.weixin.qq.com/pay/downloadbill';
         $pars = array();
         $pars['appid'] = $row['key'];
@@ -253,9 +262,9 @@ class Sz_DYi_Finance {
         ksort($pars, SORT_STRING);
         $string1 = '';
         foreach ($pars as $k => $v) {
-            $string1.= "{$k}={$v}&";
+            $string1 .= "{$k}={$v}&";
         }
-        $string1.= "key=" . $wechat['apikey'];
+        $string1 .= "key=" . $wechat['apikey'];
         $pars['sign'] = strtoupper(md5($string1));
         $xml = array2xml($pars);
         $extras = array();
@@ -273,7 +282,9 @@ class Sz_DYi_Finance {
             return $resp['content'];
         }
     }
-    public function closeOrder($out_trade_no = '') {
+
+    public function closeOrder($out_trade_no = '')
+    {
         global $_W, $_GPC;
         $setting = uni_setting($_W['uniacid'], array(
             'payment'
@@ -295,9 +306,9 @@ class Sz_DYi_Finance {
         ksort($pars, SORT_STRING);
         $string1 = '';
         foreach ($pars as $k => $v) {
-            $string1.= "{$k}={$v}&";
+            $string1 .= "{$k}={$v}&";
         }
-        $string1.= "key=" . $wechat['apikey'];
+        $string1 .= "key=" . $wechat['apikey'];
         $pars['sign'] = strtoupper(md5($string1));
         $xml = array2xml($pars);
         load()->func('communication');
@@ -308,7 +319,7 @@ class Sz_DYi_Finance {
         if (empty($resp['content'])) {
             return error(-2, '网络错误');
         } else {
-            $arr = json_decode(json_encode((array)simplexml_load_string($resp['content'])) , true);
+            $arr = json_decode(json_encode((array)simplexml_load_string($resp['content'])), true);
             $xml = '<?xml version="1.0" encoding="utf-8"?>' . $resp['content'];
             $dom = new DOMDocument();
             if ($dom->loadXML($xml)) {
@@ -331,7 +342,9 @@ class Sz_DYi_Finance {
             }
         }
     }
-    public function isWeixinPay($out_trade_no) {
+
+    public function isWeixinPay($out_trade_no)
+    {
         global $_W, $_GPC;
         $setting = uni_setting($_W['uniacid'], array(
             'payment'
@@ -353,9 +366,9 @@ class Sz_DYi_Finance {
         ksort($pars, SORT_STRING);
         $string1 = '';
         foreach ($pars as $k => $v) {
-            $string1.= "{$k}={$v}&";
+            $string1 .= "{$k}={$v}&";
         }
-        $string1.= "key=" . $wechat['apikey'];
+        $string1 .= "key=" . $wechat['apikey'];
         $pars['sign'] = strtoupper(md5($string1));
         $xml = array2xml($pars);
         load()->func('communication');
@@ -366,7 +379,7 @@ class Sz_DYi_Finance {
         if (empty($resp['content'])) {
             return error(-2, '网络错误');
         } else {
-            $arr = json_decode(json_encode((array)simplexml_load_string($resp['content'])) , true);
+            $arr = json_decode(json_encode((array)simplexml_load_string($resp['content'])), true);
             $xml = '<?xml version="1.0" encoding="utf-8"?>' . $resp['content'];
             $dom = new DOMDocument();
             if ($dom->loadXML($xml)) {
@@ -389,7 +402,9 @@ class Sz_DYi_Finance {
             }
         }
     }
-    function isAlipayNotify($gpc) {
+
+    function isAlipayNotify($gpc)
+    {
         global $_W;
         $notify_id = trim($gpc['notify_id']);
         $notify_sign = trim($gpc['sign']);
@@ -406,16 +421,17 @@ class Sz_DYi_Finance {
         $params = array();
         foreach ($gpc as $key => $value) {
             if (in_array($key, array(
-                'sign',
-                'sign_type',
-                'i',
-                'm',
-                'openid',
-                'c',
-                'do',
-                'p',
-                'op'
-            )) || empty($value)) {
+                    'sign',
+                    'sign_type',
+                    'i',
+                    'm',
+                    'openid',
+                    'c',
+                    'do',
+                    'p',
+                    'op'
+                )) || empty($value)
+            ) {
                 continue;
             }
             $params[$key] = $value;
@@ -423,7 +439,7 @@ class Sz_DYi_Finance {
         ksort($params, SORT_STRING);
         $string1 = '';
         foreach ($params as $k => $v) {
-            $string1.= "{$k}={$v}&";
+            $string1 .= "{$k}={$v}&";
         }
         $string1 = rtrim($string1, '&') . $alipay['secret'];
         $sign = strtolower(md5($string1));

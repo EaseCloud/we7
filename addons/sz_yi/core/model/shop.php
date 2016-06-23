@@ -1,7 +1,7 @@
 <?php
 /*=============================================================================
 #     FileName: shop.php
-#         Desc: ÉÌ³ÇÀà
+#         Desc: å•†åŸŽç±»
 #       Author: Yunzhong - http://www.yunzshop.com
 #        Email: 913768135@qq.com
 #     HomePage: http://www.yunzshop.com
@@ -12,17 +12,18 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class Sz_DYi_Shop
 {
     public function getCategory()
     {
         global $_W;
-        $shopset     = m('common')->getSysset('shop');
+        $shopset = m('common')->getSysset('shop');
         $allcategory = array();
-        $category    = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_category') . " WHERE uniacid=:uniacid and enabled=1 ORDER BY parentid ASC, displayorder DESC", array(
+        $category = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_category') . " WHERE uniacid=:uniacid and enabled=1 ORDER BY parentid ASC, displayorder DESC", array(
             ':uniacid' => $_W['uniacid']
         ));
-        $category    = set_medias($category, array(
+        $category = set_medias($category, array(
             'thumb',
             'advimg'
         ));

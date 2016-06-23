@@ -4,16 +4,16 @@ if (!defined('IN_IA')) {
 }
 global $_W, $_GPC;
 
-$op     = $operation = $_GPC['op'] ? $_GPC['op'] : 'display';
+$op = $operation = $_GPC['op'] ? $_GPC['op'] : 'display';
 $groups = m('member')->getGroups();
 $levels = m('member')->getLevels();
-$shop   = m('common')->getSysset('shop');
+$shop = m('common')->getSysset('shop');
 if ($op == 'display') {
     ca('member.member.view');
-    $pindex    = max(1, intval($_GPC['page']));
-    $psize     = 20;
+    $pindex = max(1, intval($_GPC['page']));
+    $psize = 20;
     $condition = " and dm.uniacid=:uniacid";
-    $params    = array(
+    $params = array(
         ':uniacid' => $_W['uniacid']
     );
     if (!empty($_GPC['mid'])) {
@@ -27,15 +27,15 @@ if ($op == 'display') {
     }
     if (empty($starttime) || empty($endtime)) {
         $starttime = strtotime('-1 month');
-        $endtime   = time();
+        $endtime = time();
     }
     if (!empty($_GPC['time'])) {
         $starttime = strtotime($_GPC['time']['start']);
-        $endtime   = strtotime($_GPC['time']['end']);
+        $endtime = strtotime($_GPC['time']['end']);
         if ($_GPC['searchtime'] == '1') {
             $condition .= " AND dm.createtime >= :starttime AND dm.createtime <= :endtime ";
             $params[':starttime'] = $starttime;
-            $params[':endtime']   = $endtime;
+            $params[':endtime'] = $endtime;
         }
     }
     if ($_GPC['level'] != '') {
@@ -60,7 +60,7 @@ if ($op == 'display') {
     }
     $list = pdo_fetchall($sql, $params);
     foreach ($list as &$row) {
-        $row['levelname']  = empty($row['levelname']) ? (empty($shop['levelname']) ? '普通会员' : $shop['levelname']) : $row['levelname'];
+        $row['levelname'] = empty($row['levelname']) ? (empty($shop['levelname']) ? '普通会员' : $shop['levelname']) : $row['levelname'];
         $row['ordercount'] = pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_order') . ' where uniacid=:uniacid and openid=:openid and status=3', array(
             ':uniacid' => $_W['uniacid'],
             ':openid' => $row['openid']
@@ -69,9 +69,9 @@ if ($op == 'display') {
             ':uniacid' => $_W['uniacid'],
             ':openid' => $row['openid']
         ));
-        $row['credit1']    = m('member')->getCredit($row['openid'], 'credit1');
-        $row['credit2']    = m('member')->getCredit($row['openid'], 'credit2');
-        $row['followed']   = m('user')->followed($row['openid']);
+        $row['credit1'] = m('member')->getCredit($row['openid'], 'credit1');
+        $row['credit2'] = m('member')->getCredit($row['openid'], 'credit2');
+        $row['followed'] = m('user')->followed($row['openid']);
     }
     unset($row);
     if ($_GPC['export'] == '1') {
@@ -79,8 +79,8 @@ if ($op == 'display') {
         plog('member.member.export', '导出会员数据');
         foreach ($list as &$row) {
             $row['createtime'] = date('Y-m-d H:i', $row['createtime']);
-            $row['groupname']  = empty($row['groupname']) ? '无分组' : $row['groupname'];
-            $row['levelname']  = empty($row['levelname']) ? '普通会员' : $row['levelname'];
+            $row['groupname'] = empty($row['groupname']) ? '无分组' : $row['groupname'];
+            $row['levelname'] = empty($row['levelname']) ? '普通会员' : $row['levelname'];
         }
         unset($row);
         m('excel')->export($list, array(
@@ -139,9 +139,9 @@ if ($op == 'display') {
             )
         ));
     }
-    $total           = pdo_fetchcolumn("select count(*) from" . tablename('sz_yi_member') . " dm " . " left join " . tablename('sz_yi_member_group') . " g on dm.groupid=g.id" . " left join " . tablename('sz_yi_member_level') . " l on dm.level =l.id" . " left join " . tablename('mc_mapping_fans') . "f on f.openid=dm.openid" . " where 1 {$condition} ", $params);
-    $pager           = pagination($total, $pindex, $psize);
-    $opencommission  = false;
+    $total = pdo_fetchcolumn("select count(*) from" . tablename('sz_yi_member') . " dm " . " left join " . tablename('sz_yi_member_group') . " g on dm.groupid=g.id" . " left join " . tablename('sz_yi_member_level') . " l on dm.level =l.id" . " left join " . tablename('mc_mapping_fans') . "f on f.openid=dm.openid" . " where 1 {$condition} ", $params);
+    $pager = pagination($total, $pindex, $psize);
+    $opencommission = false;
     $plug_commission = p('commission');
     if ($plug_commission) {
         $comset = $plug_commission->getSet();
@@ -152,10 +152,10 @@ if ($op == 'display') {
 } else if ($op == 'detail') {
     ca('member.member.view');
     $hascommission = false;
-    $plugin_com    = p('commission');
+    $plugin_com = p('commission');
     if ($plugin_com) {
         $plugin_com_set = $plugin_com->getSet();
-        $hascommission  = !empty($plugin_com_set['level']);
+        $hascommission = !empty($plugin_com_set['level']);
     }
     $id = intval($_GPC['id']);
     if (checksubmit('submit')) {
@@ -172,7 +172,7 @@ if ($op == 'display') {
                 $adata = is_array($_GPC['adata']) ? $_GPC['adata'] : array();
                 if (!empty($adata)) {
                     if (empty($_GPC['oldstatus']) && $adata['status'] == 1) {
-                        $time               = time();
+                        $time = time();
                         $adata['agenttime'] = time();
                         $plugin_com->sendMessage($member['openid'], array(
                             'nickname' => $member['nickname'],
@@ -216,19 +216,19 @@ if ($op == 'display') {
     if (!empty($member['agentid'])) {
         $parentagent = m('member')->getMember($member['agentid']);
     }
-    $diyform_flag   = 0;
+    $diyform_flag = 0;
     $diyform_plugin = p('diyform');
     if ($diyform_plugin) {
         if (!empty($member['diymemberdata'])) {
             $diyform_flag = 1;
-            $fields       = iunserializer($member['diymemberfields']);
+            $fields = iunserializer($member['diymemberfields']);
         }
     }
 } else if ($op == 'delete') {
     ca('member.member.delete');
-    $id      = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $isagent = intval($_GPC['isagent']);
-    $member  = pdo_fetch("select * from " . tablename('sz_yi_member') . " where uniacid=:uniacid and id=:id limit 1 ", array(
+    $member = pdo_fetch("select * from " . tablename('sz_yi_member') . " where uniacid=:uniacid and id=:id limit 1 ", array(
         ':uniacid' => $_W['uniacid'],
         ':id' => $id
     ));
@@ -251,7 +251,7 @@ if ($op == 'display') {
     message('删除成功！', $this->createWebUrl('member/list'), 'success');
 } else if ($operation == 'setblack') {
     ca('member.member.setblack');
-    $id     = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $member = pdo_fetch("select * from " . tablename('sz_yi_member') . " where uniacid=:uniacid and id=:id limit 1 ", array(
         ':uniacid' => $_W['uniacid'],
         ':id' => $id

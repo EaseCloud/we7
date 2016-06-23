@@ -16,7 +16,7 @@ if (!class_exists('CommissionModel')) {
     {
         public function getSet()
         {
-            $set          = parent::getSet();
+            $set = parent::getSet();
             $set['texts'] = array(
                 'agent' => empty($set['texts']['agent']) ? '分销商' : $set['texts']['agent'],
                 'shop' => empty($set['texts']['shop']) ? '小店' : $set['texts']['shop'],
@@ -42,12 +42,13 @@ if (!class_exists('CommissionModel')) {
             );
             return $set;
         }
+
         public function calculate($orderid = 0, $update = true)
         {
             global $_W;
-            $set    = $this->getSet();
+            $set = $this->getSet();
             $levels = $this->getLevels();
-            $goods  = pdo_fetchall("select og.id,og.realprice,og.total,g.hascommission,g.nocommission, g.commission1_rate,g.commission1_pay,g.commission2_rate,g.commission2_pay,g.commission3_rate,g.commission3_pay from " . tablename('sz_yi_order_goods') . '  og ' . ' left join ' . tablename('sz_yi_goods') . ' g on g.id = og.goodsid' . ' where og.orderid=:orderid and og.uniacid=:uniacid', array(
+            $goods = pdo_fetchall("select og.id,og.realprice,og.total,g.hascommission,g.nocommission, g.commission1_rate,g.commission1_pay,g.commission2_rate,g.commission2_pay,g.commission3_rate,g.commission3_pay from " . tablename('sz_yi_order_goods') . '  og ' . ' left join ' . tablename('sz_yi_goods') . ' g on g.id = og.goodsid' . ' where og.orderid=:orderid and og.uniacid=:uniacid', array(
                 ':orderid' => $orderid,
                 ':uniacid' => $_W['uniacid']
             ));
@@ -112,43 +113,44 @@ if (!class_exists('CommissionModel')) {
             }
             return $goods;
         }
+
         public function getInfo($openid, $options = null)
         {
             if (empty($options) || !is_array($options)) {
                 $options = array();
             }
             global $_W;
-            $set              = $this->getSet();
-            $level            = intval($set['level']);
-            $member           = m('member')->getInfo($openid);
-            $agentLevel       = $this->getLevel($openid);
-            $time             = time();
-            $day_times        = intval($set['settledays']) * 3600 * 24;
-            $agentcount       = 0;
-            $ordercount0      = 0;
-            $ordermoney0      = 0;
-            $ordercount       = 0;
-            $ordermoney       = 0;
-            $ordercount3      = 0;
-            $ordermoney3      = 0;
+            $set = $this->getSet();
+            $level = intval($set['level']);
+            $member = m('member')->getInfo($openid);
+            $agentLevel = $this->getLevel($openid);
+            $time = time();
+            $day_times = intval($set['settledays']) * 3600 * 24;
+            $agentcount = 0;
+            $ordercount0 = 0;
+            $ordermoney0 = 0;
+            $ordercount = 0;
+            $ordermoney = 0;
+            $ordercount3 = 0;
+            $ordermoney3 = 0;
             $commission_total = 0;
-            $commission_ok    = 0;
+            $commission_ok = 0;
             $commission_apply = 0;
             $commission_check = 0;
-            $commission_lock  = 0;
-            $commission_pay   = 0;
-            $level1           = 0;
-            $level2           = 0;
-            $level3           = 0;
-            $order10          = 0;
-            $order20          = 0;
-            $order30          = 0;
-            $order1           = 0;
-            $order2           = 0;
-            $order3           = 0;
-            $order13          = 0;
-            $order23          = 0;
-            $order33          = 0;
+            $commission_lock = 0;
+            $commission_pay = 0;
+            $level1 = 0;
+            $level2 = 0;
+            $level3 = 0;
+            $order10 = 0;
+            $order20 = 0;
+            $order30 = 0;
+            $order1 = 0;
+            $order2 = 0;
+            $order3 = 0;
+            $order13 = 0;
+            $order23 = 0;
+            $order33 = 0;
             if ($level >= 1) {
                 if (in_array('ordercount0', $options)) {
                     $level1_ordercount = pdo_fetch('select sum(og.realprice) as ordermoney,count(distinct o.id) as ordercount from ' . tablename('sz_yi_order') . ' o ' . ' left join  ' . tablename('sz_yi_order_goods') . ' og on og.orderid=o.id ' . ' where o.agentid=:agentid and o.status>=0 and og.status1>=0 and og.nocommission=0 and o.uniacid=:uniacid  limit 1', array(
@@ -241,7 +243,7 @@ if (!class_exists('CommissionModel')) {
                     ':uniacid' => $_W['uniacid'],
                     ':agentid' => $member['id']
                 ), 'id');
-                $level1          = count($level1_agentids);
+                $level1 = count($level1_agentids);
                 $agentcount += $level1;
             }
             if ($level >= 2) {
@@ -327,7 +329,7 @@ if (!class_exists('CommissionModel')) {
                     $level2_agentids = pdo_fetchall('select id from ' . tablename('sz_yi_member') . ' where agentid in( ' . implode(',', array_keys($level1_agentids)) . ') and isagent=1 and status=1 and uniacid=:uniacid', array(
                         ':uniacid' => $_W['uniacid']
                     ), 'id');
-                    $level2          = count($level2_agentids);
+                    $level2 = count($level2_agentids);
                     $agentcount += $level2;
                 }
             }
@@ -414,46 +416,47 @@ if (!class_exists('CommissionModel')) {
                     $level3_agentids = pdo_fetchall('select id from ' . tablename('sz_yi_member') . ' where uniacid=:uniacid and agentid in( ' . implode(',', array_keys($level2_agentids)) . ') and isagent=1 and status=1', array(
                         ':uniacid' => $_W['uniacid']
                     ), 'id');
-                    $level3          = count($level3_agentids);
+                    $level3 = count($level3_agentids);
                     $agentcount += $level3;
                 }
             }
-            $member['agentcount']       = $agentcount;
-            $member['ordercount']       = $ordercount;
-            $member['ordermoney']       = $ordermoney;
-            $member['order1']           = $order1;
-            $member['order2']           = $order2;
-            $member['order3']           = $order3;
-            $member['ordercount3']      = $ordercount3;
-            $member['ordermoney3']      = $ordermoney3;
-            $member['order13']          = $order13;
-            $member['order23']          = $order23;
-            $member['order33']          = $order33;
-            $member['ordercount0']      = $ordercount0;
-            $member['ordermoney0']      = $ordermoney0;
-            $member['order10']          = $order10;
-            $member['order20']          = $order20;
-            $member['order30']          = $order30;
+            $member['agentcount'] = $agentcount;
+            $member['ordercount'] = $ordercount;
+            $member['ordermoney'] = $ordermoney;
+            $member['order1'] = $order1;
+            $member['order2'] = $order2;
+            $member['order3'] = $order3;
+            $member['ordercount3'] = $ordercount3;
+            $member['ordermoney3'] = $ordermoney3;
+            $member['order13'] = $order13;
+            $member['order23'] = $order23;
+            $member['order33'] = $order33;
+            $member['ordercount0'] = $ordercount0;
+            $member['ordermoney0'] = $ordermoney0;
+            $member['order10'] = $order10;
+            $member['order20'] = $order20;
+            $member['order30'] = $order30;
             $member['commission_total'] = round($commission_total, 2);
-            $member['commission_ok']    = round($commission_ok, 2);
-            $member['commission_lock']  = round($commission_lock, 2);
+            $member['commission_ok'] = round($commission_ok, 2);
+            $member['commission_lock'] = round($commission_lock, 2);
             $member['commission_apply'] = round($commission_apply, 2);
             $member['commission_check'] = round($commission_check, 2);
-            $member['commission_pay']   = round($commission_pay, 2);
-            $member['level1']           = $level1;
-            $member['level1_agentids']  = $level1_agentids;
-            $member['level2']           = $level2;
-            $member['level2_agentids']  = $level2_agentids;
-            $member['level3']           = $level3;
-            $member['level3_agentids']  = $level3_agentids;
-            $member['agenttime']        = date('Y-m-d H:i', $member['agenttime']);
+            $member['commission_pay'] = round($commission_pay, 2);
+            $member['level1'] = $level1;
+            $member['level1_agentids'] = $level1_agentids;
+            $member['level2'] = $level2;
+            $member['level2_agentids'] = $level2_agentids;
+            $member['level3'] = $level3;
+            $member['level3_agentids'] = $level3_agentids;
+            $member['agenttime'] = date('Y-m-d H:i', $member['agenttime']);
             return $member;
         }
+
         public function getAgents($orderid = 0)
         {
             global $_W, $_GPC;
             $agents = array();
-            $order  = pdo_fetch('select id,agentid,openid from ' . tablename('sz_yi_order') . ' where id=:id and uniacid=:uniacid limit 1', array(
+            $order = pdo_fetch('select id,agentid,openid from ' . tablename('sz_yi_order') . ' where id=:id and uniacid=:uniacid limit 1', array(
                 ':id' => $orderid,
                 ':uniacid' => $_W['uniacid']
             ));
@@ -478,6 +481,7 @@ if (!class_exists('CommissionModel')) {
             }
             return $agents;
         }
+
         public function isAgent($openid)
         {
             if (empty($openid)) {
@@ -489,16 +493,17 @@ if (!class_exists('CommissionModel')) {
             $member = m('member')->getMember($openid);
             return $member['isagent'] == 1 && $member['status'] == 1;
         }
+
         public function getCommission($goods)
         {
             global $_W;
-            $set        = $this->getSet();
+            $set = $this->getSet();
             $commission = 0;
             if ($goods['hascommission'] == 1) {
                 $commission = $set['level'] >= 1 ? ($goods['commission1_rate'] > 0 ? ($goods['commission1_rate'] * $goods['marketprice'] / 100) : $goods['commission1_pay']) : 0;
             } else {
                 $openid = m('user')->getOpenid();
-                $level  = $this->getLevel($openid);
+                $level = $this->getLevel($openid);
                 if (!empty($level)) {
                     $commission = $set['level'] >= 1 ? round($level['commission1'] * $goods['marketprice'] / 100, 2) : 0;
                 } else {
@@ -507,6 +512,7 @@ if (!class_exists('CommissionModel')) {
             }
             return $commission;
         }
+
         public function createMyShopQrcode($mid = 0, $posterid = 0)
         {
             global $_W;
@@ -519,7 +525,7 @@ if (!class_exists('CommissionModel')) {
             if (!empty($posterid)) {
                 $url .= '&posterid=' . $posterid;
             }
-            $file    = 'myshop_' . $posterid . '_' . $mid . '.png';
+            $file = 'myshop_' . $posterid . '_' . $mid . '.png';
             $qr_file = $path . '/' . $file;
             if (!is_file($qr_file)) {
                 require IA_ROOT . '/framework/library/qrcode/phpqrcode.php';
@@ -527,18 +533,20 @@ if (!class_exists('CommissionModel')) {
             }
             return $_W['siteroot'] . 'addons/sz_yi/data/qrcode/' . $_W['uniacid'] . '/' . $file;
         }
+
         private function createImage($url)
         {
             load()->func('communication');
             $resp = ihttp_request($url);
             return imagecreatefromstring($resp['content']);
         }
+
         public function createGoodsImage($goods, $shop_set)
         {
             global $_W, $_GPC;
-            $goods  = set_medias($goods, 'thumb');
+            $goods = set_medias($goods, 'thumb');
             $openid = m('user')->getOpenid();
-            $me     = m('member')->getInfo($openid);
+            $me = m('member')->getInfo($openid);
             if ($me['isagent'] == 1 && $me['status'] == 1) {
                 $userinfo = $me;
             } else {
@@ -552,8 +560,8 @@ if (!class_exists('CommissionModel')) {
                 load()->func('file');
                 mkdirs($path);
             }
-            $img  = empty($goods['commission_thumb']) ? $goods['thumb'] : tomedia($goods['commission_thumb']);
-            $md5  = md5(json_encode(array(
+            $img = empty($goods['commission_thumb']) ? $goods['thumb'] : tomedia($goods['commission_thumb']);
+            $md5 = md5(json_encode(array(
                 'id' => $goods['id'],
                 'marketprice' => $goods['marketprice'],
                 'productprice' => $goods['productprice'],
@@ -564,20 +572,20 @@ if (!class_exists('CommissionModel')) {
             $file = $md5 . '.jpg';
             if (!is_file($path . $file)) {
                 set_time_limit(0);
-                $font   = IA_ROOT . "/addons/sz_yi/static/fonts/msyh.ttf";
+                $font = IA_ROOT . "/addons/sz_yi/static/fonts/msyh.ttf";
                 $target = imagecreatetruecolor(640, 1225);
-                $bg     = imagecreatefromjpeg(IA_ROOT . '/addons/sz_yi/plugin/commission/images/poster.jpg');
+                $bg = imagecreatefromjpeg(IA_ROOT . '/addons/sz_yi/plugin/commission/images/poster.jpg');
                 imagecopy($target, $bg, 0, 0, 0, 0, 640, 1225);
                 imagedestroy($bg);
                 $avatar = preg_replace('/\/0$/i', '/96', $userinfo['avatar']);
-                $head   = $this->createImage($avatar);
-                $w      = imagesx($head);
-                $h      = imagesy($head);
+                $head = $this->createImage($avatar);
+                $w = imagesx($head);
+                $h = imagesy($head);
                 imagecopyresized($target, $head, 24, 32, 0, 0, 88, 88, $w, $h);
                 imagedestroy($head);
                 $thumb = $this->createImage($img);
-                $w     = imagesx($thumb);
-                $h     = imagesy($thumb);
+                $w = imagesx($thumb);
+                $h = imagesy($thumb);
                 imagecopyresized($target, $thumb, 0, 160, 0, 0, 640, 640, $w, $h);
                 imagedestroy($thumb);
                 $black = imagecreatetruecolor(640, 127);
@@ -588,15 +596,15 @@ if (!class_exists('CommissionModel')) {
                 imagecopy($target, $black, 0, 678, 0, 0, 640, 127);
                 imagedestroy($black);
                 $goods_qrcode_file = tomedia(m('qrcode')->createGoodsQrcode($userinfo['id'], $goods['id']));
-                $qrcode            = $this->createImage($goods_qrcode_file);
-                $w                 = imagesx($qrcode);
-                $h                 = imagesy($qrcode);
+                $qrcode = $this->createImage($goods_qrcode_file);
+                $w = imagesx($qrcode);
+                $h = imagesy($qrcode);
                 imagecopyresized($target, $qrcode, 50, 835, 0, 0, 250, 250, $w, $h);
                 imagedestroy($qrcode);
-                $bc   = imagecolorallocate($target, 0, 3, 51);
-                $cc   = imagecolorallocate($target, 240, 102, 0);
-                $wc   = imagecolorallocate($target, 255, 255, 255);
-                $yc   = imagecolorallocate($target, 255, 255, 0);
+                $bc = imagecolorallocate($target, 0, 3, 51);
+                $cc = imagecolorallocate($target, 240, 102, 0);
+                $wc = imagecolorallocate($target, 255, 255, 255);
+                $yc = imagecolorallocate($target, 255, 255, 0);
                 $str1 = '我是';
                 imagettftext($target, 20, 0, 150, 70, $bc, $font, $str1);
                 imagettftext($target, 20, 0, 210, 70, $cc, $font, $userinfo['nickname']);
@@ -604,21 +612,21 @@ if (!class_exists('CommissionModel')) {
                 imagettftext($target, 20, 0, 150, 105, $bc, $font, $str2);
                 $str3 = $shop_set['name'];
                 imagettftext($target, 20, 0, 240, 105, $cc, $font, $str3);
-                $box   = imagettfbbox(20, 0, $font, $str3);
+                $box = imagettfbbox(20, 0, $font, $str3);
                 $width = $box[4] - $box[6];
-                $str4  = '代言';
+                $str4 = '代言';
                 imagettftext($target, 20, 0, 240 + $width + 10, 105, $bc, $font, $str4);
                 $str5 = mb_substr($goods['title'], 0, 50, 'utf-8');
                 imagettftext($target, 20, 0, 30, 730, $wc, $font, $str5);
                 $str6 = "￥" . number_format($goods['marketprice'], 2);
                 imagettftext($target, 25, 0, 25, 780, $yc, $font, $str6);
-                $box   = imagettfbbox(26, 0, $font, $str6);
+                $box = imagettfbbox(26, 0, $font, $str6);
                 $width = $box[4] - $box[6];
                 if ($goods['productprice'] > 0) {
                     $str7 = "￥" . number_format($goods['productprice'], 2);
                     imagettftext($target, 22, 0, 25 + $width + 10, 780, $wc, $font, $str7);
-                    $end   = 25 + $width + 10;
-                    $box   = imagettfbbox(22, 0, $font, $str7);
+                    $end = 25 + $width + 10;
+                    $box = imagettfbbox(22, 0, $font, $str7);
                     $width = $box[4] - $box[6];
                     imageline($target, $end, 770, $end + $width + 20, 770, $wc);
                     imageline($target, $end, 771.5, $end + $width + 20, 771, $wc);
@@ -628,18 +636,19 @@ if (!class_exists('CommissionModel')) {
             }
             return $_W['siteroot'] . "addons/sz_yi/data/poster/" . $_W['uniacid'] . "/" . $file;
         }
+
         public function createShopImage($shop_set)
         {
             global $_W, $_GPC;
             $shop_set = set_medias($shop_set, 'signimg');
-            $path     = IA_ROOT . "/addons/sz_yi/data/poster/" . $_W['uniacid'] . '/';
+            $path = IA_ROOT . "/addons/sz_yi/data/poster/" . $_W['uniacid'] . '/';
             if (!is_dir($path)) {
                 load()->func('file');
                 mkdirs($path);
             }
-            $mid    = intval($_GPC['mid']);
+            $mid = intval($_GPC['mid']);
             $openid = m('user')->getOpenid();
-            $me     = m('member')->getInfo($openid);
+            $me = m('member')->getInfo($openid);
             if ($me['isagent'] == 1 && $me['status'] == 1) {
                 $userinfo = $me;
             } else {
@@ -648,7 +657,7 @@ if (!class_exists('CommissionModel')) {
                     $userinfo = m('member')->getInfo($mid);
                 }
             }
-            $md5  = md5(json_encode(array(
+            $md5 = md5(json_encode(array(
                 'openid' => $openid,
                 'signimg' => $shop_set['signimg'],
                 'version' => 4
@@ -657,30 +666,30 @@ if (!class_exists('CommissionModel')) {
             if (!is_file($path . $file)) {
                 set_time_limit(0);
                 @ini_set('memory_limit', '256M');
-                $font   = IA_ROOT . "/addons/sz_yi/static/fonts/msyh.ttf";
+                $font = IA_ROOT . "/addons/sz_yi/static/fonts/msyh.ttf";
                 $target = imagecreatetruecolor(640, 1225);
-                $bc     = imagecolorallocate($target, 0, 3, 51);
-                $cc     = imagecolorallocate($target, 240, 102, 0);
-                $wc     = imagecolorallocate($target, 255, 255, 255);
-                $yc     = imagecolorallocate($target, 255, 255, 0);
-                $bg     = imagecreatefromjpeg(IA_ROOT . '/addons/sz_yi/plugin/commission/images/poster.jpg');
+                $bc = imagecolorallocate($target, 0, 3, 51);
+                $cc = imagecolorallocate($target, 240, 102, 0);
+                $wc = imagecolorallocate($target, 255, 255, 255);
+                $yc = imagecolorallocate($target, 255, 255, 0);
+                $bg = imagecreatefromjpeg(IA_ROOT . '/addons/sz_yi/plugin/commission/images/poster.jpg');
                 imagecopy($target, $bg, 0, 0, 0, 0, 640, 1225);
                 imagedestroy($bg);
                 $avatar = preg_replace('/\/0$/i', '/96', $userinfo['avatar']);
-                $head   = $this->createImage($avatar);
-                $w      = imagesx($head);
-                $h      = imagesy($head);
+                $head = $this->createImage($avatar);
+                $w = imagesx($head);
+                $h = imagesy($head);
                 imagecopyresized($target, $head, 24, 32, 0, 0, 88, 88, $w, $h);
                 imagedestroy($head);
                 $thumb = $this->createImage($shop_set['signimg']);
-                $w     = imagesx($thumb);
-                $h     = imagesy($thumb);
+                $w = imagesx($thumb);
+                $h = imagesy($thumb);
                 imagecopyresized($target, $thumb, 0, 160, 0, 0, 640, 640, $w, $h);
                 imagedestroy($thumb);
                 $qrcode_file = tomedia($this->createMyShopQrcode($userinfo['id']));
-                $qrcode      = $this->createImage($qrcode_file);
-                $w           = imagesx($qrcode);
-                $h           = imagesy($qrcode);
+                $qrcode = $this->createImage($qrcode_file);
+                $w = imagesx($qrcode);
+                $h = imagesy($qrcode);
                 imagecopyresized($target, $qrcode, 50, 835, 0, 0, 250, 250, $w, $h);
                 imagedestroy($qrcode);
                 $str1 = '我是';
@@ -690,15 +699,16 @@ if (!class_exists('CommissionModel')) {
                 imagettftext($target, 20, 0, 150, 105, $bc, $font, $str2);
                 $str3 = $shop_set['name'];
                 imagettftext($target, 20, 0, 240, 105, $cc, $font, $str3);
-                $box   = imagettfbbox(20, 0, $font, $str3);
+                $box = imagettfbbox(20, 0, $font, $str3);
                 $width = $box[4] - $box[6];
-                $str4  = '代言';
+                $str4 = '代言';
                 imagettftext($target, 20, 0, 240 + $width + 10, 105, $bc, $font, $str4);
                 imagejpeg($target, $path . $file);
                 imagedestroy($target);
             }
             return $_W['siteroot'] . "addons/sz_yi/data/poster/" . $_W['uniacid'] . "/" . $file;
         }
+
         public function checkAgent()
         {
             global $_W, $_GPC;
@@ -715,7 +725,7 @@ if (!class_exists('CommissionModel')) {
                 return;
             }
             $parent = false;
-            $mid    = intval($_GPC['mid']);
+            $mid = intval($_GPC['mid']);
             if (!empty($mid)) {
                 $parent = m('member')->getMember($mid);
             }
@@ -765,7 +775,7 @@ if (!class_exists('CommissionModel')) {
                     return;
                 }
             }
-            $time         = time();
+            $time = time();
             $become_child = intval($set['become_child']);
             if ($parent_is_agent && empty($member['agentid'])) {
                 if ($member['id'] != $parent['id']) {
@@ -811,6 +821,7 @@ if (!class_exists('CommissionModel')) {
                 }
             }
         }
+
         public function checkOrderConfirm($orderid = '0')
         {
             global $_W, $_GPC;
@@ -834,15 +845,15 @@ if (!class_exists('CommissionModel')) {
                 return;
             }
             $become_child = intval($set['become_child']);
-            $parent       = false;
+            $parent = false;
             if (empty($become_child)) {
                 $parent = m('member')->getMember($member['agentid']);
             } else {
                 $parent = m('member')->getMember($member['inviter']);
             }
             $parent_is_agent = !empty($parent) && $parent['isagent'] == 1 && $parent['status'] == 1;
-            $time            = time();
-            $become_child    = intval($set['become_child']);
+            $time = time();
+            $become_child = intval($set['become_child']);
             if ($parent_is_agent) {
                 if ($become_child == 1) {
                     if (empty($member['agentid']) && $member['id'] != $parent['id']) {
@@ -883,6 +894,7 @@ if (!class_exists('CommissionModel')) {
             if (!empty($member['agentid'])) {
             }
         }
+
         public function checkOrderPay($orderid = '0')
         {
             global $_W, $_GPC;
@@ -906,15 +918,15 @@ if (!class_exists('CommissionModel')) {
                 return;
             }
             $become_child = intval($set['become_child']);
-            $parent       = false;
+            $parent = false;
             if (empty($become_child)) {
                 $parent = m('member')->getMember($member['agentid']);
             } else {
                 $parent = m('member')->getMember($member['inviter']);
             }
             $parent_is_agent = !empty($parent) && $parent['isagent'] == 1 && $parent['status'] == 1;
-            $time            = time();
-            $become_child    = intval($set['become_child']);
+            $time = time();
+            $become_child = intval($set['become_child']);
             if ($parent_is_agent) {
                 if ($become_child == 2) {
                     if (empty($member['agentid']) && $member['id'] != $parent['id']) {
@@ -959,13 +971,13 @@ if (!class_exists('CommissionModel')) {
                                 ':uniacid' => $_W['uniacid'],
                                 ':openid' => $openid
                             ));
-                            $can        = $ordercount >= intval($set['become_ordercount']);
+                            $can = $ordercount >= intval($set['become_ordercount']);
                         } else if ($set['become'] == '3') {
                             $moneycount = pdo_fetchcolumn('select sum(og.realprice) from ' . tablename('sz_yi_order_goods') . ' og left join ' . tablename('sz_yi_order') . ' o on og.orderid=o.id  where o.openid=:openid and o.status>=1 and o.uniacid=:uniacid limit 1', array(
                                 ':uniacid' => $_W['uniacid'],
                                 ':openid' => $openid
                             ));
-                            $can        = $moneycount >= floatval($set['become_moneycount']);
+                            $can = $moneycount >= floatval($set['become_moneycount']);
                         }
                         if ($can) {
                             if (empty($member['agentblack'])) {
@@ -993,14 +1005,14 @@ if (!class_exists('CommissionModel')) {
                 $parent = m('member')->getMember($member['agentid']);
                 if (!empty($parent) && $parent['isagent'] == 1 && $parent['status'] == 1) {
                     if ($order['agentid'] == $parent['id']) {
-                        $order_goods      = pdo_fetchall('select g.id,g.title,og.total,og.price,og.realprice, og.optionname as optiontitle,g.noticeopenid,g.noticetype,og.commission1 from ' . tablename('sz_yi_order_goods') . ' og ' . ' left join ' . tablename('sz_yi_goods') . ' g on g.id=og.goodsid ' . ' where og.uniacid=:uniacid and og.orderid=:orderid ', array(
+                        $order_goods = pdo_fetchall('select g.id,g.title,og.total,og.price,og.realprice, og.optionname as optiontitle,g.noticeopenid,g.noticetype,og.commission1 from ' . tablename('sz_yi_order_goods') . ' og ' . ' left join ' . tablename('sz_yi_goods') . ' g on g.id=og.goodsid ' . ' where og.uniacid=:uniacid and og.orderid=:orderid ', array(
                             ':uniacid' => $_W['uniacid'],
                             ':orderid' => $order['id']
                         ));
-                        $goods            = '';
-                        $level            = $parent['agentlevel'];
+                        $goods = '';
+                        $level = $parent['agentlevel'];
                         $commission_total = 0;
-                        $pricetotal       = 0;
+                        $pricetotal = 0;
                         foreach ($order_goods as $og) {
                             $goods .= "" . $og['title'] . '( ';
                             if (!empty($og['optiontitle'])) {
@@ -1023,6 +1035,7 @@ if (!class_exists('CommissionModel')) {
                 }
             }
         }
+
         public function checkOrderFinish($orderid = '')
         {
             global $_W, $_GPC;
@@ -1045,7 +1058,7 @@ if (!class_exists('CommissionModel')) {
             if (empty($member)) {
                 return;
             }
-            $time    = time();
+            $time = time();
             $isagent = $member['isagent'] == 1 && $member['status'] == 1;
             if (!$isagent && $set['become_order'] == 1) {
                 if ($set['become'] == 2 || $set['become'] == 3) {
@@ -1063,13 +1076,13 @@ if (!class_exists('CommissionModel')) {
                                 ':uniacid' => $_W['uniacid'],
                                 ':openid' => $openid
                             ));
-                            $can        = $ordercount >= intval($set['become_ordercount']);
+                            $can = $ordercount >= intval($set['become_ordercount']);
                         } else if ($set['become'] == '3') {
                             $moneycount = pdo_fetchcolumn('select sum(goodsprice) from ' . tablename('sz_yi_order') . ' where openid=:openid and status>=3 and uniacid=:uniacid limit 1', array(
                                 ':uniacid' => $_W['uniacid'],
                                 ':openid' => $openid
                             ));
-                            $can        = $moneycount >= floatval($set['become_moneycount']);
+                            $can = $moneycount >= floatval($set['become_moneycount']);
                         }
                         if ($can) {
                             if (empty($member['agentblack'])) {
@@ -1097,14 +1110,14 @@ if (!class_exists('CommissionModel')) {
                 $parent = m('member')->getMember($member['agentid']);
                 if (!empty($parent) && $parent['isagent'] == 1 && $parent['status'] == 1) {
                     if ($order['agentid'] == $parent['id']) {
-                        $order_goods      = pdo_fetchall('select g.id,g.title,og.total,og.realprice,og.price,og.optionname as optiontitle,g.noticeopenid,g.noticetype,og.commission1 from ' . tablename('sz_yi_order_goods') . ' og ' . ' left join ' . tablename('sz_yi_goods') . ' g on g.id=og.goodsid ' . ' where og.uniacid=:uniacid and og.orderid=:orderid ', array(
+                        $order_goods = pdo_fetchall('select g.id,g.title,og.total,og.realprice,og.price,og.optionname as optiontitle,g.noticeopenid,g.noticetype,og.commission1 from ' . tablename('sz_yi_order_goods') . ' og ' . ' left join ' . tablename('sz_yi_goods') . ' g on g.id=og.goodsid ' . ' where og.uniacid=:uniacid and og.orderid=:orderid ', array(
                             ':uniacid' => $_W['uniacid'],
                             ':orderid' => $order['id']
                         ));
-                        $goods            = '';
-                        $level            = $parent['agentlevel'];
+                        $goods = '';
+                        $level = $parent['agentlevel'];
                         $commission_total = 0;
-                        $pricetotal       = 0;
+                        $pricetotal = 0;
                         foreach ($order_goods as $og) {
                             $goods .= "" . $og['title'] . '( ';
                             if (!empty($og['optiontitle'])) {
@@ -1128,11 +1141,12 @@ if (!class_exists('CommissionModel')) {
             }
             $this->upgradeLevel($openid);
         }
+
         function getShop($m)
         {
             global $_W;
             $member = m('member')->getMember($m);
-            $shop   = pdo_fetch('select * from ' . tablename('sz_yi_commission_shop') . ' where uniacid=:uniacid and mid=:mid limit 1', array(
+            $shop = pdo_fetch('select * from ' . tablename('sz_yi_commission_shop') . ' where uniacid=:uniacid and mid=:mid limit 1', array(
                 ':uniacid' => $_W['uniacid'],
                 ':mid' => $member['id']
             ));
@@ -1140,9 +1154,9 @@ if (!class_exists('CommissionModel')) {
                 'shop',
                 'share'
             ));
-            $set    = $sysset['shop'];
-            $share  = $sysset['share'];
-            $desc   = $share['desc'];
+            $set = $sysset['shop'];
+            $share = $sysset['share'];
+            $desc = $share['desc'];
             if (empty($desc)) {
                 $desc = $set['description'];
             }
@@ -1173,6 +1187,7 @@ if (!class_exists('CommissionModel')) {
             }
             return $shop;
         }
+
         function getLevels($all = true)
         {
             global $_W;
@@ -1186,6 +1201,7 @@ if (!class_exists('CommissionModel')) {
                 ));
             }
         }
+
         function getLevel($openid)
         {
             global $_W;
@@ -1202,6 +1218,7 @@ if (!class_exists('CommissionModel')) {
             ));
             return $level;
         }
+
         function upgradeLevel($openid)
         {
             global $_W;
@@ -1212,7 +1229,7 @@ if (!class_exists('CommissionModel')) {
             if (empty($set['level'])) {
                 return;
             }
-            $m      = m('member')->getMember($openid);
+            $m = m('member')->getMember($openid);
             $agents = array();
             if (!empty($set['selfbuy'])) {
                 $agents[] = $m;
@@ -1247,9 +1264,9 @@ if (!class_exists('CommissionModel')) {
                 if (!empty($info['agentnotupgrade'])) {
                     continue;
                 }
-                $ordermoney      = $info['ordermoney3'];
+                $ordermoney = $info['ordermoney3'];
                 $commissionmoney = $info['commission_pay'];
-                $newlevel        = pdo_fetch('select * from ' . tablename('sz_yi_commission_level') . " where uniacid=:uniacid " . " and {$ordermoney} >= ordermoney and ordermoney>0  order by ordermoney desc limit 1", array(
+                $newlevel = pdo_fetch('select * from ' . tablename('sz_yi_commission_level') . " where uniacid=:uniacid " . " and {$ordermoney} >= ordermoney and ordermoney>0  order by ordermoney desc limit 1", array(
                     ':uniacid' => $_W['uniacid']
                 ));
                 if (empty($newlevel)) {
@@ -1280,13 +1297,14 @@ if (!class_exists('CommissionModel')) {
                 }
             }
         }
+
         function sendMessage($openid = '', $data = array(), $message_type = '')
         {
             global $_W, $_GPC;
-            $set        = $this->getSet();
-            $tm         = $set['tm'];
+            $set = $this->getSet();
+            $tm = $set['tm'];
             $templateid = $tm['templateid'];
-            $member     = m('member')->getMember($openid);
+            $member = m('member')->getMember($openid);
             $usernotice = unserialize($member['noticeset']);
             if (!is_array($usernotice)) {
                 $usernotice = array();
@@ -1295,7 +1313,7 @@ if (!class_exists('CommissionModel')) {
                 $message = $tm['commission_agent_new'];
                 $message = str_replace('[昵称]', $data['nickname'], $message);
                 $message = str_replace('[时间]', date('Y-m-d H:i:s', $data['childtime']), $message);
-                $msg     = array(
+                $msg = array(
                     'keyword1' => array(
                         'value' => !empty($tm['commission_agent_newtitle']) ? $tm['commission_agent_newtitle'] : '新增下线通知',
                         "color" => "#73a68d"
@@ -1318,7 +1336,7 @@ if (!class_exists('CommissionModel')) {
                 $message = str_replace('[订单金额]', $data['price'], $message);
                 $message = str_replace('[佣金金额]', $data['commission'], $message);
                 $message = str_replace('[商品详情]', $data['goods'], $message);
-                $msg     = array(
+                $msg = array(
                     'keyword1' => array(
                         'value' => !empty($tm['commission_order_paytitle']) ? $tm['commission_order_paytitle'] : '下线付款通知'
                     ),
@@ -1339,7 +1357,7 @@ if (!class_exists('CommissionModel')) {
                 $message = str_replace('[订单金额]', $data['price'], $message);
                 $message = str_replace('[佣金金额]', $data['commission'], $message);
                 $message = str_replace('[商品详情]', $data['goods'], $message);
-                $msg     = array(
+                $msg = array(
                     'keyword1' => array(
                         'value' => !empty($tm['commission_order_finishtitle']) ? $tm['commission_order_finishtitle'] : '下线确认收货通知',
                         "color" => "#73a68d"
@@ -1360,7 +1378,7 @@ if (!class_exists('CommissionModel')) {
                 $message = str_replace('[时间]', date('Y-m-d H:i:s', time()), $message);
                 $message = str_replace('[金额]', $data['commission'], $message);
                 $message = str_replace('[提现方式]', $data['type'], $message);
-                $msg     = array(
+                $msg = array(
                     'keyword1' => array(
                         'value' => !empty($tm['commission_applytitle']) ? $tm['commission_applytitle'] : '提现申请提交成功',
                         "color" => "#73a68d"
@@ -1381,7 +1399,7 @@ if (!class_exists('CommissionModel')) {
                 $message = str_replace('[时间]', date('Y-m-d H:i:s', time()), $message);
                 $message = str_replace('[金额]', $data['commission'], $message);
                 $message = str_replace('[提现方式]', $data['type'], $message);
-                $msg     = array(
+                $msg = array(
                     'keyword1' => array(
                         'value' => !empty($tm['commission_checktitle']) ? $tm['commission_checktitle'] : '提现申请审核处理完成',
                         "color" => "#73a68d"
@@ -1402,7 +1420,7 @@ if (!class_exists('CommissionModel')) {
                 $message = str_replace('[时间]', date('Y-m-d H:i:s', time()), $message);
                 $message = str_replace('[金额]', $data['commission'], $message);
                 $message = str_replace('[提现方式]', $data['type'], $message);
-                $msg     = array(
+                $msg = array(
                     'keyword1' => array(
                         'value' => !empty($tm['commission_paytitle']) ? $tm['commission_paytitle'] : '佣金打款通知',
                         "color" => "#73a68d"
@@ -1429,7 +1447,7 @@ if (!class_exists('CommissionModel')) {
                 $message = str_replace('[新一级分销比例]', $data['newlevel']['commission1'] . '%', $message);
                 $message = str_replace('[新二级分销比例]', $data['newlevel']['commission2'] . '%', $message);
                 $message = str_replace('[新三级分销比例]', $data['newlevel']['commission3'] . '%', $message);
-                $msg     = array(
+                $msg = array(
                     'keyword1' => array(
                         'value' => !empty($tm['commission_upgradetitle']) ? $tm['commission_upgradetitle'] : '分销等级升级通知',
                         "color" => "#73a68d"
@@ -1448,7 +1466,7 @@ if (!class_exists('CommissionModel')) {
                 $message = $tm['commission_become'];
                 $message = str_replace('[昵称]', $data['nickname'], $message);
                 $message = str_replace('[时间]', date('Y-m-d H:i:s', $data['agenttime']), $message);
-                $msg     = array(
+                $msg = array(
                     'keyword1' => array(
                         'value' => !empty($tm['commission_becometitle']) ? $tm['commission_becometitle'] : '成为分销商通知',
                         "color" => "#73a68d"
@@ -1465,6 +1483,7 @@ if (!class_exists('CommissionModel')) {
                 }
             }
         }
+
         function perms()
         {
             return array(

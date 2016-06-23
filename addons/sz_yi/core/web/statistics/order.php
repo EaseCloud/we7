@@ -5,23 +5,23 @@ if (!defined('IN_IA')) {
 global $_W, $_GPC;
 
 ca('statistics.view.order');
-$pindex    = max(1, intval($_GPC['page']));
-$psize     = 20;
+$pindex = max(1, intval($_GPC['page']));
+$psize = 20;
 $condition = ' and o.uniacid=:uniacid and o.status>=1';
-$params    = array(
+$params = array(
     ':uniacid' => $_W['uniacid']
 );
 if (empty($starttime) || empty($endtime)) {
     $starttime = strtotime('-1 month');
-    $endtime   = time();
+    $endtime = time();
 }
 if (!empty($_GPC['datetime'])) {
     $starttime = strtotime($_GPC['datetime']['start']);
-    $endtime   = strtotime($_GPC['datetime']['end']);
+    $endtime = strtotime($_GPC['datetime']['end']);
     if (!empty($_GPC['searchtime'])) {
         $condition .= " AND o.createtime >= :starttime AND o.createtime <= :endtime ";
         $params[':starttime'] = $starttime;
-        $params[':endtime']   = $endtime;
+        $params[':endtime'] = $endtime;
     }
 }
 if (!empty($_GPC['realname'])) {
@@ -43,7 +43,7 @@ if (empty($_GPC['export'])) {
 $list = pdo_fetchall($sql, $params);
 foreach ($list as &$row) {
     $row['ordersn'] = $row['ordersn'] . " ";
-    $row['goods']   = pdo_fetchall("SELECT g.thumb,og.price,og.total,og.realprice,g.title,og.optionname from " . tablename('sz_yi_order_goods') . " og" . " left join " . tablename('sz_yi_goods') . " g on g.id=og.goodsid  " . " where og.uniacid = :uniacid and og.orderid=:orderid order by og.createtime  desc ", array(
+    $row['goods'] = pdo_fetchall("SELECT g.thumb,og.price,og.total,og.realprice,g.title,og.optionname from " . tablename('sz_yi_order_goods') . " og" . " left join " . tablename('sz_yi_goods') . " g on g.id=og.goodsid  " . " where og.uniacid = :uniacid and og.orderid=:orderid order by og.createtime  desc ", array(
         ':uniacid' => $_W['uniacid'],
         ':orderid' => $row['id']
     ));
@@ -51,7 +51,7 @@ foreach ($list as &$row) {
 }
 unset($row);
 $totalcount = $total = pdo_fetchcolumn("select count(*) from " . tablename('sz_yi_order') . ' o ' . " left join " . tablename('sz_yi_member') . " m on o.openid = m.openid " . " left join " . tablename('sz_yi_member_address') . " a on a.id = o.addressid " . " where 1 {$condition}", $params);
-$pager      = pagination($total, $pindex, $psize);
+$pager = pagination($total, $pindex, $psize);
 if ($_GPC['export'] == 1) {
     ca('statistics.export.order');
     plog('statistics.export.order', '导出订单统计');

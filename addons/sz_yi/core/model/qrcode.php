@@ -1,7 +1,7 @@
 <?php
 /*=============================================================================
 #     FileName: qrcode.php
-#         Desc: ¶þÎ¬Âë
+#         Desc: äºŒç»´ç 
 #       Author: Yunzhong - http://www.yunzshop.com
 #        Email: 913768135@qq.com
 #     HomePage: http://www.yunzshop.com
@@ -12,6 +12,7 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class Sz_DYi_Qrcode
 {
     public function createShopQrcode($mid = 0, $posterid = 0)
@@ -26,7 +27,7 @@ class Sz_DYi_Qrcode
         if (!empty($posterid)) {
             $url .= '&posterid=' . $posterid;
         }
-        $file        = 'shop_qrcode_' . $posterid . '_' . $mid . '.png';
+        $file = 'shop_qrcode_' . $posterid . '_' . $mid . '.png';
         $qrcode_file = $path . $file;
         if (!is_file($qrcode_file)) {
             require IA_ROOT . '/framework/library/qrcode/phpqrcode.php';
@@ -34,6 +35,7 @@ class Sz_DYi_Qrcode
         }
         return $_W['siteroot'] . 'addons/sz_yi/data/qrcode/' . $_W['uniacid'] . '/' . $file;
     }
+
     public function createGoodsQrcode($mid = 0, $goodsid = 0, $posterid = 0)
     {
         global $_W, $_GPC;
@@ -46,7 +48,7 @@ class Sz_DYi_Qrcode
         if (!empty($posterid)) {
             $url .= '&posterid=' . $posterid;
         }
-        $file        = 'goods_qrcode_' . $posterid . '_' . $mid . '_' . $goodsid . '.png';
+        $file = 'goods_qrcode_' . $posterid . '_' . $mid . '_' . $goodsid . '.png';
         $qrcode_file = $path . '/' . $file;
         if (!is_file($qrcode_file)) {
             require IA_ROOT . '/framework/library/qrcode/phpqrcode.php';

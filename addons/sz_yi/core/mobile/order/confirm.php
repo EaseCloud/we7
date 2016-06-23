@@ -6,12 +6,12 @@ if (!defined('IN_IA')) {
 }
 global $_W, $_GPC;
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
-$openid    = m('user')->getOpenid();
-$member    = m("member")->getMember($openid);
-$uniacid   = $_W['uniacid'];
-$fromcart  = 0;
-$trade     = m('common')->getSysset('trade');
-if (!empty($trade['shareaddress'])  && is_weixin()) {
+$openid = m('user')->getOpenid();
+$member = m("member")->getMember($openid);
+$uniacid = $_W['uniacid'];
+$fromcart = 0;
+$trade = m('common')->getSysset('trade');
+if (!empty($trade['shareaddress']) && is_weixin()) {
     if (!$_W['isajax']) {
         $shareAddress = m('common')->shareAddress();
         if (empty($shareAddress)) {
@@ -21,7 +21,7 @@ if (!empty($trade['shareaddress'])  && is_weixin()) {
 }
 $pv = p('virtual');
 $hascouponplugin = false;
-$plugc           = p("coupon");
+$plugc = p("coupon");
 if ($plugc) {
     $hascouponplugin = true;
 }
@@ -33,26 +33,26 @@ if ($diyform_plugin) {
         $orderdiyformid = intval($diyform_set["order_diyform"]);
         if (!empty($orderdiyformid)) {
             $order_formInfo = $diyform_plugin->getDiyformInfo($orderdiyformid);
-            $fields         = $order_formInfo["fields"];
-            $f_data         = $diyform_plugin->getLastOrderData($orderdiyformid, $member);
+            $fields = $order_formInfo["fields"];
+            $f_data = $diyform_plugin->getLastOrderData($orderdiyformid, $member);
         }
     }
 }
 if ($operation == "display" || $operation == "create") {
-    $id   = intval($_GPC["id"]);
+    $id = intval($_GPC["id"]);
     $show = 1;
     if ($diyform_plugin) {
         if (!empty($id)) {
-            $sql         = "SELECT id as goodsid,type,diyformtype,diyformid,diymode FROM " . tablename("sz_yi_goods") . " where id=:id and uniacid=:uniacid  limit 1";
-            $goods_data  = pdo_fetch($sql, array(
+            $sql = "SELECT id as goodsid,type,diyformtype,diyformid,diymode FROM " . tablename("sz_yi_goods") . " where id=:id and uniacid=:uniacid  limit 1";
+            $goods_data = pdo_fetch($sql, array(
                 ":uniacid" => $uniacid,
                 ":id" => $id
             ));
             $diyformtype = $goods_data["diyformtype"];
-            $diyformid   = $goods_data["diyformid"];
-            $diymode     = $goods_data["diymode"];
+            $diyformid = $goods_data["diyformid"];
+            $diymode = $goods_data["diymode"];
             if (!empty($diyformtype) && !empty($diyformid)) {
-                $formInfo      = $diyform_plugin->getDiyformInfo($diyformid);
+                $formInfo = $diyform_plugin->getDiyformInfo($diyformid);
                 $goods_data_id = intval($_GPC["gdid"]);
             }
         }
@@ -60,25 +60,25 @@ if ($operation == "display" || $operation == "create") {
 }
 if ($_W['isajax']) {
     if ($operation == 'display') {
-        $id       = intval($_GPC['id']);
+        $id = intval($_GPC['id']);
         $optionid = intval($_GPC['optionid']);
-        $total    = intval($_GPC['total']);
-        $ids      = '';
+        $total = intval($_GPC['total']);
+        $ids = '';
         if ($total < 1) {
             $total = 1;
         }
-        $buytotal  = $total;
-        $isverify  = false;
+        $buytotal = $total;
+        $isverify = false;
         $isvirtual = false;
         $changenum = false;
-        $goods     = array();
+        $goods = array();
         if (empty($id)) {
             $condition = '';
-            $cartids   = $_GPC['cartids'];
+            $cartids = $_GPC['cartids'];
             if (!empty($cartids)) {
                 $condition = ' and c.id in (' . $cartids . ')';
             }
-            $sql   = 'SELECT c.goodsid,c.total,g.maxbuy,g.type,g.issendfree,g.isnodiscount,g.weight,o.weight as optionweight,g.title,g.thumb,ifnull(o.marketprice, g.marketprice) as marketprice,o.title as optiontitle,c.optionid,g.storeids,g.isverify,g.deduct,g.virtual,o.virtual as optionvirtual,discounts FROM ' . tablename('sz_yi_member_cart') . ' c ' . ' left join ' . tablename('sz_yi_goods') . ' g on c.goodsid = g.id ' . ' left join ' . tablename('sz_yi_goods_option') . ' o on c.optionid = o.id ' . " where c.openid=:openid and  c.deleted=0 and c.uniacid=:uniacid {$condition} order by c.id desc";
+            $sql = 'SELECT c.goodsid,c.total,g.maxbuy,g.type,g.issendfree,g.isnodiscount,g.weight,o.weight as optionweight,g.title,g.thumb,ifnull(o.marketprice, g.marketprice) as marketprice,o.title as optiontitle,c.optionid,g.storeids,g.isverify,g.deduct,g.virtual,o.virtual as optionvirtual,discounts FROM ' . tablename('sz_yi_member_cart') . ' c ' . ' left join ' . tablename('sz_yi_goods') . ' g on c.goodsid = g.id ' . ' left join ' . tablename('sz_yi_goods_option') . ' o on c.optionid = o.id ' . " where c.openid=:openid and  c.deleted=0 and c.uniacid=:uniacid {$condition} order by c.id desc";
             $goods = pdo_fetchall($sql, array(
                 ':uniacid' => $uniacid,
                 ':openid' => $openid
@@ -99,12 +99,12 @@ if ($_W['isajax']) {
             }
             $fromcart = 1;
         } else {
-            $sql              = "SELECT id as goodsid,type,title,weight,issendfree,isnodiscount, thumb,marketprice,storeids,isverify,deduct, manydeduct, virtual,maxbuy,usermaxbuy,discounts,total as stock, deduct2, ednum, edmoney, edareas, diyformtype, diyformid, diymode, dispatchtype, dispatchid, dispatchprice FROM " . tablename("sz_yi_goods") . " where id=:id and uniacid=:uniacid  limit 1";
-            $data             = pdo_fetch($sql, array(
+            $sql = "SELECT id as goodsid,type,title,weight,issendfree,isnodiscount, thumb,marketprice,storeids,isverify,deduct, manydeduct, virtual,maxbuy,usermaxbuy,discounts,total as stock, deduct2, ednum, edmoney, edareas, diyformtype, diyformid, diymode, dispatchtype, dispatchid, dispatchprice FROM " . tablename("sz_yi_goods") . " where id=:id and uniacid=:uniacid  limit 1";
+            $data = pdo_fetch($sql, array(
                 ':uniacid' => $uniacid,
                 ':id' => $id
             ));
-            $data['total']    = $total;
+            $data['total'] = $total;
             $data['optionid'] = $optionid;
             if (!empty($optionid)) {
                 $option = pdo_fetch('select id,title,marketprice,goodssn,productsn,virtual,stock,weight from ' . tablename('sz_yi_goods_option') . ' where id=:id and goodsid=:goodsid and uniacid=:uniacid  limit 1', array(
@@ -113,17 +113,17 @@ if ($_W['isajax']) {
                     ':id' => $optionid
                 ));
                 if (!empty($option)) {
-                    $data['optionid']    = $optionid;
+                    $data['optionid'] = $optionid;
                     $data['optiontitle'] = $option['title'];
                     $data['marketprice'] = $option['marketprice'];
-                    $data['virtual']     = $option['virtual'];
-                    $data['stock']       = $option['stock'];
+                    $data['virtual'] = $option['virtual'];
+                    $data['stock'] = $option['stock'];
                     if (!empty($option['weight'])) {
                         $data['weight'] = $option['weight'];
                     }
                 }
             }
-            $changenum   = true;
+            $changenum = true;
             $totalmaxbuy = $data['stock'];
             if ($data['maxbuy'] > 0) {
                 if ($totalmaxbuy != -1) {
@@ -140,7 +140,7 @@ if ($_W['isajax']) {
                     ':uniacid' => $uniacid,
                     ':openid' => $openid
                 ));
-                $last             = $data['usermaxbuy'] - $order_goodscount;
+                $last = $data['usermaxbuy'] - $order_goodscount;
                 if ($last <= 0) {
                     $last = 0;
                 }
@@ -153,7 +153,7 @@ if ($_W['isajax']) {
                 }
             }
             $data['totalmaxbuy'] = $totalmaxbuy;
-            $goods[]             = $data;
+            $goods[] = $data;
         }
         $goods = set_medias($goods, 'thumb');
         foreach ($goods as $g) {
@@ -164,24 +164,24 @@ if ($_W['isajax']) {
                 $isvirtual = true;
             }
         }
-        $member        = m('member')->getMember($openid);
-        $level          = m("member")->getLevel($openid);
-        $weight         = 0;
-        $total          = 0;
-        $goodsprice     = 0;
-        $realprice      = 0;
-        $deductprice    = 0;
-        $discountprice  = 0;
-        $deductprice2   = 0;
-        $stores        = array();
-        $address       = false;
-        $carrier       = false;
-        $carrier_list  = array();
+        $member = m('member')->getMember($openid);
+        $level = m("member")->getLevel($openid);
+        $weight = 0;
+        $total = 0;
+        $goodsprice = 0;
+        $realprice = 0;
+        $deductprice = 0;
+        $discountprice = 0;
+        $deductprice2 = 0;
+        $stores = array();
+        $address = false;
+        $carrier = false;
+        $carrier_list = array();
         $dispatch_list = false;
         $dispatch_price = 0;
         $dispatch_array = array();
-        $sale_plugin   = p('sale');
-        $saleset       = false;
+        $sale_plugin = p('sale');
+        $saleset = false;
         if ($sale_plugin) {
             $saleset = $sale_plugin->getSet();
             $saleset["enoughs"] = $sale_plugin->getEnoughs();
@@ -197,7 +197,7 @@ if ($_W['isajax']) {
             if (empty($g["total"]) || intval($g["total"]) == "-1") {
                 $g["total"] = 1;
             }
-            $gprice    = $g["marketprice"] * $g["total"];
+            $gprice = $g["marketprice"] * $g["total"];
             $discounts = json_decode($g["discounts"], true);
             if (is_array($discounts)) {
                 if (!empty($level["id"])) {
@@ -261,7 +261,7 @@ if ($_W['isajax']) {
                 ));
             }
         } else {
-            $address      = pdo_fetch('select id,realname,mobile,address,province,city,area from ' . tablename('sz_yi_member_address') . ' where openid=:openid and deleted=0 and isdefault=1  and uniacid=:uniacid limit 1', array(
+            $address = pdo_fetch('select id,realname,mobile,address,province,city,area from ' . tablename('sz_yi_member_address') . ' where openid=:openid and deleted=0 and isdefault=1  and uniacid=:uniacid limit 1', array(
                 ':uniacid' => $uniacid,
                 ':openid' => $openid
             ));
@@ -336,7 +336,7 @@ if ($_W['isajax']) {
                                 if (array_key_exists($dkey, $dispatch_array)) {
                                     $dispatch_array[$dkey]["param"] += $param;
                                 } else {
-                                    $dispatch_array[$dkey]["data"]  = $dispatch_data;
+                                    $dispatch_array[$dkey]["data"] = $dispatch_data;
                                     $dispatch_array[$dkey]["param"] = $param;
                                 }
                             }
@@ -346,8 +346,8 @@ if ($_W['isajax']) {
                 if (!empty($dispatch_array)) {
                     foreach ($dispatch_array as $k => $v) {
                         $dispatch_data = $dispatch_array[$k]["data"];
-                        $param         = $dispatch_array[$k]["param"];
-                        $areas         = unserialize($dispatch_data["areas"]);
+                        $param = $dispatch_array[$k]["param"];
+                        $areas = unserialize($dispatch_data["areas"]);
                         if (!empty($address)) {
                             $dispatch_price += m("order")->getCityDispatchPrice($areas, $address["city"], $param, $dispatch_data);
                         } else if (!empty($member["city"])) {
@@ -386,8 +386,8 @@ if ($_W['isajax']) {
             }
             foreach ($saleset["enoughs"] as $e) {
                 if ($realprice >= floatval($e["enough"]) && floatval($e["money"]) > 0) {
-                    $saleset["showenough"]   = true;
-                    $saleset["enoughmoney"]  = $e["enough"];
+                    $saleset["showenough"] = true;
+                    $saleset["enoughmoney"] = $e["enough"];
                     $saleset["enoughdeduct"] = $e["money"];
                     $realprice -= floatval($e["money"]);
                     break;
@@ -400,17 +400,17 @@ if ($_W['isajax']) {
         $hascoupon = false;
         if ($hascouponplugin) {
             $couponcount = $plugc->consumeCouponCount($openid, $realprice);
-            $hascoupon   = $couponcount > 0;
+            $hascoupon = $couponcount > 0;
         }
         $realprice += $dispatch_price;
-        $deductcredit  = 0;
-        $deductmoney   = 0;
+        $deductcredit = 0;
+        $deductmoney = 0;
         $deductcredit2 = 0;
         if ($sale_plugin) {
             $credit = m('member')->getCredit($openid, 'credit1');
             if (!empty($saleset['creditdeduct'])) {
                 $pcredit = intval($saleset['credit']);
-                $pmoney  = round(floatval($saleset['money']), 2);
+                $pmoney = round(floatval($saleset['money']), 2);
                 if ($pcredit > 0 && $pmoney > 0) {
                     if ($credit % $pcredit == 0) {
                         $deductmoney = round(intval($credit / $pcredit) * $pmoney, 2);
@@ -466,38 +466,38 @@ if ($_W['isajax']) {
             'couponcount' => $couponcount
         ));
     } else if ($operation == 'getdispatchprice') {
-        $isverify       = false;
-        $isvirtual      = false;
-        $deductprice    = 0;
-        $deductprice2   = 0;
-        $deductcredit2  = 0;
+        $isverify = false;
+        $isvirtual = false;
+        $deductprice = 0;
+        $deductprice2 = 0;
+        $deductcredit2 = 0;
         $dispatch_array = array();
         $totalprice = floatval($_GPC['totalprice']);
-        $dflag          = $_GPC["dflag"];
-        $hascoupon      = false;
-        $couponcount    = 0;
-        $pc             = p("coupon");
+        $dflag = $_GPC["dflag"];
+        $hascoupon = false;
+        $couponcount = 0;
+        $pc = p("coupon");
         if ($pc) {
             $pset = $pc->getSet();
             if (empty($pset["closemember"])) {
                 $couponcount = $pc->consumeCouponCount($openid, $totalprice);
-                $hascoupon   = $couponcount > 0;
+                $hascoupon = $couponcount > 0;
             }
         }
-        $addressid           = intval($_GPC["addressid"]);
-        $address     = pdo_fetch('select id,realname,mobile,address,province,city,area from ' . tablename('sz_yi_member_address') . ' where  id=:id and openid=:openid and uniacid=:uniacid limit 1', array(
+        $addressid = intval($_GPC["addressid"]);
+        $address = pdo_fetch('select id,realname,mobile,address,province,city,area from ' . tablename('sz_yi_member_address') . ' where  id=:id and openid=:openid and uniacid=:uniacid limit 1', array(
             ':uniacid' => $uniacid,
             ':openid' => $openid,
             ':id' => $addressid
         ));
-        $member              = m("member")->getMember($openid);
-        $level               = m("member")->getLevel($openid);
-        $weight              = $_GPC["weight"];
-        $dispatch_price      = 0;
-        $deductenough_money  = 0;
+        $member = m("member")->getMember($openid);
+        $level = m("member")->getLevel($openid);
+        $weight = $_GPC["weight"];
+        $dispatch_price = 0;
+        $deductenough_money = 0;
         $deductenough_enough = 0;
         $sale_plugin = p('sale');
-        $saleset     = false;
+        $saleset = false;
         if ($sale_plugin) {
             $saleset = $sale_plugin->getSet();
             $saleset["enoughs"] = $sale_plugin->getEnoughs();
@@ -506,7 +506,7 @@ if ($_W['isajax']) {
             if ($saleset) {
                 foreach ($saleset["enoughs"] as $e) {
                     if ($totalprice >= floatval($e["enough"]) && floatval($e["money"]) > 0) {
-                        $deductenough_money  = floatval($e["money"]);
+                        $deductenough_money = floatval($e["money"]);
                         $deductenough_enough = floatval($e["enough"]);
                         break;
                     }
@@ -548,16 +548,16 @@ if ($_W['isajax']) {
         }
         $goods = trim($_GPC["goods"]);
         if (!empty($goods)) {
-            $weight   = 0;
+            $weight = 0;
             $allgoods = array();
             $goodsarr = explode("|", $goods);
             foreach ($goodsarr as &$g) {
                 if (empty($g)) {
                     continue;
                 }
-                $goodsinfo  = explode(",", $g);
-                $goodsid    = !empty($goodsinfo[0]) ? intval($goodsinfo[0]) : '';
-                $optionid   = !empty($goodsinfo[1]) ? intval($goodsinfo[1]) : 0;
+                $goodsinfo = explode(",", $g);
+                $goodsid = !empty($goodsinfo[0]) ? intval($goodsinfo[0]) : '';
+                $optionid = !empty($goodsinfo[1]) ? intval($goodsinfo[1]) : 0;
                 $goodstotal = !empty($goodsinfo[2]) ? intval($goodsinfo[2]) : "1";
                 if ($goodstotal < 1) {
                     $goodstotal = 1;
@@ -567,7 +567,7 @@ if ($_W['isajax']) {
                         "price" => 0
                     ));
                 }
-                $sql  = "SELECT id as goodsid,title,type, weight,total,issendfree,isnodiscount, thumb,marketprice,cash,isverify,goodssn,productsn,sales,istime,timestart,timeend,usermaxbuy,maxbuy,unit,buylevels,buygroups,deleted,status,deduct,manydeduct,virtual,discounts,deduct2,ednum,edmoney,edareas,diyformid,diyformtype,diymode,dispatchtype,dispatchid,dispatchprice FROM " . tablename("sz_yi_goods") . " where id=:id and uniacid=:uniacid  limit 1";
+                $sql = "SELECT id as goodsid,title,type, weight,total,issendfree,isnodiscount, thumb,marketprice,cash,isverify,goodssn,productsn,sales,istime,timestart,timeend,usermaxbuy,maxbuy,unit,buylevels,buygroups,deleted,status,deduct,manydeduct,virtual,discounts,deduct2,ednum,edmoney,edareas,diyformid,diyformtype,diymode,dispatchtype,dispatchid,dispatchprice FROM " . tablename("sz_yi_goods") . " where id=:id and uniacid=:uniacid  limit 1";
                 $data = pdo_fetch($sql, array(
                     ":uniacid" => $uniacid,
                     ":id" => $goodsid
@@ -586,7 +586,7 @@ if ($_W['isajax']) {
                         ":id" => $optionid
                     ));
                     if (!empty($option)) {
-                        $data["optionid"]    = $optionid;
+                        $data["optionid"] = $optionid;
                         $data["optiontitle"] = $option["title"];
                         $data["marketprice"] = $option["marketprice"];
                         if (!empty($option["weight"])) {
@@ -614,7 +614,7 @@ if ($_W['isajax']) {
                         }
                     }
                 }
-                $gprice  = $data["marketprice"] * $goodstotal;
+                $gprice = $data["marketprice"] * $goodstotal;
                 $ggprice = 0;
                 if (empty($data["isnodiscount"]) && $level["discount"] > 0 && $level["discount"] < 10) {
                     $dprice = round($gprice * $level["discount"] / 10, 2);
@@ -624,7 +624,7 @@ if ($_W['isajax']) {
                     $ggprice = $gprice;
                 }
                 $data["ggprice"] = $ggprice;
-                $allgoods[]      = $data;
+                $allgoods[] = $data;
             }
             unset($g);
             foreach ($allgoods as $g) {
@@ -727,7 +727,7 @@ if ($_W['isajax']) {
                                 if (array_key_exists($dkey, $dispatch_array)) {
                                     $dispatch_array[$dkey]["param"] += $param;
                                 } else {
-                                    $dispatch_array[$dkey]["data"]  = $dispatch_data;
+                                    $dispatch_array[$dkey]["data"] = $dispatch_data;
                                     $dispatch_array[$dkey]["param"] = $param;
                                 }
                             }
@@ -737,8 +737,8 @@ if ($_W['isajax']) {
                 if (!empty($dispatch_array)) {
                     foreach ($dispatch_array as $k => $v) {
                         $dispatch_data = $dispatch_array[$k]["data"];
-                        $param         = $dispatch_array[$k]["param"];
-                        $areas         = unserialize($dispatch_data["areas"]);
+                        $param = $dispatch_array[$k]["param"];
+                        $areas = unserialize($dispatch_data["areas"]);
                         if (!empty($address)) {
                             $dispatch_price += m("order")->getCityDispatchPrice($areas, $address["city"], $param, $dispatch_data);
                         } else if (!empty($member["city"])) {
@@ -755,12 +755,12 @@ if ($_W['isajax']) {
                 }
             }
             $deductcredit = 0;
-            $deductmoney  = 0;
+            $deductmoney = 0;
             if ($sale_plugin) {
                 $credit = m("member")->getCredit($openid, "credit1");
                 if (!empty($saleset["creditdeduct"])) {
                     $pcredit = intval($saleset["credit"]);
-                    $pmoney  = round(floatval($saleset["money"]), 2);
+                    $pmoney = round(floatval($saleset["money"]), 2);
                     if ($pcredit > 0 && $pmoney > 0) {
                         if ($credit % $pcredit == 0) {
                             $deductmoney = round(intval($credit / $pcredit) * $pmoney, 2);
@@ -798,10 +798,10 @@ if ($_W['isajax']) {
             "deductmoney" => $deductmoney
         ));
     } else if ($operation == 'create' && $_W['ispost']) {
-        $member       = m('member')->getMember($openid);
+        $member = m('member')->getMember($openid);
         $dispatchtype = intval($_GPC['dispatchtype']);
-        $addressid    = intval($_GPC['addressid']);
-        $address      = false;
+        $addressid = intval($_GPC['addressid']);
+        $address = false;
         if (!empty($addressid) && $dispatchtype == 0) {
             $address = pdo_fetch('select id,realname,mobile,address,province,city,area from ' . tablename('sz_yi_member_address') . ' where id=:id and openid=:openid and uniacid=:uniacid   limit 1', array(
                 ':uniacid' => $uniacid,
@@ -817,34 +817,34 @@ if ($_W['isajax']) {
         if (empty($goods)) {
             show_json(0, '未找到任何商品');
         }
-        $allgoods      = array();
-        $totalprice    = 0;
-        $goodsprice    = 0;
-        $weight        = 0;
+        $allgoods = array();
+        $totalprice = 0;
+        $goodsprice = 0;
+        $weight = 0;
         $discountprice = 0;
-        $goodsarr      = explode('|', $goods);
-        $cash          = 1;
-        $level         = m('member')->getLevel($openid);
-        $deductprice   = 0;
-        $deductprice2   = 0;
-        $virtualsales  = 0;
+        $goodsarr = explode('|', $goods);
+        $cash = 1;
+        $level = m('member')->getLevel($openid);
+        $deductprice = 0;
+        $deductprice2 = 0;
+        $virtualsales = 0;
         $dispatch_price = 0;
         $dispatch_array = array();
-        $sale_plugin   = p('sale');
-        $saleset       = false;
+        $sale_plugin = p('sale');
+        $saleset = false;
         if ($sale_plugin) {
             $saleset = $sale_plugin->getSet();
             $saleset["enoughs"] = $sale_plugin->getEnoughs();
         }
         $isvirtual = false;
-        $isverify  = false;
+        $isverify = false;
         foreach ($goodsarr as $g) {
             if (empty($g)) {
                 continue;
             }
-            $goodsinfo  = explode(',', $g);
-            $goodsid    = !empty($goodsinfo[0]) ? intval($goodsinfo[0]) : '';
-            $optionid   = !empty($goodsinfo[1]) ? intval($goodsinfo[1]) : 0;
+            $goodsinfo = explode(',', $g);
+            $goodsid = !empty($goodsinfo[0]) ? intval($goodsinfo[0]) : '';
+            $optionid = !empty($goodsinfo[1]) ? intval($goodsinfo[1]) : 0;
             $goodstotal = !empty($goodsinfo[2]) ? intval($goodsinfo[2]) : '1';
             if ($goodstotal < 1) {
                 $goodstotal = 1;
@@ -852,10 +852,10 @@ if ($_W['isajax']) {
             if (empty($goodsid)) {
                 show_json(0, '参数错误，请刷新重试');
             }
-            if(p('supplier')){
-                $sql  = 'SELECT id as goodsid,supplier_uid,title,type, weight,total,issendfree,isnodiscount, thumb,marketprice,cash,isverify,goodssn,productsn,sales,istime,timestart,timeend,usermaxbuy,maxbuy,unit,buylevels,buygroups,deleted,status,deduct,manydeduct,virtual,discounts,deduct2,ednum,edmoney,edareas,diyformtype,diyformid,diymode,dispatchtype,dispatchid,dispatchprice FROM ' . tablename('sz_yi_goods') . ' where id=:id and uniacid=:uniacid  limit 1';
-			}else{
-                $sql  = 'SELECT id as goodsid,title,type, weight,total,issendfree,isnodiscount, thumb,marketprice,cash,isverify,goodssn,productsn,sales,istime,timestart,timeend,usermaxbuy,maxbuy,unit,buylevels,buygroups,deleted,status,deduct,manydeduct,virtual,discounts,deduct2,ednum,edmoney,edareas,diyformtype,diyformid,diymode,dispatchtype,dispatchid,dispatchprice FROM ' . tablename('sz_yi_goods') . ' where id=:id and uniacid=:uniacid  limit 1';
+            if (p('supplier')) {
+                $sql = 'SELECT id as goodsid,supplier_uid,title,type, weight,total,issendfree,isnodiscount, thumb,marketprice,cash,isverify,goodssn,productsn,sales,istime,timestart,timeend,usermaxbuy,maxbuy,unit,buylevels,buygroups,deleted,status,deduct,manydeduct,virtual,discounts,deduct2,ednum,edmoney,edareas,diyformtype,diyformid,diymode,dispatchtype,dispatchid,dispatchprice FROM ' . tablename('sz_yi_goods') . ' where id=:id and uniacid=:uniacid  limit 1';
+            } else {
+                $sql = 'SELECT id as goodsid,title,type, weight,total,issendfree,isnodiscount, thumb,marketprice,cash,isverify,goodssn,productsn,sales,istime,timestart,timeend,usermaxbuy,maxbuy,unit,buylevels,buygroups,deleted,status,deduct,manydeduct,virtual,discounts,deduct2,ednum,edmoney,edareas,diyformtype,diyformid,diymode,dispatchtype,dispatchid,dispatchprice FROM ' . tablename('sz_yi_goods') . ' where id=:id and uniacid=:uniacid  limit 1';
             }
             $data = pdo_fetch($sql, array(
                 ':uniacid' => $uniacid,
@@ -864,7 +864,7 @@ if ($_W['isajax']) {
             if (empty($data['status']) || !empty($data['deleted'])) {
                 show_json(-1, $data['title'] . '<br/> 已下架!');
             }
-            $virtualid     = $data['virtual'];
+            $virtualid = $data['virtual'];
             $data['stock'] = $data['total'];
             $data['total'] = $goodstotal;
             if ($data['cash'] != 2) {
@@ -920,10 +920,10 @@ if ($_W['isajax']) {
                             show_json(-1, $data['title'] . "<br/>" . $option['title'] . " 库存不足!");
                         }
                     }
-                    $data['optionid']    = $optionid;
+                    $data['optionid'] = $optionid;
                     $data['optiontitle'] = $option['title'];
                     $data['marketprice'] = $option['marketprice'];
-                    $virtualid           = $option['virtual'];
+                    $virtualid = $option['virtual'];
                     if (!empty($option['goodssn'])) {
                         $data['goodssn'] = $option['goodssn'];
                     }
@@ -942,7 +942,7 @@ if ($_W['isajax']) {
                 }
             }
             $data["diyformdataid"] = 0;
-            $data["diyformdata"]   = iserializer(array());
+            $data["diyformdata"] = iserializer(array());
             $data["diyformfields"] = iserializer(array());
             if ($_GPC["fromcart"] == 1) {
                 if ($diyform_plugin) {
@@ -953,16 +953,16 @@ if ($_W['isajax']) {
                     ));
                     if (!empty($cartdata)) {
                         $data["diyformdataid"] = $cartdata["diyformdataid"];
-                        $data["diyformdata"]   = $cartdata["diyformdata"];
+                        $data["diyformdata"] = $cartdata["diyformdata"];
                         $data["diyformfields"] = $cartdata["diyformfields"];
                     }
                 }
             } else {
                 if (!empty($diyformtype) && !empty($data["diyformid"])) {
-                    $temp_data             = $diyform_plugin->getOneDiyformTemp($goods_data_id, 0);
+                    $temp_data = $diyform_plugin->getOneDiyformTemp($goods_data_id, 0);
                     $data["diyformfields"] = $temp_data["diyformfields"];
-                    $data["diyformdata"]   = $temp_data["diyformdata"];
-                    $data["diyformid"]     = $formInfo["id"];
+                    $data["diyformdata"] = $temp_data["diyformdata"];
+                    $data["diyformid"] = $formInfo["id"];
                 }
             }
             $gprice = $data['marketprice'] * $goodstotal;
@@ -1028,8 +1028,8 @@ if ($_W['isajax']) {
             foreach ($saleset["enoughs"] as $e) {
                 if ($totalprice >= floatval($e["enough"]) && floatval($e["money"]) > 0) {
                     $deductenough = floatval($e["money"]);
-            if ($deductenough > $totalprice) {
-                $deductenough = $totalprice;
+                    if ($deductenough > $totalprice) {
+                        $deductenough = $totalprice;
                     }
                     break;
                 }
@@ -1103,7 +1103,7 @@ if ($_W['isajax']) {
                             if (array_key_exists($dkey, $dispatch_array)) {
                                 $dispatch_array[$dkey]["param"] += $param;
                             } else {
-                                $dispatch_array[$dkey]["data"]  = $dispatch_data;
+                                $dispatch_array[$dkey]["data"] = $dispatch_data;
                                 $dispatch_array[$dkey]["param"] = $param;
                             }
                         }
@@ -1113,8 +1113,8 @@ if ($_W['isajax']) {
             if (!empty($dispatch_array)) {
                 foreach ($dispatch_array as $k => $v) {
                     $dispatch_data = $dispatch_array[$k]["data"];
-                    $param         = $dispatch_array[$k]["param"];
-                    $areas         = unserialize($dispatch_data["areas"]);
+                    $param = $dispatch_array[$k]["param"];
+                    $areas = unserialize($dispatch_data["areas"]);
                     if (!empty($address)) {
                         $dispatch_price += m("order")->getCityDispatchPrice($areas, $address["city"], $param, $dispatch_data);
                     } else if (!empty($member["city"])) {
@@ -1152,7 +1152,7 @@ if ($_W['isajax']) {
             }
         }
         $couponprice = 0;
-        $couponid    = intval($_GPC["couponid"]);
+        $couponid = intval($_GPC["couponid"]);
         if ($plugc) {
             $coupon = $plugc->getCouponByDataID($couponid);
             if (!empty($coupon)) {
@@ -1177,16 +1177,16 @@ if ($_W['isajax']) {
         if ($saleset && empty($saleset["dispatchnodeduct"])) {
             $deductprice2 += $dispatch_price;
         }
-        $deductcredit  = 0;
-        $deductmoney   = 0;
+        $deductcredit = 0;
+        $deductmoney = 0;
         $deductcredit2 = 0;
         if ($sale_plugin) {
             if (!empty($_GPC['deduct'])) {
-                $credit  = m('member')->getCredit($openid, 'credit1');
+                $credit = m('member')->getCredit($openid, 'credit1');
                 $saleset = $sale_plugin->getSet();
                 if (!empty($saleset['creditdeduct'])) {
                     $pcredit = intval($saleset['credit']);
-                    $pmoney  = round(floatval($saleset['money']), 2);
+                    $pmoney = round(floatval($saleset['money']), 2);
                     if ($pcredit > 0 && $pmoney > 0) {
                         if ($credit % $pcredit == 0) {
                             $deductmoney = round(intval($credit / $pcredit) * $pmoney, 2);
@@ -1215,7 +1215,7 @@ if ($_W['isajax']) {
             }
             $totalprice -= $deductcredit2;
         }
-        $ordersn    = m('common')->createNO('order', 'ordersn', 'SH');
+        $ordersn = m('common')->createNO('order', 'ordersn', 'SH');
         $verifycode = "";
         if ($isverify) {
             $verifycode = random(8, true);
@@ -1230,12 +1230,12 @@ if ($_W['isajax']) {
                 $verifycode = random(8, true);
             }
         }
-        $carrier  = $_GPC['carrier'];
+        $carrier = $_GPC['carrier'];
         $carriers = is_array($carrier) ? iserializer($carrier) : iserializer(array());
         if ($totalprice <= 0) {
             $totalprice = 0;
         }
-        $order    = array(
+        $order = array(
             'uniacid' => $uniacid,
             'openid' => $openid,
             'ordersn' => $ordersn,
@@ -1269,11 +1269,11 @@ if ($_W['isajax']) {
         );
         if ($diyform_plugin) {
             if (is_array($_GPC["diydata"]) && !empty($order_formInfo)) {
-                $diyform_data           = $diyform_plugin->getInsertData($fields, $_GPC["diydata"]);
-                $idata                  = $diyform_data["data"];
+                $diyform_data = $diyform_plugin->getInsertData($fields, $_GPC["diydata"]);
+                $idata = $diyform_data["data"];
                 $order["diyformfields"] = iserializer($fields);
-                $order["diyformdata"]   = $idata;
-                $order["diyformid"]     = $order_formInfo["id"];
+                $order["diyformdata"] = $idata;
+                $order["diyformid"] = $order_formInfo["id"];
             }
         }
         if (!empty($address)) {
@@ -1326,13 +1326,13 @@ if ($_W['isajax']) {
                 "openid" => $openid
             );
             if ($diyform_plugin) {
-                $order_goods["diyformid"]     = $goods["diyformid"];
-                $order_goods["diyformdata"]   = $goods["diyformdata"];
+                $order_goods["diyformid"] = $goods["diyformid"];
+                $order_goods["diyformdata"] = $goods["diyformdata"];
                 $order_goods["diyformfields"] = $goods["diyformfields"];
             }
-            if(p('supplier')){
-				$order_goods['supplier_uid'] = $goods['supplier_uid'];
-			}
+            if (p('supplier')) {
+                $order_goods['supplier_uid'] = $goods['supplier_uid'];
+            }
             pdo_insert('sz_yi_order_goods', $order_goods);
         }
         if ($deductcredit > 0) {

@@ -8,10 +8,10 @@ ca('shop.comment.view');
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
 load()->model('user');
 if ($operation == 'display') {
-    $pindex    = max(1, intval($_GPC['page']));
-    $psize     = 20;
+    $pindex = max(1, intval($_GPC['page']));
+    $psize = 20;
     $condition = " and c.uniacid=:uniacid and c.deleted=0";
-    $params    = array(
+    $params = array(
         ':uniacid' => $_W['uniacid']
     );
     if (!empty($_GPC['keyword'])) {
@@ -21,15 +21,15 @@ if ($operation == 'display') {
     }
     if (empty($starttime) || empty($endtime)) {
         $starttime = strtotime('-1 month');
-        $endtime   = time();
+        $endtime = time();
     }
     if (!empty($_GPC['searchtime'])) {
         $starttime = strtotime($_GPC['time']['start']);
-        $endtime   = strtotime($_GPC['time']['end']);
+        $endtime = strtotime($_GPC['time']['end']);
         if (!empty($timetype)) {
             $condition .= " AND c.createtime >= :starttime AND c.createtime <= :endtime ";
             $params[':starttime'] = $starttime;
-            $params[':endtime']   = $endtime;
+            $params[':endtime'] = $endtime;
         }
     }
     if ($_GPC['fade'] != '') {
@@ -46,12 +46,12 @@ if ($operation == 'display') {
             $condition .= " AND c.append_content='' and c.append_reply_content=''";
         }
     }
-    $list  = pdo_fetchall("SELECT  c.*, o.ordersn,g.title,g.thumb FROM " . tablename('sz_yi_order_comment') . " c  " . " left join " . tablename('sz_yi_goods') . " g on c.goodsid = g.id  " . " left join " . tablename('sz_yi_order') . " o on c.orderid = o.id  " . " WHERE 1 {$condition} ORDER BY createtime desc LIMIT " . ($pindex - 1) * $psize . ',' . $psize, $params);
+    $list = pdo_fetchall("SELECT  c.*, o.ordersn,g.title,g.thumb FROM " . tablename('sz_yi_order_comment') . " c  " . " left join " . tablename('sz_yi_goods') . " g on c.goodsid = g.id  " . " left join " . tablename('sz_yi_order') . " o on c.orderid = o.id  " . " WHERE 1 {$condition} ORDER BY createtime desc LIMIT " . ($pindex - 1) * $psize . ',' . $psize, $params);
     $total = pdo_fetchcolumn("SELECT count(*) FROM " . tablename('sz_yi_order_comment') . " c  " . " left join " . tablename('sz_yi_goods') . " g on c.goodsid = g.id  " . " left join " . tablename('sz_yi_order') . " o on c.orderid = o.id  " . " WHERE 1 {$condition} ", $params);
     $pager = pagination($total, $pindex, $psize);
 } elseif ($operation == 'delete') {
     ca('shop.comment.delete');
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $item = pdo_fetch("SELECT id,goodsid FROM " . tablename('sz_yi_order_comment') . " WHERE id ='$id'");
     if (empty($item)) {
         message('抱歉，评价不存在或是已经被删除！', $this->createWebUrl('shop/comment', array(
@@ -74,8 +74,8 @@ if ($operation == 'display') {
     )), 'success');
 } elseif ($operation == 'add') {
     ca('shop.comment.add');
-    $id      = intval($_GPC['id']);
-    $item    = pdo_fetch("SELECT * FROM " . tablename('sz_yi_order_comment') . " WHERE id =:id and uniacid=:uniacid limit 1 ", array(
+    $id = intval($_GPC['id']);
+    $item = pdo_fetch("SELECT * FROM " . tablename('sz_yi_order_comment') . " WHERE id =:id and uniacid=:uniacid limit 1 ", array(
         ':id' => $id,
         ':uniacid' => $_W['uniacid']
     ));
@@ -85,7 +85,7 @@ if ($operation == 'display') {
             ':id' => $goodsid,
             ':uniacid' => $_W['uniacid']
         ));
-        $data  = array(
+        $data = array(
             'uniacid' => $_W['uniacid'],
             'level' => intval($_GPC['level']),
             'goodsid' => intval($_GPC['goodsid']),
@@ -128,8 +128,8 @@ if ($operation == 'display') {
     ));
 } elseif ($operation == 'post') {
     ca('shop.comment.edit');
-    $id    = intval($_GPC['id']);
-    $item  = pdo_fetch("SELECT * FROM " . tablename('sz_yi_order_comment') . " WHERE id =:id and uniacid=:uniacid limit 1 ", array(
+    $id = intval($_GPC['id']);
+    $item = pdo_fetch("SELECT * FROM " . tablename('sz_yi_order_comment') . " WHERE id =:id and uniacid=:uniacid limit 1 ", array(
         ':id' => $id,
         ':uniacid' => $_W['uniacid']
     ));

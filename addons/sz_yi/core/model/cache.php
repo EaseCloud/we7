@@ -13,6 +13,7 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class Sz_DYi_Cache
 {
     function get_key($key = '', $uniacid = '')
@@ -23,14 +24,17 @@ class Sz_DYi_Cache
         }
         return SZ_YI_PREFIX . '_' . $GLOBALS['_W']['config']['setting']['authkey'] . '_' . $uniacid . '_' . $key;
     }
+
     function getArray($key = '', $uniacid = '')
     {
         return $this->get($key, true, $uniacid);
     }
+
     function getString($key = '', $uniacid = '')
     {
         return $this->get($key, false, $uniacid);
     }
+
     function get($key = '', $isArray = true, $uniacid = '')
     {
         global $_W;
@@ -51,6 +55,7 @@ class Sz_DYi_Cache
         }
         return $value;
     }
+
     function set($key = '', $value = null, $uniacid = '')
     {
         global $_W;
@@ -70,6 +75,7 @@ class Sz_DYi_Cache
             $this->file_set($key, $value, $uniacid);
         }
     }
+
     function file_read($key = '', $isArray = true, $uniacid = '')
     {
         global $_W;
@@ -82,6 +88,7 @@ class Sz_DYi_Cache
         }
         return $isArray ? iunserializer($content) : $content;
     }
+
     function file_set($key = '', $value = null, $uniacid = '')
     {
         global $_W;
@@ -89,13 +96,14 @@ class Sz_DYi_Cache
             return false;
         }
         $content = is_array($value) ? iserializer($value) : $value;
-        $path    = IA_ROOT . "/addons/sz_yi/data/cache/" . $uniacid;
+        $path = IA_ROOT . "/addons/sz_yi/data/cache/" . $uniacid;
         if (!is_dir($path)) {
             load()->func('file');
             @mkdirs($path);
         }
         file_put_contents($path . "/" . $key, $content);
     }
+
     function get_memcache()
     {
         global $_W;
@@ -104,7 +112,7 @@ class Sz_DYi_Cache
             return error(1, 'Class Memcache is not found');
         }
         if (empty($memcacheobj)) {
-            $config      = $_W['config']['setting']['memcache'];
+            $config = $_W['config']['setting']['memcache'];
             $memcacheobj = new Memcache();
             if ($config['pconnect']) {
                 $connect = $memcacheobj->pconnect($config['server'], $config['port']);
@@ -117,6 +125,7 @@ class Sz_DYi_Cache
         }
         return $memcacheobj;
     }
+
     function memcache_read($key, $uniacid)
     {
         $memcache = $this->get_memcache();
@@ -125,6 +134,7 @@ class Sz_DYi_Cache
         }
         return $memcache->get($this->get_key($key, $uniacid));
     }
+
     function memcache_write($key, $value, $uniacid = 0, $ttl = 0)
     {
         $memcache = $this->get_memcache();
@@ -133,6 +143,7 @@ class Sz_DYi_Cache
         }
         return $memcache->set($this->get_key($key, $uniacid), $value, MEMCACHE_COMPRESSED, $ttl);
     }
+
     function memcache_delete($key, $uniacid = 0)
     {
         $memcache = $this->get_memcache();

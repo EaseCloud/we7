@@ -14,10 +14,10 @@ if (!defined('IN_IA')) {
 }
 global $_GPC, $_W;
 
-$shopset   = m('common')->getSysset('shop');
+$shopset = m('common')->getSysset('shop');
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
-$children  = array();
-$category  = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_category') . " WHERE uniacid = '{$_W['uniacid']}' ORDER BY parentid ASC, displayorder DESC");
+$children = array();
+$category = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_category') . " WHERE uniacid = '{$_W['uniacid']}' ORDER BY parentid ASC, displayorder DESC");
 foreach ($category as $index => $row) {
     if (!empty($row['parentid'])) {
         $children[$row['parentid']][] = $row;
@@ -32,7 +32,7 @@ if ($operation == 'display') {
         if (!is_array($datas)) {
             message('分类保存失败，请重试!', '', 'error');
         }
-        $cateids      = array();
+        $cateids = array();
         $displayorder = count($datas);
         foreach ($datas as $row) {
             $cateids[] = $row['id'];
@@ -81,10 +81,10 @@ if ($operation == 'display') {
     }
 } elseif ($operation == 'post') {
     $parentid = intval($_GPC['parentid']);
-    $id       = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     if (!empty($id)) {
         ca('shop.category.edit|shop.category.view');
-        $item     = pdo_fetch("SELECT * FROM " . tablename('sz_yi_category') . " WHERE id = '$id' limit 1");
+        $item = pdo_fetch("SELECT * FROM " . tablename('sz_yi_category') . " WHERE id = '$id' limit 1");
         $parentid = $item['parentid'];
     } else {
         ca('shop.category.add');
@@ -147,7 +147,7 @@ if ($operation == 'display') {
     }
 } elseif ($operation == 'delete') {
     ca('shop.category.delete');
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $item = pdo_fetch("SELECT id, name, parentid FROM " . tablename('sz_yi_category') . " WHERE id = '$id'");
     if (empty($item)) {
         message('抱歉，分类不存在或是已经被删除！', $this->createWebUrl('shop/category', array(

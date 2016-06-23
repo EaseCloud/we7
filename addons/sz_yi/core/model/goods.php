@@ -1,7 +1,7 @@
 <?php
 /*=============================================================================
 #     FileName: goods.php
-#         Desc: ÉÌÆ·Àà
+#         Desc: å•†å“ç±»
 #       Author: Yunzhong - http://www.yunzshop.com
 #        Email: 913768135@qq.com
 #     HomePage: http://www.yunzshop.com
@@ -12,6 +12,7 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class Sz_DYi_Goods
 {
     public function getOption($goodsid = 0, $optionid = 0)
@@ -23,17 +24,18 @@ class Sz_DYi_Goods
             ':goodsid' => $goodsid
         ));
     }
+
     public function getList($args = array())
     {
         global $_W;
-        $page      = !empty($args['page']) ? intval($args['page']) : 1;
-        $pagesize  = !empty($args['pagesize']) ? intval($args['pagesize']) : 10;
-        $random    = !empty($args['random']) ? $args['random'] : false;
-        $order     = !empty($args['order']) ? $args['order'] : ' displayorder desc,createtime desc';
-        $orderby   = !empty($args['by']) ? $args['by'] : '';
-        $ids       = !empty($args['ids']) ? trim($args['ids']) : '';
+        $page = !empty($args['page']) ? intval($args['page']) : 1;
+        $pagesize = !empty($args['pagesize']) ? intval($args['pagesize']) : 10;
+        $random = !empty($args['random']) ? $args['random'] : false;
+        $order = !empty($args['order']) ? $args['order'] : ' displayorder desc,createtime desc';
+        $orderby = !empty($args['by']) ? $args['by'] : '';
+        $ids = !empty($args['ids']) ? trim($args['ids']) : '';
         $condition = ' and `uniacid` = :uniacid AND `deleted` = 0 and status=1';
-        $params    = array(
+        $params = array(
             ':uniacid' => $_W['uniacid']
         );
         if (!empty($ids)) {
@@ -81,8 +83,8 @@ class Sz_DYi_Goods
                 }
             }
         }
-        $openid  = m('user')->getOpenid();
-        $member  = m('member')->getMember($openid);
+        $openid = m('user')->getOpenid();
+        $member = m('member')->getMember($openid);
         $levelid = intval($member['level']);
         $groupid = intval($member['groupid']);
         $condition .= " and ( ifnull(showlevels,'')='' or FIND_IN_SET( {$levelid},showlevels)<>0 ) ";
@@ -96,18 +98,19 @@ class Sz_DYi_Goods
         $list = set_medias($list, 'thumb');
         return $list;
     }
+
     public function getComments($goodsid = '0', $args = array())
     {
         global $_W;
-        $page      = !empty($args['page']) ? intval($args['page']) : 1;
-        $pagesize  = !empty($args['pagesize']) ? intval($args['pagesize']) : 10;
+        $page = !empty($args['page']) ? intval($args['page']) : 1;
+        $pagesize = !empty($args['pagesize']) ? intval($args['pagesize']) : 10;
         $condition = ' and `uniacid` = :uniacid AND `goodsid` = :goodsid and deleted=0';
-        $params    = array(
+        $params = array(
             ':uniacid' => $_W['uniacid'],
             ':goodsid' => $goodsid
         );
-        $sql       = "SELECT id,nickname,headimgurl,content,images FROM " . tablename('sz_yi_goods_comment') . " where 1 {$condition} ORDER BY createtime desc LIMIT " . ($page - 1) * $pagesize . ',' . $pagesize;
-        $list      = pdo_fetchall($sql, $params);
+        $sql = "SELECT id,nickname,headimgurl,content,images FROM " . tablename('sz_yi_goods_comment') . " where 1 {$condition} ORDER BY createtime desc LIMIT " . ($page - 1) * $pagesize . ',' . $pagesize;
+        $list = pdo_fetchall($sql, $params);
         foreach ($list as &$row) {
             $row['images'] = set_medias(unserialize($row['images']));
         }

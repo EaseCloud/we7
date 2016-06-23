@@ -4,15 +4,15 @@ if (!defined('IN_IA')) {
 }
 global $_W, $_GPC;
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
-$openid    = m('user')->getOpenid();
-$uniacid   = $_W['uniacid'];
-$member    = m('member')->getMember($openid);
-$notice    = iunserializer($member['noticeset']);
+$openid = m('user')->getOpenid();
+$uniacid = $_W['uniacid'];
+$member = m('member')->getMember($openid);
+$notice = iunserializer($member['noticeset']);
 if ($_W['isajax']) {
     if ($operation == 'display') {
         $hascommission = false;
         if (p('commission')) {
-            $cset          = p('commission')->getSet();
+            $cset = p('commission')->getSet();
             $hascommission = !empty($cset['level']);
         }
         show_json(1, array(

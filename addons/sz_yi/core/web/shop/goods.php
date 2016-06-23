@@ -4,23 +4,23 @@ if (!defined("IN_IA")) {
 }
 global $_W, $_GPC;
 //  START 判断是否当前用户是否供应商
-$roleid = pdo_fetchcolumn('select roleid from' . tablename('sz_yi_perm_user') . ' where uid='.$_W['uid'].' and uniacid=' . $_W['uniacid']);
-if($roleid == 0){
-	$perm_role = 0;
-}else{
-	if(p('supplier')){
-		$perm_role = pdo_fetchcolumn('select status1 from' . tablename('sz_yi_perm_role') . ' where id=' . $roleid);
-	}else{
-		$perm_role = 0;
-	}
+$roleid = pdo_fetchcolumn('select roleid from' . tablename('sz_yi_perm_user') . ' where uid=' . $_W['uid'] . ' and uniacid=' . $_W['uniacid']);
+if ($roleid == 0) {
+    $perm_role = 0;
+} else {
+    if (p('supplier')) {
+        $perm_role = pdo_fetchcolumn('select status1 from' . tablename('sz_yi_perm_role') . ' where id=' . $roleid);
+    } else {
+        $perm_role = 0;
+    }
 }
 //  END
 //分红
 $pluginbonus = p("bonus");
 $bonus_start = 0;
-if(!empty($pluginbonus)){
+if (!empty($pluginbonus)) {
     $bonus_set = $pluginbonus->getSet();
-    if(!empty($bonus_set['start'])){
+    if (!empty($bonus_set['start'])) {
         $bonus_start = 1;
     }
 }
@@ -43,7 +43,7 @@ if (p('commission')) {
         array(':uniacid' => $_W['uniacid'])
     );
 }
-$pv        = p('virtual');
+$pv = p('virtual');
 $diyform_plugin = p("diyform");
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
 if ($operation == "change") {
@@ -59,7 +59,8 @@ if ($operation == "change") {
         "total",
         "goodssn",
         "productsn"
-    ))) {
+    ))
+    ) {
         exit;
     }
     $goods = pdo_fetch("select id from " . tablename("sz_yi_goods") . " where id=:id and uniacid=:uniacid limit 1", array(
@@ -71,7 +72,7 @@ if ($operation == "change") {
     }
     pdo_update("sz_yi_goods", array(
         $type => $value
-    ) , array(
+    ), array(
         "id" => $id
     ));
     exit;
@@ -83,12 +84,12 @@ if ($operation == "change") {
         ca('shop.goods.add');
     }
     $result = pdo_fetchall("SELECT uid,realname,username FROM " . tablename('sz_yi_perm_user') . ' where uniacid =' . $_W['uniacid']);
-	$id = intval($_GPC['id']);
-	if (!empty($id)) {
-		ca('shop.goods.edit|shop.goods.view');
-	} else {
-		ca('shop.goods.add');
-	}
+    $id = intval($_GPC['id']);
+    if (!empty($id)) {
+        ca('shop.goods.edit|shop.goods.view');
+    } else {
+        ca('shop.goods.add');
+    }
     $levels = m('member')->getLevels();
     $groups = m('member')->getGroups();
     if (!empty($id)) {
@@ -105,7 +106,7 @@ if ($operation == "change") {
             $cates = explode(',', $item['ccates']);
         }
         $discounts = json_decode($item['discounts'], true);
-        $allspecs  = pdo_fetchall("select * from " . tablename('sz_yi_goods_spec') . " where goodsid=:id order by displayorder asc", array(
+        $allspecs = pdo_fetchall("select * from " . tablename('sz_yi_goods_spec') . " where goodsid=:id order by displayorder asc", array(
             ":id" => $id
         ));
         foreach ($allspecs as &$s) {
@@ -114,21 +115,21 @@ if ($operation == "change") {
             ));
         }
         unset($s);
-        $params   = pdo_fetchall("select * from " . tablename('sz_yi_goods_param') . " where goodsid=:id order by displayorder asc", array(
+        $params = pdo_fetchall("select * from " . tablename('sz_yi_goods_param') . " where goodsid=:id order by displayorder asc", array(
             ':id' => $id
         ));
         $piclist1 = unserialize($item['thumb_url']);
-        $piclist  = array();
+        $piclist = array();
         if (is_array($piclist1)) {
             foreach ($piclist1 as $p) {
                 $piclist[] = is_array($p) ? $p['attachment'] : $p;
             }
         }
-        $html    = "";
+        $html = "";
         $options = pdo_fetchall("select * from " . tablename('sz_yi_goods_option') . " where goodsid=:id order by id asc", array(
             ':id' => $id
         ));
-        $specs   = array();
+        $specs = array();
         if (count($options) > 0) {
             $specitemids = explode("_", $options[0]['specs']);
             foreach ($specitemids as $itemid) {
@@ -146,9 +147,9 @@ if ($operation == "change") {
             $html .= '<table class="table table-bordered table-condensed">';
             $html .= '<thead>';
             $html .= '<tr class="active">';
-            $len      = count($specs);
-            $newlen   = 1;
-            $h        = array();
+            $len = count($specs);
+            $newlen = 1;
+            $h = array();
             $rowspans = array();
             for ($i = 0; $i < $len; $i++) {
                 $html .= "<th style='width:80px;'>" . $specs[$i]['title'] . "</th>";
@@ -161,7 +162,7 @@ if ($operation == "change") {
                 for ($j = 0; $j < $newlen; $j++) {
                     $h[$i][$j] = array();
                 }
-                $l            = count($specs[$i]['items']);
+                $l = count($specs[$i]['items']);
                 $rowspans[$i] = 1;
                 for ($j = $i + 1; $j < $len; $j++) {
                     $rowspans[$i] *= count($specs[$j]['items']);
@@ -188,9 +189,9 @@ if ($operation == "change") {
                 $html .= '</tr></thead>';
             }
             for ($m = 0; $m < $len; $m++) {
-                $k   = 0;
+                $k = 0;
                 $kid = 0;
-                $n   = 0;
+                $n = 0;
                 for ($j = 0; $j < $newlen; $j++) {
                     $rowspan = $rowspans[$m];
                     if ($j % $rowspan == 0) {
@@ -304,13 +305,13 @@ if ($operation == "change") {
             'op' => 'post'
         )), 'error');
     }
-    $dispatch_data = pdo_fetchall("select * from".tablename("sz_yi_dispatch")."where uniacid =:uniacid and enabled = 1 order by displayorder desc",array(":uniacid"=>$_W["uniacid"])); 
-   if (checksubmit("submit")) {
-	 if ($diyform_plugin) { 
-	 if ($_GPC["type"] == 1 && $_GPC["diyformtype"] == 2) { 
-	 message("替换模式只试用于虚拟物品类型，实体物品无效！请重新选择！");
-	  }
-   } 
+    $dispatch_data = pdo_fetchall("select * from" . tablename("sz_yi_dispatch") . "where uniacid =:uniacid and enabled = 1 order by displayorder desc", array(":uniacid" => $_W["uniacid"]));
+    if (checksubmit("submit")) {
+        if ($diyform_plugin) {
+            if ($_GPC["type"] == 1 && $_GPC["diyformtype"] == 2) {
+                message("替换模式只试用于虚拟物品类型，实体物品无效！请重新选择！");
+            }
+        }
         if (empty($_GPC['goodsname'])) {
             message('请输入商品名称！');
         }
@@ -320,7 +321,7 @@ if ($operation == "change") {
         if (empty($_GPC['thumbs'])) {
             $_GPC['thumbs'] = array();
         }
-        $data    = array(
+        $data = array(
             'uniacid' => intval($_W['uniacid']),
             'displayorder' => intval($_GPC['displayorder']),
             'title' => trim($_GPC['goodsname']),
@@ -370,8 +371,8 @@ if ($operation == "change") {
             'followurl' => trim($_GPC['followurl']),
             'followtip' => trim($_GPC['followtip']),
             'deduct' => $_GPC['deduct'],
-	    "manydeduct"=>$_GPC["manydeduct"],
-	    "deduct2"=>$_GPC["deduct2"],
+            "manydeduct" => $_GPC["manydeduct"],
+            "deduct2" => $_GPC["deduct2"],
             'virtual' => intval($_GPC['type']) == 3 ? intval($_GPC['virtual']) : 0,
             'discounts' => is_array($_GPC['discounts']) ? json_encode($_GPC['discounts']) : array(),
             'detail_logo' => save_media($_GPC['detail_logo']),
@@ -381,40 +382,40 @@ if ($operation == "change") {
             'detail_btnurl1' => trim($_GPC['detail_btnurl1']),
             'detail_btntext2' => trim($_GPC['detail_btntext2']),
             'detail_btnurl2' => trim($_GPC['detail_btnurl2']),
-			"ednum"=>intval($_GPC["ednum"]) ,
-			"edareas"=>trim($_GPC["edareas"]) ,
-			"edmoney"=>trim($_GPC["edmoney"])
+            "ednum" => intval($_GPC["ednum"]),
+            "edareas" => trim($_GPC["edareas"]),
+            "edmoney" => trim($_GPC["edmoney"])
         );
-        if(!empty($_GPC['bonusmoney'])){
+        if (!empty($_GPC['bonusmoney'])) {
             $data['bonusmoney'] = $_GPC['bonusmoney'];
         }
         //判断是否安装供应商插件判断有没有供应商id 
-		if(p('supplier')){
+        if (p('supplier')) {
             //todo,这个有问题吧?其他公众号管理员也可以选择供货商和是否上架的
-			if($perm_role == 1){
+            if ($perm_role == 1) {
                 $data['supplier_uid'] = $_W['uid'];
                 $data['status'] = 0;
-			}else{
-				$data['supplier_uid'] = $_GPC['supplier_uid'];
+            } else {
+                $data['supplier_uid'] = $_GPC['supplier_uid'];
                 $data['status'] = $_GPC['status'];
-			}
-		}else{
-			$data['status'] = $_GPC['status'];
-		}
-        
+            }
+        } else {
+            $data['status'] = $_GPC['status'];
+        }
+
         $cateset = m('common')->getSysset('shop');
-        $pcates  = array();
-        $ccates  = array();
-        $tcates  = array();
+        $pcates = array();
+        $ccates = array();
+        $tcates = array();
         if (is_array($_GPC['cates'])) {
             $postcates = $_GPC['cates'];
             foreach ($postcates as $pid) {
                 if ($cateset['catlevel'] == 3) {
-                    $tcate    = pdo_fetch('select id ,parentid from ' . tablename('sz_yi_category') . ' where id=:id and uniacid=:uniacid limit 1', array(
+                    $tcate = pdo_fetch('select id ,parentid from ' . tablename('sz_yi_category') . ' where id=:id and uniacid=:uniacid limit 1', array(
                         ':id' => $pid,
                         ':uniacid' => $_W['uniacid']
                     ));
-                    $ccate    = pdo_fetch('select id ,parentid from ' . tablename('sz_yi_category') . ' where id=:id and uniacid=:uniacid limit 1', array(
+                    $ccate = pdo_fetch('select id ,parentid from ' . tablename('sz_yi_category') . ' where id=:id and uniacid=:uniacid limit 1', array(
                         ':id' => $tcate['parentid'],
                         ':uniacid' => $_W['uniacid']
                     ));
@@ -422,7 +423,7 @@ if ($operation == "change") {
                     $ccates[] = $ccate['id'];
                     $pcates[] = $ccate['parentid'];
                 } else {
-                    $ccate    = pdo_fetch('select id ,parentid from ' . tablename('sz_yi_category') . ' where id=:id and uniacid=:uniacid limit 1', array(
+                    $ccate = pdo_fetch('select id ,parentid from ' . tablename('sz_yi_category') . ' where id=:id and uniacid=:uniacid limit 1', array(
                         ':id' => $pid,
                         ':uniacid' => $_W['uniacid']
                     ));
@@ -434,12 +435,12 @@ if ($operation == "change") {
         $data['pcates'] = implode(',', $pcates);
         $data['ccates'] = implode(',', $ccates);
         $data['tcates'] = implode(',', $tcates);
-        $content        = htmlspecialchars_decode($_GPC['content']);
+        $content = htmlspecialchars_decode($_GPC['content']);
         preg_match_all("/<img.*?src=[\'| \"](.*?(?:[\.gif|\.jpg|\.png|\.jpeg]?))[\'|\"].*?[\/]?>/", $content, $imgs);
         $images = array();
         if (isset($imgs[1])) {
             foreach ($imgs[1] as $img) {
-                $im       = array(
+                $im = array(
                     "old" => $img,
                     "new" => save_media($img)
                 );
@@ -453,33 +454,33 @@ if ($operation == "change") {
         if (p('commission')) {
             $cset = p('commission')->getSet();
             if (!empty($cset['level'])) {
-                $data['nocommission']     = intval($_GPC['nocommission']);
-                $data['hascommission']    = intval($_GPC['hascommission']);
-                $data['hidecommission']   = intval($_GPC['hidecommission']);
+                $data['nocommission'] = intval($_GPC['nocommission']);
+                $data['hascommission'] = intval($_GPC['hascommission']);
+                $data['hidecommission'] = intval($_GPC['hidecommission']);
                 $data['commission1_rate'] = $_GPC['commission1_rate'];
                 $data['commission2_rate'] = $_GPC['commission2_rate'];
                 $data['commission3_rate'] = $_GPC['commission3_rate'];
-                $data['commission1_pay']  = $_GPC['commission1_pay'];
-                $data['commission2_pay']  = $_GPC['commission2_pay'];
-                $data['commission3_pay']  = $_GPC['commission3_pay'];
+                $data['commission1_pay'] = $_GPC['commission1_pay'];
+                $data['commission2_pay'] = $_GPC['commission2_pay'];
+                $data['commission3_pay'] = $_GPC['commission3_pay'];
                 $data['commission_thumb'] = save_media($_GPC['commission_thumb']);
                 $data['commission_level_id'] = intval($_GPC['commission_level_id']);
             }
         }
-      if ($diyform_plugin) {
+        if ($diyform_plugin) {
             $data["diyformtype"] = $_GPC["diyformtype"];
             $data["diyformid"] = $_GPC["diyformid"];
             $data["diymode"] = intval($_GPC["diymode"]);
-      }
-      $data["dispatchtype"] = intval($_GPC["dispatchtype"]);
-      $data["dispatchprice"] = $_GPC["dispatchprice"];
-      $data["dispatchid"] = $_GPC["dispatchid"];
+        }
+        $data["dispatchtype"] = intval($_GPC["dispatchtype"]);
+        $data["dispatchprice"] = $_GPC["dispatchprice"];
+        $data["dispatchid"] = $_GPC["dispatchid"];
         if ($data['total'] === -1) {
-            $data['total']    = 0;
+            $data['total'] = 0;
             $data['totalcnf'] = 2;
         }
         if (is_array($_GPC['thumbs'])) {
-            $thumbs    = $_GPC['thumbs'];
+            $thumbs = $_GPC['thumbs'];
             $thumb_url = array();
             foreach ($thumbs as $th) {
                 $thumb_url[] = save_media($th);
@@ -497,17 +498,17 @@ if ($operation == "change") {
             ));
             plog('shop.goods.edit', "编辑商品 ID: {$id}");
         }
-        $totalstocks         = 0;
-        $param_ids           = $_POST['param_id'];
-        $param_titles        = $_POST['param_title'];
-        $param_values        = $_POST['param_value'];
+        $totalstocks = 0;
+        $param_ids = $_POST['param_id'];
+        $param_titles = $_POST['param_title'];
+        $param_values = $_POST['param_value'];
         $param_displayorders = $_POST['param_displayorder'];
-        $len                 = count($param_ids);
-        $paramids            = array();
+        $len = count($param_ids);
+        $paramids = array();
         for ($k = 0; $k < $len; $k++) {
-            $param_id     = "";
+            $param_id = "";
             $get_param_id = $param_ids[$k];
-            $a            = array(
+            $a = array(
                 "uniacid" => $_W['uniacid'],
                 "title" => $param_titles[$k],
                 "value" => $param_values[$k],
@@ -530,17 +531,17 @@ if ($operation == "change") {
         } else {
             pdo_query('delete from ' . tablename('sz_yi_goods_param') . " where goodsid=$id");
         }
-        $files       = $_FILES;
-        $spec_ids    = $_POST['spec_id'];
+        $files = $_FILES;
+        $spec_ids = $_POST['spec_id'];
         $spec_titles = $_POST['spec_title'];
-        $specids     = array();
-        $len         = count($spec_ids);
-        $specids     = array();
-        $spec_items  = array();
+        $specids = array();
+        $len = count($spec_ids);
+        $specids = array();
+        $spec_items = array();
         for ($k = 0; $k < $len; $k++) {
-            $spec_id     = "";
+            $spec_id = "";
             $get_spec_id = $spec_ids[$k];
-            $a           = array(
+            $a = array(
                 "uniacid" => $_W['uniacid'],
                 "goodsid" => $id,
                 "displayorder" => $k,
@@ -555,18 +556,18 @@ if ($operation == "change") {
                 pdo_insert('sz_yi_goods_spec', $a);
                 $spec_id = pdo_insertid();
             }
-            $spec_item_ids       = $_POST["spec_item_id_" . $get_spec_id];
-            $spec_item_titles    = $_POST["spec_item_title_" . $get_spec_id];
-            $spec_item_shows     = $_POST["spec_item_show_" . $get_spec_id];
-            $spec_item_thumbs    = $_POST["spec_item_thumb_" . $get_spec_id];
+            $spec_item_ids = $_POST["spec_item_id_" . $get_spec_id];
+            $spec_item_titles = $_POST["spec_item_title_" . $get_spec_id];
+            $spec_item_shows = $_POST["spec_item_show_" . $get_spec_id];
+            $spec_item_thumbs = $_POST["spec_item_thumb_" . $get_spec_id];
             $spec_item_oldthumbs = $_POST["spec_item_oldthumb_" . $get_spec_id];
-            $spec_item_virtuals  = $_POST["spec_item_virtual_" . $get_spec_id];
-            $itemlen             = count($spec_item_ids);
-            $itemids             = array();
+            $spec_item_virtuals = $_POST["spec_item_virtual_" . $get_spec_id];
+            $itemlen = count($spec_item_ids);
+            $itemids = array();
             for ($n = 0; $n < $itemlen; $n++) {
-                $item_id     = "";
+                $item_id = "";
                 $get_item_id = $spec_item_ids[$n];
-                $d           = array(
+                $d = array(
                     "uniacid" => $_W['uniacid'],
                     "specid" => $spec_id,
                     "displayorder" => $n,
@@ -575,7 +576,7 @@ if ($operation == "change") {
                     "thumb" => save_media($spec_item_thumbs[$n]),
                     "virtual" => $data['type'] == 3 ? $spec_item_virtuals[$n] : 0
                 );
-                $f           = "spec_item_thumb_" . $get_item_id;
+                $f = "spec_item_thumb_" . $get_item_id;
                 if (is_numeric($get_item_id)) {
                     pdo_update("sz_yi_goods_spec_item", $d, array(
                         "id" => $get_item_id
@@ -585,9 +586,9 @@ if ($operation == "change") {
                     pdo_insert('sz_yi_goods_spec_item', $d);
                     $item_id = pdo_insertid();
                 }
-                $itemids[]    = $item_id;
-                $d['get_id']  = $get_item_id;
-                $d['id']      = $item_id;
+                $itemids[] = $item_id;
+                $d['get_id'] = $get_item_id;
+                $d['id'] = $item_id;
                 $spec_items[] = $d;
             }
             if (count($itemids) > 0) {
@@ -607,22 +608,22 @@ if ($operation == "change") {
         } else {
             pdo_query('delete from ' . tablename('sz_yi_goods_spec') . " where uniacid={$_W['uniacid']} and goodsid=$id");
         }
-        $option_idss          = $_POST['option_ids'];
+        $option_idss = $_POST['option_ids'];
         $option_productprices = $_POST['option_productprice'];
-        $option_marketprices  = $_POST['option_marketprice'];
-        $option_costprices    = $_POST['option_costprice'];
-        $option_stocks        = $_POST['option_stock'];
-        $option_weights       = $_POST['option_weight'];
-        $option_goodssns      = $_POST['option_goodssn'];
-        $option_productssns   = $_POST['option_productsn'];
-        $len                  = count($option_idss);
-        $optionids            = array();
+        $option_marketprices = $_POST['option_marketprice'];
+        $option_costprices = $_POST['option_costprice'];
+        $option_stocks = $_POST['option_stock'];
+        $option_weights = $_POST['option_weight'];
+        $option_goodssns = $_POST['option_goodssn'];
+        $option_productssns = $_POST['option_productsn'];
+        $len = count($option_idss);
+        $optionids = array();
         for ($k = 0; $k < $len; $k++) {
-            $option_id     = "";
-            $ids           = $option_idss[$k];
+            $option_id = "";
+            $ids = $option_idss[$k];
             $get_option_id = $_GPC['option_id_' . $ids][0];
-            $idsarr        = explode("_", $ids);
-            $newids        = array();
+            $idsarr = explode("_", $ids);
+            $newids = array();
             foreach ($idsarr as $key => $ida) {
                 foreach ($spec_items as $it) {
                     if ($it['get_id'] == $ida) {
@@ -632,7 +633,7 @@ if ($operation == "change") {
                 }
             }
             $newids = implode("_", $newids);
-            $a      = array(
+            $a = array(
                 "uniacid" => $_W['uniacid'],
                 "title" => $_GPC['option_title_' . $ids][0],
                 "productprice" => $_GPC['option_productprice_' . $ids][0],
@@ -687,7 +688,7 @@ if ($operation == "change") {
             ":uniacid" => $_W['uniacid']
         ));
     }
-    $levels  = m('member')->getLevels();
+    $levels = m('member')->getLevels();
     $details = pdo_fetchall('select detail_logo,detail_shopname,detail_btntext1, detail_btnurl1 ,detail_btntext2,detail_btnurl2,detail_totaltitle from ' . tablename('sz_yi_goods') . " where uniacid=:uniacid and detail_shopname<>''", array(
         ':uniacid' => $_W['uniacid']
     ));
@@ -695,18 +696,18 @@ if ($operation == "change") {
         $d['detail_logo_url'] = tomedia($d['detail_logo']);
     }
     unset($d);
-$areas = m("cache")->getArray("areas", "global");
+    $areas = m("cache")->getArray("areas", "global");
     if ($diyform_plugin) {
-   $form_list = $diyform_plugin->getDiyformList();
- }
- if (!is_array($areas)) {
- require_once SZ_YI_INC . "json/xml2json.php";
- $file = IA_ROOT . "/addons/sz_yi/static/js/dist/area/Area.xml";
- $content = file_get_contents($file);
-  $json = xml2json::transformXmlStringToJson($content);
-$areas = json_decode($json, true);
-m("cache")->set("areas", $areas, "global");
-}
+        $form_list = $diyform_plugin->getDiyformList();
+    }
+    if (!is_array($areas)) {
+        require_once SZ_YI_INC . "json/xml2json.php";
+        $file = IA_ROOT . "/addons/sz_yi/static/js/dist/area/Area.xml";
+        $content = file_get_contents($file);
+        $json = xml2json::transformXmlStringToJson($content);
+        $areas = json_decode($json, true);
+        m("cache")->set("areas", $areas, "global");
+    }
 } elseif ($operation == 'display') {
     ca('shop.goods.view');
     if (!empty($_GPC['displayorder'])) {
@@ -723,10 +724,10 @@ m("cache")->set("areas", $areas, "global");
             'op' => 'display'
         )), 'success');
     }
-    $pindex    = max(1, intval($_GPC['page']));
-    $psize     = 20;
+    $pindex = max(1, intval($_GPC['page']));
+    $psize = 20;
     $condition = ' WHERE `uniacid` = :uniacid AND `deleted` = :deleted';
-    $params    = array(
+    $params = array(
         ':uniacid' => $_W['uniacid'],
         ':deleted' => '0'
     );
@@ -747,37 +748,36 @@ m("cache")->set("areas", $areas, "global");
         $condition .= ' AND `pcate` = :pcate';
         $params[':pcate'] = intval($_GPC['category']['parentid']);
     }
-   if ($_GPC["status"] != '') {
+    if ($_GPC["status"] != '') {
         $condition .= ' AND `status` = :status';
         $params[':status'] = intval($_GPC['status']);
     }
 
-    if(p('supplier')){
-		$suproleid = pdo_fetchcolumn('select id from' . tablename('sz_yi_perm_role') . ' where status1 = 1');
-		$userroleid = pdo_fetchcolumn('select roleid from ' . tablename('sz_yi_perm_user') . ' where uid=:uid and uniacid=:uniacid',array(':uid' => $_W['uid'],':uniacid' => $_W['uniacid']));
-		if($userroleid == $suproleid){
-			$sql = 'SELECT * FROM ' . tablename('sz_yi_goods') . $condition . ' and supplier_uid='.$_W['uid'].' ORDER BY `status` DESC, `displayorder` DESC,
+    if (p('supplier')) {
+        $suproleid = pdo_fetchcolumn('select id from' . tablename('sz_yi_perm_role') . ' where status1 = 1');
+        $userroleid = pdo_fetchcolumn('select roleid from ' . tablename('sz_yi_perm_user') . ' where uid=:uid and uniacid=:uniacid', array(':uid' => $_W['uid'], ':uniacid' => $_W['uniacid']));
+        if ($userroleid == $suproleid) {
+            $sql = 'SELECT * FROM ' . tablename('sz_yi_goods') . $condition . ' and supplier_uid=' . $_W['uid'] . ' ORDER BY `status` DESC, `displayorder` DESC,
 					`id` DESC LIMIT ' . ($pindex - 1) * $psize . ',' . $psize;
-			$sqls = 'SELECT COUNT(*) FROM ' . tablename('sz_yi_goods') . $condition . ' and supplier_uid='.$_W['uid'];
-			$total = pdo_fetchcolumn($sqls, $params);
-		}
-        else{
+            $sqls = 'SELECT COUNT(*) FROM ' . tablename('sz_yi_goods') . $condition . ' and supplier_uid=' . $_W['uid'];
+            $total = pdo_fetchcolumn($sqls, $params);
+        } else {
             $sql = 'SELECT * FROM ' . tablename('sz_yi_goods') . $condition . ' ORDER BY `status` DESC, `displayorder` DESC,
                         `id` DESC LIMIT ' . ($pindex - 1) * $psize . ',' . $psize;
             $sqls = 'SELECT COUNT(*) FROM ' . tablename('sz_yi_goods') . $condition;
             $total = pdo_fetchcolumn($sqls, $params);
         }
-	}else{
-		$sql = 'SELECT * FROM ' . tablename('sz_yi_goods') . $condition . ' ORDER BY `status` DESC, `displayorder` DESC,
+    } else {
+        $sql = 'SELECT * FROM ' . tablename('sz_yi_goods') . $condition . ' ORDER BY `status` DESC, `displayorder` DESC,
 					`id` DESC LIMIT ' . ($pindex - 1) * $psize . ',' . $psize;
-		$sqls = 'SELECT COUNT(*) FROM ' . tablename('sz_yi_goods') . $condition;
-		$total = pdo_fetchcolumn($sqls, $params);
+        $sqls = 'SELECT COUNT(*) FROM ' . tablename('sz_yi_goods') . $condition;
+        $total = pdo_fetchcolumn($sqls, $params);
     }
-    $list  = pdo_fetchall($sql, $params);
+    $list = pdo_fetchall($sql, $params);
     $pager = pagination($total, $pindex, $psize);
 } elseif ($operation == 'delete') {
     ca('shop.goods.delete');
-    $id  = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $row = pdo_fetch("SELECT id, title, thumb FROM " . tablename('sz_yi_goods') . " WHERE id = :id", array(
         ':id' => $id
     ));
@@ -793,7 +793,7 @@ m("cache")->set("areas", $areas, "global");
     message('删除成功！', referer(), 'success');
 } elseif ($operation == 'setgoodsproperty') {
     ca('shop.goods.edit');
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $type = $_GPC['type'];
     $data = intval($_GPC['data']);
     if (in_array($type, array(

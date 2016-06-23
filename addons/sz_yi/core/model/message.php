@@ -12,6 +12,7 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class Sz_DYi_Message
 {
     public function sendTplNotice($touser, $template_id, $postdata, $url = '', $account = null)
@@ -24,8 +25,10 @@ class Sz_DYi_Message
         }
         return $account->sendTplNotice($touser, $template_id, $postdata, $url);
     }
+
     public function sendCustomNotice($openid, $msg, $url = '', $account = null)
-    { {
+    {
+        {
             if (!$account) {
                 $account = m('common')->getAccount();
             }
@@ -59,6 +62,7 @@ class Sz_DYi_Message
             ));
         }
     }
+
     public function sendImage($openid, $mediaid)
     {
         $account = m('common')->getAccount();
@@ -70,11 +74,12 @@ class Sz_DYi_Message
             )
         ));
     }
-	public function sendNews($openid, $_var_11, $account = null)
-	{
-		if (!$account) {
-			$account = m('common')->getAccount();
-		}
-		return $account->sendCustomNotice(array('touser' => $openid, 'msgtype' => 'news', 'news' => array('articles' => $_var_11)));
-	}
+
+    public function sendNews($openid, $_var_11, $account = null)
+    {
+        if (!$account) {
+            $account = m('common')->getAccount();
+        }
+        return $account->sendCustomNotice(array('touser' => $openid, 'msgtype' => 'news', 'news' => array('articles' => $_var_11)));
+    }
 }

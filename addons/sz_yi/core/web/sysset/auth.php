@@ -6,11 +6,11 @@ global $_W, $_GPC;
 if (!$_W['isfounder']) {
     message('无权访问!');
 }
-$domain  = $_SERVER['HTTP_HOST'];
-$ip      = gethostbyname($domain);
+$domain = $_SERVER['HTTP_HOST'];
+$ip = gethostbyname($domain);
 $setting = setting_load('site');
-$id      = isset($setting['site']['key']) ? $setting['site']['key'] : '0';
-$auth    = $this->getAuthSet();
+$id = isset($setting['site']['key']) ? $setting['site']['key'] : '0';
+$auth = $this->getAuthSet();
 load()->func('communication');
 if ($_W['ispost']) {
     if (empty($_GPC['domain'])) {
@@ -30,7 +30,7 @@ if ($_W['ispost']) {
         'domain' => $domain
     ));
     if ($resp['content'] == '1') {
-        $set  = pdo_fetch('select id, sets from ' . tablename('sz_yi_sysset') . ' order by id asc limit 1');
+        $set = pdo_fetch('select id, sets from ' . tablename('sz_yi_sysset') . ' order by id asc limit 1');
         $sets = iunserializer($set['sets']);
         if (!is_array($sets)) {
             $sets = array();

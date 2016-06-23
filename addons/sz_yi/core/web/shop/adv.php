@@ -68,7 +68,7 @@ if ($operation == 'display') {
     ));
 } elseif ($operation == 'delete') {
     ca('shop.adv.delete');
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $item = pdo_fetch("SELECT id,advname FROM " . tablename('sz_yi_adv') . " WHERE id = '$id' AND uniacid=" . $_W['uniacid'] . "");
     if (empty($item)) {
         message('抱歉，幻灯片不存在或是已经被删除！', $this->createWebUrl('shop/adv', array(

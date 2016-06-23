@@ -56,7 +56,7 @@ if ($operation == 'display') {
     }
 } elseif ($operation == 'delete') {
     ca('member.level.delete');
-    $id    = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $level = pdo_fetch("SELECT id,levelname FROM " . tablename('sz_yi_member_level') . " WHERE id = '$id'");
     if (empty($level)) {
         message('抱歉，等级不存在或是已经被删除！', $this->createWebUrl('member/level', array(

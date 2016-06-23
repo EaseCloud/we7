@@ -10,10 +10,10 @@ function upload_cert($fileinput)
     $path = IA_ROOT . "/addons/sz_yi/cert";
     load()->func('file');
     mkdirs($path, '0777');
-    $f           = $fileinput . '_' . $_W['uniacid'] . '.pem';
+    $f = $fileinput . '_' . $_W['uniacid'] . '.pem';
     $outfilename = $path . "/" . $f;
-    $filename    = $_FILES[$fileinput]['name'];
-    $tmp_name    = $_FILES[$fileinput]['tmp_name'];
+    $filename = $_FILES[$fileinput]['name'];
+    $tmp_name = $_FILES[$fileinput]['tmp_name'];
     if (!empty($filename) && !empty($tmp_name)) {
         $ext = strtolower(substr($filename, strrpos($filename, '.')));
         if ($ext != '.pem') {
@@ -31,7 +31,8 @@ function upload_cert($fileinput)
     }
     return "";
 }
-$op      = empty($_GPC['op']) ? 'shop' : trim($_GPC['op']);
+
+$op = empty($_GPC['op']) ? 'shop' : trim($_GPC['op']);
 if ($op == 'datamove') {
     $up = m('common')->dataMove();
     exit('迁移成功');
@@ -39,12 +40,12 @@ if ($op == 'datamove') {
 $setdata = pdo_fetch("select * from " . tablename('sz_yi_sysset') . ' where uniacid=:uniacid limit 1', array(
     ':uniacid' => $_W['uniacid']
 ));
-$set     = unserialize($setdata['sets']);
-$oldset  = unserialize($setdata['sets']);
+$set = unserialize($setdata['sets']);
+$oldset = unserialize($setdata['sets']);
 
 if ($op == 'template') {
     $styles = array();
-    $dir    = IA_ROOT . "/addons/sz_yi/template/mobile/";
+    $dir = IA_ROOT . "/addons/sz_yi/template/mobile/";
     if ($handle = opendir($dir)) {
         while (($file = readdir($handle)) !== false) {
             if ($file != ".." && $file != ".") {
@@ -59,7 +60,7 @@ if ($op == 'template') {
     $salers = array();
     if (isset($set['notice']['openid'])) {
         if (!empty($set['notice']['openid'])) {
-            $openids     = array();
+            $openids = array();
             $strsopenids = explode(",", $set['notice']['openid']);
             foreach ($strsopenids as $openid) {
                 $openids[] = "'" . $openid . "'";
@@ -74,23 +75,22 @@ if ($op == 'template') {
 }
 if (checksubmit()) {
     if ($op == 'shop') {
-        $shop                   = is_array($_GPC['shop']) ? $_GPC['shop'] : array();
-        $set['shop']['name']    = trim($shop['name']);
-        $set['shop']['cservice']= trim($shop['cservice']);
-        $set['shop']['img']     = save_media($shop['img']);
-        $set['shop']['logo']    = save_media($shop['logo']);
+        $shop = is_array($_GPC['shop']) ? $_GPC['shop'] : array();
+        $set['shop']['name'] = trim($shop['name']);
+        $set['shop']['cservice'] = trim($shop['cservice']);
+        $set['shop']['img'] = save_media($shop['img']);
+        $set['shop']['logo'] = save_media($shop['logo']);
         $set['shop']['signimg'] = save_media($shop['signimg']);
         $set['shop']['diycode'] = trim($shop['diycode']);
         plog('sysset.save.shop', '修改系统设置-商城设置');
-    }
-    elseif ($op == 'sms') {
-        $sms                    = is_array($_GPC['sms']) ? $_GPC['sms'] : array();
-        $set['sms']['account']  = $sms['account'];
+    } elseif ($op == 'sms') {
+        $sms = is_array($_GPC['sms']) ? $_GPC['sms'] : array();
+        $set['sms']['account'] = $sms['account'];
         $set['sms']['password'] = $sms['password'];
         //print_r($set);exit;
         plog('sysset.save.sms', '修改系统设置-短信设置');
     } elseif ($op == 'follow') {
-        $set['share']         = is_array($_GPC['share']) ? $_GPC['share'] : array();
+        $set['share'] = is_array($_GPC['share']) ? $_GPC['share'] : array();
         $set['share']['icon'] = save_media($set['share']['icon']);
         plog('sysset.save.follow', '修改系统设置-分享及关注设置');
     } else if ($op == 'notice') {
@@ -116,16 +116,16 @@ if (checksubmit()) {
         }
         plog('sysset.save.trade', '修改系统设置-交易设置');
     } elseif ($op == 'pay') {
-	
+
         $pluginy = p('yunpay');
-        if($pluginy){
+        if ($pluginy) {
             $pay = $set['pay']['yunpay'];
         }
         $set['pay'] = is_array($_GPC['pay']) ? $_GPC['pay'] : array();
-        if($pluginy){
+        if ($pluginy) {
             $set['pay']['yunpay'] = $pay;
         }
-		
+
         if ($_FILES['weixin_cert_file']['name']) {
             $sec['cert'] = upload_cert('weixin_cert_file');
         }
@@ -145,27 +145,27 @@ if (checksubmit()) {
         ));
         plog('sysset.save.pay', '修改系统设置-支付设置');
     } elseif ($op == 'template') {
-        $shop                 = is_array($_GPC['shop']) ? $_GPC['shop'] : array();
+        $shop = is_array($_GPC['shop']) ? $_GPC['shop'] : array();
         $set['shop']['style'] = save_media($shop['style']);
         m('cache')->set('template_shop', $set['shop']['style']);
         plog('sysset.save.pay', '修改系统设置-模板设置');
     } elseif ($op == 'member') {
-        $shop                     = is_array($_GPC['shop']) ? $_GPC['shop'] : array();
+        $shop = is_array($_GPC['shop']) ? $_GPC['shop'] : array();
         $set['shop']['levelname'] = trim($shop['levelname']);
-        $set['shop']['levelurl']  = trim($shop['levelurl']);
+        $set['shop']['levelurl'] = trim($shop['levelurl']);
         plog('sysset.save.pay', '修改系统设置-会员设置');
     } elseif ($op == 'category') {
-        $shop                     = is_array($_GPC['shop']) ? $_GPC['shop'] : array();
-        $set['shop']['catlevel']  = trim($shop['catlevel']);
-        $set['shop']['catshow']   = intval($shop['catshow']);
+        $shop = is_array($_GPC['shop']) ? $_GPC['shop'] : array();
+        $set['shop']['catlevel'] = trim($shop['catlevel']);
+        $set['shop']['catshow'] = intval($shop['catshow']);
         $set['shop']['catadvimg'] = save_media($shop['catadvimg']);
         $set['shop']['catadvurl'] = trim($shop['catadvurl']);
         plog('sysset.save.pay', '修改系统设置-分类层级设置');
     } elseif ($op == 'contact') {
-        $shop                       = is_array($_GPC['shop']) ? $_GPC['shop'] : array();
-        $set['shop']['qq']          = trim($shop['qq']);
-        $set['shop']['address']     = trim($shop['address']);
-        $set['shop']['phone']       = trim($shop['phone']);
+        $shop = is_array($_GPC['shop']) ? $_GPC['shop'] : array();
+        $set['shop']['qq'] = trim($shop['qq']);
+        $set['shop']['address'] = trim($shop['address']);
+        $set['shop']['phone'] = trim($shop['phone']);
         $set['shop']['description'] = trim($shop['description']);
         plog('sysset.save.pay', '修改系统设置-联系方式设置');
     }

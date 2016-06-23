@@ -12,6 +12,7 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class Sz_DYi_Notice
 {
     public function sendOrderMessage($orderid = '0', $delRefund = false)
@@ -33,12 +34,12 @@ class Sz_DYi_Notice
         if (strexists($detailurl, '/core/mobile/order/')) {
             $detailurl = str_replace("/core/mobile/order/", '/', $detailurl);
         }
-        $openid      = $order['openid'];
+        $openid = $order['openid'];
         $order_goods = pdo_fetchall('select g.id,g.title,og.realprice,og.total,og.price,og.optionname as optiontitle,g.noticeopenid,g.noticetype from ' . tablename('sz_yi_order_goods') . ' og ' . ' left join ' . tablename('sz_yi_goods') . ' g on g.id=og.goodsid ' . ' where og.uniacid=:uniacid and og.orderid=:orderid ', array(
             ':uniacid' => $_W['uniacid'],
             ':orderid' => $orderid
         ));
-        $goods       = '';
+        $goods = '';
         foreach ($order_goods as $og) {
             $goods .= "" . $og['title'] . '( ';
             if (!empty($og['optiontitle'])) {
@@ -47,14 +48,14 @@ class Sz_DYi_Notice
             $goods .= ' 单价: ' . ($og['realprice'] / $og['total']) . ' 数量: ' . $og['total'] . ' 总价: ' . $og['realprice'] . "); ";
         }
         $orderpricestr = ' 订单总价: ' . $order['price'] . '(包含运费:' . $order['dispatchprice'] . ')';
-        $member        = m('member')->getMember($openid);
-        $usernotice    = unserialize($member['noticeset']);
+        $member = m('member')->getMember($openid);
+        $usernotice = unserialize($member['noticeset']);
         if (!is_array($usernotice)) {
             $usernotice = array();
         }
-        $set  = m('common')->getSysset();
+        $set = m('common')->getSysset();
         $shop = $set['shop'];
-        $tm   = $set['notice'];
+        $tm = $set['notice'];
         if ($delRefund) {
             if (!empty($order['refundid'])) {
                 $refund = pdo_fetch('select * from ' . tablename('sz_yi_order_refund') . ' where id=:id limit 1', array(
@@ -189,7 +190,7 @@ class Sz_DYi_Notice
         }
         if ($order['status'] == -1) {
             if (empty($order['dispatchtype'])) {
-                $address      = pdo_fetch('select * from ' . tablename('sz_yi_member_address') . ' where id=:id and uniacid=:uniacid limit 1 ', array(
+                $address = pdo_fetch('select * from ' . tablename('sz_yi_member_address') . ' where id=:id and uniacid=:uniacid limit 1 ', array(
                     ":uniacid" => $_W['uniacid'],
                     ":id" => $order['addressid']
                 ));
@@ -199,7 +200,7 @@ class Sz_DYi_Notice
                     "color" => "#4a5077"
                 );
             } else {
-                $carrier      = iunserializer($order['carrier']);
+                $carrier = iunserializer($order['carrier']);
                 $orderAddress = array(
                     'title' => '收货信息',
                     'value' => '自提地点: ' . $carrier['address'] . ' 联系人: ' . $carrier['realname'] . ' 联系电话: ' . $carrier['mobile'],
@@ -244,7 +245,7 @@ class Sz_DYi_Notice
                 if (!empty($buyerinfo)) {
                     $remark .= "\r\n下单者信息:\n" . $buyerinfo;
                 }
-                $msg     = array(
+                $msg = array(
                     'first' => array(
                         'value' => "订单下单通知!",
                         "color" => "#4a5077"
@@ -381,7 +382,7 @@ class Sz_DYi_Notice
                 if (!empty($buyerinfo)) {
                     $remark .= "\r\n购买者信息:\n" . $buyerinfo;
                 }
-                $msg     = array(
+                $msg = array(
                     'first' => array(
                         'value' => "订单下单支付通知!",
                         "color" => "#4a5077"
@@ -469,7 +470,7 @@ class Sz_DYi_Notice
             if ($order['isverify']) {
                 $remark = "\r\n点击订单详情查看可消费门店, 【" . $shop['name'] . "】欢迎您的再次购物！";
             }
-            $msg           = array(
+            $msg = array(
                 'first' => array(
                     'value' => "您已支付成功订单！",
                     "color" => "#4a5077"
@@ -605,9 +606,9 @@ class Sz_DYi_Notice
         } else if ($order['status'] == 3) {
             $pv = p('virtual');
             if ($pv && !empty($order['virtual'])) {
-                $pvset       = $pv->getSet();
+                $pvset = $pv->getSet();
                 $virtual_str = "\n" . $buyerinfo . "\n" . $order['virtual_str'];
-                $msg         = array(
+                $msg = array(
                     'first' => array(
                         'value' => "您购物的物品已自动发货!",
                         "color" => "#4a5077"
@@ -638,11 +639,11 @@ class Sz_DYi_Notice
                 } else if (empty($usernotice['finish'])) {
                     m('message')->sendCustomNotice($openid, $msg, $detailurl);
                 }
-                $first   = "买家购买的商品已经自动发货!";
-                $remark  = "\r\n发货信息:" . $virtual_str;
+                $first = "买家购买的商品已经自动发货!";
+                $remark = "\r\n发货信息:" . $virtual_str;
                 $newtype = explode(',', $tm['newtype']);
                 if ($tm['newtype'] == 2 || (is_array($newtype) && in_array(2, $newtype))) {
-                    $msg     = array(
+                    $msg = array(
                         'first' => array(
                             'value' => $first,
                             "color" => "#4a5077"
@@ -796,7 +797,7 @@ class Sz_DYi_Notice
                 }
                 $newtype = explode(',', $tm['newtype']);
                 if ($tm['newtype'] == 2 || (is_array($newtype) && in_array(2, $newtype))) {
-                    $msg     = array(
+                    $msg = array(
                         'first' => array(
                             'value' => $first,
                             "color" => "#4a5077"
@@ -901,16 +902,17 @@ class Sz_DYi_Notice
             }
         }
     }
+
     public function sendMemberUpgradeMessage($openid = '', $oldlevel = null, $level = null)
     {
         global $_W, $_GPC;
-        $member     = m('member')->getMember($openid);
+        $member = m('member')->getMember($openid);
         $usernotice = unserialize($member['noticeset']);
         if (!is_array($usernotice)) {
             $usernotice = array();
         }
-        $shop      = m('common')->getSysset('shop');
-        $tm        = m('common')->getSysset('notice');
+        $shop = m('common')->getSysset('shop');
+        $tm = m('common')->getSysset('notice');
         $detailurl = $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&m=sz_yi&do=member';
         if (strexists($detailurl, '/addons/sz_yi/')) {
             $detailurl = str_replace("/addons/sz_yi/", '/', $detailurl);
@@ -922,7 +924,7 @@ class Sz_DYi_Notice
             $level = m('member')->getLevel($openid);
         }
         $defaultlevelname = empty($shop['levelname']) ? '普通会员' : $shop['levelname'];
-        $msg              = array(
+        $msg = array(
             'first' => array(
                 'value' => "亲爱的" . $member['nickname'] . ', 恭喜您成功升级！',
                 "color" => "#4a5077"
@@ -948,15 +950,16 @@ class Sz_DYi_Notice
             m('message')->sendCustomNotice($openid, $msg, $detailurl);
         }
     }
+
     public function sendMemberLogMessage($log_id = '')
     {
         global $_W, $_GPC;
-        $log_info   = pdo_fetch('select * from ' . tablename('sz_yi_member_log') . ' where id=:id and uniacid=:uniacid limit 1', array(
+        $log_info = pdo_fetch('select * from ' . tablename('sz_yi_member_log') . ' where id=:id and uniacid=:uniacid limit 1', array(
             ':id' => $log_id,
             ':uniacid' => $_W['uniacid']
         ));
-        $member     = m('member')->getMember($log_info['openid']);
-        $shop       = m('common')->getSysset('shop');
+        $member = m('member')->getMember($log_info['openid']);
+        $shop = m('common')->getSysset('shop');
         $usernotice = unserialize($member['noticeset']);
         if (!is_array($usernotice)) {
             $usernotice = array();
@@ -979,7 +982,7 @@ class Sz_DYi_Notice
                     $totalmoney = $log_info['money'] + $log_info['gives'];
                     $money .= "，系统赠送" . $log_info['gives'] . '元，合计:' . $totalmoney . '元';
                 }
-                $msg       = array(
+                $msg = array(
                     'first' => array(
                         'value' => "恭喜您充值成功!",
                         "color" => "#4a5077"
@@ -1012,7 +1015,7 @@ class Sz_DYi_Notice
                     m('message')->sendCustomNotice($log_info['openid'], $msg, $detailurl);
                 }
             } else if ($log_info['status'] == 3) {
-                $msg       = array(
+                $msg = array(
                     'first' => array(
                         'value' => "充值退款成功!",
                         "color" => "#4a5077"
@@ -1046,7 +1049,7 @@ class Sz_DYi_Notice
                 }
             }
         } else if ($log_info['type'] == 1 && $log_info['status'] == 0) {
-            $msg       = array(
+            $msg = array(
                 'first' => array(
                     'value' => "提现申请已经成功提交!",
                     "color" => "#4a5077"
@@ -1076,7 +1079,7 @@ class Sz_DYi_Notice
                 m('message')->sendCustomNotice($log_info['openid'], $msg, $detailurl);
             }
         } else if ($log_info['type'] == 1 && $log_info['status'] == 1) {
-            $msg       = array(
+            $msg = array(
                 'first' => array(
                     'value' => "恭喜您成功提现!",
                     "color" => "#4a5077"
@@ -1103,7 +1106,7 @@ class Sz_DYi_Notice
                 m('message')->sendCustomNotice($log_info['openid'], $msg, $detailurl);
             }
         } else if ($log_info['type'] == 1 && $log_info['status'] == -1) {
-            $msg       = array(
+            $msg = array(
                 'first' => array(
                     'value' => "抱歉，提现申请审核失败!",
                     "color" => "#4a5077"

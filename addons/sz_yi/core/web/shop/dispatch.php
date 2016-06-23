@@ -27,7 +27,7 @@ if ($operation == 'display') {
         ca('shop.dispatch.edit|shop.dispatch.view');
     }
     if (checksubmit('submit')) {
-        $areas   = array();
+        $areas = array();
         $randoms = $_GPC['random'];
         if (is_array($randoms)) {
             foreach ($randoms as $random) {
@@ -40,7 +40,7 @@ if ($operation == 'display') {
                 );
             }
         }
-        $carriers  = array();
+        $carriers = array();
         $addresses = $_GPC['address'];
         if (is_array($addresses)) {
             foreach ($addresses as $key => $address) {
@@ -82,21 +82,21 @@ if ($operation == 'display') {
     }
     $dispatch = pdo_fetch("SELECT * FROM " . tablename('sz_yi_dispatch') . " WHERE id = '$id' and uniacid = '{$_W['uniacid']}'");
     if (!empty($dispatch)) {
-        $dispatch_areas    = unserialize($dispatch['areas']);
+        $dispatch_areas = unserialize($dispatch['areas']);
         $dispatch_carriers = unserialize($dispatch['carriers']);
     }
     $areas = m('cache')->getArray('areas', 'global');
     if (!is_array($areas)) {
         require_once SZ_YI_INC . 'json/xml2json.php';
-        $file    = IA_ROOT . "/addons/sz_yi/static/js/dist/area/Area.xml";
+        $file = IA_ROOT . "/addons/sz_yi/static/js/dist/area/Area.xml";
         $content = file_get_contents($file);
-        $json    = xml2json::transformXmlStringToJson($content);
-        $areas   = json_decode($json, true);
+        $json = xml2json::transformXmlStringToJson($content);
+        $areas = json_decode($json, true);
         m('cache')->set('areas', $areas, 'global');
     }
 } elseif ($operation == 'delete') {
     ca('shop.dispatch.delete');
-    $id       = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $dispatch = pdo_fetch("SELECT id,dispatchname FROM " . tablename('sz_yi_dispatch') . " WHERE id = '$id' AND uniacid=" . $_W['uniacid'] . "");
     if (empty($dispatch)) {
         message('抱歉，配送方式不存在或是已经被删除！', $this->createWebUrl('shop/dispatch', array(

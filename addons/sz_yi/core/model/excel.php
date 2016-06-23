@@ -12,6 +12,7 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class Sz_DYi_Excel
 {
     protected function column_str($key)
@@ -124,10 +125,12 @@ class Sz_DYi_Excel
         );
         return $array[$key];
     }
+
     protected function column($key, $columnnum = 1)
     {
         return $this->column_str($key) . $columnnum;
     }
+
     function export($list, $params = array())
     {
         if (PHP_SAPI == 'cli') {
@@ -136,7 +139,7 @@ class Sz_DYi_Excel
         require_once IA_ROOT . '/framework/library/phpexcel/PHPExcel.php';
         $excel = new PHPExcel();
         $excel->getProperties()->setCreator("芸众商城")->setLastModifiedBy("芸众商城")->setTitle("Office 2007 XLSX Test Document")->setSubject("Office 2007 XLSX Test Document")->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")->setKeywords("office 2007 openxml php")->setCategory("report file");
-        $sheet  = $excel->setActiveSheetIndex(0);
+        $sheet = $excel->setActiveSheetIndex(0);
         $rownum = 1;
         foreach ($params['columns'] as $key => $column) {
             $sheet->setCellValue($this->column($key, $rownum), $column['title']);
@@ -162,6 +165,7 @@ class Sz_DYi_Excel
         $writer->save('php://output');
         exit;
     }
+
     public function import($excefile)
     {
         global $_W;
@@ -173,9 +177,9 @@ class Sz_DYi_Excel
             load()->func('file');
             mkdirs($path, '0777');
         }
-        $file     = time() . $_W['uniacid'] . ".xlsx";
+        $file = time() . $_W['uniacid'] . ".xlsx";
         $filename = $_FILES[$excefile]['name'];
-        $tmpname  = $_FILES[$excefile]['tmp_name'];
+        $tmpname = $_FILES[$excefile]['tmp_name'];
         if (empty($tmpname)) {
             message('请选择要上传的Excel文件!', '', 'error');
         }
@@ -184,17 +188,17 @@ class Sz_DYi_Excel
             message('请上传 xlsx 格式的Excel文件!', '', 'error');
         }
         $uploadfile = $path . $file;
-        $result     = move_uploaded_file($tmpname, $uploadfile);
+        $result = move_uploaded_file($tmpname, $uploadfile);
         if (!$result) {
             message('上传Excel 文件失败, 请重新上传!', '', 'error');
         }
-        $reader             = PHPExcel_IOFactory::createReader('Excel2007');
-        $excel              = $reader->load($uploadfile);
-        $sheet              = $excel->getActiveSheet();
-        $highestRow         = $sheet->getHighestRow();
-        $highestColumn      = $sheet->getHighestColumn();
+        $reader = PHPExcel_IOFactory::createReader('Excel2007');
+        $excel = $reader->load($uploadfile);
+        $sheet = $excel->getActiveSheet();
+        $highestRow = $sheet->getHighestRow();
+        $highestColumn = $sheet->getHighestColumn();
         $highestColumnCount = PHPExcel_Cell::columnIndexFromString($highestColumn);
-        $values             = array();
+        $values = array();
         for ($row = 2; $row <= $highestRow; $row++) {
             $rowValue = array();
             for ($col = 0; $col < $highestColumnCount; $col++) {

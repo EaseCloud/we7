@@ -14,21 +14,21 @@ if (!defined('IN_IA')) {
 }
 global $_W, $_GPC;
 
-$op      = $operation = $_GPC['op'] ? $_GPC['op'] : 'display';
-$groups  = m('member')->getGroups();
-$levels  = m('member')->getLevels();
+$op = $operation = $_GPC['op'] ? $_GPC['op'] : 'display';
+$groups = m('member')->getGroups();
+$levels = m('member')->getLevels();
 $uniacid = $_W['uniacid'];
 if ($op == 'display') {
     $pindex = max(1, intval($_GPC['page']));
-    $psize  = 20;
-    $type   = intval($_GPC['type']);
+    $psize = 20;
+    $type = intval($_GPC['type']);
     if ($type == 1) {
         ca('finance.withdraw.view');
     } else {
         ca('finance.recharge.view');
     }
     $condition = ' and log.uniacid=:uniacid and log.type=:type and log.money<>0';
-    $params    = array(
+    $params = array(
         ':uniacid' => $_W['uniacid'],
         ':type' => $type
     );
@@ -44,15 +44,15 @@ if ($op == 'display') {
     }
     if (empty($starttime) || empty($endtime)) {
         $starttime = strtotime('-1 month');
-        $endtime   = time();
+        $endtime = time();
     }
     if (!empty($_GPC['time'])) {
         $starttime = strtotime($_GPC['time']['start']);
-        $endtime   = strtotime($_GPC['time']['end']);
+        $endtime = strtotime($_GPC['time']['end']);
         if ($_GPC['searchtime'] == '1') {
             $condition .= " AND log.createtime >= :starttime AND log.createtime <= :endtime ";
             $params[':starttime'] = $starttime;
-            $params[':endtime']   = $endtime;
+            $params[':endtime'] = $endtime;
         }
     }
     if (!empty($_GPC['level'])) {
@@ -63,7 +63,7 @@ if ($op == 'display') {
     }
     if (!empty($_GPC['rechargetype'])) {
         $_GPC['rechargetype'] = trim($_GPC['rechargetype']);
-        $condition            = " AND log.rechargetype=:rechargetype";
+        $condition = " AND log.rechargetype=:rechargetype";
         if ($_GPC['rechargetype'] == 'system1') {
             $condition = " AND log.rechargetype='system' and log.money<0";
         }
@@ -87,8 +87,8 @@ if ($op == 'display') {
         }
         foreach ($list as &$row) {
             $row['createtime'] = date('Y-m-d H:i', $row['createtime']);
-            $row['groupname']  = empty($row['groupname']) ? '无分组' : $row['groupname'];
-            $row['levelname']  = empty($row['levelname']) ? '普通会员' : $row['levelname'];
+            $row['groupname'] = empty($row['groupname']) ? '无分组' : $row['groupname'];
+            $row['levelname'] = empty($row['levelname']) ? '普通会员' : $row['levelname'];
             if ($row['status'] == 0) {
                 if ($row['type'] == 0) {
                     $row['status'] = "未充值";
@@ -169,10 +169,10 @@ if ($op == 'display') {
     $total = pdo_fetchcolumn("select count(*) from " . tablename('sz_yi_member_log') . " log " . " left join " . tablename('sz_yi_member') . " m on m.openid=log.openid and m.uniacid= log.uniacid" . " left join " . tablename('sz_yi_member_group') . " g on m.groupid=g.id" . " left join " . tablename('sz_yi_member_level') . " l on m.level =l.id" . " where 1 {$condition} ", $params);
     $pager = pagination($total, $pindex, $psize);
 } else if ($op == 'pay') {
-    $id      = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $paytype = $_GPC['paytype'];
-    $set     = m('common')->getSysset('shop');
-    $log     = pdo_fetch('select * from ' . tablename('sz_yi_member_log') . ' where id=:id and uniacid=:uniacid limit 1', array(
+    $set = m('common')->getSysset('shop');
+    $log = pdo_fetch('select * from ' . tablename('sz_yi_member_log') . ' where id=:id and uniacid=:uniacid limit 1', array(
         ':id' => $id,
         ':uniacid' => $uniacid
     ));

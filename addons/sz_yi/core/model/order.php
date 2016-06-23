@@ -12,6 +12,7 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class Sz_DYi_Order
 {
     function getDispatchPrice($weight, $d)
@@ -23,19 +24,20 @@ class Sz_DYi_Order
         if ($weight <= $d['firstweight']) {
             $price = floatval($d['firstprice']);
         } else {
-            $price         = floatval($d['firstprice']);
-            $secondweight  = $weight - floatval($d['firstweight']);
+            $price = floatval($d['firstprice']);
+            $secondweight = $weight - floatval($d['firstweight']);
             $dsecondweight = floatval($d['secondweight']) <= 0 ? 1 : floatval($d['secondweight']);
-            $secondprice   = 0;
+            $secondprice = 0;
             if ($secondweight % $dsecondweight == 0) {
                 $secondprice = ($secondweight / $dsecondweight) * floatval($d['secondprice']);
             } else {
-                $secondprice = ((int) ($secondweight / $dsecondweight) + 1) * floatval($d['secondprice']);
+                $secondprice = ((int)($secondweight / $dsecondweight) + 1) * floatval($d['secondprice']);
             }
             $price += $secondprice;
         }
         return $price;
     }
+
     function getCityDispatchPrice($_var_6, $_var_7, $weight, $d)
     {
         if (is_array($_var_6) && count($_var_6) > 0) {
@@ -48,15 +50,16 @@ class Sz_DYi_Order
         }
         return $this->getDispatchPrice($weight, $d);
     }
+
     public function payResult($params)
     {
         global $_W;
-        $fee     = intval($params['fee']);
-        $data    = array(
+        $fee = intval($params['fee']);
+        $data = array(
             'status' => $params['result'] == 'success' ? 1 : 0
         );
         $ordersn = $params['tid'];
-        $order   = pdo_fetch('select * from ' . tablename('sz_yi_order') . ' where  ordersn=:ordersn and uniacid=:uniacid limit 1', array(
+        $order = pdo_fetch('select * from ' . tablename('sz_yi_order') . ' where  ordersn=:ordersn and uniacid=:uniacid limit 1', array(
             ':uniacid' => $_W['uniacid'],
             ':ordersn' => $ordersn
         ));
@@ -110,12 +113,12 @@ class Sz_DYi_Order
                 }
                 //订单分解
                 /**订单分解修改，订单会员折扣、积分折扣、余额抵扣、使用优惠劵后订单分解按商品价格与总商品价格比例拆分，使用运费的平分运费。添加平分修改运费以及修改订单金额的信息到新的订单表中。**/
-                if(p('supplier')){
+                if (p('supplier')) {
                     $order_info = $order;
-                    $resolve_order_goods = pdo_fetchall('select * from ' . tablename('sz_yi_order_goods') . ' where orderid=:orderid and uniacid=:uniacid ',array(
-                            ':orderid' => $order['id'],
-                            ':uniacid' => $_W['uniacid']
-                        ));
+                    $resolve_order_goods = pdo_fetchall('select * from ' . tablename('sz_yi_order_goods') . ' where orderid=:orderid and uniacid=:uniacid ', array(
+                        ':orderid' => $order['id'],
+                        ':uniacid' => $_W['uniacid']
+                    ));
                     $datas = array();
                     $num = false;
                     //对应供应商商品循环到对应供应商下
@@ -126,7 +129,7 @@ class Sz_DYi_Order
                     $dispatchprice = $order['dispatchprice'];
                     $olddispatchprice = $order['olddispatchprice'];
                     $changedispatchprice = $order['changedispatchprice'];
-                    if(!empty($datas)){
+                    if (!empty($datas)) {
                         foreach ($datas as $key => $value) {
                             $price = 0;
                             $realprice = 0;
@@ -137,11 +140,11 @@ class Sz_DYi_Order
                             $discountprice = 0;
                             $deductprice = 0;
                             $deductcredit2 = 0;
-                            foreach($value as $v){
-                                $resu = pdo_fetch('select price,realprice,oldprice,supplier_uid from ' . tablename('sz_yi_order_goods') . ' where id=:id and uniacid=:uniacid ',array(
-                                        ':id' => $v['id'],
-                                        ':uniacid' => $_W['uniacid']
-                                    ));
+                            foreach ($value as $v) {
+                                $resu = pdo_fetch('select price,realprice,oldprice,supplier_uid from ' . tablename('sz_yi_order_goods') . ' where id=:id and uniacid=:uniacid ', array(
+                                    ':id' => $v['id'],
+                                    ':uniacid' => $_W['uniacid']
+                                ));
                                 $price += $resu['price'];
                                 $realprice += $resu['realprice'];
                                 $oldprice += $resu['oldprice'];
@@ -149,17 +152,17 @@ class Sz_DYi_Order
                                 $supplier_uid = $resu['supplier_uid'];
                                 $changeprice += $resu['changeprice'];
                                 //计算order_goods表中的价格占订单商品总额的比例
-                                $scale = $resu['price']/$order['goodsprice'];
+                                $scale = $resu['price'] / $order['goodsprice'];
                                 //按比例计算优惠劵金额
-                                $couponprice += round($scale*$order['couponprice'],2);
+                                $couponprice += round($scale * $order['couponprice'], 2);
                                 //按比例计算会员折扣金额
-                                $discountprice += round($scale*$order['discountprice'],2);
+                                $discountprice += round($scale * $order['discountprice'], 2);
                                 //按比例计算积分金额
-                                $deductprice += round($scale*$order['deductprice'],2);
+                                $deductprice += round($scale * $order['deductprice'], 2);
                                 //按比例计算消费余额金额
-                                $deductcredit2 += round($scale*$order['deductcredit2'],2); 
+                                $deductcredit2 += round($scale * $order['deductcredit2'], 2);
                             }
-                            
+
                             $order['oldprice'] = $oldprice;
                             $order['goodsprice'] = $goodsprice;
                             $order['supplier_uid'] = $supplier_uid;
@@ -169,36 +172,36 @@ class Sz_DYi_Order
                             $order['deductcredit2'] = $deductcredit2;
                             $order['changeprice'] = $changeprice;
                             //平分实际支付运费金额
-                            $order['dispatchprice'] = round($dispatchprice/(count($resu)),2);
+                            $order['dispatchprice'] = round($dispatchprice / (count($resu)), 2);
                             //平分老的支付运费金额
-                            $order['olddispatchprice'] = round($olddispatchprice/(count($resu)),2);
+                            $order['olddispatchprice'] = round($olddispatchprice / (count($resu)), 2);
                             //平分修改后支付运费金额
-                            $order['changedispatchprice'] = round($changedispatchprice/(count($resu)),2);
+                            $order['changedispatchprice'] = round($changedispatchprice / (count($resu)), 2);
                             //新订单金额计算，实际支付金额减计算后优惠劵金额、会员折金额、积分金额、余额抵扣金额，在加上实际运费的金额。
                             $order['price'] = $realprice - $couponprice - $discountprice - $deductprice - $deductcredit2 + $order['dispatchprice'];
-                            if($num == false){
+                            if ($num == false) {
                                 pdo_update('sz_yi_order', $order, array(
                                     'id' => $order_id,
                                     'uniacid' => $_W['uniacid']
-                                    ));
+                                ));
                                 $num = ture;
-                                
-                            }else{
+
+                            } else {
                                 $ordersn = m('common')->createNO('order', 'ordersn', 'SH');
                                 $order['ordersn'] = $ordersn;
                                 pdo_insert('sz_yi_order', $order);
                                 $logid = pdo_insertid();
                                 $oid = array(
                                     'orderid' => $logid
-                                    );
+                                );
                                 foreach ($value as $val) {
-                                    pdo_update('sz_yi_order_goods',$oid ,array('id' => $val['id'],'uniacid' => $_W['uniacid']));
+                                    pdo_update('sz_yi_order_goods', $oid, array('id' => $val['id'], 'uniacid' => $_W['uniacid']));
                                 }
-                                
+
                             }
                         }
                     }
-                }else{
+                } else {
                     $order_info = $order;
                 }
                 return array(
@@ -211,13 +214,14 @@ class Sz_DYi_Order
             }
         }
     }
+
     function setStocksAndCredits($orderid = '', $type = 0)
     {
         global $_W;
-        $order   = pdo_fetch('select id,ordersn,price,openid,dispatchtype,addressid,carrier,status from ' . tablename('sz_yi_order') . ' where id=:id limit 1', array(
+        $order = pdo_fetch('select id,ordersn,price,openid,dispatchtype,addressid,carrier,status from ' . tablename('sz_yi_order') . ' where id=:id limit 1', array(
             ':id' => $orderid
         ));
-        $goods   = pdo_fetchall("select og.goodsid,og.total,g.totalcnf,og.realprice, g.credit,og.optionid,g.total as goodstotal,og.optionid,g.sales,g.salesreal from " . tablename('sz_yi_order_goods') . " og " . " left join " . tablename('sz_yi_goods') . " g on g.id=og.goodsid " . " where og.orderid=:orderid and og.uniacid=:uniacid ", array(
+        $goods = pdo_fetchall("select og.goodsid,og.total,g.totalcnf,og.realprice, g.credit,og.optionid,g.total as goodstotal,og.optionid,g.sales,g.salesreal from " . tablename('sz_yi_order_goods') . " og " . " left join " . tablename('sz_yi_goods') . " g on g.id=og.goodsid " . " where og.orderid=:orderid and og.uniacid=:uniacid ", array(
             ':uniacid' => $_W['uniacid'],
             ':orderid' => $orderid
         ));
@@ -329,7 +333,9 @@ class Sz_DYi_Order
             }
         }
     }
-    function getDefaultDispatch(){
+
+    function getDefaultDispatch()
+    {
         global $_W;
         //$dephp_31 = 'select * from ' . tablename('sz_yi_dispatch') . ' where isdefault=1 and uniacid=:uniacid and enabled=1 Limit 1';
         $dephp_31 = 'select * from ' . tablename('sz_yi_dispatch') . ' where uniacid=:uniacid and enabled=1 Limit 1';
@@ -337,14 +343,18 @@ class Sz_DYi_Order
         $dephp_13 = pdo_fetch($dephp_31, $dephp_11);
         return $dephp_13;
     }
-    function getNewDispatch(){
+
+    function getNewDispatch()
+    {
         global $_W;
         $dephp_31 = 'select * from ' . tablename('sz_yi_dispatch') . ' where uniacid=:uniacid and enabled=1 order by id desc Limit 1';
         $dephp_11 = array(':uniacid' => $_W['uniacid']);
         $dephp_13 = pdo_fetch($dephp_31, $dephp_11);
         return $dephp_13;
     }
-    function getOneDispatch($dephp_32){
+
+    function getOneDispatch($dephp_32)
+    {
         global $_W;
         $dephp_31 = 'select * from ' . tablename('sz_yi_dispatch') . ' where id=:id and uniacid=:uniacid and enabled=1 Limit 1';
         $dephp_11 = array(':id' => $dephp_32, ':uniacid' => $_W['uniacid']);

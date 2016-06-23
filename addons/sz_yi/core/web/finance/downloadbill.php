@@ -18,8 +18,8 @@ $op = $operation = $_GPC['op'] ? $_GPC['op'] : 'display';
 ca('finance.downloadbill');
 if ($_W['ispost']) {
     $starttime = strtotime($_GPC['time']['start']);
-    $endtime   = strtotime($_GPC['time']['end']);
-    $result    = m('finance')->downloadbill($starttime, $endtime, $_GPC['type']);
+    $endtime = strtotime($_GPC['time']['end']);
+    $result = m('finance')->downloadbill($starttime, $endtime, $_GPC['type']);
     if (is_error($result)) {
         message($result['message'], '', 'error');
     }
