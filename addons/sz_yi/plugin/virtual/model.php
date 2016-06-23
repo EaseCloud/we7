@@ -23,7 +23,7 @@ if (!class_exists('VirtualModel')) {
                     ':uniacid' => $_W['uniacid']
                 ));
             } else {
-                $virtuals   = array();
+                $virtuals = array();
                 $alloptions = pdo_fetchall("select id, virtual from " . tablename('sz_yi_goods_option') . " where goodsid=$id");
                 foreach ($alloptions as $opt) {
                     if (empty($opt['virtual'])) {
@@ -50,11 +50,12 @@ if (!class_exists('VirtualModel')) {
                 "id" => $id
             ));
         }
+
         public function updateStock($typeid = 0)
         {
             global $_W;
             $goodsids = array();
-            $goods    = pdo_fetchall('select id from ' . tablename('sz_yi_goods') . ' where type=3 and virtual=:virtual and uniacid=:uniacid limit 1', array(
+            $goods = pdo_fetchall('select id from ' . tablename('sz_yi_goods') . ' where type=3 and virtual=:virtual and uniacid=:uniacid limit 1', array(
                 ':virtual' => $typeid,
                 ':uniacid' => $_W['uniacid']
             ));
@@ -74,14 +75,15 @@ if (!class_exists('VirtualModel')) {
                 $this->updateGoodsStock($gid);
             }
         }
+
         public function pay($order)
         {
             global $_W, $_GPC;
-            $goods        = pdo_fetch('select id,goodsid,total,realprice from ' . tablename('sz_yi_order_goods') . ' where  orderid=:orderid and uniacid=:uniacid limit 1', array(
+            $goods = pdo_fetch('select id,goodsid,total,realprice from ' . tablename('sz_yi_order_goods') . ' where  orderid=:orderid and uniacid=:uniacid limit 1', array(
                 ':uniacid' => $_W['uniacid'],
                 ':orderid' => $order['id']
             ));
-            $g            = pdo_fetch('select id,credit,sales,salesreal from ' . tablename('sz_yi_goods') . ' where  id=:id and uniacid=:uniacid limit 1', array(
+            $g = pdo_fetch('select id,credit,sales,salesreal from ' . tablename('sz_yi_goods') . ' where  id=:id and uniacid=:uniacid limit 1', array(
                 ':uniacid' => $_W['uniacid'],
                 ':id' => $goods['goodsid']
             ));
@@ -90,17 +92,17 @@ if (!class_exists('VirtualModel')) {
                 ':typeid' => $order['virtual'],
                 ':uniacid' => $_W['uniacid']
             ));
-            $type         = pdo_fetch('select fields from ' . tablename('sz_yi_virtual_type') . ' where id=:id and uniacid=:uniacid limit 1 ', array(
+            $type = pdo_fetch('select fields from ' . tablename('sz_yi_virtual_type') . ' where id=:id and uniacid=:uniacid limit 1 ', array(
                 ':id' => $order['virtual'],
                 ':uniacid' => $_W['uniacid']
             ));
-            $fields       = iunserializer($type['fields'], true);
+            $fields = iunserializer($type['fields'], true);
             $virtual_info = array();
-            $virtual_str  = array();
+            $virtual_str = array();
             foreach ($virtual_data as $vd) {
                 $virtual_info[] = $vd['fields'];
-                $strs           = array();
-                $vddatas        = iunserializer($vd['fields']);
+                $strs = array();
+                $vddatas = iunserializer($vd['fields']);
                 foreach ($vddatas as $vk => $vv) {
                     $strs[] = $fields[$vk] . ": " . $vv;
                 }
@@ -119,9 +121,9 @@ if (!class_exists('VirtualModel')) {
                 ));
                 $this->updateStock($vd['typeid']);
             }
-            $virtual_str  = implode("\n", $virtual_str);
+            $virtual_str = implode("\n", $virtual_str);
             $virtual_info = "[" . implode(",", $virtual_info) . "]";
-            $time         = time();
+            $time = time();
             pdo_update('sz_yi_order', array(
                 'virtual_info' => $virtual_info,
                 'virtual_str' => $virtual_str,
@@ -158,14 +160,15 @@ if (!class_exists('VirtualModel')) {
             ));
             m('member')->upgradeLevel($order['openid']);
             m('notice')->sendOrderMessage($order['id']);
-	    if (p('coupon') && !empty($order['couponid'])) {
-	    	p('coupon')->backConsumeCoupon($order['id']);
-	    }
+            if (p('coupon') && !empty($order['couponid'])) {
+                p('coupon')->backConsumeCoupon($order['id']);
+            }
             if (p('commission')) {
                 p('commission')->checkOrderPay($order['id']);
                 p('commission')->checkOrderFinish($order['id']);
             }
         }
+
         public function perms()
         {
             return array(

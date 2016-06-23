@@ -8,11 +8,11 @@ global $_W, $_GPC;
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
 if ($operation == 'display') {
     ca('perm.role.view');
-    $pindex    = max(1, intval($_GPC['page']));
-    $psize     = 20;
-    $status    = $_GPC['status'];
+    $pindex = max(1, intval($_GPC['page']));
+    $psize = 20;
+    $status = $_GPC['status'];
     $condition = " and uniacid = :uniacid and deleted=0";
-    $params    = array(
+    $params = array(
         ':uniacid' => $_W['uniacid']
     );
     if (!empty($_GPC['keyword'])) {
@@ -39,11 +39,11 @@ if ($operation == 'display') {
     } else {
         ca('perm.role.edit|perm.role.view');
     }
-    $item       = pdo_fetch("SELECT * FROM " . tablename('sz_yi_perm_role') . " WHERE id =:id and deleted=0 and uniacid=:uniacid limit 1", array(
+    $item = pdo_fetch("SELECT * FROM " . tablename('sz_yi_perm_role') . " WHERE id =:id and deleted=0 and uniacid=:uniacid limit 1", array(
         ':uniacid' => $_W['uniacid'],
         ':id' => $id
     ));
-    $perms      = $this->model->allPerms();
+    $perms = $this->model->allPerms();
     $role_perms = array();
     $user_perms = array();
     if (!empty($item)) {
@@ -73,7 +73,7 @@ if ($operation == 'display') {
     }
 } elseif ($operation == 'delete') {
     ca('perm.role.delete');
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $item = pdo_fetch("SELECT id,rolename FROM " . tablename('sz_yi_perm_role') . " WHERE id = '$id'");
     if (empty($item)) {
         message('抱歉，角色不存在或是已经被删除！', $this->createPluginWebUrl('perm/role', array(
@@ -91,10 +91,10 @@ if ($operation == 'display') {
         'op' => 'display'
     )), 'success');
 } elseif ($operation == 'query') {
-    $kwd                = trim($_GPC['keyword']);
-    $params             = array();
+    $kwd = trim($_GPC['keyword']);
+    $params = array();
     $params[':uniacid'] = $_W['uniacid'];
-    $condition          = " and uniacid=:uniacid and deleted=0";
+    $condition = " and uniacid=:uniacid and deleted=0";
     if (!empty($kwd)) {
         $condition .= " AND `rolename` LIKE :keyword";
         $params[':keyword'] = "%{$kwd}%";

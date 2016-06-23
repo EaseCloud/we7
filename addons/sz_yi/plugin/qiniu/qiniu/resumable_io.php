@@ -1,6 +1,7 @@
 <?php
 require_once('http.php');
 require_once('auth_digest.php');
+
 class Qiniu_Rio_PutExtra
 {
     public $Bucket = null;
@@ -11,17 +12,20 @@ class Qiniu_Rio_PutExtra
     public $Progresses = null;
     public $Notify = null;
     public $NotifyErr = null;
+
     public function __construct($bucket = null)
     {
         $this->Bucket = $bucket;
     }
 }
+
 define('QINIU_RIO_BLOCK_BITS', 22);
 define('QINIU_RIO_BLOCK_SIZE', 1 << QINIU_RIO_BLOCK_BITS);
 function Qiniu_Rio_BlockCount($fsize)
 {
     return ($fsize + (QINIU_RIO_BLOCK_SIZE - 1)) >> QINIU_RIO_BLOCK_BITS;
 }
+
 function Qiniu_Rio_Mkblock($self, $host, $reader, $size)
 {
     if (is_resource($reader)) {
@@ -52,6 +56,7 @@ function Qiniu_Rio_Mkblock($self, $host, $reader, $size)
     $url = $host . '/mkblk/' . $size;
     return Qiniu_Client_CallWithForm($self, $url, $body, 'application/octet-stream');
 }
+
 function Qiniu_Rio_Mkfile($self, $host, $key, $fsize, $extra)
 {
     $url = $host . '/mkfile/' . $fsize;
@@ -73,31 +78,35 @@ function Qiniu_Rio_Mkfile($self, $host, $key, $fsize, $extra)
     $body = implode(',', $ctxs);
     return Qiniu_Client_CallWithForm($self, $url, $body, 'application/octet-stream');
 }
+
 class Qiniu_Rio_UploadClient
 {
     public $uptoken;
+
     public function __construct($uptoken)
     {
         $this->uptoken = $uptoken;
     }
+
     public function RoundTrip($req)
     {
-        $token                        = $this->uptoken;
+        $token = $this->uptoken;
         $req->Header['Authorization'] = "UpToken $token";
         return Qiniu_Client_do($req);
     }
 }
+
 function Qiniu_Rio_Put($upToken, $key, $body, $fsize, $putExtra)
 {
     global $QINIU_UP_HOST;
-    $self       = new Qiniu_Rio_UploadClient($upToken);
+    $self = new Qiniu_Rio_UploadClient($upToken);
     $progresses = array();
-    $uploaded   = 0;
+    $uploaded = 0;
     while ($uploaded < $fsize) {
-        $tried     = 0;
-        $tryTimes  = ($putExtra->TryTimes > 0) ? $putExtra->TryTimes : 1;
+        $tried = 0;
+        $tryTimes = ($putExtra->TryTimes > 0) ? $putExtra->TryTimes : 1;
         $blkputRet = null;
-        $err       = null;
+        $err = null;
         if ($fsize < $uploaded + QINIU_RIO_BLOCK_SIZE) {
             $bsize = $fsize - $uploaded;
         } else {
@@ -130,6 +139,7 @@ function Qiniu_Rio_Put($upToken, $key, $body, $fsize, $putExtra)
     $putExtra->Progresses = $progresses;
     return Qiniu_Rio_Mkfile($self, $QINIU_UP_HOST, $key, $fsize, $putExtra);
 }
+
 function Qiniu_Rio_PutFile($upToken, $key, $localFile, $putExtra)
 {
     $fp = fopen($localFile, 'rb');
@@ -140,7 +150,7 @@ function Qiniu_Rio_PutFile($upToken, $key, $localFile, $putExtra)
             $err
         );
     }
-    $fi     = fstat($fp);
+    $fi = fstat($fp);
     $result = Qiniu_Rio_Put($upToken, $key, $fp, $fi['size'], $putExtra);
     fclose($fp);
     return $result;

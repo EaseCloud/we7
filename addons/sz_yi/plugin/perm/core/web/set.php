@@ -4,7 +4,7 @@ global $_W, $_GPC;
 
 ca('perm.set');
 $type = m('cache')->getString('permset', 'global');
-$set  = array(
+$set = array(
     'type' => intval($type)
 );
 if (checksubmit('submit')) {

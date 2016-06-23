@@ -5,23 +5,23 @@ if (!defined('IN_IA')) {
 }
 global $_W, $_GPC;
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
-$openid    = m('user')->getOpenid();
-$uniacid   = $_W['uniacid'];
-$credit    = intval(m('member')->getCredit($openid, 'credit1'));
+$openid = m('user')->getOpenid();
+$uniacid = $_W['uniacid'];
+$credit = intval(m('member')->getCredit($openid, 'credit1'));
 if ($_W['isajax']) {
     if ($operation == 'display') {
-        $pindex    = max(1, intval($_GPC['page']));
-        $psize     = 10;
+        $pindex = max(1, intval($_GPC['page']));
+        $psize = 10;
         $condition = ' and log.openid=:openid and log.uniacid = :uniacid';
-        $params    = array(
+        $params = array(
             ':uniacid' => $_W['uniacid'],
             ':openid' => $openid
         );
-        $sql       = 'SELECT COUNT(*) FROM ' . tablename('sz_yi_creditshop_log') . " log where 1 {$condition}";
-        $total     = pdo_fetchcolumn($sql, $params);
-        $list      = array();
+        $sql = 'SELECT COUNT(*) FROM ' . tablename('sz_yi_creditshop_log') . " log where 1 {$condition}";
+        $total = pdo_fetchcolumn($sql, $params);
+        $list = array();
         if (!empty($total)) {
-            $sql  = 'SELECT log.id,log.goodsid,g.title,g.thumb,g.credit,g.type,g.money,log.createtime FROM ' . tablename('sz_yi_creditshop_log') . ' log ' . ' left join ' . tablename('sz_yi_creditshop_goods') . ' g on log.goodsid = g.id ' . ' where 1 ' . $condition . ' ORDER BY log.createtime DESC LIMIT ' . ($pindex - 1) * $psize . ',' . $psize;
+            $sql = 'SELECT log.id,log.goodsid,g.title,g.thumb,g.credit,g.type,g.money,log.createtime FROM ' . tablename('sz_yi_creditshop_log') . ' log ' . ' left join ' . tablename('sz_yi_creditshop_goods') . ' g on log.goodsid = g.id ' . ' where 1 ' . $condition . ' ORDER BY log.createtime DESC LIMIT ' . ($pindex - 1) * $psize . ',' . $psize;
             $list = pdo_fetchall($sql, $params);
             $list = set_medias($list, 'thumb');
             foreach ($list as &$row) {
@@ -49,7 +49,7 @@ $_W['shopshare'] = array(
     'link' => $this->createPluginMobileUrl('creditshop'),
     'desc' => $this->set['share_desc']
 );
-$com             = p('commission');
+$com = p('commission');
 if ($com) {
     $cset = $com->getSet();
     if (!empty($cset)) {

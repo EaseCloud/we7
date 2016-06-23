@@ -3,33 +3,33 @@
 global $_W, $_GPC;
 load()->func('tpl');
 
-$op     = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
+$op = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
 $tempdo = empty($_GPC['tempdo']) ? "" : $_GPC['tempdo'];
 $pageid = empty($_GPC['pageid']) ? "" : $_GPC['pageid'];
-$apido  = empty($_GPC['apido']) ? "" : $_GPC['apido'];
+$apido = empty($_GPC['apido']) ? "" : $_GPC['apido'];
 if ($op == 'display') {
     ca('designer.page.view');
-    $page     = empty($_GPC['page']) ? "" : $_GPC['page'];
-    $pindex   = max(1, intval($page));
-    $psize    = 10;
-    $kw       = empty($_GPC['keyword']) ? "" : $_GPC['keyword'];
-    $pages    = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_designer') . " WHERE uniacid= :uniacid and pagename LIKE :name " . "ORDER BY savetime DESC LIMIT " . ($pindex - 1) * $psize . ',' . $psize, array(
+    $page = empty($_GPC['page']) ? "" : $_GPC['page'];
+    $pindex = max(1, intval($page));
+    $psize = 10;
+    $kw = empty($_GPC['keyword']) ? "" : $_GPC['keyword'];
+    $pages = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_designer') . " WHERE uniacid= :uniacid and pagename LIKE :name " . "ORDER BY savetime DESC LIMIT " . ($pindex - 1) * $psize . ',' . $psize, array(
         ':uniacid' => $_W['uniacid'],
         ':name' => "%{$kw}%"
     ));
     $pagesnum = pdo_fetchcolumn("SELECT COUNT(*) FROM " . tablename('sz_yi_designer') . " WHERE uniacid= :uniacid " . "ORDER BY savetime DESC ", array(
         ':uniacid' => $_W['uniacid']
     ));
-    $total    = pdo_fetchcolumn("SELECT COUNT(*) FROM " . tablename('sz_yi_designer') . " WHERE uniacid= :uniacid and pagename LIKE :name " . "ORDER BY savetime DESC ", array(
+    $total = pdo_fetchcolumn("SELECT COUNT(*) FROM " . tablename('sz_yi_designer') . " WHERE uniacid= :uniacid and pagename LIKE :name " . "ORDER BY savetime DESC ", array(
         ':uniacid' => $_W['uniacid'],
         ':name' => "%{$kw}%"
     ));
-    $pager    = pagination($total, $pindex, $psize);
+    $pager = pagination($total, $pindex, $psize);
 } elseif ($op == 'post') {
-    $menus     = pdo_fetchall("SELECT id,menuname,isdefault FROM " . tablename('sz_yi_designer_menu') . " WHERE uniacid= :uniacid  ", array(
+    $menus = pdo_fetchall("SELECT id,menuname,isdefault FROM " . tablename('sz_yi_designer_menu') . " WHERE uniacid= :uniacid  ", array(
         ':uniacid' => $_W['uniacid']
     ));
-    $pages     = pdo_fetchall("SELECT id,pagename,pagetype,setdefault FROM " . tablename('sz_yi_designer') . " WHERE uniacid= :uniacid  ", array(
+    $pages = pdo_fetchall("SELECT id,pagename,pagetype,setdefault FROM " . tablename('sz_yi_designer') . " WHERE uniacid= :uniacid  ", array(
         ':uniacid' => $_W['uniacid']
     ));
     $categorys = pdo_fetchall("SELECT id,name,parentid FROM " . tablename('sz_yi_category') . " WHERE enabled=:enabled and uniacid= :uniacid  ", array(
@@ -42,8 +42,8 @@ if ($op == 'display') {
             ':uniacid' => $_W['uniacid'],
             ':id' => $pageid
         ));
-        $data  = htmlspecialchars_decode($datas['datas']);
-        $data  = json_decode($data, true);
+        $data = htmlspecialchars_decode($datas['datas']);
+        $data = json_decode($data, true);
         if (!empty($data)) {
             foreach ($data as $i1 => &$dd) {
                 if ($dd['temp'] == 'goods') {
@@ -54,10 +54,10 @@ if ($op == 'display') {
                         ));
                         $goodinfo = set_medias($goodinfo, 'thumb');
                         if (!empty($goodinfo)) {
-                            $data[$i1]['data'][$i2]['name']     = $goodinfo[0]['title'];
+                            $data[$i1]['data'][$i2]['name'] = $goodinfo[0]['title'];
                             $data[$i1]['data'][$i2]['priceold'] = $goodinfo[0]['productprice'];
                             $data[$i1]['data'][$i2]['pricenow'] = $goodinfo[0]['marketprice'];
-                            $data[$i1]['data'][$i2]['img']      = $goodinfo[0]['thumb'];
+                            $data[$i1]['data'][$i2]['img'] = $goodinfo[0]['thumb'];
                         }
                     }
                     unset($ddd);
@@ -65,10 +65,10 @@ if ($op == 'display') {
                     $dd['content'] = $this->model->unescape($dd['content']);
                 } elseif ($dd['temp'] == 'cube') {
                     $dd['params']['currentLayout']['isempty'] = true;
-                    $dd['params']['selection']                = null;
-                    $dd['params']['currentPos']               = null;
-                    $has                                      = false;
-                    $newarr                                   = new stdClass();
+                    $dd['params']['selection'] = null;
+                    $dd['params']['currentPos'] = null;
+                    $has = false;
+                    $newarr = new stdClass();
                     foreach ($dd['params']['layout'] as $k => $v) {
                         $arr = new stdClass();
                         foreach ($v as $kk => $vv) {
@@ -81,36 +81,36 @@ if ($op == 'display') {
             }
             $data = json_encode($data);
         }
-        $data     = rtrim($data, "]");
-        $data     = ltrim($data, "[");
+        $data = rtrim($data, "]");
+        $data = ltrim($data, "[");
         $pageinfo = htmlspecialchars_decode($datas['pageinfo']);
         $pageinfo = rtrim($pageinfo, "]");
         $pageinfo = ltrim($pageinfo, "[");
-        $shopset  = m('common')->getSysset('shop');
-        $system   = array(
+        $shopset = m('common')->getSysset('shop');
+        $system = array(
             'shop' => array(
                 'name' => $shopset['name'],
                 'logo' => tomedia($shopset['logo'])
             )
         );
-        $system   = json_encode($system);
+        $system = json_encode($system);
     } else {
         ca('designer.page.edit');
         $defaultmenuid = $this->model->getDefaultMenuID();
-        $pageinfo      = "{id:'M0000000000000',temp:'topbar',params:{title:'',desc:'',img:'',kw:'',footer:'1',footermenu:'{$defaultmenuid}', floatico:'0',floatstyle:'right',floatwidth:'40px',floattop:'100px',floatimg:'',floatlink:''}}";
+        $pageinfo = "{id:'M0000000000000',temp:'topbar',params:{title:'',desc:'',img:'',kw:'',footer:'1',footermenu:'{$defaultmenuid}', floatico:'0',floatstyle:'right',floatwidth:'40px',floattop:'100px',floatimg:'',floatlink:''}}";
     }
 } elseif ($op == 'api') {
     if ($_W['ispost']) {
         if ($apido == 'savepage') {
-            $id                    = $_GPC['pageid'];
-            $datas                 = json_decode(htmlspecialchars_decode($_GPC['datas']), true);
-            $date                  = date("Y-m-d H:i:s");
-            $pagename              = $_GPC['pagename'];
-            $pagetype              = $_GPC['pagetype'];
-            $pageinfo              = $_GPC['pageinfo'];
-            $p                     = htmlspecialchars_decode($pageinfo);
-            $p                     = json_decode($p, true);
-            $keyword               = empty($p[0]['params']['kw']) ? "" : $p[0]['params']['kw'];
+            $id = $_GPC['pageid'];
+            $datas = json_decode(htmlspecialchars_decode($_GPC['datas']), true);
+            $date = date("Y-m-d H:i:s");
+            $pagename = $_GPC['pagename'];
+            $pagetype = $_GPC['pagetype'];
+            $pageinfo = $_GPC['pageinfo'];
+            $p = htmlspecialchars_decode($pageinfo);
+            $p = json_decode($p, true);
+            $keyword = empty($p[0]['params']['kw']) ? "" : $p[0]['params']['kw'];
             $p[0]['params']['img'] = save_media($p[0]['params']['img']);
             foreach ($datas as &$data) {
                 if ($data['temp'] == 'banner' || $data['temp'] == 'menu' || $data['temp'] == 'picture') {
@@ -126,7 +126,7 @@ if ($op == 'display') {
                     }
                     unset($d);
                 } else if ($data['temp'] == 'richtext') {
-                    $content         = m('common')->html_images($this->model->unescape($data['content']));
+                    $content = m('common')->html_images($this->model->unescape($data['content']));
                     $data['content'] = $this->model->escape($content);
                 } else if ($data['temp'] == 'cube') {
                     foreach ($data['params']['layout'] as &$row) {
@@ -178,7 +178,7 @@ if ($op == 'display') {
                     'status' => 1
                 );
                 pdo_insert('rule', $rule_data);
-                $rid          = pdo_insertid();
+                $rid = pdo_insertid();
                 $keyword_data = array(
                     'uniacid' => $_W['uniacid'],
                     'rid' => $rid,
@@ -236,7 +236,7 @@ if ($op == 'display') {
                 }
             }
         } elseif ($apido == 'selectgood') {
-            $kw    = $_GPC['kw'];
+            $kw = $_GPC['kw'];
             $goods = pdo_fetchall("SELECT id,title,productprice,marketprice,thumb,sales,unit FROM " . tablename('sz_yi_goods') . " WHERE uniacid= :uniacid and status=:status and deleted=0 AND title LIKE :title ", array(
                 ':title' => "%{$kw}%",
                 ':uniacid' => $_W['uniacid'],
@@ -246,8 +246,8 @@ if ($op == 'display') {
             echo json_encode($goods);
         } elseif ($apido == 'setdefault') {
             ca('designer.page.setdefault');
-            $do   = $_GPC['d'];
-            $id   = $_GPC['id'];
+            $do = $_GPC['d'];
+            $id = $_GPC['id'];
             $type = $_GPC['type'];
             if ($do == 'on') {
                 $pages = pdo_fetch("SELECT * FROM " . tablename('sz_yi_designer') . " WHERE pagetype=:pagetype and setdefault=:setdefault and uniacid=:uniacid ", array(
@@ -263,7 +263,7 @@ if ($op == 'display') {
                         'id' => $pages['id']
                     ));
                 }
-                $array  = array(
+                $array = array(
                     'setdefault' => '1'
                 );
                 $action = pdo_update('sz_yi_designer', $array, array(
@@ -284,7 +284,7 @@ if ($op == 'display') {
                     ':uniacid' => $_W['uniacid']
                 ));
                 if ($pages['setdefault'] == 1) {
-                    $array  = array(
+                    $array = array(
                         'setdefault' => '0'
                     );
                     $action = pdo_update('sz_yi_designer', $array, array(
@@ -301,8 +301,8 @@ if ($op == 'display') {
                 }
             }
         } elseif ($apido == 'selectkeyword') {
-            $kw   = $_GPC['kw'];
-            $pid  = $_GPC['pid'];
+            $kw = $_GPC['kw'];
+            $pid = $_GPC['pid'];
             $rule = pdo_fetch("select * from " . tablename('rule_keyword') . ' where content=:content and uniacid=:uniacid and module=:module limit 1', array(
                 ':uniacid' => $_W['uniacid'],
                 ':module' => 'sz_yi',
@@ -321,7 +321,7 @@ if ($op == 'display') {
             }
         } elseif ($apido == 'selectlink') {
             $type = $_GPC['type'];
-            $kw   = $_GPC['kw'];
+            $kw = $_GPC['kw'];
             if ($type == 'notice') {
                 $notices = pdo_fetchall("select * from " . tablename('sz_yi_notice') . ' where title LIKE :title and status=:status and uniacid=:uniacid ', array(
                     ':uniacid' => $_W['uniacid'],
@@ -342,9 +342,9 @@ if ($op == 'display') {
                     ':title' => "%{$kw}%"
                 ));
                 echo json_encode($articles);
-	    	} elseif ($type == 'coupon') {
-	    		$articles = pdo_fetchall('select id,couponname,coupontype from ' . tablename('sz_yi_coupon') . ' where couponname LIKE :title and uniacid=:uniacid ', array(':uniacid' => $_W['uniacid'], ':title' => "%{$kw}%"));
-	    		echo json_encode($articles);
+            } elseif ($type == 'coupon') {
+                $articles = pdo_fetchall('select id,couponname,coupontype from ' . tablename('sz_yi_coupon') . ' where couponname LIKE :title and uniacid=:uniacid ', array(':uniacid' => $_W['uniacid'], ':title' => "%{$kw}%"));
+                echo json_encode($articles);
             } else {
                 exit();
             }

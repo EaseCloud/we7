@@ -11,23 +11,23 @@ if (!$_W['isfounder']) {
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
 load()->model('user');
 if ($operation == 'display') {
-    $pindex    = max(1, intval($_GPC['page']));
-    $psize     = 20;
-    $status    = $_GPC['status'];
+    $pindex = max(1, intval($_GPC['page']));
+    $psize = 20;
+    $status = $_GPC['status'];
     $condition = "";
-    $params    = array();
+    $params = array();
     if (!empty($_GPC['keyword'])) {
         $_GPC['keyword'] = trim($_GPC['keyword']);
-		$condition .= ' and ac.name like :keyword';
+        $condition .= ' and ac.name like :keyword';
         $params[':keyword'] = "%{$_GPC['keyword']}%";
     }
     if ($_GPC['type'] != '') {
         $condition .= ' and p.type=' . intval($_GPC['type']);
     }
-	$list = pdo_fetchall("SELECT p.*,ac.name FROM " . tablename('sz_yi_perm_plugin') . " p  " . " left join " . tablename('account_wechats') . " ac on p.acid = ac.acid  " . " WHERE 1 {$condition} ORDER BY id desc LIMIT " . ($pindex - 1) * $psize . ',' . $psize, $params);
+    $list = pdo_fetchall("SELECT p.*,ac.name FROM " . tablename('sz_yi_perm_plugin') . " p  " . " left join " . tablename('account_wechats') . " ac on p.acid = ac.acid  " . " WHERE 1 {$condition} ORDER BY id desc LIMIT " . ($pindex - 1) * $psize . ',' . $psize, $params);
     foreach ($list as &$row) {
         $row_plugins = explode(",", $row['plugins']);
-        $aplugins    = array();
+        $aplugins = array();
         foreach ($row_plugins as $rp) {
             $aplugins[] = "'" . $rp . "'";
         }
@@ -38,36 +38,36 @@ if ($operation == 'display') {
         }
     }
     unset($row);
-    $total   = pdo_fetchcolumn("SELECT count(*) FROM " . tablename('sz_yi_perm_plugin') . " p  " . " left join " . tablename('users') . " u on p.uid = u.uid  " . " left join " . tablename('account_wechats') . " ac on p.acid = ac.acid  " . " WHERE 1 {$condition} ", $params);
-    $pager   = pagination($total, $pindex, $psize);
+    $total = pdo_fetchcolumn("SELECT count(*) FROM " . tablename('sz_yi_perm_plugin') . " p  " . " left join " . tablename('users') . " u on p.uid = u.uid  " . " left join " . tablename('account_wechats') . " ac on p.acid = ac.acid  " . " WHERE 1 {$condition} ", $params);
+    $pager = pagination($total, $pindex, $psize);
     $plugins = m('plugin')->getAll();
-	
+
 } elseif ($operation == 'post') {
-	
-    $id           = intval($_GPC['id']);
-    $item         = pdo_fetch("SELECT * FROM " . tablename('sz_yi_perm_plugin') . " WHERE id =:id limit 1", array(
+
+    $id = intval($_GPC['id']);
+    $item = pdo_fetch("SELECT * FROM " . tablename('sz_yi_perm_plugin') . " WHERE id =:id limit 1", array(
         ':id' => $id
     ));
-	
+
     $item_plugins = array();
     if (!empty($item)) {
         $item_plugins = explode(',', $item['plugins']);
-        $user         = pdo_fetch('select uid,username from ' . tablename('users') . ' where uid=:uid limit 1', array(
+        $user = pdo_fetch('select uid,username from ' . tablename('users') . ' where uid=:uid limit 1', array(
             ':uid' => $item['uid']
         ));
-        $account      = pdo_fetch('select acid,name from ' . tablename('account_wechats') . ' where acid=:acid limit 1', array(
+        $account = pdo_fetch('select acid,name from ' . tablename('account_wechats') . ' where acid=:acid limit 1', array(
             ':acid' => $item['acid']
         ));
     }
     if (checksubmit('submit')) {
-		
+
         $data = array(
             'type' => 1,
             'acid' => intval($_GPC['acid']),
             'uid' => intval($_GPC['uid']),
             'plugins' => is_array($_GPC['plugins']) ? implode(',', $_GPC['plugins']) : ''
         );
-		
+
         if (empty($data['type'])) {
             $data['acid'] = 0;
         } else {
@@ -78,7 +78,7 @@ if ($operation == 'display') {
                 'id' => $id
             ));
         } else {
-			
+
             if (empty($data['type'])) {
                 $usercount = pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_perm_plugin') . ' where uid=:uid limit 1', array(
                     ':uid' => $data['uid']
@@ -94,18 +94,18 @@ if ($operation == 'display') {
                     message('此公众号的插件权限已经设置过，不能重复设置!', '', 'error');
                 }
             }
-			
-			
+
+
             pdo_insert('sz_yi_perm_plugin', $data);
             $id = pdo_insertid();
-			
+
         }
-		
+
         message('保存成功!', $this->createPluginWebUrl('perm/plugins'), 'success');
     }
-	
+
 } elseif ($operation == 'delete') {
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $item = pdo_fetch("SELECT id FROM " . tablename('sz_yi_perm_plugin') . " WHERE id = '$id'");
     if (empty($item)) {
         message('抱歉，权限设置不存在或是已经被删除！', $this->createPluginWebUrl('perm/plugins', array(
@@ -119,8 +119,8 @@ if ($operation == 'display') {
         'op' => 'display'
     )), 'success');
 } elseif ($operation == 'query_user') {
-    $kwd       = trim($_GPC['keyword']);
-    $params    = array();
+    $kwd = trim($_GPC['keyword']);
+    $params = array();
     $condition = " and u.uid<>1";
     if (!empty($kwd)) {
         $condition .= " AND ( u.username LIKE :keyword or p.realname LIKE :keyword or p.mobile LIKE :keyword )";
@@ -130,8 +130,8 @@ if ($operation == 'display') {
     include $this->template('query_user');
     exit;
 } elseif ($operation == 'query_wechat') {
-    $kwd       = trim($_GPC['keyword']);
-    $params    = array();
+    $kwd = trim($_GPC['keyword']);
+    $params = array();
     $condition = " ";
     if (!empty($kwd)) {
         $condition .= " AND ( a.name LIKE :keyword or u.username like :keyword)";

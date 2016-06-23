@@ -5,10 +5,10 @@ if (!defined('IN_IA')) {
 }
 global $_W, $_GPC;
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
-$openid    = m('user')->getOpenid();
-$uniacid   = $_W['uniacid'];
-$orderid   = intval($_GPC['id']);
-$order     = pdo_fetch("select id,status,isverify,verified from " . tablename('sz_yi_order') . ' where id=:id and uniacid=:uniacid and openid=:openid limit 1', array(
+$openid = m('user')->getOpenid();
+$uniacid = $_W['uniacid'];
+$orderid = intval($_GPC['id']);
+$order = pdo_fetch("select id,status,isverify,verified from " . tablename('sz_yi_order') . ' where id=:id and uniacid=:uniacid and openid=:openid limit 1', array(
     ':id' => $orderid,
     ':uniacid' => $uniacid,
     ':openid' => $openid

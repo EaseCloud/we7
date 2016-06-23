@@ -26,7 +26,7 @@ if (!empty($_GPC['keyword'])) {
     $condition .= " and identity like :keyword or name like :keyword";
     $params[':keyword'] = "%{$_GPC['keyword']}";
 }
-$list  = pdo_fetchall('select * from ' . tablename('sz_yi_plugin') . " where 1 {$condition} order by displayorder asc", $params);
+$list = pdo_fetchall('select * from ' . tablename('sz_yi_plugin') . " where 1 {$condition} order by displayorder asc", $params);
 $total = count($list);
 include $this->template('setting');
 exit;

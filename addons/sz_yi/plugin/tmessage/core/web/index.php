@@ -33,10 +33,10 @@ if ($operation == 'addtype') {
         $data = iunserializer($list['data']);
     }
     if ($_W['ispost']) {
-        $id       = $_GPC['id'];
+        $id = $_GPC['id'];
         $keywords = $_GPC['tp_kw'];
-        $value    = $_GPC['tp_value'];
-        $color    = $_GPC['tp_color'];
+        $value = $_GPC['tp_value'];
+        $color = $_GPC['tp_color'];
         if (!empty($keywords)) {
             $data = array();
             foreach ($keywords as $key => $val) {
@@ -70,9 +70,9 @@ if ($operation == 'addtype') {
             message('保存成功！', $this->createPluginWebUrl('tmessage'));
         } else if (checksubmit('submitsend')) {
             header('location: ' . $this->createPluginWebUrl('tmessage', array(
-                'op' => 'send',
-                'id' => $id
-            )));
+                    'op' => 'send',
+                    'id' => $id
+                )));
             exit;
         }
     }
@@ -86,7 +86,7 @@ if ($operation == 'addtype') {
     message('删除成功！', $this->createPluginWebUrl('tmessage'), 'success');
 } elseif ($operation == 'send') {
     ca('tmessage.send');
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $send = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_member_message_template') . ' WHERE id=:id and uniacid=:uniacid ', array(
         ':id' => $id,
         ':uniacid' => $_W['uniacid']
@@ -94,8 +94,8 @@ if ($operation == 'addtype') {
     if (empty($send)) {
         message('未找到群发模板!', '', 'error');
     }
-    $data  = iunserializer($list['data']);
-    $list  = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_member_level') . " WHERE uniacid = '{$_W['uniacid']}' ORDER BY level asc");
+    $data = iunserializer($list['data']);
+    $list = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_member_level') . " WHERE uniacid = '{$_W['uniacid']}' ORDER BY level asc");
     $list2 = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_member_group') . " WHERE uniacid = '{$_W['uniacid']}' ORDER BY id asc");
     $list3 = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_commission_level') . " WHERE uniacid = '{$_W['uniacid']}' ORDER BY id asc");
 } elseif ($operation == 'fetch') {
@@ -105,7 +105,7 @@ if ($operation == 'addtype') {
             'message' => '您没有权限!'
         )));
     }
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $send = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_member_message_template') . ' WHERE id=:id and uniacid=:uniacid ', array(
         ':id' => $id,
         ':uniacid' => $_W['uniacid']
@@ -118,7 +118,7 @@ if ($operation == 'addtype') {
     }
     $class1 = $_GPC['class1'];
     $value1 = $_GPC['value1'];
-    $tpid1  = $_GPC['tpid'];
+    $tpid1 = $_GPC['tpid'];
     pdo_update('sz_yi_member_message_template', array(
         'sendtimes' => $send['sendtimes'] + 1
     ), array(
@@ -194,7 +194,7 @@ if ($operation == 'addtype') {
         )));
     }
 } elseif ($operation == 'sendmessage') {
-    $id       = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $template = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_member_message_template') . ' WHERE id=:id and uniacid=:uniacid ', array(
         ':id' => $id,
         ':uniacid' => $_W['uniacid']

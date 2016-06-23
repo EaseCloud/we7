@@ -5,20 +5,22 @@ if (!defined('IN_IA')) {
 }
 require IA_ROOT . '/addons/sz_yi/defines.php';
 require SZ_YI_INC . 'plugin/plugin_processor.php';
+
 class CreditshopProcessor extends PluginProcessor
 {
     public function __construct()
     {
         parent::__construct('creditshop');
     }
+
     public function respond($obj = null)
     {
         global $_W;
         $message = $obj->message;
-        $openid  = $obj->message['from'];
+        $openid = $obj->message['from'];
         $content = $obj->message['content'];
         $msgtype = strtolower($message['msgtype']);
-        $event   = strtolower($message['event']);
+        $event = strtolower($message['event']);
         if ($msgtype == 'text' || $event == 'click') {
             $saler = pdo_fetch('select * from ' . tablename('sz_yi_saler') . ' where openid=:openid and uniacid=:uniacid limit 1', array(
                 ':uniacid' => $_W['uniacid'],
@@ -49,7 +51,7 @@ class CreditshopProcessor extends PluginProcessor
                     return $obj->respText('此记录已兑换过了!');
                 }
                 $member = m('member')->getMember($log['openid'], true);
-                $goods  = $this->model->getGoods($log['goodsid'], $member);
+                $goods = $this->model->getGoods($log['goodsid'], $member);
                 if (empty($goods['id'])) {
                     return $obj->respText('商品记录不存在!');
                 }
@@ -90,6 +92,7 @@ class CreditshopProcessor extends PluginProcessor
             }
         }
     }
+
     private function responseEmpty()
     {
         ob_clean();

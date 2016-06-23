@@ -2,8 +2,8 @@
 //芸众商城 QQ:913768135
 global $_GPC;
 set_time_limit(0);
-$ret   = array();
-$url   = $_GPC['url'];
+$ret = array();
+$url = $_GPC['url'];
 $pcate = intval($_GPC['pcate']);
 $ccate = intval($_GPC['ccate']);
 $tcate = intval($_GPC['tcate']);

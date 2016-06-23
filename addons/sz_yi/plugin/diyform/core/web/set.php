@@ -4,7 +4,7 @@
 global $_W, $_GPC;
 
 ca('diyform.set.view');
-$set       = $this->getSet();
+$set = $this->getSet();
 $form_list = $this->model->getDiyformList();
 if (checksubmit('submit')) {
     ca('diyform.set.save');

@@ -9,12 +9,12 @@ $af_supplier = pdo_fetch("select * from " . tablename("sz_yi_af_supplier") . " w
 if ($_W['isajax']) {
     if ($_W['ispost']) {
         $memberdata = $_GPC['memberdata'];
-		$memberdata['openid'] = $openid;
-		$memberdata['uniacid'] = $_W['uniacid'];
-        pdo_insert('sz_yi_af_supplier',$memberdata);
+        $memberdata['openid'] = $openid;
+        $memberdata['uniacid'] = $_W['uniacid'];
+        pdo_insert('sz_yi_af_supplier', $memberdata);
         show_json(1);
     }
-	show_json(1, array(
+    show_json(1, array(
         'member' => $member
     ));
 }

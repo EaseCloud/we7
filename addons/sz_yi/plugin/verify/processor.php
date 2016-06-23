@@ -5,20 +5,22 @@ if (!defined('IN_IA')) {
 }
 require IA_ROOT . '/addons/sz_yi/defines.php';
 require SZ_YI_INC . 'plugin/plugin_processor.php';
+
 class VerifyProcessor extends PluginProcessor
 {
     public function __construct()
     {
         parent::__construct('verify');
     }
+
     public function respond($obj = null)
     {
         global $_W;
         $message = $obj->message;
-        $openid  = $obj->message['from'];
+        $openid = $obj->message['from'];
         $content = $obj->message['content'];
         $msgtype = strtolower($message['msgtype']);
-        $event   = strtolower($message['event']);
+        $event = strtolower($message['event']);
         if ($msgtype == 'text' || $event == 'click') {
             $saler = pdo_fetch('select * from ' . tablename('sz_yi_saler') . ' where openid=:openid and uniacid=:uniacid limit 1', array(
                 ':uniacid' => $_W['uniacid'],
@@ -53,7 +55,7 @@ class VerifyProcessor extends PluginProcessor
                     return $obj->respText('订单未付款，无法核销!');
                 }
                 $storeids = array();
-                $goods    = pdo_fetchall("select og.goodsid,og.price,g.title,g.thumb,og.total,g.credit,og.optionid,g.isverify,g.storeids from " . tablename('sz_yi_order_goods') . " og " . " left join " . tablename('sz_yi_goods') . " g on g.id=og.goodsid " . " where og.orderid=:orderid and og.uniacid=:uniacid ", array(
+                $goods = pdo_fetchall("select og.goodsid,og.price,g.title,g.thumb,og.total,g.credit,og.optionid,g.isverify,g.storeids from " . tablename('sz_yi_order_goods') . " og " . " left join " . tablename('sz_yi_goods') . " g on g.id=og.goodsid " . " where og.orderid=:orderid and og.uniacid=:uniacid ", array(
                     ':uniacid' => $_W['uniacid'],
                     ':orderid' => $order['id']
                 ));
@@ -77,7 +79,7 @@ class VerifyProcessor extends PluginProcessor
                     'verifytime' => $time,
                     'verified' => 1,
                     'verifyopenid' => $openid,
-					'verifystoreid' => $saler['storeid']
+                    'verifystoreid' => $saler['storeid']
                 ), array(
                     'id' => $order['id']
                 ));
@@ -90,6 +92,7 @@ class VerifyProcessor extends PluginProcessor
             }
         }
     }
+
     private function responseEmpty()
     {
         ob_clean();

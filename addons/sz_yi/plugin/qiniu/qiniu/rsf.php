@@ -28,7 +28,7 @@ function Qiniu_RSF_ListPrefix($self, $bucket, $prefix = '', $marker = '', $limit
     $items = $ret['items'];
     if (empty($ret['marker'])) {
         $markerOut = '';
-        $err       = Qiniu_RSF_EOF;
+        $err = Qiniu_RSF_EOF;
     } else {
         $markerOut = $ret['marker'];
     }

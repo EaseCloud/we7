@@ -1,6 +1,7 @@
 <?php
 require_once('http.php');
 require_once('auth_digest.php');
+
 class Qiniu_PutExtra
 {
     public $Params = null;
@@ -8,6 +9,7 @@ class Qiniu_PutExtra
     public $Crc32 = 0;
     public $CheckCrc = 0;
 }
+
 function Qiniu_Put($upToken, $key, $body, $putExtra)
 {
     global $QINIU_UP_HOST;
@@ -20,7 +22,7 @@ function Qiniu_Put($upToken, $key, $body, $putExtra)
     if ($key === null) {
         $fname = '?';
     } else {
-        $fname         = $key;
+        $fname = $key;
         $fields['key'] = $key;
     }
     if ($putExtra->CheckCrc) {
@@ -31,7 +33,7 @@ function Qiniu_Put($upToken, $key, $body, $putExtra)
             $fields[$k] = $v;
         }
     }
-    $files  = array(
+    $files = array(
         array(
             'file',
             $fname,
@@ -42,6 +44,7 @@ function Qiniu_Put($upToken, $key, $body, $putExtra)
     $client = new Qiniu_HttpClient;
     return Qiniu_Client_CallWithMultipartForm($client, $QINIU_UP_HOST, $fields, $files);
 }
+
 function createFile($filename, $mime)
 {
     if (function_exists('curl_file_create')) {
@@ -53,6 +56,7 @@ function createFile($filename, $mime)
     }
     return $value;
 }
+
 function Qiniu_PutFile($upToken, $key, $localFile, $putExtra)
 {
     global $QINIU_UP_HOST;
@@ -66,13 +70,13 @@ function Qiniu_PutFile($upToken, $key, $localFile, $putExtra)
     if ($key === null) {
         $fname = '?';
     } else {
-        $fname         = $key;
+        $fname = $key;
         $fields['key'] = $key;
     }
     if ($putExtra->CheckCrc) {
         if ($putExtra->CheckCrc === 1) {
-            $hash            = hash_file('crc32b', $localFile);
-            $array           = unpack('N', pack('H*', $hash));
+            $hash = hash_file('crc32b', $localFile);
+            $array = unpack('N', pack('H*', $hash));
             $putExtra->Crc32 = $array[1];
         }
         $fields['crc32'] = sprintf('%u', $putExtra->Crc32);

@@ -31,18 +31,18 @@ if (!class_exists('TaobaoModel')) {
                     "error" => '宝贝不存在!'
                 );
             }
-            $arr            = json_decode($content, true);
-            $data           = $arr['data'];
-            $itemInfoModel  = $data['itemInfoModel'];
-            $item           = array();
-            $item['id']     = $g['id'];
-            $item['pcate']  = $pcate;
-            $item['ccate']  = $ccate;
-            $item['tcate']  = $tcate;
+            $arr = json_decode($content, true);
+            $data = $arr['data'];
+            $itemInfoModel = $data['itemInfoModel'];
+            $item = array();
+            $item['id'] = $g['id'];
+            $item['pcate'] = $pcate;
+            $item['ccate'] = $ccate;
+            $item['tcate'] = $tcate;
             $item['itemId'] = $itemInfoModel['itemId'];
-            $item['title']  = $itemInfoModel['title'];
-            $item['pics']   = $itemInfoModel['picsPath'];
-            $params         = array();
+            $item['title'] = $itemInfoModel['title'];
+            $item['pics'] = $itemInfoModel['picsPath'];
+            $params = array();
             if (isset($data['props'])) {
                 $props = $data['props'];
                 foreach ($props as $pp) {
@@ -53,8 +53,8 @@ if (!class_exists('TaobaoModel')) {
                 }
             }
             $item['params'] = $params;
-            $specs          = array();
-            $options        = array();
+            $specs = array();
+            $options = array();
             if (isset($data['skuModel'])) {
                 $skuModel = $data['skuModel'];
                 if (isset($skuModel['skuProps'])) {
@@ -68,7 +68,7 @@ if (!class_exists('TaobaoModel')) {
                                 "thumb" => !empty($spec_item['imgUrl']) ? $spec_item['imgUrl'] : ''
                             );
                         }
-                        $spec    = array(
+                        $spec = array(
                             "propId" => $prop['propId'],
                             "title" => $prop['propName'],
                             "items" => $spec_items
@@ -80,9 +80,9 @@ if (!class_exists('TaobaoModel')) {
                     $ppathIdmap = $skuModel['ppathIdmap'];
                     foreach ($ppathIdmap as $key => $skuId) {
                         $option_specs = array();
-                        $m            = explode(";", $key);
+                        $m = explode(";", $key);
                         foreach ($m as $v) {
-                            $mm             = explode(":", $v);
+                            $mm = explode(":", $v);
                             $option_specs[] = array(
                                 "propId" => $mm[0],
                                 "valueId" => $mm[1]
@@ -98,14 +98,14 @@ if (!class_exists('TaobaoModel')) {
                     }
                 }
             }
-            $item['specs']  = $specs;
-            $stack          = $data['apiStack'][0]['value'];
-            $value          = json_decode($stack, true);
-            $item1          = array();
-            $data1          = $value['data'];
+            $item['specs'] = $specs;
+            $stack = $data['apiStack'][0]['value'];
+            $value = json_decode($stack, true);
+            $item1 = array();
+            $data1 = $value['data'];
             $itemInfoModel1 = $data1['itemInfoModel'];
-            $item['total']  = $itemInfoModel1['quantity'];
-            $item['sales']  = $itemInfoModel1['totalSoldQuantity'];
+            $item['total'] = $itemInfoModel1['quantity'];
+            $item['sales'] = $itemInfoModel1['totalSoldQuantity'];
             if (isset($data1['skuModel'])) {
                 $skuModel1 = $data1['skuModel'];
                 if (isset($skuModel1['skus'])) {
@@ -145,18 +145,19 @@ if (!class_exists('TaobaoModel')) {
             }
             $item['options'] = $options;
             $item['content'] = array();
-            $url             = $this->get_detail_url($itemid);
+            $url = $this->get_detail_url($itemid);
             load()->func('communication');
-            $response        = ihttp_get($url);
+            $response = ihttp_get($url);
             $item['content'] = $response;
             return $this->save_goods($item, $taobaourl);
         }
+
         function save_goods($item = array(), $taobaourl = '')
         {
             global $_W;
-            $qiniu     = p('qiniu');
-            $config    = $qiniu ? $qiniu->getConfig() : false;
-            $data      = array(
+            $qiniu = p('qiniu');
+            $config = $qiniu ? $qiniu->getConfig() : false;
+            $data = array(
                 "uniacid" => $_W['uniacid'],
                 "taobaoid" => $item['itemId'],
                 "taobaourl" => $taobaourl,
@@ -180,19 +181,19 @@ if (!class_exists('TaobaoModel')) {
                 'storeids' => ''
             );
             $thumb_url = array();
-            $pics      = $item['pics'];
-            $piclen    = count($pics);
+            $pics = $item['pics'];
+            $piclen = count($pics);
             if ($piclen > 0) {
                 $data['thumb'] = $this->save_image($pics[0], $config);
                 if ($piclen > 1) {
                     for ($i = 1; $i < $piclen; $i++) {
-                        $img         = $this->save_image($pics[$i], $config);
+                        $img = $this->save_image($pics[$i], $config);
                         $thumb_url[] = $img;
                     }
                 }
             }
             $data['thumb_url'] = serialize($thumb_url);
-            $goods             = pdo_fetch("select * from " . tablename('sz_yi_goods') . " where  taobaoid=:taobaoid and uniacid=:uniacid", array(
+            $goods = pdo_fetch("select * from " . tablename('sz_yi_goods') . " where  taobaoid=:taobaoid and uniacid=:uniacid", array(
                 ":taobaoid" => $item['itemId'],
                 ":uniacid" => $_W['uniacid']
             ));
@@ -209,16 +210,16 @@ if (!class_exists('TaobaoModel')) {
             $goods_params = pdo_fetchall("select * from " . tablename('sz_yi_goods_param') . " where goodsid=:goodsid ", array(
                 ":goodsid" => $goodsid
             ));
-            $params       = $item['params'];
-            $paramids     = array();
+            $params = $item['params'];
+            $paramids = array();
             $displayorder = 0;
             foreach ($params as $p) {
-                $oldp    = pdo_fetch("select * from " . tablename('sz_yi_goods_param') . " where goodsid=:goodsid and title=:title limit 1", array(
+                $oldp = pdo_fetch("select * from " . tablename('sz_yi_goods_param') . " where goodsid=:goodsid and title=:title limit 1", array(
                     ":goodsid" => $goodsid,
                     ":title" => $p['title']
                 ));
                 $paramid = 0;
-                $d       = array(
+                $d = array(
                     "uniacid" => $_W['uniacid'],
                     "goodsid" => $goodsid,
                     "title" => $p['title'],
@@ -246,17 +247,17 @@ if (!class_exists('TaobaoModel')) {
                     ':goodsid' => $goodsid
                 ));
             }
-            $specs        = $item['specs'];
-            $specids      = array();
+            $specs = $item['specs'];
+            $specids = array();
             $displayorder = 0;
-            $newspecs     = array();
+            $newspecs = array();
             foreach ($specs as $spec) {
                 $oldspec = pdo_fetch("select * from " . tablename('sz_yi_goods_spec') . " where goodsid=:goodsid and propId=:propId limit 1", array(
                     ":goodsid" => $goodsid,
                     ":propId" => $spec['propId']
                 ));
-                $specid  = 0;
-                $d_spec  = array(
+                $specid = 0;
+                $d_spec = array(
                     "uniacid" => $_W['uniacid'],
                     "goodsid" => $goodsid,
                     "title" => $spec['title'],
@@ -273,14 +274,14 @@ if (!class_exists('TaobaoModel')) {
                     $specid = $oldspec['id'];
                 }
                 $d_spec['id'] = $specid;
-                $specids[]    = $specid;
+                $specids[] = $specid;
                 $displayorder++;
-                $spec_items        = $spec['items'];
-                $spec_itemids      = array();
+                $spec_items = $spec['items'];
+                $spec_itemids = array();
                 $displayorder_item = 0;
-                $newspecitems      = array();
+                $newspecitems = array();
                 foreach ($spec_items as $spec_item) {
-                    $d            = array(
+                    $d = array(
                         "uniacid" => $_W['uniacid'],
                         "specid" => $specid,
                         "title" => $spec_item['title'],
@@ -289,7 +290,7 @@ if (!class_exists('TaobaoModel')) {
                         "show" => 1,
                         "displayorder" => $displayorder_item
                     );
-                    $oldspecitem  = pdo_fetch("select * from " . tablename('sz_yi_goods_spec_item') . " where specid=:specid and valueId=:valueId limit 1", array(
+                    $oldspecitem = pdo_fetch("select * from " . tablename('sz_yi_goods_spec_item') . " where specid=:specid and valueId=:valueId limit 1", array(
                         ":specid" => $specid,
                         ":valueId" => $spec_item['valueId']
                     ));
@@ -305,11 +306,11 @@ if (!class_exists('TaobaoModel')) {
                     }
                     $displayorder_item++;
                     $spec_itemids[] = $spec_item_id;
-                    $d['id']        = $spec_item_id;
+                    $d['id'] = $spec_item_id;
                     $newspecitems[] = $d;
                 }
                 $d_spec['items'] = $newspecitems;
-                $newspecs[]      = $d_spec;
+                $newspecs[] = $d_spec;
                 if (count($spec_itemids) > 0) {
                     pdo_query("delete from " . tablename('sz_yi_goods_spec_item') . " where specid=:specid and id not in (" . implode(",", $spec_itemids) . ")", array(
                         ":specid" => $specid
@@ -335,29 +336,29 @@ if (!class_exists('TaobaoModel')) {
                 ));
             }
             $minprice = 0;
-            $options  = $item['options'];
+            $options = $item['options'];
             if (count($options) > 0) {
                 $minprice = $options[0]['marketprice'];
             }
-            $optionids    = array();
+            $optionids = array();
             $displayorder = 0;
             foreach ($options as $o) {
                 $option_specs = $o['option_specs'];
-                $ids          = array();
-                $valueIds     = array();
+                $ids = array();
+                $valueIds = array();
                 foreach ($option_specs as $os) {
                     foreach ($newspecs as $nsp) {
                         foreach ($nsp['items'] as $nspitem) {
                             if ($nspitem['valueId'] == $os['valueId']) {
-                                $ids[]      = $nspitem['id'];
+                                $ids[] = $nspitem['id'];
                                 $valueIds[] = $nspitem['valueId'];
                             }
                         }
                     }
                 }
-                $ids      = implode("_", $ids);
+                $ids = implode("_", $ids);
                 $valueIds = implode("_", $valueIds);
-                $do       = array(
+                $do = array(
                     'uniacid' => $_W['uniacid'],
                     "displayorder" => $displayorder,
                     "goodsid" => $goodsid,
@@ -397,7 +398,7 @@ if (!class_exists('TaobaoModel')) {
                 ));
             }
             $response = $item['content'];
-            $content  = $response['content'];
+            $content = $response['content'];
             preg_match_all("/<img.*?src=[\'| \"](.*?(?:[\.gif|\.jpg]?))[\'|\"].*?[\/]?>/", $content, $imgs);
             if (isset($imgs[1])) {
                 foreach ($imgs[1] as $img) {
@@ -441,6 +442,7 @@ if (!class_exists('TaobaoModel')) {
                 'goodsid' => $goodsid
             );
         }
+
         function save_image($url = '', $config)
         {
             global $_W;
@@ -449,20 +451,23 @@ if (!class_exists('TaobaoModel')) {
             }
             return $this->saveToLocal($url);
         }
+
         function get_info_url($itemid)
         {
             return "http://hws.m.taobao.com/cache/wdetail/5.0/?id=" . $itemid;
         }
+
         function get_detail_url($itemid)
         {
             return 'http://hws.m.taobao.com/cache/wdesc/5.0/?id=' . $itemid;
         }
+
         function check_remote_file_exists($url)
         {
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_NOBODY, true);
             $result = curl_exec($curl);
-            $found  = false;
+            $found = false;
             if ($result !== false) {
                 $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
                 if ($statusCode == 200) {
@@ -472,6 +477,7 @@ if (!class_exists('TaobaoModel')) {
             curl_close($curl);
             return $found;
         }
+
         function saveToLocal($url)
         {
             global $_W;
@@ -486,7 +492,7 @@ if (!class_exists('TaobaoModel')) {
                 return '';
             }
             $apath = $_W['config']['upload']['attachdir'] . "/";
-            $path  = "images/sz_yi/" . $_W['uniacid'] . "/" . date('Y') . "/" . date('m') . "/";
+            $path = "images/sz_yi/" . $_W['uniacid'] . "/" . date('Y') . "/" . date('m') . "/";
             load()->func('file');
             mkdirs(IA_ROOT . "/" . $apath . $path);
             do {
@@ -500,7 +506,7 @@ if (!class_exists('TaobaoModel')) {
                 )
             );
             $data = file_get_contents($url, false, stream_context_create($opts));
-            $fp2  = @fopen(IA_ROOT . "/" . $apath . $path, "w");
+            $fp2 = @fopen(IA_ROOT . "/" . $apath . $path, "w");
             fwrite($fp2, $data);
             fclose($fp2);
             load()->func('file');
@@ -510,11 +516,13 @@ if (!class_exists('TaobaoModel')) {
             }
             return $path;
         }
+
         function get_pageno_url($url = '', $pageNo = 1)
         {
             $url .= "/search.htm?pageNo=" . $pageNo;
             return $url;
         }
+
         function get_total_page($url = '', $taobao = false)
         {
             if (empty($url)) {
@@ -541,6 +549,7 @@ if (!class_exists('TaobaoModel')) {
                 'totalpage' => 0
             );
         }
+
         function httpGet($url)
         {
             $curl = curl_init();
@@ -553,6 +562,7 @@ if (!class_exists('TaobaoModel')) {
             curl_close($curl);
             return $res;
         }
+
         function get_page_content($url = '', $pageNo = 1)
         {
             if (empty($url)) {
@@ -570,6 +580,7 @@ if (!class_exists('TaobaoModel')) {
             }
             return $response['content'];
         }
+
         function getRealURL($url)
         {
             if (function_exists("stream_context_set_default")) {
@@ -590,6 +601,7 @@ if (!class_exists('TaobaoModel')) {
                 return $url;
             }
         }
+
         function get_pag_items($pageContent = '')
         {
             $str = '/data-id="(.*)"/U';
@@ -599,6 +611,7 @@ if (!class_exists('TaobaoModel')) {
             }
             return array();
         }
+
         function perms()
         {
             return array(

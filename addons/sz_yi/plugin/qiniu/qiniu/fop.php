@@ -1,5 +1,6 @@
 <?php
 require_once('auth_digest.php');
+
 class Qiniu_ImageView
 {
     public $Mode;
@@ -7,6 +8,7 @@ class Qiniu_ImageView
     public $Height;
     public $Quality;
     public $Format;
+
     public function MakeRequest($url)
     {
         $ops = array(
@@ -27,6 +29,7 @@ class Qiniu_ImageView
         return $url . "?imageView/" . implode('/', $ops);
     }
 }
+
 class Qiniu_Exif
 {
     public function MakeRequest($url)
@@ -34,6 +37,7 @@ class Qiniu_Exif
         return $url . "?exif";
     }
 }
+
 class Qiniu_ImageInfo
 {
     public function MakeRequest($url)

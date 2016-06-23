@@ -6,7 +6,7 @@ ca('virtual.set.view');
 $set = $this->getSet();
 if (checksubmit('submit')) {
     ca('virtual.set.save');
-    $data       = is_array($_GPC['setdata']) ? array_merge($set, $_GPC['setdata']) : array();
+    $data = is_array($_GPC['setdata']) ? array_merge($set, $_GPC['setdata']) : array();
     $data['tm'] = is_array($_GPC['tm']) ? $_GPC['tm'] : array();
     $this->updateSet($data);
     plog('virtual.set.save', '修改基本设置');

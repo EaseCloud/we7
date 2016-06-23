@@ -36,7 +36,7 @@ if ($operation == 'display') {
     $list = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_virtual_category') . " WHERE uniacid = '{$_W['uniacid']}' ORDER BY id DESC");
 } elseif ($operation == 'delete') {
     ca('virtual.category.delete');
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $item = pdo_fetch("SELECT id,name FROM " . tablename('sz_yi_virtual_category') . " WHERE id = '$id' AND uniacid=" . $_W['uniacid'] . "");
     if (empty($item)) {
         message('抱歉，分类不存在或是已经被删除！', $this->createPluginWebUrl('virtual/category', array(

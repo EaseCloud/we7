@@ -11,17 +11,17 @@ if ($operation == 'display') {
         message("Url参数错误！请重试！", $this->createPluginWebUrl('virtual/temp'), 'error');
         exit;
     }
-    $kw             = $_GPC['keyword'];
-    $page           = empty($_GPC['page']) ? "" : $_GPC['page'];
-    $pindex         = max(1, intval($page));
-    $psize          = 100;
-    $type           = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_type') . ' WHERE id=:id and uniacid=:uniacid ', array(
+    $kw = $_GPC['keyword'];
+    $page = empty($_GPC['page']) ? "" : $_GPC['page'];
+    $pindex = max(1, intval($page));
+    $psize = 100;
+    $type = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_type') . ' WHERE id=:id and uniacid=:uniacid ', array(
         ':id' => $typeid,
         ':uniacid' => $_W['uniacid']
     ));
     $type['fields'] = iunserializer($type['fields']);
-    $condition      = " and d.typeid=:typeid and d.uniacid=:uniacid";
-    $params         = array(
+    $condition = " and d.typeid=:typeid and d.uniacid=:uniacid";
+    $params = array(
         ':typeid' => $typeid,
         ':uniacid' => $_W['uniacid']
     );
@@ -40,7 +40,7 @@ if ($operation == 'display') {
         $carrier = iunserializer($row['carrier']);
         if (is_array($carrier)) {
             $row['realname'] = $carrier['carrier_realname'];
-            $row['mobile']   = $carrier['carrier_mobile'];
+            $row['mobile'] = $carrier['carrier_mobile'];
         }
     }
     unset($row);
@@ -62,7 +62,7 @@ if ($operation == 'display') {
         $item['fields'] = iunserializer($item['fields']);
     }
     if (!empty($editid)) {
-        $data         = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_data') . ' WHERE id=:id and typeid=:typeid and uniacid=:uniacid ', array(
+        $data = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_data') . ' WHERE id=:id and typeid=:typeid and uniacid=:uniacid ', array(
             ':id' => $editid,
             ':typeid' => $typeid,
             ':uniacid' => $_W['uniacid']
@@ -72,7 +72,7 @@ if ($operation == 'display') {
     if ($_W['ispost']) {
         $typeid = intval($_GPC['typeid']);
         if (!empty($typeid)) {
-            $item           = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_type') . ' WHERE id=:id and uniacid=:uniacid ', array(
+            $item = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_type') . ' WHERE id=:id and uniacid=:uniacid ', array(
                 ':id' => $typeid,
                 ':uniacid' => $_W['uniacid']
             ));
@@ -90,7 +90,7 @@ if ($operation == 'display') {
                         'fields' => iserializer($values),
                         'uniacid' => $_W['uniacid']
                     );
-                    $datas  = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_data') . ' WHERE id=:id and typeid=:typeid and uniacid=:uniacid ', array(
+                    $datas = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_data') . ' WHERE id=:id and typeid=:typeid and uniacid=:uniacid ', array(
                         ':id' => $id,
                         ':typeid' => $typeid,
                         ':uniacid' => $_W['uniacid']
@@ -145,12 +145,12 @@ if ($operation == 'display') {
     $num = $_GPC['num'];
     $len = intval($_GPC['len']);
     $len == 0 && $len = 1;
-    $arr    = array(
+    $arr = array(
         $num
     );
     $maxlen = strlen($num);
     for ($i = 1; $i <= $len; $i++) {
-        $add    = bcadd($num, $i) . "";
+        $add = bcadd($num, $i) . "";
         $addlen = strlen($add);
         if ($addlen > $maxlen) {
             $maxlen = $addlen;
@@ -167,7 +167,7 @@ if ($operation == 'display') {
     die(json_encode($arr));
 } elseif ($operation == 'delete') {
     ca('virtual.data.delete');
-    $id     = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $typeid = intval($_GPC['typeid']);
     if (!empty($id)) {
         $type = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_data') . ' WHERE id=:id and uniacid=:uniacid ', array(
@@ -199,11 +199,11 @@ if ($operation == 'display') {
 }
 function createAutoNum($a, $b)
 {
-    $m      = strlen($a);
-    $n      = strlen($b);
-    $num    = $m > $n ? $m : $n;
+    $m = strlen($a);
+    $n = strlen($b);
+    $num = $m > $n ? $m : $n;
     $result = '';
-    $flag   = 0;
+    $flag = 0;
     while ($num--) {
         $t1 = 0;
         $t2 = 0;
@@ -213,23 +213,25 @@ function createAutoNum($a, $b)
         if ($n > 0) {
             $t2 = $b[--$n];
         }
-        $t      = $t1 + $t2 + $flag;
-        $flag   = $t / 10;
+        $t = $t1 + $t2 + $flag;
+        $flag = $t / 10;
         $result = ($t % 10) . $result;
     }
     return $result;
 }
+
 function NumToStr($num)
 {
     if (stripos($num, 'e') === false)
         return $num;
-    $num    = trim(preg_replace('/[=\'"]/', '', $num, 1), '"');
+    $num = trim(preg_replace('/[=\'"]/', '', $num, 1), '"');
     $result = "";
     while ($num > 0) {
-        $v      = $num - floor($num / 10) * 10;
-        $num    = floor($num / 10);
+        $v = $num - floor($num / 10) * 10;
+        $num = floor($num / 10);
         $result = $v . $result;
     }
     return $result;
 }
+
 include $this->template('data');

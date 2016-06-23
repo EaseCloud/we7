@@ -5,12 +5,14 @@ if (!defined('IN_IA')) {
 }
 require IA_ROOT . '/addons/sz_yi/defines.php';
 require sz_yi_INC . 'plugin/plugin_processor.php';
+
 class ExhelperProcessor extends PluginProcessor
 {
     public function __construct()
     {
         parent::__construct('exhelper');
     }
+
     public function respond($_var_0 = null)
     {
         global $_W;
@@ -80,6 +82,7 @@ class ExhelperProcessor extends PluginProcessor
             }
         }
     }
+
     private function responseEmpty()
     {
         ob_clean();

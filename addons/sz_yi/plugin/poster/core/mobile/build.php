@@ -1,7 +1,7 @@
 <?php
 global $_W, $_GPC;
-$goods   = array();
-$openid  = trim($_GPC['openid']);
+$goods = array();
+$openid = trim($_GPC['openid']);
 $content = trim(urldecode($_GPC['content']));
 if (empty($openid)) {
     exit;
@@ -11,7 +11,7 @@ if (empty($member)) {
     exit;
 }
 if (strexists($content, '+')) {
-    $msg    = explode('+', $content);
+    $msg = explode('+', $content);
     $poster = pdo_fetch('select * from ' . tablename('sz_yi_poster') . ' where keyword=:keyword and type=3 and isdefault=1 and uniacid=:uniacid limit 1', array(
         ':keyword' => $msg[0],
         ':uniacid' => $_W['uniacid']
@@ -49,12 +49,12 @@ if (is_error($qr)) {
     m('message')->sendCustomNotice($openid, '生成二维码出错: ' . $qr['message']);
     exit;
 }
-$img     = $this->model->createPoster($poster, $member, $qr);
+$img = $this->model->createPoster($poster, $member, $qr);
 $mediaid = $img['mediaid'];
 if (!empty($mediaid)) {
-	m('message')->sendImage($openid, $mediaid);
+    m('message')->sendImage($openid, $mediaid);
 } else {
-	$oktext = '<a href=\'' . $img['img'] . '\'>点击查看您的专属海报</a>';
-	m('message')->sendCustomNotice($openid, $oktext);
+    $oktext = '<a href=\'' . $img['img'] . '\'>点击查看您的专属海报</a>';
+    m('message')->sendCustomNotice($openid, $oktext);
 }
 exit;

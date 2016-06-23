@@ -10,11 +10,12 @@ if (!class_exists('DiyformModel')) {
         public $_data_type_config = array(0 => '单行文本', 1 => '多行文本', 2 => '下拉框', 3 => '多选框', 5 => '图片', 6 => '身份证号码', 7 => '日期', 8 => '日期范围', 9 => '城市');
         public $_default_data_config = array(0 => '', 1 => '自定义', 2 => '姓名', 3 => '电话', 4 => '微信号');
         public $_default_date_config = array(0 => '', 1 => '填写当天', 2 => '特定日期');
+
         public function getInsertData($fields, $memberdata)
         {
             global $_W;
-            $data    = array();
-            $m_data  = array();
+            $data = array();
+            $m_data = array();
             $mc_data = array();
             foreach ($fields as $key => $value) {
                 $data_type = $value['data_type'];
@@ -55,11 +56,12 @@ if (!class_exists('DiyformModel')) {
                     $data[$key] = trim($memberdata[$key]);
                 }
             }
-            $insert_data['data']    = iserializer($data);
-            $insert_data['m_data']  = $m_data;
+            $insert_data['data'] = iserializer($data);
+            $insert_data['m_data'] = $m_data;
             $insert_data['mc_data'] = $mc_data;
             return $insert_data;
         }
+
         public function getDiyformData($diyform_data, $fields, $member, $flag = 0, $last_flag = 0)
         {
             global $_W;
@@ -188,6 +190,7 @@ if (!class_exists('DiyformModel')) {
             }
             return $f_data;
         }
+
         public function getFormatData($id, $fields, $member)
         {
             global $_W;
@@ -197,13 +200,14 @@ if (!class_exists('DiyformModel')) {
             $f_data = $this->getDiyformData($diyform_data, $fields, $member);
             return $f_data;
         }
+
         public function getLastData($type, $diymode, $diyformid, $cid, $fields, $member)
         {
             global $_W;
             if (!empty($cid)) {
-                $table_name   = 'sz_yi_diyform_temp';
-                $sql          = 'select * from ' . tablename($table_name) . ' where cid=:cid and diyformid=:diyformid and uniacid=:uniacid and openid=:openid and type=:type order by id desc Limit 1';
-                $params       = array(
+                $table_name = 'sz_yi_diyform_temp';
+                $sql = 'select * from ' . tablename($table_name) . ' where cid=:cid and diyformid=:diyformid and uniacid=:uniacid and openid=:openid and type=:type order by id desc Limit 1';
+                $params = array(
                     ':cid' => $cid,
                     ':diyformid' => $diyformid,
                     ':uniacid' => $_W['uniacid'],
@@ -211,23 +215,24 @@ if (!class_exists('DiyformModel')) {
                     ':type' => $type
                 );
                 $diyform_data = pdo_fetch($sql, $params);
-                $data         = $diyform_data['diyformdata'];
+                $data = $diyform_data['diyformdata'];
                 if (empty($data)) {
-                    $table_name   = 'sz_yi_order_goods';
-                    $sql          = 'select * from ' . tablename($table_name) . ' where id=:cid and diyformid=:diyformid and uniacid=:uniacid and openid=:openid order by id desc Limit 1';
-                    $params       = array(
+                    $table_name = 'sz_yi_order_goods';
+                    $sql = 'select * from ' . tablename($table_name) . ' where id=:cid and diyformid=:diyformid and uniacid=:uniacid and openid=:openid order by id desc Limit 1';
+                    $params = array(
                         ':cid' => $cid,
                         ':diyformid' => $diyformid,
                         ':uniacid' => $_W['uniacid'],
                         ':openid' => $member['openid']
                     );
                     $diyform_data = pdo_fetch($sql, $params);
-                    $data         = $diyform_data['diyformdata'];
+                    $data = $diyform_data['diyformdata'];
                 }
                 $f_data = $this->getDiyformData($data, $fields, $member, 1, 1);
             }
             return $f_data;
         }
+
         public function getLastOrderData($diyformid, $member)
         {
             global $_W;
@@ -243,6 +248,7 @@ if (!class_exists('DiyformModel')) {
             }
             return $f_data;
         }
+
         public function addDataNum($id)
         {
             global $_W;
@@ -250,10 +256,11 @@ if (!class_exists('DiyformModel')) {
                 'id' => $id
             ));
         }
+
         public function getCountData($typeid, $type = 0)
         {
             global $_W;
-            $sql    = 'select count(*) from ' . tablename('sz_yi_diyform_data') . " where typeid=:typeid and uniacid=:uniacid";
+            $sql = 'select count(*) from ' . tablename('sz_yi_diyform_data') . " where typeid=:typeid and uniacid=:uniacid";
             $params = array(
                 ':typeid' => $typeid,
                 ':uniacid' => $_W['uniacid']
@@ -265,23 +272,25 @@ if (!class_exists('DiyformModel')) {
             $datacount = pdo_fetchcolumn($sql, $params);
             return $datacount;
         }
+
         public function getGoodsTemp($goodsid, $diyformid, $openid)
         {
             global $_W;
-            $sql    = 'select * from ' . tablename('sz_yi_diyform_temp') . " where cid=:cid and diyformid=:diyformid and openid=:openid and uniacid=:uniacid Limit 1";
+            $sql = 'select * from ' . tablename('sz_yi_diyform_temp') . " where cid=:cid and diyformid=:diyformid and openid=:openid and uniacid=:uniacid Limit 1";
             $params = array(
                 ':cid' => $goodsid,
                 ':diyformid' => $diyformid,
                 ':openid' => $openid,
                 ':uniacid' => $_W['uniacid']
             );
-            $data   = pdo_fetch($sql, $params);
+            $data = pdo_fetch($sql, $params);
             return $data;
         }
+
         public function getCountGoodsUsed($diyformid, $diyformtype = -1)
         {
             global $_W;
-            $sql    = 'select count(id) from ' . tablename('sz_yi_goods') . " where diyformid=:diyformid and uniacid=:uniacid";
+            $sql = 'select count(id) from ' . tablename('sz_yi_goods') . " where diyformid=:diyformid and uniacid=:uniacid";
             $params = array(
                 ':diyformid' => $diyformid,
                 ':uniacid' => $_W['uniacid']
@@ -295,6 +304,7 @@ if (!class_exists('DiyformModel')) {
             $datacount = pdo_fetchcolumn($sql, $params);
             return $datacount;
         }
+
         public function getDiyformList()
         {
             global $_W;
@@ -303,6 +313,7 @@ if (!class_exists('DiyformModel')) {
             ));
             return $form_list;
         }
+
         public function getDiyformInfo($id, $flag = 1)
         {
             global $_W;
@@ -315,6 +326,7 @@ if (!class_exists('DiyformModel')) {
             }
             return $formInfo;
         }
+
         public function getOneDiyformData($id, $flag = 1)
         {
             global $_W;
@@ -324,10 +336,11 @@ if (!class_exists('DiyformModel')) {
             ));
             if (!empty($data) && $flag) {
                 $data['diyformfields'] = iunserializer($data['diyformfields']);
-                $data['fields']        = iunserializer($data['fields']);
+                $data['fields'] = iunserializer($data['fields']);
             }
             return $data;
         }
+
         public function getOneDiyformTemp($id, $flag = 1)
         {
             global $_W;
@@ -337,10 +350,11 @@ if (!class_exists('DiyformModel')) {
             ));
             if (!empty($data) && $flag) {
                 $data['diyformfields'] = iunserializer($data['diyformfields']);
-                $data['diyformdata']   = iunserializer($data['diyformdata']);
+                $data['diyformdata'] = iunserializer($data['diyformdata']);
             }
             return $data;
         }
+
         public function getDatas($fields, $data)
         {
             $diyformfields = array();
@@ -370,6 +384,7 @@ if (!class_exists('DiyformModel')) {
             }
             return $diyformfields;
         }
+
         public function perms()
         {
             return array(

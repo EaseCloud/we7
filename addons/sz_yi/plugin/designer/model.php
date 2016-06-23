@@ -19,20 +19,22 @@ if (!class_exists('DesignerModel')) {
             }
             return $this->getData($page);
         }
+
         public function change(&$d, $cdata)
         {
-            $d[$b['k1']][$b['k2']]['name']     = $cdata['title'];
+            $d[$b['k1']][$b['k2']]['name'] = $cdata['title'];
             $d[$b['k1']][$b['k2']]['priceold'] = $cdata['productprice'];
             $d[$b['k1']][$b['k2']]['pricenow'] = $cdata['marketprice'];
-            $d[$b['k1']][$b['k2']]['img']      = $cdata['thumb'];
-            $d[$b['k1']][$b['k2']]['sales']    = $cdata['sales'];
-            $d[$b['k1']][$b['k2']]['unit']     = $cdata['unit'];
+            $d[$b['k1']][$b['k2']]['img'] = $cdata['thumb'];
+            $d[$b['k1']][$b['k2']]['sales'] = $cdata['sales'];
+            $d[$b['k1']][$b['k2']]['unit'] = $cdata['unit'];
         }
+
         public function getData($page)
         {
             global $_W;
-            $data     = htmlspecialchars_decode($page['datas']);
-            $d        = json_decode($data, true);
+            $data = htmlspecialchars_decode($page['datas']);
+            $d = json_decode($data, true);
             $goodsids = array();
             foreach ($d as $k1 => &$dd) {
                 if ($dd['temp'] == 'goods') {
@@ -60,38 +62,38 @@ if (!class_exists('DesignerModel')) {
                 foreach ($d as $k1 => &$dd) {
                     if ($dd['temp'] == 'goods') {
                         foreach ($dd['data'] as $k2 => &$ddd) {
-                            $cdata           = $goodinfos[$ddd['goodid']];
-                            $ddd['name']     = $cdata['title'];
+                            $cdata = $goodinfos[$ddd['goodid']];
+                            $ddd['name'] = $cdata['title'];
                             $ddd['priceold'] = $cdata['productprice'];
                             $ddd['pricenow'] = $cdata['marketprice'];
-                            $ddd['img']      = $cdata['thumb'];
-                            $ddd['sales']    = $cdata['sales'];
-                            $ddd['unit']     = $cdata['unit'];
+                            $ddd['img'] = $cdata['thumb'];
+                            $ddd['sales'] = $cdata['sales'];
+                            $ddd['unit'] = $cdata['unit'];
                         }
                         unset($ddd);
                     }
                 }
                 unset($dd);
             }
-            $data           = json_encode($d);
-            $data           = rtrim($data, "]");
-            $data           = ltrim($data, "[");
-            $pageinfo       = htmlspecialchars_decode($page['pageinfo']);
-            $p              = json_decode($pageinfo, true);
-            $page_title     = empty($p[0]['params']['title']) ? "未设置页面标题" : $p[0]['params']['title'];
-            $page_desc      = empty($p[0]['params']['desc']) ? "未设置页面简介" : $p[0]['params']['desc'];
-            $page_img       = empty($p[0]['params']['img']) ? "" : tomedia($p[0]['params']['img']);
-            $page_keyword   = empty($p[0]['params']['kw']) ? "" : $p[0]['params']['kw'];
-            $shopset        = m('common')->getSysset(array(
+            $data = json_encode($d);
+            $data = rtrim($data, "]");
+            $data = ltrim($data, "[");
+            $pageinfo = htmlspecialchars_decode($page['pageinfo']);
+            $p = json_decode($pageinfo, true);
+            $page_title = empty($p[0]['params']['title']) ? "未设置页面标题" : $p[0]['params']['title'];
+            $page_desc = empty($p[0]['params']['desc']) ? "未设置页面简介" : $p[0]['params']['desc'];
+            $page_img = empty($p[0]['params']['img']) ? "" : tomedia($p[0]['params']['img']);
+            $page_keyword = empty($p[0]['params']['kw']) ? "" : $p[0]['params']['kw'];
+            $shopset = m('common')->getSysset(array(
                 'shop',
                 'share'
             ));
-            $system         = $shopset;
+            $system = $shopset;
             $system['shop'] = set_medias($system['shop'], 'logo');
-            $system         = json_encode($system);
-            $pageinfo       = rtrim($pageinfo, "]");
-            $pageinfo       = ltrim($pageinfo, "[");
-            $ret            = array(
+            $system = json_encode($system);
+            $pageinfo = rtrim($pageinfo, "]");
+            $pageinfo = ltrim($pageinfo, "[");
+            $ret = array(
                 'page' => $page,
                 'pageinfo' => $pageinfo,
                 'data' => $data,
@@ -106,22 +108,23 @@ if (!class_exists('DesignerModel')) {
             );
             if ($p[0]['params']['footer'] == 2) {
                 $menuid = intval($p[0]['params']['footermenu']);
-                $menu   = pdo_fetch('select * from ' . tablename('sz_yi_designer_menu') . ' where id=:id and uniacid=:uniacid limit 1', array(
+                $menu = pdo_fetch('select * from ' . tablename('sz_yi_designer_menu') . ' where id=:id and uniacid=:uniacid limit 1', array(
                     ':id' => $menuid,
                     ':uniacid' => $_W['uniacid']
                 ));
                 if (!empty($menu)) {
-                    $ret['menus']  = json_decode($menu['menus'], true);
+                    $ret['menus'] = json_decode($menu['menus'], true);
                     $ret['params'] = json_decode($menu['params'], true);
                 }
             }
             return $ret;
         }
+
         public function escape($str)
         {
             preg_match_all("/[\xc2-\xdf][\x80-\xbf]+|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}|[\x01-\x7f]+/e", $str, $r);
             $str = $r[0];
-            $l   = count($str);
+            $l = count($str);
             for ($i = 0; $i < $l; $i++) {
                 $value = ord($str[$i][0]);
                 if ($value < 223) {
@@ -132,6 +135,7 @@ if (!class_exists('DesignerModel')) {
             }
             return join("", $str);
         }
+
         public function unescape($str)
         {
             $ret = '';
@@ -154,19 +158,20 @@ if (!class_exists('DesignerModel')) {
             }
             return $ret;
         }
+
         public function getGuide($system, $pageinfo)
         {
             global $_W, $_GPC;
             if (!empty($_GPC['preview'])) {
                 $guide['followed'] = '0';
             } else {
-                $guide['openid2']  = m('user')->getOpenid();
+                $guide['openid2'] = m('user')->getOpenid();
                 $guide['followed'] = m('user')->followed($guide['openid2']);
             }
             if ($guide['followed'] != '1') {
-                $system         = json_decode($system, true);
+                $system = json_decode($system, true);
                 $system['shop'] = set_medias($system['shop'], 'logo');
-                $pageinfo       = json_decode($pageinfo, true);
+                $pageinfo = json_decode($pageinfo, true);
                 if (!empty($_GPC['mid'])) {
                     $guide['member1'] = pdo_fetch("SELECT id,nickname,openid,avatar FROM " . tablename('sz_yi_member') . " WHERE id=:mid and uniacid= :uniacid limit 1 ", array(
                         ':uniacid' => $_W['uniacid'],
@@ -181,24 +186,26 @@ if (!class_exists('DesignerModel')) {
                 if (empty($guide['member1'])) {
                     $guide['title1'] = $pageinfo['params']['guidetitle1'];
                     $guide['title2'] = $pageinfo['params']['guidetitle2'];
-                    $guide['logo']   = $system['shop']['logo'];
+                    $guide['logo'] = $system['shop']['logo'];
                 } else {
                     $pageinfo['params']['guidetitle1s'] = str_replace("[邀请人]", $guide['member1']['nickname'], $pageinfo['params']['guidetitle1s']);
                     $pageinfo['params']['guidetitle2s'] = str_replace("[邀请人]", $guide['member1']['nickname'], $pageinfo['params']['guidetitle2s']);
                     $pageinfo['params']['guidetitle1s'] = str_replace("[访问者]", $guide['member2']['nickname'], $pageinfo['params']['guidetitle1s']);
                     $pageinfo['params']['guidetitle2s'] = str_replace("[访问者]", $guide['member2']['nickname'], $pageinfo['params']['guidetitle2s']);
-                    $guide['title1']                    = $pageinfo['params']['guidetitle1s'];
-                    $guide['title2']                    = $pageinfo['params']['guidetitle2s'];
-                    $guide['logo']                      = $guide['member1']['avatar'];
+                    $guide['title1'] = $pageinfo['params']['guidetitle1s'];
+                    $guide['title2'] = $pageinfo['params']['guidetitle2s'];
+                    $guide['logo'] = $guide['member1']['avatar'];
                 }
             }
             return $guide;
         }
+
         public function getMenu($menuid = 0)
         {
             if (empty($menuid)) {
             }
         }
+
         public function getDefaultMenuID()
         {
             global $_W;
@@ -206,6 +213,7 @@ if (!class_exists('DesignerModel')) {
                 ':uniacid' => $_W['uniacid']
             ));
         }
+
         public function getDefaultMenu()
         {
             global $_W;
@@ -213,6 +221,7 @@ if (!class_exists('DesignerModel')) {
                 ':uniacid' => $_W['uniacid']
             ));
         }
+
         public function perms()
         {
             return array(

@@ -3,14 +3,14 @@
 global $_W, $_GPC;
 $pageid = $_GPC['pageid'];
 if (!empty($pageid)) {
-    $page     = pdo_fetch("SELECT * FROM " . tablename('sz_yi_designer') . " WHERE uniacid= :uniacid and id=:id", array(
+    $page = pdo_fetch("SELECT * FROM " . tablename('sz_yi_designer') . " WHERE uniacid= :uniacid and id=:id", array(
         ':uniacid' => $_W['uniacid'],
         ':id' => $pageid
     ));
     $pagedata = $this->model->getData($page);
     extract($pagedata);
 }
-$guide     = $this->model->getGuide($system, $pageinfo);
+$guide = $this->model->getGuide($system, $pageinfo);
 $sharelink = $this->createPluginMobileUrl('designer', array(
     'pageid' => $page['id']
 ));
@@ -27,8 +27,8 @@ if (p('commission')) {
     $set = p('commission')->getSet();
     if (!empty($set['level'])) {
         if (!empty($_GPC['preview'])) {
-            $openid                 = 'fromUser';
-            $this->footer['first']  = array(
+            $openid = 'fromUser';
+            $this->footer['first'] = array(
                 'text' => '首页',
                 'ico' => 'home',
                 'url' => $this->createMobileUrl('shop')

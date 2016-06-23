@@ -14,8 +14,8 @@ if (!class_exists('VerifyModel')) {
                 load()->func('file');
                 mkdirs($path);
             }
-            $url         = $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&m=sz_yi&do=plugin&p=verify&method=detail&id=' . $orderid;
-            $file        = 'order_verify_qrcode_' . $orderid . '.png';
+            $url = $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&m=sz_yi&do=plugin&p=verify&method=detail&id=' . $orderid;
+            $file = 'order_verify_qrcode_' . $orderid . '.png';
             $qrcode_file = $path . '/' . $file;
             if (!is_file($qrcode_file)) {
                 require IA_ROOT . '/framework/library/qrcode/phpqrcode.php';
@@ -23,6 +23,7 @@ if (!class_exists('VerifyModel')) {
             }
             return $_W['siteroot'] . '/addons/sz_yi/data/qrcode/' . $_W['uniacid'] . '/' . $file;
         }
+
         public function perms()
         {
             return array(

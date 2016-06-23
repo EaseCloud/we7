@@ -5,11 +5,11 @@ global $_W, $_GPC;
 ca('verify.keyword');
 $set = $this->getSet();
 if (checksubmit('submit')) {
-    $data                  = is_array($_GPC['data']) ? $_GPC['data'] : array();
+    $data = is_array($_GPC['data']) ? $_GPC['data'] : array();
     $data['verifykeyword'] = empty($data['verifykeyword']) ? '核销' : $data['verifykeyword'];
     $this->updateSet($data);
     $verifykeyword = $data['verifykeyword'];
-    $rule          = pdo_fetch("select * from " . tablename('rule') . ' where uniacid=:uniacid and module=:module and name=:name  limit 1', array(
+    $rule = pdo_fetch("select * from " . tablename('rule') . ' where uniacid=:uniacid and module=:module and name=:name  limit 1', array(
         ':uniacid' => $_W['uniacid'],
         ':module' => 'sz_yi',
         ':name' => "sz_yi:verify"
@@ -23,7 +23,7 @@ if (checksubmit('submit')) {
             'status' => 1
         );
         pdo_insert('rule', $rule_data);
-        $rid          = pdo_insertid();
+        $rid = pdo_insertid();
         $keyword_data = array(
             'uniacid' => $_W['uniacid'],
             'rid' => $rid,

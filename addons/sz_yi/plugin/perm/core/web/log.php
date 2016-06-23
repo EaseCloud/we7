@@ -11,12 +11,12 @@ load()->model('user');
 if ($operation == 'display') {
     if (empty($clearstarttime) || empty($clearendtime)) {
         $clearstarttime = strtotime('-1 month');
-        $clearendtime   = time();
+        $clearendtime = time();
     }
     if (checksubmit('clearlog')) {
         ca('perm.log.clear');
         $starttime = strtotime($_GPC['cleartime']['start']);
-        $endtime   = strtotime($_GPC['cleartime']['end']);
+        $endtime = strtotime($_GPC['cleartime']['end']);
         pdo_query('delete from ' . tablename('sz_yi_perm_log') . ' where  uniacid=:uniacid and  createtime >=:starttime  AND createtime <=:endtime', array(
             ':uniacid' => $_W['uniacid'],
             ':starttime' => $starttime,
@@ -25,10 +25,10 @@ if ($operation == 'display') {
         plog('perm.log.clear', "清除日志缓存 开始时间: {$_GPC['cleartime']['start']} 结束时间: {$_GPC['cleartime']['end']}");
         message('缓存清除成功!', referer(), 'success');
     }
-    $pindex    = max(1, intval($_GPC['page']));
-    $psize     = 20;
+    $pindex = max(1, intval($_GPC['page']));
+    $psize = 20;
     $condition = " and log.uniacid=:uniacid";
-    $params    = array(
+    $params = array(
         ':uniacid' => $_W['uniacid']
     );
     if (!empty($_GPC['keyword'])) {
@@ -42,24 +42,24 @@ if ($operation == 'display') {
     }
     if (empty($starttime) || empty($endtime)) {
         $starttime = strtotime('-1 month');
-        $endtime   = time();
+        $endtime = time();
     }
     if (!empty($_GPC['searchtime'])) {
         $starttime = strtotime($_GPC['time']['start']);
-        $endtime   = strtotime($_GPC['time']['end']);
+        $endtime = strtotime($_GPC['time']['end']);
         if (!empty($timetype)) {
             $condition .= " AND log.createtime >= :starttime AND log.createtime <= :endtime ";
             $params[':starttime'] = $starttime;
-            $params[':endtime']   = $endtime;
+            $params[':endtime'] = $endtime;
         }
     }
-    $list  = pdo_fetchall("SELECT  log.* ,u.username FROM " . tablename('sz_yi_perm_log') . " log  " . " left join " . tablename('users') . " u on log.uid = u.uid  " . " WHERE 1 {$condition} ORDER BY id desc LIMIT " . ($pindex - 1) * $psize . ',' . $psize, $params);
+    $list = pdo_fetchall("SELECT  log.* ,u.username FROM " . tablename('sz_yi_perm_log') . " log  " . " left join " . tablename('users') . " u on log.uid = u.uid  " . " WHERE 1 {$condition} ORDER BY id desc LIMIT " . ($pindex - 1) * $psize . ',' . $psize, $params);
     $total = pdo_fetchcolumn("SELECT count(*) FROM " . tablename('sz_yi_perm_log') . " log  " . " left join " . tablename('users') . " u on log.uid = u.uid  " . " WHERE 1 {$condition} ", $params);
     $pager = pagination($total, $pindex, $psize);
     $types = $this->model->getLogTypes();
 } elseif ($operation == 'delete') {
     ca('perm.log.delete');
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $item = pdo_fetch("SELECT id FROM " . tablename('sz_yi_perm_log') . " WHERE id = '$id'");
     if (empty($item)) {
         message('抱歉，日志不存在或是已经被删除！', $this->createPluginWebUrl('perm/log', array(

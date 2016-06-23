@@ -3,12 +3,14 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class VerifyWeb extends Plugin
 {
     public function __construct()
     {
         parent::__construct('verify');
     }
+
     public function index()
     {
         global $_W;
@@ -23,14 +25,17 @@ class VerifyWeb extends Plugin
             exit;
         }
     }
+
     public function keyword()
     {
         $this->_exec_plugin(__FUNCTION__);
     }
+
     public function saler()
     {
         $this->_exec_plugin(__FUNCTION__);
     }
+
     public function store()
     {
         $this->_exec_plugin(__FUNCTION__);

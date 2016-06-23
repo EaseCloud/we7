@@ -1,3 +1,3 @@
 <?php
-//Ü¿ÖÚÉÌ³Ç QQ:913768135
+//èŠ¸ä¼—å•†åŸŽ QQ:913768135
 echo $this->model->getGoodinfo();

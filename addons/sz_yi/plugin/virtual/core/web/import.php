@@ -5,7 +5,7 @@ global $_W, $_GPC;
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'import';
 ca('virtual.data.import');
 if ($operation == 'temp') {
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $item = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_type') . ' WHERE id=:id and uniacid=:uniacid ', array(
         ':id' => $id,
         ':uniacid' => $_W['uniacid']
@@ -14,7 +14,7 @@ if ($operation == 'temp') {
         message('虚拟物品模板不存在', referer(), 'error');
     }
     $item['fields'] = iunserializer($item['fields']);
-    $columns        = array();
+    $columns = array();
     foreach ($item['fields'] as $key => $name) {
         $columns[] = array(
             'title' => $name . "(" . $key . ")",
@@ -27,7 +27,7 @@ if ($operation == 'temp') {
         'columns' => $columns
     ));
 } else if ($operation == 'import') {
-    $id   = intval($_GPC['typeid']);
+    $id = intval($_GPC['typeid']);
     $item = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_type') . ' WHERE id=:id and uniacid=:uniacid ', array(
         ':id' => $id,
         ':uniacid' => $_W['uniacid']
@@ -35,10 +35,10 @@ if ($operation == 'temp') {
     if (empty($item)) {
         message('虚拟物品模板不存在', referer(), 'error');
     }
-    $rows           = m('excel')->import('excelfile');
+    $rows = m('excel')->import('excelfile');
     $item['fields'] = iunserializer($item['fields']);
     foreach ($rows as $rownum => $col) {
-        $data  = array(
+        $data = array(
             'typeid' => $id,
             'pvalue' => $col[0],
             'fields' => array(),
@@ -50,7 +50,7 @@ if ($operation == 'temp') {
             $index++;
         }
         $data['fields'] = iserializer($data['fields']);
-        $datas[]        = $data;
+        $datas[] = $data;
     }
     foreach ($datas as $d) {
         $olddata = pdo_fetch('SELECT * FROM ' . tablename('sz_yi_virtual_data') . ' WHERE pvalue=:pvalue and typeid=:typeid and uniacid=:uniacid ', array(

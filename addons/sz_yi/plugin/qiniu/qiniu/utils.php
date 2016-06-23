@@ -1,7 +1,7 @@
 <?php
 function Qiniu_Encode($str)
 {
-    $find    = array(
+    $find = array(
         '+',
         '/'
     );
@@ -11,9 +11,10 @@ function Qiniu_Encode($str)
     );
     return str_replace($find, $replace, base64_encode($str));
 }
+
 function Qiniu_Decode($str)
 {
-    $find    = array(
+    $find = array(
         '-',
         '_'
     );

@@ -3,12 +3,14 @@
 if (!defined('IN_IA')) {
     exit('Access Denied');
 }
+
 class PermWeb extends Plugin
 {
     public function __construct()
     {
         parent::__construct('perm');
     }
+
     public function index()
     {
         if (cv('perm.role')) {
@@ -25,26 +27,32 @@ class PermWeb extends Plugin
             exit;
         }
     }
+
     public function set()
     {
         $this->_exec_plugin(__FUNCTION__);
     }
+
     public function role()
     {
         $this->_exec_plugin(__FUNCTION__);
     }
+
     public function user()
     {
         $this->_exec_plugin(__FUNCTION__);
     }
+
     public function log()
     {
         $this->_exec_plugin(__FUNCTION__);
     }
+
     public function plugins()
     {
         $this->_exec_plugin(__FUNCTION__);
     }
+
     public function setting()
     {
         $this->_exec_plugin(__FUNCTION__);

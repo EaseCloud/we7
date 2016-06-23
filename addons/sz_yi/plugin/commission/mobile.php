@@ -10,9 +10,11 @@ function sortByCreateTime($a, $b)
         return ($a['createtime'] < $b['createtime']) ? 1 : -1;
     }
 }
+
 class CommissionMobile extends Plugin
 {
     protected $set = null;
+
     public function __construct()
     {
         parent::__construct('commission');
@@ -27,42 +29,52 @@ class CommissionMobile extends Plugin
             }
         }
     }
+
     public function index()
     {
         $this->_exec_plugin(__FUNCTION__, false);
     }
+
     public function team()
     {
         $this->_exec_plugin(__FUNCTION__, false);
     }
+
     public function customer()
     {
         $this->_exec_plugin(__FUNCTION__, false);
     }
+
     public function order()
     {
         $this->_exec_plugin(__FUNCTION__, false);
     }
+
     public function withdraw()
     {
         $this->_exec_plugin(__FUNCTION__, false);
     }
+
     public function apply()
     {
         $this->_exec_plugin(__FUNCTION__, false);
     }
+
     public function shares()
     {
         $this->_exec_plugin(__FUNCTION__, false);
     }
+
     public function register()
     {
         $this->_exec_plugin(__FUNCTION__, false);
     }
+
     public function myshop()
     {
         $this->_exec_plugin(__FUNCTION__, false);
     }
+
     public function log()
     {
         $this->_exec_plugin(__FUNCTION__, false);

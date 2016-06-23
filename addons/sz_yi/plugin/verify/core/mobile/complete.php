@@ -5,10 +5,10 @@ if (!defined('IN_IA')) {
 }
 global $_W, $_GPC;
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
-$openid    = m('user')->getOpenid();
-$uniacid   = $_W['uniacid'];
-$orderid   = intval($_GPC['id']);
-$saler     = pdo_fetch('select * from ' . tablename('sz_yi_saler') . ' where openid=:openid and uniacid=:uniacid limit 1', array(
+$openid = m('user')->getOpenid();
+$uniacid = $_W['uniacid'];
+$orderid = intval($_GPC['id']);
+$saler = pdo_fetch('select * from ' . tablename('sz_yi_saler') . ' where openid=:openid and uniacid=:uniacid limit 1', array(
     ':uniacid' => $_W['uniacid'],
     ':openid' => $openid
 ));
@@ -32,7 +32,7 @@ if (!empty($order['verified'])) {
     show_json(0, "订单此已核销，无需要重复核!");
 }
 $storeids = array();
-$goods    = pdo_fetchall("select og.goodsid,og.price,g.title,g.thumb,og.total,g.credit,og.optionid,g.isverify,g.storeids from " . tablename('sz_yi_order_goods') . " og " . " left join " . tablename('sz_yi_goods') . " g on g.id=og.goodsid " . " where og.orderid=:orderid and og.uniacid=:uniacid ", array(
+$goods = pdo_fetchall("select og.goodsid,og.price,g.title,g.thumb,og.total,g.credit,og.optionid,g.isverify,g.storeids from " . tablename('sz_yi_order_goods') . " og " . " left join " . tablename('sz_yi_goods') . " g on g.id=og.goodsid " . " where og.orderid=:orderid and og.uniacid=:uniacid ", array(
     ':uniacid' => $uniacid,
     ':orderid' => $orderid
 ));

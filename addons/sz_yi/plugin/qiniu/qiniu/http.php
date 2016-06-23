@@ -1,46 +1,53 @@
 <?php
 require_once('auth_digest.php');
 require_once('conf.php');
+
 class Qiniu_Error
 {
     public $Err;
     public $Reqid;
     public $Details;
     public $Code;
+
     public function __construct($code, $err)
     {
         $this->Code = $code;
-        $this->Err  = $err;
+        $this->Err = $err;
     }
 }
+
 class Qiniu_Request
 {
     public $URL;
     public $Header;
     public $Body;
     public $UA;
+
     public function __construct($url, $body)
     {
-        $this->URL    = $url;
+        $this->URL = $url;
         $this->Header = array();
-        $this->Body   = $body;
-        $this->UA     = Qiniu_UserAgent();
+        $this->Body = $body;
+        $this->UA = Qiniu_UserAgent();
     }
 }
+
 class Qiniu_Response
 {
     public $StatusCode;
     public $Header;
     public $ContentLength;
     public $Body;
+
     public function __construct($code, $body)
     {
-        $this->StatusCode    = $code;
-        $this->Header        = array();
-        $this->Body          = $body;
+        $this->StatusCode = $code;
+        $this->Header = array();
+        $this->Body = $body;
         $this->ContentLength = strlen($body);
     }
 }
+
 function Qiniu_Header_Get($header, $key)
 {
     $val = @$header[$key];
@@ -53,24 +60,26 @@ function Qiniu_Header_Get($header, $key)
         return '';
     }
 }
+
 function Qiniu_ResponseError($resp)
 {
-    $header  = $resp->Header;
+    $header = $resp->Header;
     $details = Qiniu_Header_Get($header, 'X-Log');
-    $reqId   = Qiniu_Header_Get($header, 'X-Reqid');
-    $err     = new Qiniu_Error($resp->StatusCode, null);
+    $reqId = Qiniu_Header_Get($header, 'X-Reqid');
+    $err = new Qiniu_Error($resp->StatusCode, null);
     if ($err->Code > 299) {
         if ($resp->ContentLength !== 0) {
             if (Qiniu_Header_Get($header, 'Content-Type') === 'application/json') {
-                $ret      = json_decode($resp->Body, true);
+                $ret = json_decode($resp->Body, true);
                 $err->Err = $ret['error'];
             }
         }
     }
-    $err->Reqid   = $reqId;
+    $err->Reqid = $reqId;
     $err->Details = $details;
     return $err;
 }
+
 function Qiniu_Client_incBody($req)
 {
     $body = $req->Body;
@@ -83,11 +92,12 @@ function Qiniu_Client_incBody($req)
     }
     return false;
 }
+
 function Qiniu_Client_do($req)
 {
-    $ch         = curl_init();
-    $url        = $req->URL;
-    $options    = array(
+    $ch = curl_init();
+    $url = $req->URL;
+    $options = array(
         CURLOPT_USERAGENT => $req->UA,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_SSL_VERIFYPEER => false,
@@ -113,7 +123,7 @@ function Qiniu_Client_do($req)
     }
     curl_setopt_array($ch, $options);
     $result = curl_exec($ch);
-    $ret    = curl_errno($ch);
+    $ret = curl_errno($ch);
     if ($ret !== 0) {
         $err = new Qiniu_Error(0, curl_error($ch));
         curl_close($ch);
@@ -122,27 +132,28 @@ function Qiniu_Client_do($req)
             $err
         );
     }
-    $code        = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
     curl_close($ch);
-    $responseArray     = explode("\r\n\r\n", $result);
+    $responseArray = explode("\r\n\r\n", $result);
     $responseArraySize = sizeof($responseArray);
-    $respHeader        = $responseArray[$responseArraySize - 2];
-    $respBody          = $responseArray[$responseArraySize - 1];
+    $respHeader = $responseArray[$responseArraySize - 2];
+    $respBody = $responseArray[$responseArraySize - 1];
     list($reqid, $xLog) = getReqInfo($respHeader);
-    $resp                         = new Qiniu_Response($code, $respBody);
+    $resp = new Qiniu_Response($code, $respBody);
     $resp->Header['Content-Type'] = $contentType;
-    $resp->Header["X-Reqid"]      = $reqid;
+    $resp->Header["X-Reqid"] = $reqid;
     return array(
         $resp,
         null
     );
 }
+
 function getReqInfo($headerContent)
 {
     $headers = explode("\r\n", $headerContent);
-    $reqid   = null;
-    $xLog    = null;
+    $reqid = null;
+    $xLog = null;
     foreach ($headers as $header) {
         $header = trim($header);
         if (strpos($header, 'X-Reqid') !== false) {
@@ -158,6 +169,7 @@ function getReqInfo($headerContent)
         $xLog
     );
 }
+
 class Qiniu_HttpClient
 {
     public function RoundTrip($req)
@@ -165,21 +177,25 @@ class Qiniu_HttpClient
         return Qiniu_Client_do($req);
     }
 }
+
 class Qiniu_MacHttpClient
 {
     public $Mac;
+
     public function __construct($mac)
     {
         $this->Mac = Qiniu_RequireMac($mac);
     }
+
     public function RoundTrip($req)
     {
-        $incbody                      = Qiniu_Client_incBody($req);
-        $token                        = $this->Mac->SignRequest($req, $incbody);
+        $incbody = Qiniu_Client_incBody($req);
+        $token = $this->Mac->SignRequest($req, $incbody);
         $req->Header['Authorization'] = "QBox $token";
         return Qiniu_Client_do($req);
     }
 }
+
 function Qiniu_Client_ret($resp)
 {
     $code = $resp->StatusCode;
@@ -189,7 +205,7 @@ function Qiniu_Client_ret($resp)
             $data = json_decode($resp->Body, true);
             if ($data === null) {
                 $err_msg = function_exists('json_last_error_msg') ? json_last_error_msg() : "error with content:" . $resp->Body;
-                $err     = new Qiniu_Error(0, $err_msg);
+                $err = new Qiniu_Error(0, $err_msg);
                 return array(
                     null,
                     $err
@@ -208,9 +224,10 @@ function Qiniu_Client_ret($resp)
         Qiniu_ResponseError($resp)
     );
 }
+
 function Qiniu_Client_Call($self, $url)
 {
-    $u   = array(
+    $u = array(
         'path' => $url
     );
     $req = new Qiniu_Request($u, null);
@@ -223,9 +240,10 @@ function Qiniu_Client_Call($self, $url)
     }
     return Qiniu_Client_ret($resp);
 }
+
 function Qiniu_Client_CallNoRet($self, $url)
 {
-    $u   = array(
+    $u = array(
         'path' => $url
     );
     $req = new Qiniu_Request($u, null);
@@ -241,6 +259,7 @@ function Qiniu_Client_CallNoRet($self, $url)
     }
     return Qiniu_ResponseError($resp);
 }
+
 function Qiniu_Client_CallWithForm($self, $url, $params, $contentType = 'application/x-www-form-urlencoded')
 {
     $u = array(
@@ -264,14 +283,16 @@ function Qiniu_Client_CallWithForm($self, $url, $params, $contentType = 'applica
     }
     return Qiniu_Client_ret($resp);
 }
+
 function Qiniu_Client_CallWithMultipartForm($self, $url, $fields, $files)
 {
     list($contentType, $body) = Qiniu_Build_MultipartForm($fields, $files);
     return Qiniu_Client_CallWithForm($self, $url, $body, $contentType);
 }
+
 function Qiniu_Build_MultipartForm($fields, $files)
 {
-    $data         = array();
+    $data = array();
     $mimeBoundary = md5(microtime());
     foreach ($fields as $name => $val) {
         array_push($data, '--' . $mimeBoundary);
@@ -291,27 +312,29 @@ function Qiniu_Build_MultipartForm($fields, $files)
     }
     array_push($data, '--' . $mimeBoundary . '--');
     array_push($data, '');
-    $body        = implode("\r\n", $data);
+    $body = implode("\r\n", $data);
     $contentType = 'multipart/form-data; boundary=' . $mimeBoundary;
     return array(
         $contentType,
         $body
     );
 }
+
 function Qiniu_UserAgent()
 {
     global $SDK_VER;
-    $sdkInfo     = "QiniuPHP/$SDK_VER";
-    $systemInfo  = php_uname("s");
+    $sdkInfo = "QiniuPHP/$SDK_VER";
+    $systemInfo = php_uname("s");
     $machineInfo = php_uname("m");
-    $envInfo     = "($systemInfo/$machineInfo)";
-    $phpVer      = phpversion();
-    $ua          = "$sdkInfo $envInfo PHP/$phpVer";
+    $envInfo = "($systemInfo/$machineInfo)";
+    $phpVer = phpversion();
+    $ua = "$sdkInfo $envInfo PHP/$phpVer";
     return $ua;
 }
+
 function Qiniu_escapeQuotes($str)
 {
-    $find    = array(
+    $find = array(
         "\\",
         "\""
     );

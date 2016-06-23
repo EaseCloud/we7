@@ -13,7 +13,7 @@ if (!class_exists('CreditshopModel')) {
         {
             global $_W;
             $credit = $member['credit1'];
-            $money  = $member['credit2'];
+            $money = $member['credit2'];
 
             if (empty($id)) {
                 return array(
@@ -39,11 +39,11 @@ if (!class_exists('CreditshopModel')) {
             } else if ($goods['money'] > 0) {
                 $goods['acttype'] = 2;
             }
-            $goods['endtime_str']   = date('Y-m-d H:i', $goods['endtime']);
+            $goods['endtime_str'] = date('Y-m-d H:i', $goods['endtime']);
             $goods['timestart_str'] = date('Y-m-d H:i', $goods['timestart']);
-            $goods['timeend_str']   = date('Y-m-d H:i', $goods['timeend']);
-            $goods['timestate']     = "";
-            $goods['canbuy']        = !empty($goods['status']) && empty($goods['deleted']);
+            $goods['timeend_str'] = date('Y-m-d H:i', $goods['timeend']);
+            $goods['timestate'] = "";
+            $goods['canbuy'] = !empty($goods['status']) && empty($goods['deleted']);
             if (empty($goods['canbuy'])) {
                 $goods['buymsg'] = "已下架";
             } else {
@@ -117,9 +117,9 @@ if (!class_exists('CreditshopModel')) {
                 if ($goods['canbuy']) {
                     if ($goods['istime'] == 1) {
                         if (time() < $goods['timestart']) {
-                            $goods['canbuy']    = false;
+                            $goods['canbuy'] = false;
                             $goods['timestate'] = "before";
-                            $goods['buymsg']    = "活动未开始";
+                            $goods['buymsg'] = "活动未开始";
                         } else if (time() > $goods['timeend']) {
                             $goods['canbuy'] = false;
                             $goods['buymsg'] = '活动已结束';
@@ -150,14 +150,15 @@ if (!class_exists('CreditshopModel')) {
                 }
             }
             $goods['followtext'] = empty($goods['followtext']) ? '您必须关注我们的公众帐号，才能参加活动哦!' : $goods['followtext'];
-            $set                 = $this->getSet();
-            $goods['followurl']  = $set['followurl'];
+            $set = $this->getSet();
+            $goods['followurl'] = $set['followurl'];
             if (empty($goods['followurl'])) {
-                $share              = m('common')->getSysset('share');
+                $share = m('common')->getSysset('share');
                 $goods['followurl'] = $share['followurl'];
             }
             return $goods;
         }
+
         public function createENO()
         {
             global $_W;
@@ -182,6 +183,7 @@ if (!class_exists('CreditshopModel')) {
             }
             return $eno;
         }
+
         public function sendMessage($id = 0)
         {
             global $_W;
@@ -200,11 +202,11 @@ if (!class_exists('CreditshopModel')) {
                 return;
             }
             $credit = intval($member['credit1']);
-            $goods  = $this->getGoods($log['goodsid'], $member);
+            $goods = $this->getGoods($log['goodsid'], $member);
             if (empty($goods['id'])) {
                 return;
             }
-            $type    = $goods['type'];
+            $type = $goods['type'];
             $credits = "";
             if ($goods['credit'] > 0 & $goods['money'] > 0) {
                 $credits = $goods['credit'] . "积分+" . $goods['money'] . "元";
@@ -215,9 +217,9 @@ if (!class_exists('CreditshopModel')) {
             } else {
                 $credits = "0";
             }
-            $shop      = m('common')->getSysset('shop');
-            $set       = $this->getSet();
-            $tm        = $set['tm'];
+            $shop = m('common')->getSysset('shop');
+            $set = $this->getSet();
+            $tm = $set['tm'];
             $detailurl = $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&m=sz_yi&do=plugin&p=creditshop&method=log&op=detail&&id=' . $id;
             if (strexists($detailurl, '/addons/sz_yi/')) {
                 $detailurl = str_replace("/addons/sz_yi/", '/', $detailurl);
@@ -318,7 +320,7 @@ if (!class_exists('CreditshopModel')) {
                         }
                         $remark .= ", 请及时备货,谢谢!";
                     }
-                    $msg           = array(
+                    $msg = array(
                         'first' => array(
                             'value' => "积分商城商品兑换成功~",
                             "color" => "#4a5077"
@@ -405,6 +407,7 @@ if (!class_exists('CreditshopModel')) {
                 }
             }
         }
+
         public function createQrcode($logid = 0)
         {
             global $_W, $_GPC;
@@ -413,8 +416,8 @@ if (!class_exists('CreditshopModel')) {
                 load()->func('file');
                 mkdirs($path);
             }
-            $url         = $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&m=sz_yi&do=plugin&p=creditshop&method=exchange&op=exchange&id=' . $logid;
-            $file        = 'exchange_qrcode_' . $logid . '.png';
+            $url = $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&m=sz_yi&do=plugin&p=creditshop&method=exchange&op=exchange&id=' . $logid;
+            $file = 'exchange_qrcode_' . $logid . '.png';
             $qrcode_file = $path . '/' . $file;
             if (!is_file($qrcode_file)) {
                 require IA_ROOT . '/framework/library/qrcode/phpqrcode.php';
@@ -422,6 +425,7 @@ if (!class_exists('CreditshopModel')) {
             }
             return $_W['siteroot'] . '/addons/sz_yi/data/creditshop/' . $_W['uniacid'] . '/' . $file;
         }
+
         function perms()
         {
             return array(

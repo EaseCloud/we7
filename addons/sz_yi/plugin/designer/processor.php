@@ -5,19 +5,21 @@ if (!defined('IN_IA')) {
 }
 require IA_ROOT . '/addons/sz_yi/defines.php';
 require SZ_YI_INC . 'plugin/plugin_processor.php';
+
 class DesignerProcessor extends PluginProcessor
 {
     public function __construct()
     {
         parent::__construct('designer');
     }
+
     public function respond($obj = null)
     {
         global $_W;
         $message = $obj->message;
         $content = $obj->message['content'];
         $msgtype = strtolower($message['msgtype']);
-        $event   = strtolower($message['event']);
+        $event = strtolower($message['event']);
         if ($msgtype == 'text' || $event == 'click') {
             $page = pdo_fetch('select * from ' . tablename('sz_yi_designer') . ' where keyword=:keyword and uniacid=:uniacid limit 1', array(
                 ':uniacid' => $_W['uniacid'],
@@ -26,13 +28,13 @@ class DesignerProcessor extends PluginProcessor
             if (empty($page)) {
                 return $this->responseEmpty();
             }
-            $p       = htmlspecialchars_decode($page['pageinfo']);
-            $p       = json_decode($p, true);
+            $p = htmlspecialchars_decode($page['pageinfo']);
+            $p = json_decode($p, true);
             $r_title = empty($p[0]['params']['title']) ? "未设置标题" : $p[0]['params']['title'];
-            $r_desc  = empty($p[0]['params']['desc']) ? "未设置页面介绍" : $p[0]['params']['desc'];
-            $r_img   = empty($p[0]['params']['img']) ? "" : $p[0]['params']['img'];
-            $r_img   = set_medias($r_img);
-            $news    = array(
+            $r_desc = empty($p[0]['params']['desc']) ? "未设置页面介绍" : $p[0]['params']['desc'];
+            $r_img = empty($p[0]['params']['img']) ? "" : $p[0]['params']['img'];
+            $r_img = set_medias($r_img);
+            $news = array(
                 array(
                     'title' => $r_title,
                     'picurl' => $r_img,
@@ -44,6 +46,7 @@ class DesignerProcessor extends PluginProcessor
         }
         return $this->responseEmpty();
     }
+
     private function responseEmpty()
     {
         ob_clean();

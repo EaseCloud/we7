@@ -10,15 +10,18 @@ function sortByCreateTime($a, $b)
         return ($a['createtime'] < $b['createtime']) ? 1 : -1;
     }
 }
+
 class SupplierMobile extends Plugin
 {
     protected $set = null;
+
     public function __construct()
     {
         parent::__construct('supplier');
         $this->set = $this->getSet();
         global $_GPC;
     }
+
     public function af_supplier()
     {
         $this->_exec_plugin(__FUNCTION__, false);

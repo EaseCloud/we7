@@ -2,12 +2,12 @@
 //芸众商城 QQ:913768135
 global $_W, $_GPC;
 ca('sale.recharge.view');
-$set       = $this->getSet();
+$set = $this->getSet();
 $recharges = iunserializer($set['recharges']);
 if (checksubmit('submit')) {
     ca('sale.recharge.save');
     $recharges = array();
-    $data      = is_array($_GPC['enough']) ? $_GPC['enough'] : array();
+    $data = is_array($_GPC['enough']) ? $_GPC['enough'] : array();
     foreach ($data as $key => $value) {
         $enough = trim($value);
         if (!empty($enough)) {

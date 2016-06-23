@@ -17,7 +17,7 @@ if (checksubmit('submit')) {
 $salers = array();
 if (isset($set['tm']['openids'])) {
     if (!empty($set['tm']['openids'])) {
-        $openids     = array();
+        $openids = array();
         $strsopenids = explode(",", $set['tm']['openids']);
         foreach ($strsopenids as $openid) {
             $openids[] = "'" . $openid . "'";

@@ -1,29 +1,34 @@
 <?php
 require_once('utils.php');
 require_once('conf.php');
+
 class Qiniu_Mac
 {
     public $AccessKey;
     public $SecretKey;
+
     public function __construct($accessKey, $secretKey)
     {
         $this->AccessKey = $accessKey;
         $this->SecretKey = $secretKey;
     }
+
     public function Sign($data)
     {
         $sign = hash_hmac('sha1', $data, $this->SecretKey, true);
         return $this->AccessKey . ':' . Qiniu_Encode($sign);
     }
+
     public function SignWithData($data)
     {
         $data = Qiniu_Encode($data);
         return $this->Sign($data) . ':' . $data;
     }
+
     public function SignRequest($req, $incbody)
     {
-        $url  = $req->URL;
-        $url  = parse_url($url['path']);
+        $url = $req->URL;
+        $url = parse_url($url['path']);
         $data = '';
         if (isset($url['path'])) {
             $data = $url['path'];
@@ -37,9 +42,10 @@ class Qiniu_Mac
         }
         return $this->Sign($data);
     }
+
     public function VerifyCallback($auth, $url, $body)
     {
-        $url  = parse_url($url);
+        $url = parse_url($url);
         $data = '';
         if (isset($url['path'])) {
             $data = $url['path'];
@@ -53,6 +59,7 @@ class Qiniu_Mac
         return $auth === $token;
     }
 }
+
 function Qiniu_SetKeys($accessKey, $secretKey)
 {
     global $QINIU_ACCESS_KEY;
@@ -60,6 +67,7 @@ function Qiniu_SetKeys($accessKey, $secretKey)
     $QINIU_ACCESS_KEY = $accessKey;
     $QINIU_SECRET_KEY = $secretKey;
 }
+
 function Qiniu_RequireMac($mac)
 {
     if (isset($mac)) {
@@ -69,10 +77,12 @@ function Qiniu_RequireMac($mac)
     global $QINIU_SECRET_KEY;
     return new Qiniu_Mac($QINIU_ACCESS_KEY, $QINIU_SECRET_KEY);
 }
+
 function Qiniu_Sign($mac, $data)
 {
     return Qiniu_RequireMac($mac)->Sign($data);
 }
+
 function Qiniu_SignWithData($mac, $data)
 {
     return Qiniu_RequireMac($mac)->SignWithData($data);

@@ -53,7 +53,7 @@ if ($operation == 'display') {
     }
 } elseif ($operation == 'delete') {
     ca('verify.store.delete');
-    $id   = intval($_GPC['id']);
+    $id = intval($_GPC['id']);
     $item = pdo_fetch("SELECT id,storename FROM " . tablename('sz_yi_store') . " WHERE id = '$id'");
     if (empty($item)) {
         message('抱歉，门店不存在或是已经被删除！', $this->createPluginWebUrl('verify/store', array(
@@ -69,10 +69,10 @@ if ($operation == 'display') {
         'op' => 'display'
     )), 'success');
 } elseif ($operation == 'query') {
-    $kwd                = trim($_GPC['keyword']);
-    $params             = array();
+    $kwd = trim($_GPC['keyword']);
+    $params = array();
     $params[':uniacid'] = $_W['uniacid'];
-    $condition          = " and uniacid=:uniacid";
+    $condition = " and uniacid=:uniacid";
     if (!empty($kwd)) {
         $condition .= " AND `storename` LIKE :keyword";
         $params[':keyword'] = "%{$kwd}%";

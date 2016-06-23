@@ -4,18 +4,20 @@ if (!defined('IN_IA')) {
 }
 require IA_ROOT . '/addons/sz_yi/defines.php';
 require SZ_YI_INC . 'plugin/plugin_processor.php';
+
 class PosterProcessor extends PluginProcessor
 {
     public function __construct()
     {
         parent::__construct('poster');
     }
+
     public function respond($obj = null)
     {
         global $_W;
-        $message     = $obj->message;
-        $msgtype     = strtolower($message['msgtype']);
-        $event       = strtolower($message['event']);
+        $message = $obj->message;
+        $msgtype = strtolower($message['msgtype']);
+        $event = strtolower($message['event']);
         $obj->member = $this->model->checkMember($message['from']);
         if ($msgtype == 'text' || $event == 'click') {
             return $this->responseText($obj);
@@ -27,6 +29,7 @@ class PosterProcessor extends PluginProcessor
             }
         }
     }
+
     /*private function responseText($obj)
     {
         global $_W;
@@ -38,15 +41,16 @@ class PosterProcessor extends PluginProcessor
         ), null, $timeout);
         return $this->responseEmpty();
     }*/
-	private function responseText($obj)
-	{
-		global $_W;
-		$timeout = 4;
-		load()->func('communication');
-		$resp = $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&m=sz_yi&do=plugin&p=poster&method=build&timestamp=' . time();
-		$_var_6 = ihttp_request($resp, array('openid' => $obj->message['from'], 'content' => urlencode($obj->message['content'])), array(), $timeout);
-		return $this->responseEmpty();
-	}
+    private function responseText($obj)
+    {
+        global $_W;
+        $timeout = 4;
+        load()->func('communication');
+        $resp = $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&m=sz_yi&do=plugin&p=poster&method=build&timestamp=' . time();
+        $_var_6 = ihttp_request($resp, array('openid' => $obj->message['from'], 'content' => urlencode($obj->message['content'])), array(), $timeout);
+        return $this->responseEmpty();
+    }
+
     private function responseEmpty()
     {
         ob_clean();
@@ -56,21 +60,23 @@ class PosterProcessor extends PluginProcessor
         ob_end_flush();
         exit(0);
     }
+
     private function responseDefault($obj)
     {
         global $_W;
         return $obj->respText('感谢您的关注!');
     }
+
     private function responseScan($obj)
     {
         global $_W;
-        $openid  = $obj->message['from'];
+        $openid = $obj->message['from'];
         $sceneid = $obj->message['eventkey'];
-        $ticket  = $obj->message['ticket'];
+        $ticket = $obj->message['ticket'];
         if (empty($sceneid)) {
             return $this->responseDefault($obj);
         }
-		$qr = $this->model->getQRByTicket($ticket);
+        $qr = $this->model->getQRByTicket($ticket);
         if (empty($qr)) {
             return $this->responseDefault($obj);
         }
@@ -91,21 +97,22 @@ class PosterProcessor extends PluginProcessor
                 $url = $_W['siteroot'] . "app/index.php?i={$_W['uniacid']}&c=entry&m=sz_yi&do=shop&mid=" . $qrmember['id'];
             }
         }
-       
-		if (!empty($poster['resptitle'])) {
-			$news = array(array('title' => $poster['resptitle'], 'description' => $poster['respdesc'], 'picurl' => tomedia($poster['respthumb']), 'url' => $url));
-			return $obj->respNews($news);
-		}
+
+        if (!empty($poster['resptitle'])) {
+            $news = array(array('title' => $poster['resptitle'], 'description' => $poster['respdesc'], 'picurl' => tomedia($poster['respthumb']), 'url' => $url));
+            return $obj->respNews($news);
+        }
         return $this->responseEmpty();
     }
+
     private function responseSubscribe($obj)
     {
         global $_W;
-        $openid  = $obj->message['from'];
-        $keys    = explode('_', $obj->message['eventkey']);
+        $openid = $obj->message['from'];
+        $keys = explode('_', $obj->message['eventkey']);
         $sceneid = isset($keys[1]) ? $keys[1] : '';
-        $ticket  = $obj->message['ticket'];
-        $member  = $obj->member;
+        $ticket = $obj->message['ticket'];
+        $member = $obj->member;
         if (empty($ticket)) {
             return $this->responseDefault($obj);
         }
@@ -127,7 +134,7 @@ class PosterProcessor extends PluginProcessor
             ));
         }
         $qrmember = m('member')->getMember($qr['openid']);
-        $log      = pdo_fetch('select * from ' . tablename('sz_yi_poster_log') . ' where openid=:openid and posterid=:posterid and uniacid=:uniacid limit 1', array(
+        $log = pdo_fetch('select * from ' . tablename('sz_yi_poster_log') . ' where openid=:openid and posterid=:posterid and uniacid=:uniacid limit 1', array(
             ':openid' => $openid,
             ':posterid' => $poster['id'],
             ':uniacid' => $_W['uniacid']
@@ -145,7 +152,7 @@ class PosterProcessor extends PluginProcessor
                 'createtime' => time()
             );
             pdo_insert('sz_yi_poster_log', $log);
-            $log['id']     = pdo_insertid();
+            $log['id'] = pdo_insertid();
             $subpaycontent = $poster['subpaycontent'];
             if (empty($subpaycontent)) {
                 $subpaycontent = '您通过 [nickname] 的推广二维码扫码关注的奖励';
@@ -182,32 +189,32 @@ class PosterProcessor extends PluginProcessor
                 }
                 m('finance')->pay($qr['openid'], $poster['paytype'], $pay, '', $recpaycontent);
             }
-			$_var_20 = false;
-			$_var_21 = false;
-			$_var_22 = p('coupon');
-			if ($_var_22) {
-				if (!empty($poster['reccouponid']) && $poster['reccouponnum'] > 0) {
-					$_var_23 = $_var_22->getCoupon($poster['reccouponid']);
-					if (!empty($_var_23)) {
-						$_var_20 = true;
-					}
-				}
-				if (!empty($poster['subcouponid']) && $poster['subcouponnum'] > 0) {
-					$_var_24 = $_var_22->getCoupon($poster['subcouponid']);
-					if (!empty($_var_24)) {
-						$_var_21 = true;
-					}
-				}
-			}
+            $_var_20 = false;
+            $_var_21 = false;
+            $_var_22 = p('coupon');
+            if ($_var_22) {
+                if (!empty($poster['reccouponid']) && $poster['reccouponnum'] > 0) {
+                    $_var_23 = $_var_22->getCoupon($poster['reccouponid']);
+                    if (!empty($_var_23)) {
+                        $_var_20 = true;
+                    }
+                }
+                if (!empty($poster['subcouponid']) && $poster['subcouponnum'] > 0) {
+                    $_var_24 = $_var_22->getCoupon($poster['subcouponid']);
+                    if (!empty($_var_24)) {
+                        $_var_21 = true;
+                    }
+                }
+            }
             if (!empty($poster['subtext'])) {
                 $subtext = $poster['subtext'];
                 $subtext = str_replace("[nickname]", $member['nickname'], $subtext);
                 $subtext = str_replace("[credit]", $poster['reccredit'], $subtext);
                 $subtext = str_replace("[money]", $poster['recmoney'], $subtext);
-				if ($_var_23) {
-					$subtext = str_replace('[couponname]', $_var_23['couponname'], $subtext);
-					$subtext = str_replace('[couponnum]', $poster['reccouponnum'], $subtext);
-				}
+                if ($_var_23) {
+                    $subtext = str_replace('[couponname]', $_var_23['couponname'], $subtext);
+                    $subtext = str_replace('[couponnum]', $poster['reccouponnum'], $subtext);
+                }
                 if (!empty($poster['templateid'])) {
                     m('message')->sendTplNotice($qr['openid'], $poster['templateid'], array(
                         'first' => array(
@@ -236,10 +243,10 @@ class PosterProcessor extends PluginProcessor
                 $entrytext = str_replace("[nickname]", $qrmember['nickname'], $entrytext);
                 $entrytext = str_replace("[credit]", $poster['subcredit'], $entrytext);
                 $entrytext = str_replace("[money]", $poster['submoney'], $entrytext);
-				if ($_var_24) {
-					$entrytext = str_replace('[couponname]', $_var_24['couponname'], $entrytext);
-					$entrytext = str_replace('[couponnum]', $poster['subcouponnum'], $entrytext);
-				}
+                if ($_var_24) {
+                    $entrytext = str_replace('[couponname]', $_var_24['couponname'], $entrytext);
+                    $entrytext = str_replace('[couponnum]', $poster['subcouponnum'], $entrytext);
+                }
                 if (!empty($poster['templateid'])) {
                     m('message')->sendTplNotice($openid, $poster['templateid'], array(
                         'first' => array(
@@ -263,21 +270,21 @@ class PosterProcessor extends PluginProcessor
                     m('message')->sendCustomNotice($openid, $entrytext);
                 }
             }
-			$_var_27 = array();
-			if ($_var_20) {
-				$_var_27['reccouponid'] = $poster['reccouponid'];
-				$_var_27['reccouponnum'] = $poster['reccouponnum'];
-				$_var_22->poster($qrmember, $poster['reccouponid'], $poster['reccouponnum']);
-			}
-			if ($_var_21) {
-				$_var_27['subcouponid'] = $poster['subcouponid'];
-				$_var_27['subcouponnum'] = $poster['subcouponnum'];
-				$_var_22->poster($member, $poster['subcouponid'], $poster['subcouponnum']);
-			}
-			if (!empty($_var_27)) {
-				pdo_update('sz_yi_poster_log', $_var_27, array('id' => $log['id']));
-			}
-		}
+            $_var_27 = array();
+            if ($_var_20) {
+                $_var_27['reccouponid'] = $poster['reccouponid'];
+                $_var_27['reccouponnum'] = $poster['reccouponnum'];
+                $_var_22->poster($qrmember, $poster['reccouponid'], $poster['reccouponnum']);
+            }
+            if ($_var_21) {
+                $_var_27['subcouponid'] = $poster['subcouponid'];
+                $_var_27['subcouponnum'] = $poster['subcouponnum'];
+                $_var_22->poster($member, $poster['subcouponid'], $poster['subcouponnum']);
+            }
+            if (!empty($_var_27)) {
+                pdo_update('sz_yi_poster_log', $_var_27, array('id' => $log['id']));
+            }
+        }
         $this->commission($poster, $member, $qrmember);
         $url = trim($poster['respurl']);
         if (empty($url)) {
@@ -287,43 +294,44 @@ class PosterProcessor extends PluginProcessor
                 $url = $_W['siteroot'] . "app/index.php?i={$_W['uniacid']}&c=entry&m=sz_yi&do=shop&mid=" . $qrmember['id'];
             }
         }
-		if (!empty($poster['resptitle'])) {
-			$news = array(array('title' => $poster['resptitle'], 'description' => $poster['respdesc'], 'picurl' => tomedia($poster['respthumb']), 'url' => $url));
-			return $obj->respNews($news);
-		}
+        if (!empty($poster['resptitle'])) {
+            $news = array(array('title' => $poster['resptitle'], 'description' => $poster['respdesc'], 'picurl' => tomedia($poster['respthumb']), 'url' => $url));
+            return $obj->respNews($news);
+        }
         return $this->responseEmpty();
     }
+
     private function commission($poster, $member, $qrmember)
-	{
-		$time = time();
-		$p = p('commission');
-		if ($p) {
-			$cset = $p->getSet();
-			if (!empty($cset)) {
-				if ($member['isagent'] != 1) {
-					if ($qrmember['isagent'] == 1 && $qrmember['status'] == 1) {
-						if (!empty($poster['bedown'])) {
-							if (empty($member['agentid'])) {
-								if (empty($member['fixagentid'])) {
-									pdo_update('sz_yi_member', array('agentid' => $qrmember['id'], 'childtime' => $time), array('id' => $member['id']));
-									$member['agentid'] = $qrmember['id'];
-									$p->sendMessage($qrmember['openid'], array('nickname' => $member['nickname'], 'childtime' => $time), TM_COMMISSION_AGENT_NEW);
-									$p->upgradeLevelByAgent($qrmember['id']);
-								}
-							}
-							if (!empty($poster['beagent'])) {
-								$status = intval($cset['become_check']);
-								pdo_update('sz_yi_member', array('isagent' => 1, 'status' => $status, 'agenttime' => $time), array('id' => $member['id']));
-								if ($status == 1) {
-									$p->sendMessage($member['openid'], array('nickname' => $member['nickname'], 'agenttime' => $time), TM_COMMISSION_BECOME);
-									$p->upgradeLevelByAgent($qrmember['id']);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	
+    {
+        $time = time();
+        $p = p('commission');
+        if ($p) {
+            $cset = $p->getSet();
+            if (!empty($cset)) {
+                if ($member['isagent'] != 1) {
+                    if ($qrmember['isagent'] == 1 && $qrmember['status'] == 1) {
+                        if (!empty($poster['bedown'])) {
+                            if (empty($member['agentid'])) {
+                                if (empty($member['fixagentid'])) {
+                                    pdo_update('sz_yi_member', array('agentid' => $qrmember['id'], 'childtime' => $time), array('id' => $member['id']));
+                                    $member['agentid'] = $qrmember['id'];
+                                    $p->sendMessage($qrmember['openid'], array('nickname' => $member['nickname'], 'childtime' => $time), TM_COMMISSION_AGENT_NEW);
+                                    $p->upgradeLevelByAgent($qrmember['id']);
+                                }
+                            }
+                            if (!empty($poster['beagent'])) {
+                                $status = intval($cset['become_check']);
+                                pdo_update('sz_yi_member', array('isagent' => 1, 'status' => $status, 'agenttime' => $time), array('id' => $member['id']));
+                                if ($status == 1) {
+                                    $p->sendMessage($member['openid'], array('nickname' => $member['nickname'], 'agenttime' => $time), TM_COMMISSION_BECOME);
+                                    $p->upgradeLevelByAgent($qrmember['id']);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
