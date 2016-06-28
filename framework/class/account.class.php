@@ -109,11 +109,12 @@ abstract class WeAccount {
 			}
 	
 			switch ($packet['event']) {
-				case 'SCAN':
-					$packet['type'] = 'qr';
 				case 'subscribe':
 					$packet['type'] = 'subscribe';
 				case 'SCAN':
+					if ($packet['event'] == 'SCAN') {
+						$packet['type'] = 'qr';
+					}
 					if(!empty($packet['eventkey'])) {
 						$packet['scene'] = str_replace('qrscene_', '', $packet['eventkey']);
 						if(strexists($packet['scene'], '\u')) {

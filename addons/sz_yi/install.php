@@ -1,24 +1,21 @@
 <?php
 global $_W;
 
-define('CLOUD_URL', 'http://115.29.33.155/web/index.php?c=account&a=register');
-$data['domain'] = $_SERVER['HTTP_HOST'];
-$data['signature'] = 'sz_cloud_register';
-$res = ihttp_request(CLOUD_URL, $data);
+//define('CLOUD_URL', 'http://115.29.33.155/web/index.php?c=account&a=register');
+//$data['domain'] = $_SERVER['HTTP_HOST'];
+//$data['signature'] = 'sz_cloud_register';
+//$res = ihttp_request(CLOUD_URL, $data);
 
-if(!$res){
-    exit('通讯失败,请检查网络');
-}
-$content = json_decode($res['content'], 1);
-if(!$content['status']){
-    exit($content['msg']);
-}
-else{
-    echo $content['msg'];
-}
+//if(!$res) { exit('通讯失败,请检查网络'); }
+//$content = json_decode($res['content'], 1);
+//if(!$content['status']){ exit($content['msg']); }
+//else{ echo $content['msg']; }
 
-$sql = "
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_adv') . " (
+echo '本版本商城系统已经被破解整合，请放心使用！';
+
+pdo_query( <<<SQL
+
+CREATE TABLE `ims_sz_yi_adpc` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `advname` varchar(50) DEFAULT '',
@@ -26,13 +23,237 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_adv') . " (
   `thumb` varchar(255) DEFAULT '',
   `displayorder` int(11) DEFAULT '0',
   `enabled` int(11) DEFAULT '0',
+  `thumb_pc` varchar(255) DEFAULT '',
+  `location` varchar(50) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_ads` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `adsname` varchar(50) DEFAULT '',
+  `link_1` varchar(255) DEFAULT '',
+  `link_2` varchar(255) DEFAULT '',
+  `link_3` varchar(255) DEFAULT '',
+  `link_4` varchar(255) DEFAULT '',
+  `thumb_1` varchar(255) DEFAULT '',
+  `thumb_2` varchar(255) DEFAULT '',
+  `thumb_3` varchar(255) DEFAULT '',
+  `thumb_4` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_adv` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `advname` varchar(50) DEFAULT '',
+  `link` varchar(255) DEFAULT '',
+  `thumb` varchar(255) DEFAULT '',
+  `displayorder` int(11) DEFAULT '0',
+  `enabled` int(11) DEFAULT '0',
+  `thumb_pc` varchar(500) DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_enabled` (`enabled`),
   KEY `idx_displayorder` (`displayorder`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_carrier') . " (
+CREATE TABLE `ims_sz_yi_af_supplier` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `openid` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `realname` varchar(55) CHARACTER SET utf8 NOT NULL,
+  `mobile` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `weixin` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `productname` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `status` tinyint(3) NOT NULL COMMENT '0申请1驳回2通过',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `article_title` varchar(255) NOT NULL DEFAULT '' COMMENT '文章标题',
+  `resp_desc` text NOT NULL COMMENT '回复介绍',
+  `resp_img` text NOT NULL COMMENT '回复图片',
+  `article_content` longtext,
+  `article_category` int(11) NOT NULL DEFAULT '0' COMMENT '文章分类',
+  `article_date_v` varchar(20) NOT NULL DEFAULT '' COMMENT '虚拟发布时间',
+  `article_date` varchar(20) NOT NULL DEFAULT '' COMMENT '文章发布时间',
+  `article_mp` varchar(50) NOT NULL DEFAULT '' COMMENT '公众号',
+  `article_author` varchar(20) NOT NULL DEFAULT '' COMMENT '发布作者',
+  `article_readnum_v` int(11) NOT NULL DEFAULT '0' COMMENT '虚拟阅读量',
+  `article_readnum` int(11) NOT NULL DEFAULT '0' COMMENT '真实阅读量',
+  `article_likenum_v` int(11) NOT NULL DEFAULT '0' COMMENT '虚拟点赞数',
+  `article_likenum` int(11) NOT NULL DEFAULT '0' COMMENT '真实点赞数',
+  `article_linkurl` varchar(300) NOT NULL DEFAULT '' COMMENT '阅读原文链接',
+  `article_rule_daynum` int(11) NOT NULL DEFAULT '0' COMMENT '每人每天参与次数',
+  `article_rule_allnum` int(11) NOT NULL DEFAULT '0' COMMENT '所有参与次数',
+  `article_rule_credit` int(11) NOT NULL DEFAULT '0' COMMENT '增加y积分',
+  `article_rule_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '增加z余额',
+  `article_rule_money_total` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '最高累计奖金',
+  `article_rule_userd_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '截止目前累计奖励金额',
+  `page_set_option_nocopy` int(1) NOT NULL DEFAULT '0' COMMENT '页面禁止复制url',
+  `page_set_option_noshare_tl` int(1) NOT NULL DEFAULT '0' COMMENT '页面禁止分享至朋友圈',
+  `page_set_option_noshare_msg` int(1) NOT NULL DEFAULT '0' COMMENT '页面禁止发送给好友',
+  `article_keyword` varchar(255) NOT NULL DEFAULT '' COMMENT '页面关键字',
+  `article_report` int(1) NOT NULL DEFAULT '0' COMMENT '举报按钮',
+  `product_advs_type` int(1) NOT NULL DEFAULT '0' COMMENT '营销显示产品',
+  `product_advs_title` varchar(255) NOT NULL DEFAULT '' COMMENT '营销产品标题',
+  `product_advs_more` varchar(255) NOT NULL DEFAULT '' COMMENT '推广产品底部标题',
+  `product_advs_link` varchar(255) NOT NULL DEFAULT '' COMMENT '推广产品底部链接',
+  `product_advs` text NOT NULL COMMENT '营销商品',
+  `article_state` int(1) NOT NULL DEFAULT '0',
+  `network_attachment` varchar(255) DEFAULT '',
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_article_title` (`article_title`),
+  KEY `idx_article_content` (`article_content`(10)),
+  KEY `idx_article_keyword` (`article_keyword`),
+  KEY `idx_uniacid` (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='营销文章';
+
+CREATE TABLE `ims_sz_yi_article_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(255) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`),
+  KEY `idx_category_name` (`category_name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='营销表单分类';
+
+CREATE TABLE `ims_sz_yi_article_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `aid` int(11) NOT NULL DEFAULT '0' COMMENT '文章id',
+  `read` int(11) NOT NULL DEFAULT '0',
+  `like` int(11) NOT NULL DEFAULT '0',
+  `openid` varchar(255) NOT NULL DEFAULT '' COMMENT '用户openid',
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_aid` (`aid`),
+  KEY `idx_openid` (`openid`),
+  KEY `idx_uniacid` (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='点赞/阅读记录';
+
+CREATE TABLE `ims_sz_yi_article_report` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mid` int(11) NOT NULL DEFAULT '0',
+  `openid` varchar(255) NOT NULL DEFAULT '',
+  `aid` int(11) DEFAULT '0',
+  `cate` varchar(255) NOT NULL DEFAULT '',
+  `cons` varchar(255) NOT NULL DEFAULT '',
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户举报记录';
+
+CREATE TABLE `ims_sz_yi_article_share` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `aid` int(11) NOT NULL DEFAULT '0',
+  `share_user` int(11) NOT NULL DEFAULT '0' COMMENT '分享人',
+  `click_user` int(11) NOT NULL DEFAULT '0' COMMENT '点击人',
+  `click_date` varchar(20) NOT NULL DEFAULT '' COMMENT '执行时间',
+  `add_credit` int(11) NOT NULL DEFAULT '0' COMMENT '添加的积分',
+  `add_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '添加的余额',
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_aid` (`aid`),
+  KEY `idx_uniacid` (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户分享数据';
+
+CREATE TABLE `ims_sz_yi_article_sys` (
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  `article_message` varchar(255) NOT NULL DEFAULT '',
+  `article_title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
+  `article_image` varchar(300) NOT NULL DEFAULT '' COMMENT '图片',
+  `article_shownum` int(11) NOT NULL DEFAULT '0' COMMENT '每页数量',
+  `article_keyword` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
+  `article_temp` int(11) NOT NULL DEFAULT '0',
+  `article_area` text COMMENT '文章阅读地区',
+  PRIMARY KEY (`uniacid`),
+  KEY `idx_article_message` (`article_message`),
+  KEY `idx_article_keyword` (`article_keyword`),
+  KEY `idx_article_title` (`article_title`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章设置';
+
+CREATE TABLE `ims_sz_yi_bonus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `send_bonus_sn` int(11) DEFAULT '0',
+  `money` decimal(10,2) DEFAULT '0.00',
+  `total` int(11) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0',
+  `type` tinyint(1) DEFAULT '0' COMMENT '0 手动 1 自动',
+  `paymethod` tinyint(1) DEFAULT '0',
+  `isglobal` tinyint(1) DEFAULT '0',
+  `sendpay_error` tinyint(1) DEFAULT '0',
+  `utime` int(11) DEFAULT '0',
+  `ctime` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+CREATE TABLE `ims_sz_yi_bonus_goods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `ordergoodid` int(11) DEFAULT '0',
+  `orderid` int(11) DEFAULT '0',
+  `total` int(11) DEFAULT '0',
+  `optionname` varchar(100) DEFAULT '',
+  `mid` int(11) DEFAULT '0' COMMENT '所有人，分佣者',
+  `levelid` int(11) DEFAULT '0' COMMENT '级别id',
+  `bonus_area` tinyint(1) DEFAULT '0',
+  `level` int(11) DEFAULT '0' COMMENT '1/2/3哪一级',
+  `money` decimal(10,2) DEFAULT '0.00' COMMENT '应得佣金',
+  `status` tinyint(3) DEFAULT '0' COMMENT '申请状态，-2删除，-1无效，0未申请，1申请，2审核通过 3已打款',
+  `content` text,
+  `applytime` int(11) DEFAULT '0',
+  `checktime` int(11) DEFAULT '0',
+  `paytime` int(11) DEFAULT '0',
+  `invalidtime` int(11) DEFAULT '0',
+  `deletetime` int(11) DEFAULT '0',
+  `createtime` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_bonus_level` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `levelname` varchar(50) DEFAULT '',
+  `agent_money` decimal(10,2) DEFAULT '0.00',
+  `pcommission` decimal(10,2) DEFAULT '0.00',
+  `commissionmoney` decimal(10,2) DEFAULT '0.00',
+  `ordermoney` decimal(10,2) DEFAULT '0.00',
+  `downcount` int(10) DEFAULT '0',
+  `ordercount` int(10) DEFAULT '0',
+  `downcountlevel1` int(10) DEFAULT '0',
+  `type` int(11) DEFAULT '0' COMMENT '1为区域代理',
+  `level` int(10) DEFAULT '0' COMMENT '等级权重',
+  `premier` tinyint(1) DEFAULT '0' COMMENT '0 普通级别 1 最高级别',
+  `content` text COMMENT '微信消息提醒追加内容',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_bonus_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `openid` varchar(255) DEFAULT '',
+  `uid` int(11) DEFAULT '0',
+  `money` decimal(10,2) DEFAULT '0.00',
+  `logno` varchar(255) DEFAULT '',
+  `send_bonus_sn` int(11) DEFAULT '0',
+  `paymethod` tinyint(1) DEFAULT '0',
+  `isglobal` tinyint(1) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0',
+  `sendpay` tinyint(1) DEFAULT '0',
+  `ctime` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_carrier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `realname` varchar(50) DEFAULT '',
@@ -47,7 +268,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_carrier') . " (
   KEY `idx_createtime` (`createtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_category') . " (
+CREATE TABLE `ims_sz_yi_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0' COMMENT '所属帐号',
   `name` varchar(50) DEFAULT NULL COMMENT '分类名称',
@@ -68,9 +289,9 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_category') . " (
   KEY `idx_parentid` (`parentid`),
   KEY `idx_isrecommand` (`isrecommand`),
   KEY `idx_ishome` (`ishome`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_commission_apply') . " (
+CREATE TABLE `ims_sz_yi_commission_apply` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `applyno` varchar(255) DEFAULT '',
@@ -95,7 +316,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_commission_apply') . " (
   KEY `idx_invalidtime` (`invalidtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_commission_clickcount') . " (
+CREATE TABLE `ims_sz_yi_commission_clickcount` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(255) DEFAULT '',
@@ -107,7 +328,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_commission_clickcount') . " (
   KEY `idx_from_openid` (`from_openid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_commission_level') . " (
+CREATE TABLE `ims_sz_yi_commission_level` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) NOT NULL,
   `levelname` varchar(50) DEFAULT '',
@@ -122,7 +343,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_commission_level') . " (
   KEY `idx_uniacid` (`uniacid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_commission_log') . " (
+CREATE TABLE `ims_sz_yi_commission_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `applyid` int(11) DEFAULT '0',
@@ -137,8 +358,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_commission_log') . " (
   KEY `idx_createtime` (`createtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_commission_shop') . " (
+CREATE TABLE `ims_sz_yi_commission_shop` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `mid` int(11) DEFAULT '0',
@@ -154,8 +374,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_commission_shop') . " (
   KEY `idx_mid` (`mid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_coupon` (
+CREATE TABLE `ims_sz_yi_coupon` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `catid` int(11) DEFAULT '0',
@@ -217,8 +436,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_coupon` (
   KEY `idx_catid` (`catid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_coupon_category` (
+CREATE TABLE `ims_sz_yi_coupon_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `name` varchar(255) DEFAULT '',
@@ -230,9 +448,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_coupon_category` (
   KEY `idx_status` (`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_coupon_data` (
+CREATE TABLE `ims_sz_yi_coupon_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(255) DEFAULT '',
@@ -250,8 +466,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_coupon_data` (
   KEY `idx_gettype` (`gettype`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_coupon_guess` (
+CREATE TABLE `ims_sz_yi_coupon_guess` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `couponid` int(11) DEFAULT '0',
@@ -264,9 +479,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_coupon_guess` (
   KEY `idx_couponid` (`couponid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_coupon_log` (
+CREATE TABLE `ims_sz_yi_coupon_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `logno` varchar(255) DEFAULT '',
@@ -287,8 +500,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_coupon_log` (
   KEY `idx_getfrom` (`getfrom`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_creditshop_adv` (
+CREATE TABLE `ims_sz_yi_creditshop_adv` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `advname` varchar(50) DEFAULT '',
@@ -302,8 +514,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_creditshop_adv` (
   KEY `idx_displayorder` (`displayorder`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_creditshop_category` (
+CREATE TABLE `ims_sz_yi_creditshop_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0' COMMENT '所属帐号',
   `name` varchar(50) DEFAULT NULL COMMENT '分类名称',
@@ -319,9 +530,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_creditshop_category` (
   KEY `idx_enabled` (`enabled`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_creditshop_goods` (
+CREATE TABLE `ims_sz_yi_creditshop_goods` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `displayorder` int(11) DEFAULT '0',
@@ -391,8 +600,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_creditshop_goods` (
   KEY `idx_goodstype` (`goodstype`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_creditshop_log` (
+CREATE TABLE `ims_sz_yi_creditshop_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `logno` varchar(255) DEFAULT '',
@@ -420,7 +628,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_creditshop_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_designer') . " (
+CREATE TABLE `ims_sz_yi_designer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) NOT NULL DEFAULT '0' COMMENT '公众号',
   `pagename` varchar(255) NOT NULL DEFAULT '' COMMENT '页面名称',
@@ -437,8 +645,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_designer') . " (
   FULLTEXT KEY `idx_keyword` (`keyword`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_designer_menu` (
+CREATE TABLE `ims_sz_yi_designer_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `menuname` varchar(255) DEFAULT '',
@@ -452,8 +659,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_designer_menu` (
   KEY `idx_createtime` (`createtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_dispatch') . " (
+CREATE TABLE `ims_sz_yi_dispatch` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `dispatchname` varchar(50) DEFAULT '',
@@ -467,13 +673,111 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_dispatch') . " (
   `areas` text,
   `carriers` text,
   `enabled` int(11) DEFAULT '0',
+  `isdefault` tinyint(1) DEFAULT '0',
+  `calculatetype` tinyint(1) DEFAULT '0',
+  `firstnumprice` decimal(10,2) DEFAULT '0.00',
+  `secondnumprice` decimal(10,2) DEFAULT '0.00',
+  `firstnum` int(11) DEFAULT '0',
+  `secondnum` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_displayorder` (`displayorder`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE `ims_sz_yi_diyform_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0' COMMENT '所属帐号',
+  `name` varchar(50) DEFAULT NULL COMMENT '分类名称',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_express') . " (
+CREATE TABLE `ims_sz_yi_diyform_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  `typeid` int(11) NOT NULL DEFAULT '0' COMMENT '类型id',
+  `cid` int(11) DEFAULT '0' COMMENT '关联id',
+  `diyformfields` text,
+  `fields` text NOT NULL COMMENT '字符集',
+  `openid` varchar(255) NOT NULL DEFAULT '' COMMENT '使用者openid',
+  `type` tinyint(2) DEFAULT '0' COMMENT '该数据所属模块',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE,
+  KEY `idx_typeid` (`typeid`) USING BTREE,
+  KEY `idx_cid` (`cid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_diyform_temp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  `typeid` int(11) DEFAULT '0',
+  `cid` int(11) NOT NULL DEFAULT '0' COMMENT '关联id',
+  `diyformfields` text,
+  `fields` text NOT NULL COMMENT '字符集',
+  `openid` varchar(255) NOT NULL DEFAULT '' COMMENT '使用者openid',
+  `type` tinyint(1) DEFAULT '0' COMMENT '类型',
+  `diyformid` int(11) DEFAULT '0',
+  `diyformdata` text,
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE,
+  KEY `idx_cid` (`cid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_diyform_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  `cate` int(11) DEFAULT '0',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `fields` text NOT NULL COMMENT '字段集',
+  `usedata` int(11) NOT NULL DEFAULT '0' COMMENT '已用数据',
+  `alldata` int(11) NOT NULL DEFAULT '0' COMMENT '全部数据',
+  `status` tinyint(1) DEFAULT '1' COMMENT '状态',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE,
+  KEY `idx_cate` (`cate`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_exhelper_express` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `type` int(1) NOT NULL DEFAULT '1' COMMENT '单据分类 1为快递单 2为发货单',
+  `expressname` varchar(255) DEFAULT '',
+  `expresscom` varchar(255) NOT NULL DEFAULT '',
+  `express` varchar(255) NOT NULL DEFAULT '',
+  `width` decimal(10,2) DEFAULT '0.00',
+  `datas` text,
+  `height` decimal(10,2) DEFAULT '0.00',
+  `bg` varchar(255) DEFAULT '',
+  `isdefault` tinyint(3) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE,
+  KEY `idx_isdefault` (`isdefault`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_exhelper_senduser` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `sendername` varchar(255) DEFAULT '' COMMENT '发件人',
+  `sendertel` varchar(255) DEFAULT '' COMMENT '发件人联系电话',
+  `sendersign` varchar(255) DEFAULT '' COMMENT '发件人签名',
+  `sendercode` int(11) DEFAULT NULL COMMENT '发件地址邮编',
+  `senderaddress` varchar(255) DEFAULT '' COMMENT '发件地址',
+  `sendercity` varchar(255) DEFAULT NULL COMMENT '发件城市',
+  `isdefault` tinyint(3) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`) USING BTREE,
+  KEY `idx_isdefault` (`isdefault`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_exhelper_sys` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  `ip` varchar(20) NOT NULL DEFAULT 'localhost',
+  `port` int(11) NOT NULL DEFAULT '8000',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_express` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `express_name` varchar(50) DEFAULT '',
@@ -486,7 +790,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_express') . " (
   KEY `idx_displayorder` (`displayorder`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_feedback') . " (
+CREATE TABLE `ims_sz_yi_feedback` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(50) DEFAULT '0',
@@ -505,8 +809,8 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_feedback') . " (
   KEY `idx_transid` (`transid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods') . " (
-   `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ims_sz_yi_goods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `pcate` int(11) DEFAULT '0',
   `ccate` int(11) DEFAULT '0',
@@ -523,6 +827,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods') . " (
   `productprice` decimal(10,2) DEFAULT '0.00',
   `marketprice` decimal(10,2) DEFAULT '0.00',
   `costprice` decimal(10,2) DEFAULT '0.00',
+  `bonusmoney` decimal(10,2) DEFAULT NULL,
   `originalprice` decimal(10,2) DEFAULT '0.00' COMMENT '原价',
   `total` int(10) DEFAULT '0',
   `totalcnf` int(11) DEFAULT '0' COMMENT '0 拍下减库存 1 付款减库存 2 永久不减',
@@ -598,6 +903,16 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods') . " (
   `edmoney` decimal(10,2) DEFAULT '0.00',
   `edareas` text,
   `cates` text,
+  `diyformtype` tinyint(3) DEFAULT '0',
+  `manydeduct` tinyint(1) DEFAULT '0',
+  `dispatchtype` tinyint(1) DEFAULT '0',
+  `dispatchid` int(11) DEFAULT '0',
+  `dispatchprice` decimal(10,2) DEFAULT '0.00',
+  `diyformid` int(11) DEFAULT '0',
+  `diymode` tinyint(3) DEFAULT '0',
+  `shorttitle` varchar(500) DEFAULT NULL,
+  `commission_level_id` int(11) DEFAULT '0',
+  `supplier_uid` int(11) NOT NULL COMMENT '供应商ID',
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_pcate` (`pcate`),
@@ -614,9 +929,9 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods') . " (
   FULLTEXT KEY `idx_buylevels` (`buylevels`),
   FULLTEXT KEY `idx_showgroups` (`showgroups`),
   FULLTEXT KEY `idx_buygroups` (`buygroups`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods_comment') . " (
+CREATE TABLE `ims_sz_yi_goods_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `goodsid` int(10) DEFAULT '0',
@@ -632,7 +947,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods_comment') . " (
   KEY `idx_createtime` (`createtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods_option') . " (
+CREATE TABLE `ims_sz_yi_goods_option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `goodsid` int(10) DEFAULT '0',
@@ -653,9 +968,9 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods_option') . " (
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_goodsid` (`goodsid`),
   KEY `idx_displayorder` (`displayorder`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods_param') . " (
+CREATE TABLE `ims_sz_yi_goods_param` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `goodsid` int(10) DEFAULT '0',
@@ -668,7 +983,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods_param') . " (
   KEY `idx_displayorder` (`displayorder`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods_spec') . " (
+CREATE TABLE `ims_sz_yi_goods_spec` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `goodsid` int(11) DEFAULT '0',
@@ -684,7 +999,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods_spec') . " (
   KEY `idx_displayorder` (`displayorder`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods_spec_item') . " (
+CREATE TABLE `ims_sz_yi_goods_spec_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `specid` int(11) DEFAULT '0',
@@ -699,9 +1014,9 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_goods_spec_item') . " (
   KEY `idx_specid` (`specid`),
   KEY `idx_show` (`show`),
   KEY `idx_displayorder` (`displayorder`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member') . " (
+CREATE TABLE `ims_sz_yi_member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `uid` int(11) DEFAULT '0',
@@ -711,7 +1026,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member') . " (
   `openid` varchar(50) DEFAULT '',
   `realname` varchar(20) DEFAULT '',
   `mobile` varchar(11) DEFAULT '',
-  `pwd` varchar(100) DEFAULT '',
+  `pwd` varchar(100) DEFAULT NULL,
   `weixin` varchar(100) DEFAULT '',
   `content` text,
   `createtime` int(10) DEFAULT '0',
@@ -720,6 +1035,13 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member') . " (
   `isagent` tinyint(1) DEFAULT '0',
   `clickcount` int(11) DEFAULT '0',
   `agentlevel` int(11) DEFAULT '0',
+  `bonuslevel` int(11) DEFAULT '0',
+  `bonus_area` tinyint(1) DEFAULT '0',
+  `bonus_province` varchar(50) DEFAULT '',
+  `bonus_city` varchar(50) DEFAULT '',
+  `bonus_district` varchar(50) DEFAULT '',
+  `bonus_area_commission` decimal(10,2) DEFAULT '0.00',
+  `bonus_status` tinyint(1) DEFAULT '0',
   `noticeset` text,
   `nickname` varchar(255) DEFAULT '',
   `credit1` int(11) DEFAULT '0',
@@ -741,6 +1063,15 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member') . " (
   `regtype` tinyint(3) DEFAULT '1',
   `isbindmobile` tinyint(3) DEFAULT '0',
   `isjumpbind` tinyint(3) DEFAULT '0',
+  `diymemberid` int(11) DEFAULT '0',
+  `isblack` tinyint(3) DEFAULT '0',
+  `diymemberdataid` int(11) DEFAULT '0',
+  `diycommissionid` int(11) DEFAULT '0',
+  `diycommissiondataid` int(11) DEFAULT '0',
+  `diymemberfields` text,
+  `diymemberdata` text,
+  `diycommissionfields` text,
+  `diycommissiondata` text,
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_shareid` (`agentid`),
@@ -751,10 +1082,10 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member') . " (
   KEY `idx_uid` (`uid`),
   KEY `idx_groupid` (`groupid`),
   KEY `idx_level` (`level`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_address') . " (
-   `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ims_sz_yi_member_address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(50) DEFAULT '0',
   `realname` varchar(20) DEFAULT '',
@@ -773,8 +1104,8 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_address') . " (
   KEY `idx_deleted` (`deleted`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_cart') . " (
-   `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ims_sz_yi_member_cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(100) DEFAULT '',
   `goodsid` int(11) DEFAULT '0',
@@ -783,6 +1114,10 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_cart') . " (
   `deleted` tinyint(1) DEFAULT '0',
   `optionid` int(11) DEFAULT '0',
   `createtime` int(11) DEFAULT '0',
+  `diyformdata` text,
+  `diyformfields` text,
+  `diyformdataid` int(11) DEFAULT '0',
+  `diyformid` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_goodsid` (`goodsid`),
@@ -790,8 +1125,8 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_cart') . " (
   KEY `idx_deleted` (`deleted`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_favorite') . " (
-   `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ims_sz_yi_member_favorite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `goodsid` int(10) DEFAULT '0',
   `openid` varchar(50) DEFAULT '',
@@ -805,14 +1140,14 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_favorite') . " (
   KEY `idx_createtime` (`createtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_group') . " (
+CREATE TABLE `ims_sz_yi_member_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `groupname` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_history') . " (
+CREATE TABLE `ims_sz_yi_member_history` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `goodsid` int(10) DEFAULT '0',
@@ -827,7 +1162,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_history') . " (
   KEY `idx_createtime` (`createtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_level') . " (
+CREATE TABLE `ims_sz_yi_member_level` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) NOT NULL,
   `level` int(11) DEFAULT '0',
@@ -839,7 +1174,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_level') . " (
   KEY `idx_uniacid` (`uniacid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_log') . " (
+CREATE TABLE `ims_sz_yi_member_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(255) DEFAULT '',
@@ -858,9 +1193,9 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_log') . " (
   KEY `idx_type` (`type`),
   KEY `idx_createtime` (`createtime`),
   KEY `idx_status` (`status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_message_template') . " (
+CREATE TABLE `ims_sz_yi_member_message_template` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `title` varchar(255) DEFAULT '',
@@ -879,7 +1214,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_member_message_template') . " (
   KEY `idx_createtime` (`createtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_notice') . " (
+CREATE TABLE `ims_sz_yi_notice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `displayorder` int(11) DEFAULT '0',
@@ -889,11 +1224,12 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_notice') . " (
   `detail` text,
   `status` tinyint(3) DEFAULT '0',
   `createtime` int(11) DEFAULT NULL,
+  `desc` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_order') . " (
+CREATE TABLE `ims_sz_yi_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(50) DEFAULT '',
@@ -951,6 +1287,13 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_order') . " (
   `isvirtual` tinyint(3) DEFAULT '0',
   `couponid` int(11) DEFAULT '0',
   `couponprice` decimal(10,2) DEFAULT '0.00',
+  `diyformid` int(11) DEFAULT '0',
+  `storeid` int(11) DEFAULT '0',
+  `diyformdata` text,
+  `diyformfields` text,
+  `printstate` tinyint(3) DEFAULT '0',
+  `printstate2` tinyint(3) DEFAULT '0',
+  `supplier_uid` int(11) NOT NULL COMMENT '供应商ID',
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_openid` (`openid`),
@@ -962,7 +1305,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_order') . " (
   KEY `idx_finishtime` (`finishtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_order_comment') . " (
+CREATE TABLE `ims_sz_yi_order_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `orderid` int(11) DEFAULT '0',
@@ -989,8 +1332,8 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_order_comment') . " (
   KEY `idx_orderid` (`orderid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_order_goods') . " (
-   `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ims_sz_yi_order_goods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `orderid` int(11) DEFAULT '0',
   `goodsid` int(11) DEFAULT '0',
@@ -1030,6 +1373,16 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_order_goods') . " (
   `changeprice` decimal(10,2) DEFAULT '0.00',
   `oldprice` decimal(10,2) DEFAULT '0.00',
   `commissions` text,
+  `openid` varchar(255) DEFAULT '',
+  `diyformdataid` int(11) DEFAULT '0',
+  `diyformid` int(11) DEFAULT '0',
+  `diyformdata` text,
+  `diyformfields` text,
+  `printstate` tinyint(3) DEFAULT '0',
+  `printstate2` tinyint(3) DEFAULT '0',
+  `supplier_uid` int(11) NOT NULL COMMENT '供应商ID',
+  `supplier_apply_status` tinyint(4) NOT NULL COMMENT '1为供应商已提现',
+  `goods_op_cost_price` decimal(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_orderid` (`orderid`),
@@ -1050,9 +1403,9 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_order_goods') . " (
   KEY `idx_paytime1` (`paytime1`),
   KEY `idx_paytime2` (`paytime2`),
   KEY `idx_paytime3` (`paytime3`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_order_refund') . " (
+CREATE TABLE `ims_sz_yi_order_refund` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `orderid` int(11) DEFAULT '0',
@@ -1070,8 +1423,8 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_order_refund') . " (
   KEY `idx_uniacid` (`uniacid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_perm_log') . " (
-   `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ims_sz_yi_perm_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT '0',
   `uniacid` int(11) DEFAULT '0',
   `name` varchar(255) DEFAULT '',
@@ -1085,9 +1438,9 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_perm_log') . " (
   KEY `idx_uniacid` (`uniacid`),
   FULLTEXT KEY `idx_type` (`type`),
   FULLTEXT KEY `idx_op` (`op`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_perm_plugin') . " (
+CREATE TABLE `ims_sz_yi_perm_plugin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `acid` int(11) DEFAULT '0',
   `uid` int(11) DEFAULT '0',
@@ -1099,20 +1452,21 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_perm_plugin') . " (
   KEY `idx_type` (`type`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_perm_role') . " (
+CREATE TABLE `ims_sz_yi_perm_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `rolename` varchar(255) DEFAULT '',
   `status` tinyint(3) DEFAULT '0',
   `perms` text,
   `deleted` tinyint(3) DEFAULT '0',
+  `status1` tinyint(3) NOT NULL COMMENT '1：供应商开启',
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_status` (`status`),
   KEY `idx_deleted` (`deleted`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_perm_user') . " (
+CREATE TABLE `ims_sz_yi_perm_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `uid` int(11) DEFAULT '0',
@@ -1124,6 +1478,10 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_perm_user') . " (
   `deleted` tinyint(3) DEFAULT '0',
   `realname` varchar(255) DEFAULT '',
   `mobile` varchar(255) DEFAULT '',
+  `banknumber` varchar(255) NOT NULL COMMENT '银行卡号',
+  `accountname` varchar(255) NOT NULL COMMENT '开户名',
+  `accountbank` varchar(255) NOT NULL COMMENT '开户行',
+  `openid` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_uid` (`uid`),
@@ -1132,7 +1490,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_perm_user') . " (
   KEY `idx_deleted` (`deleted`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_plugin') . " (
+CREATE TABLE `ims_sz_yi_plugin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `displayorder` int(11) DEFAULT '0',
   `identity` varchar(50) DEFAULT '',
@@ -1144,10 +1502,24 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_plugin') . " (
   PRIMARY KEY (`id`),
   KEY `idx_displayorder` (`displayorder`),
   FULLTEXT KEY `idx_identity` (`identity`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_poster') . " (
-   `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ims_sz_yi_plugin_copy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `displayorder` int(11) DEFAULT '0',
+  `identity` varchar(50) DEFAULT '',
+  `name` varchar(50) DEFAULT '',
+  `version` varchar(10) DEFAULT '',
+  `author` varchar(20) DEFAULT '',
+  `status` tinyint(3) DEFAULT '0',
+  `category` varchar(255) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_displayorder` (`displayorder`) USING BTREE,
+  FULLTEXT KEY `idx_identity` (`identity`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_poster` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `type` tinyint(3) DEFAULT '0' COMMENT '1 首页 2 小店 3 商城 4 自定义',
   `title` varchar(255) DEFAULT '',
@@ -1192,65 +1564,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_poster') . " (
   KEY `idx_createtime` (`createtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_poster_log') . " (
- `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uniacid` int(11) DEFAULT '0',
-  `openid` varchar(255) DEFAULT '',
-  `posterid` int(11) DEFAULT '0',
-  `from_openid` varchar(255) DEFAULT '',
-  `subcredit` int(11) DEFAULT '0',
-  `submoney` decimal(10,2) DEFAULT '0.00',
-  `reccredit` int(11) DEFAULT '0',
-  `recmoney` decimal(10,2) DEFAULT '0.00',
-  `createtime` int(11) DEFAULT '0',
-  `reccouponid` int(11) DEFAULT '0',
-  `reccouponnum` int(11) DEFAULT '0',
-  `subcouponid` int(11) DEFAULT '0',
-  `subcouponnum` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_uniacid` (`uniacid`),
-  KEY `idx_openid` (`openid`),
-  KEY `idx_createtime` (`createtime`),
-  KEY `idx_posterid` (`posterid`),
-  FULLTEXT KEY `idx_from_openid` (`from_openid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_poster_qr') . " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `acid` int(10) unsigned NOT NULL,
-  `openid` varchar(100) NOT NULL DEFAULT '',
-  `type` tinyint(3) DEFAULT '0',
-  `sceneid` int(11) DEFAULT '0',
-  `mediaid` varchar(255) DEFAULT '',
-  `ticket` varchar(250) NOT NULL,
-  `url` varchar(80) NOT NULL,
-  `createtime` int(10) unsigned NOT NULL,
-  `goodsid` int(11) DEFAULT '0',
-  `qrimg` varchar(1000) DEFAULT '',
-  `scenestr` varchar(255) DEFAULT '',
-  PRIMARY KEY (`id`),
-  KEY `idx_acid` (`acid`),
-  KEY `idx_sceneid` (`sceneid`),
-  KEY `idx_type` (`type`),
-  FULLTEXT KEY `idx_openid` (`openid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_poster_scan') . " (
-   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uniacid` int(11) DEFAULT '0',
-  `posterid` int(11) DEFAULT '0',
-  `openid` varchar(255) DEFAULT '',
-  `from_openid` varchar(255) DEFAULT '',
-  `scantime` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_uniacid` (`uniacid`),
-  KEY `idx_posterid` (`posterid`),
-  KEY `idx_scantime` (`scantime`),
-  FULLTEXT KEY `idx_openid` (`openid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_postera` (
+CREATE TABLE `ims_sz_yi_postera` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `type` tinyint(3) DEFAULT '0' COMMENT '1 首页 2 小店 3 商城 4 自定义',
@@ -1298,9 +1612,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_postera` (
   KEY `idx_createtime` (`createtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_postera_log` (
+CREATE TABLE `ims_sz_yi_postera_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `openid` varchar(255) DEFAULT '',
@@ -1323,9 +1635,7 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_postera_log` (
   FULLTEXT KEY `idx_from_openid` (`from_openid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-
-CREATE TABLE IF NOT EXISTS `ims_sz_yi_postera_qr` (
+CREATE TABLE `ims_sz_yi_postera_qr` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `acid` int(10) unsigned NOT NULL,
   `openid` varchar(100) NOT NULL DEFAULT '',
@@ -1347,7 +1657,64 @@ CREATE TABLE IF NOT EXISTS `ims_sz_yi_postera_qr` (
   KEY `idx_posterid` (`posterid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_saler') . " (
+CREATE TABLE `ims_sz_yi_poster_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `openid` varchar(255) DEFAULT '',
+  `posterid` int(11) DEFAULT '0',
+  `from_openid` varchar(255) DEFAULT '',
+  `subcredit` int(11) DEFAULT '0',
+  `submoney` decimal(10,2) DEFAULT '0.00',
+  `reccredit` int(11) DEFAULT '0',
+  `recmoney` decimal(10,2) DEFAULT '0.00',
+  `createtime` int(11) DEFAULT '0',
+  `reccouponid` int(11) DEFAULT '0',
+  `reccouponnum` int(11) DEFAULT '0',
+  `subcouponid` int(11) DEFAULT '0',
+  `subcouponnum` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`),
+  KEY `idx_openid` (`openid`),
+  KEY `idx_createtime` (`createtime`),
+  KEY `idx_posterid` (`posterid`),
+  FULLTEXT KEY `idx_from_openid` (`from_openid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_sz_yi_poster_qr` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `acid` int(10) unsigned NOT NULL,
+  `openid` varchar(100) NOT NULL DEFAULT '',
+  `type` tinyint(3) DEFAULT '0',
+  `sceneid` int(11) DEFAULT '0',
+  `mediaid` varchar(255) DEFAULT '',
+  `ticket` varchar(250) NOT NULL,
+  `url` varchar(80) NOT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  `goodsid` int(11) DEFAULT '0',
+  `qrimg` varchar(1000) DEFAULT '',
+  `scenestr` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `idx_acid` (`acid`),
+  KEY `idx_sceneid` (`sceneid`),
+  KEY `idx_type` (`type`),
+  FULLTEXT KEY `idx_openid` (`openid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_sz_yi_poster_scan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `posterid` int(11) DEFAULT '0',
+  `openid` varchar(255) DEFAULT '',
+  `from_openid` varchar(255) DEFAULT '',
+  `scantime` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`),
+  KEY `idx_posterid` (`posterid`),
+  KEY `idx_scantime` (`scantime`),
+  FULLTEXT KEY `idx_openid` (`openid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_sz_yi_saler` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `storeid` int(11) DEFAULT '0',
   `uniacid` int(11) DEFAULT '0',
@@ -1359,7 +1726,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_saler') . " (
   KEY `idx_uniacid` (`uniacid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_store') . " (
+CREATE TABLE `ims_sz_yi_store` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `storename` varchar(255) DEFAULT '',
@@ -1368,12 +1735,31 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_store') . " (
   `lat` varchar(255) DEFAULT '',
   `lng` varchar(255) DEFAULT '',
   `status` tinyint(3) DEFAULT '0',
+  `realname` varchar(255) DEFAULT '',
+  `mobile` varchar(255) DEFAULT '',
+  `fetchtime` varchar(255) DEFAULT '',
+  `type` tinyint(1) DEFAULT '0',
+  `myself_support` tinyint(1) DEFAULT '0',
+  `verity_support` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_uniacid` (`uniacid`),
   KEY `idx_status` (`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_sysset') . " (
+CREATE TABLE `ims_sz_yi_supplier_apply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL COMMENT '供应商id',
+  `uniacid` int(11) NOT NULL,
+  `type` int(11) NOT NULL COMMENT '1手动2微信',
+  `applysn` varchar(255) NOT NULL COMMENT '提现单号',
+  `apply_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '申请提现金额',
+  `apply_time` int(11) NOT NULL COMMENT '申请时间',
+  `status` tinyint(3) NOT NULL COMMENT '0为申请状态1为完成状态',
+  `finish_time` int(11) NOT NULL COMMENT '完成时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `ims_sz_yi_sysset` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0',
   `sets` text,
@@ -1383,8 +1769,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_sysset') . " (
   KEY `idx_uniacid` (`uniacid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_virtual_category') . " (
+CREATE TABLE `ims_sz_yi_virtual_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT '0' COMMENT '所属帐号',
   `name` varchar(50) DEFAULT NULL COMMENT '分类名称',
@@ -1392,9 +1777,8 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_virtual_category') . " (
   KEY `idx_uniacid` (`uniacid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_virtual_data') . " (
-`id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ims_sz_yi_virtual_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) NOT NULL DEFAULT '0',
   `typeid` int(11) NOT NULL DEFAULT '0' COMMENT '类型id',
   `pvalue` varchar(255) DEFAULT '' COMMENT '主键键值',
@@ -1411,7 +1795,7 @@ CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_virtual_data') . " (
   KEY `idx_orderid` (`orderid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS  " . tablename('sz_yi_virtual_type') . " (
+CREATE TABLE `ims_sz_yi_virtual_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) NOT NULL DEFAULT '0',
   `cate` int(11) DEFAULT '0',
@@ -1424,237 +1808,31 @@ CREATE TABLE IF NOT EXISTS  " . tablename('sz_yi_virtual_type') . " (
   KEY `idx_cate` (`cate`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+INSERT INTO `ims_sz_yi_plugin` (`id`, `displayorder`, `identity`, `name`, `version`, `author`, `status`, `category`) VALUES
+(1, 1, 'qiniu', '七牛存储', '1.0', '官方', 1, 'tool'),
+(2, 2, 'taobao', '淘宝助手', '1.0', '官方', 1, 'tool'),
+(3, 3, 'commission', '芸众分销', '1.0', '官方', 1, 'biz'),
+(4, 4, 'poster', '超级海报', '1.2', '官方', 1, 'sale'),
+(5, 5, 'verify', 'O2O核销', '1.0', '官方', 1, 'biz'),
+(6, 6, 'perm', '分权系统', '1.0', '官方', 1, 'help'),
+(7, 7, 'sale', '营销宝', '1.0', '官方', 1, 'sale'),
+(8, 8, 'tmessage', '会员群发', '1.0', '官方', 1, 'tool'),
+(9, 9, 'designer', '店铺装修', '1.0', '官方', 1, 'tool'),
+(10, 10, 'creditshop', '积分商城', '1.0', '官方', 1, 'biz'),
+(11, 11, 'virtual', '虚拟物品', '1.0', '官方', 1, 'biz'),
+(12, 12, 'article', '文章营销', '1.0', '官方', 1, 'sale'),
+(13, 13, 'coupon', '超级券', '1.0', '官方', 1, 'sale'),
+(14, 14, 'postera', '活动海报', '1.0', '官方', 1, 'sale'),
+(15, 0, 'exhelper', '快递助手', '1.0', '官方', 1, 'tool'),
+(16, 0, 'yunpay', '云支付', '1.0', '云支付', 1, 'tool'),
+(17, 0, 'supplier', '供应商', '1.0', '官方', 1, 'biz'),
+(18, 0, 'diyform', '自定义表单', '1.0', '官方', 1, 'help'),
+(19, 0, 'system', '系统工具', '1.0', '官方', 1, 'help'),
+(20, 15, 'bonus', '芸众分红', '1.0', '官方', 1, 'biz');
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article'). " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `article_title` varchar(255) NOT NULL DEFAULT '' COMMENT '文章标题',
-  `resp_desc` text NOT NULL COMMENT '回复介绍',
-  `resp_img` text NOT NULL COMMENT '回复图片',
-  `article_content` longtext,
-  `article_category` int(11) NOT NULL DEFAULT '0' COMMENT '文章分类',
-  `article_date_v` varchar(20) NOT NULL DEFAULT '' COMMENT '虚拟发布时间',
-  `article_date` varchar(20) NOT NULL DEFAULT '' COMMENT '文章发布时间',
-  `article_mp` varchar(50) NOT NULL DEFAULT '' COMMENT '公众号',
-  `article_author` varchar(20) NOT NULL DEFAULT '' COMMENT '发布作者',
-  `article_readnum_v` int(11) NOT NULL DEFAULT '0' COMMENT '虚拟阅读量',
-  `article_readnum` int(11) NOT NULL DEFAULT '0' COMMENT '真实阅读量',
-  `article_likenum_v` int(11) NOT NULL DEFAULT '0' COMMENT '虚拟点赞数',
-  `article_likenum` int(11) NOT NULL DEFAULT '0' COMMENT '真实点赞数',
-  `article_linkurl` varchar(300) NOT NULL DEFAULT '' COMMENT '阅读原文链接',
-  `article_rule_daynum` int(11) NOT NULL DEFAULT '0' COMMENT '每人每天参与次数',
-  `article_rule_allnum` int(11) NOT NULL DEFAULT '0' COMMENT '所有参与次数',
-  `article_rule_credit` int(11) NOT NULL DEFAULT '0' COMMENT '增加y积分',
-  `article_rule_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '增加z余额',
-  `page_set_option_nocopy` int(1) NOT NULL DEFAULT '0' COMMENT '页面禁止复制url',
-  `page_set_option_noshare_tl` int(1) NOT NULL DEFAULT '0' COMMENT '页面禁止分享至朋友圈',
-  `page_set_option_noshare_msg` int(1) NOT NULL DEFAULT '0' COMMENT '页面禁止发送给好友',
-  `article_keyword` varchar(255) NOT NULL DEFAULT '' COMMENT '页面关键字',
-  `article_report` int(1) NOT NULL DEFAULT '0' COMMENT '举报按钮',
-  `product_advs_type` int(1) NOT NULL DEFAULT '0' COMMENT '营销显示产品',
-  `product_advs_title` varchar(255) NOT NULL DEFAULT '' COMMENT '营销产品标题',
-  `product_advs_more` varchar(255) NOT NULL DEFAULT '' COMMENT '推广产品底部标题',
-  `product_advs_link` varchar(255) NOT NULL DEFAULT '' COMMENT '推广产品底部链接',
-  `product_advs` text NOT NULL COMMENT '营销商品',
-  `article_state` int(1) NOT NULL DEFAULT '0',
-  `network_attachment` varchar(255) DEFAULT '',
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_article_title` (`article_title`),
-  KEY `idx_article_content` (`article_content`(10)),
-  KEY `idx_article_keyword` (`article_keyword`),
-  KEY `idx_uniacid` (`uniacid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='营销文章';
+UPDATE `ims_qrcode` SET `name` = 'SZ_YI_POSTER_QRCODE', `keyword`='SZ_YI_POSTER' WHERE `keyword` = 'EWEI_SHOP_POSTER'
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article_category'). " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_name` varchar(255) NOT NULL DEFAULT '' COMMENT '分类名称',
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_uniacid` (`uniacid`),
-  KEY `idx_category_name` (`category_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='营销表单分类';
+SQL
+);
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article_log'). " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `aid` int(11) NOT NULL DEFAULT '0' COMMENT '文章id',
-  `read` int(11) NOT NULL DEFAULT '0',
-  `like` int(11) NOT NULL DEFAULT '0',
-  `openid` varchar(255) NOT NULL DEFAULT '' COMMENT '用户openid',
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_aid` (`aid`),
-  KEY `idx_openid` (`openid`),
-  KEY `idx_uniacid` (`uniacid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='点赞/阅读记录';
 
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article_report'). " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `mid` int(11) NOT NULL DEFAULT '0',
-  `openid` varchar(255) NOT NULL DEFAULT '',
-  `aid` int(11) DEFAULT '0',
-  `cate` varchar(255) NOT NULL DEFAULT '',
-  `cons` varchar(255) NOT NULL DEFAULT '',
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户举报记录';
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article_share'). " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `aid` int(11) NOT NULL DEFAULT '0',
-  `share_user` int(11) NOT NULL DEFAULT '0' COMMENT '分享人',
-  `click_user` int(11) NOT NULL DEFAULT '0' COMMENT '点击人',
-  `click_date` varchar(20) NOT NULL DEFAULT '' COMMENT '执行时间',
-  `add_credit` int(11) NOT NULL DEFAULT '0' COMMENT '添加的积分',
-  `add_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '添加的余额',
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_aid` (`aid`),
-  KEY `idx_uniacid` (`uniacid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户分享数据';
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article_sys'). " (
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  `article_message` varchar(255) NOT NULL DEFAULT '',
-  `article_title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
-  `article_image` varchar(300) NOT NULL DEFAULT '' COMMENT '图片',
-  `article_shownum` int(11) NOT NULL DEFAULT '0' COMMENT '每页数量',
-  `article_keyword` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
-  `article_temp` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`uniacid`),
-  KEY `idx_article_message` (`article_message`),
-  KEY `idx_article_keyword` (`article_keyword`),
-  KEY `idx_article_title` (`article_title`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章设置';
-
-INSERT INTO " . tablename('sz_yi_plugin') . " (`id`,`displayorder`,`identity`,`name`,`version`,`author`,`status`,`category`) VALUES
-(1, 1,  'qiniu',  '七牛存储', '1.0',  '官方', '1','tool'),
-(2, 2,  'taobao', '淘宝助手', '1.0',  '官方', '1','tool'),
-(3, 3,  'commission','芸众分销','1.0','官方','1','biz'),
-(4, 4,  'poster','超级海报','1.2','官方','1','sale'),
-(5, 5,  'verify','O2O核销','1.0','官方','1','biz'),
-(6, 6,  'perm','分权系统','1.0','官方','0','help'),
-(7, 7,  'sale','营销宝','1.0','官方','0','sale'),
-(8, 8,  'tmessage','会员群发','1.0','官方','1','tool'),
-(9, 9, 'designer', '店铺装修', '1.0', '官方', '1','tool'),
-(10, 10,  'creditshop','积分商城','1.0','官方','0','biz'),
-(11, 11,  'virtual','虚拟物品','1.0','官方','0','biz'),
-(12, 12,  'article', '文章营销','1.0', '官方', '1','sale'),
-(13,13,'coupon','超级券','1.0','官方','0','sale'),
-(14,14,'postera','活动海报','1.0','官方','0','sale');
-;
-";
-pdo_query($sql);
-
-$sql = "
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article'). " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `article_title` varchar(255) NOT NULL DEFAULT '' COMMENT '文章标题',
-  `resp_desc` text NOT NULL COMMENT '回复介绍',
-  `resp_img` text NOT NULL COMMENT '回复图片',
-  `article_content` longtext,
-  `article_category` int(11) NOT NULL DEFAULT '0' COMMENT '文章分类',
-  `article_date_v` varchar(20) NOT NULL DEFAULT '' COMMENT '虚拟发布时间',
-  `article_date` varchar(20) NOT NULL DEFAULT '' COMMENT '文章发布时间',
-  `article_mp` varchar(50) NOT NULL DEFAULT '' COMMENT '公众号',
-  `article_author` varchar(20) NOT NULL DEFAULT '' COMMENT '发布作者',
-  `article_readnum_v` int(11) NOT NULL DEFAULT '0' COMMENT '虚拟阅读量',
-  `article_readnum` int(11) NOT NULL DEFAULT '0' COMMENT '真实阅读量',
-  `article_likenum_v` int(11) NOT NULL DEFAULT '0' COMMENT '虚拟点赞数',
-  `article_likenum` int(11) NOT NULL DEFAULT '0' COMMENT '真实点赞数',
-  `article_linkurl` varchar(300) NOT NULL DEFAULT '' COMMENT '阅读原文链接',
-  `article_rule_daynum` int(11) NOT NULL DEFAULT '0' COMMENT '每人每天参与次数',
-  `article_rule_allnum` int(11) NOT NULL DEFAULT '0' COMMENT '所有参与次数',
-  `article_rule_credit` int(11) NOT NULL DEFAULT '0' COMMENT '增加y积分',
-  `article_rule_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '增加z余额',
-  `page_set_option_nocopy` int(1) NOT NULL DEFAULT '0' COMMENT '页面禁止复制url',
-  `page_set_option_noshare_tl` int(1) NOT NULL DEFAULT '0' COMMENT '页面禁止分享至朋友圈',
-  `page_set_option_noshare_msg` int(1) NOT NULL DEFAULT '0' COMMENT '页面禁止发送给好友',
-  `article_keyword` varchar(255) NOT NULL DEFAULT '' COMMENT '页面关键字',
-  `article_report` int(1) NOT NULL DEFAULT '0' COMMENT '举报按钮',
-  `product_advs_type` int(1) NOT NULL DEFAULT '0' COMMENT '营销显示产品',
-  `product_advs_title` varchar(255) NOT NULL DEFAULT '' COMMENT '营销产品标题',
-  `product_advs_more` varchar(255) NOT NULL DEFAULT '' COMMENT '推广产品底部标题',
-  `product_advs_link` varchar(255) NOT NULL DEFAULT '' COMMENT '推广产品底部链接',
-  `product_advs` text NOT NULL COMMENT '营销商品',
-  `article_state` int(1) NOT NULL DEFAULT '0',
-  `network_attachment` varchar(255) DEFAULT '',
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_article_title` (`article_title`),
-  KEY `idx_article_content` (`article_content`(10)),
-  KEY `idx_article_keyword` (`article_keyword`),
-  KEY `idx_uniacid` (`uniacid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='营销文章';
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article_category'). " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_name` varchar(255) NOT NULL DEFAULT '' COMMENT '分类名称',
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_uniacid` (`uniacid`),
-  KEY `idx_category_name` (`category_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='营销表单分类';
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article_log'). " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `aid` int(11) NOT NULL DEFAULT '0' COMMENT '文章id',
-  `read` int(11) NOT NULL DEFAULT '0',
-  `like` int(11) NOT NULL DEFAULT '0',
-  `openid` varchar(255) NOT NULL DEFAULT '' COMMENT '用户openid',
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_aid` (`aid`),
-  KEY `idx_openid` (`openid`),
-  KEY `idx_uniacid` (`uniacid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='点赞/阅读记录';
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article_report'). " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `mid` int(11) NOT NULL DEFAULT '0',
-  `openid` varchar(255) NOT NULL DEFAULT '',
-  `aid` int(11) DEFAULT '0',
-  `cate` varchar(255) NOT NULL DEFAULT '',
-  `cons` varchar(255) NOT NULL DEFAULT '',
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户举报记录';
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article_share'). " (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `aid` int(11) NOT NULL DEFAULT '0',
-  `share_user` int(11) NOT NULL DEFAULT '0' COMMENT '分享人',
-  `click_user` int(11) NOT NULL DEFAULT '0' COMMENT '点击人',
-  `click_date` varchar(20) NOT NULL DEFAULT '' COMMENT '执行时间',
-  `add_credit` int(11) NOT NULL DEFAULT '0' COMMENT '添加的积分',
-  `add_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '添加的余额',
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_aid` (`aid`),
-  KEY `idx_uniacid` (`uniacid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户分享数据';
-
-CREATE TABLE IF NOT EXISTS " . tablename('sz_yi_article_sys'). " (
-  `uniacid` int(11) NOT NULL DEFAULT '0',
-  `article_message` varchar(255) NOT NULL DEFAULT '',
-  `article_title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
-  `article_image` varchar(300) NOT NULL DEFAULT '' COMMENT '图片',
-  `article_shownum` int(11) NOT NULL DEFAULT '0' COMMENT '每页数量',
-  `article_keyword` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
-  `article_temp` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`uniacid`),
-  KEY `idx_article_message` (`article_message`),
-  KEY `idx_article_keyword` (`article_keyword`),
-  KEY `idx_article_title` (`article_title`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章设置';
-
-INSERT INTO " . tablename('sz_yi_plugin'). " (`id`, `displayorder`, `identity`, `name`, `version`, `author`, `status`) VALUES
-(12, 12, 'article', '文章营销', '1.0', '官方', 1);
-
-";
-pdo_query($sql);
-
-pdo_query("UPDATE `ims_qrcode` SET `name` = 'SZ_YI_POSTER_QRCODE', `keyword`='SZ_YI_POSTER' WHERE `keyword` = 'EWEI_SHOP_POSTER'");
-
-if(!pdo_fieldexists('sz_yi_goods', 'cates')) {
-	pdo_query("ALTER TABLE ".tablename('sz_yi_goods')." ADD     `cates` text;");
-}
