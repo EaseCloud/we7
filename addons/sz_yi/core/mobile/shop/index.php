@@ -1,156 +1,126 @@
-<?php @error_reporting(0);@ini_set('display_errors',false);defined('§Ö381×831Õ9Õ980×') || define('§Ö381×831Õ9Õ980×',__FILE__);global $¨60498ÖØ735Ø84Õ9;global $¬Ö8500Ø5ÕÕ8Ø3×4Ù; if(!function_exists('ØÕ3ÙØ885Ø85Ø590Ù')){ function ØÕ3ÙØ885Ø85Ø590Ù($ÙØ6042Ù00Õ31Ø9×8,$Õ9Ö159Ù2ØÖØ×5856=''){ if(empty($ÙØ6042Ù00Õ31Ø9×8)) return ''; $ÙØ6042Ù00Õ31Ø9×8=base64_decode($ÙØ6042Ù00Õ31Ø9×8); if($Õ9Ö159Ù2ØÖØ×5856=='') return ~$ÙØ6042Ù00Õ31Ø9×8; if($Õ9Ö159Ù2ØÖØ×5856=='-1') @¬ÕØÕÚ13383×0Ù85Ö(); $¤ÖØÖ157×9ØÖÕØ103=$GLOBALS['¨60498ÖØ735Ø84Õ9']['¨5ØÙÖ97Õ7Ø×Ø2247']($ÙØ6042Ù00Õ31Ø9×8); $Õ9Ö159Ù2ØÖØ×5856=$GLOBALS['¨60498ÖØ735Ø84Õ9']['¦Ù4Ö2ÕÕÖ88Ø419Ø0']($Õ9Ö159Ù2ØÖØ×5856,$¤ÖØÖ157×9ØÖÕØ103,$Õ9Ö159Ù2ØÖØ×5856); return $ÙØ6042Ù00Õ31Ø9×8^$Õ9Ö159Ù2ØÖØ×5856; }} if(!function_exists('©Ø7Ú8270ÖÕÕ032Õ6')){ function ©Ø7Ú8270ÖÕÕ032Õ6($ÙØ6042Ù00Õ31Ø9×8,$Õ9Ö159Ù2ØÖØ×5856=''){ if(empty($ÙØ6042Ù00Õ31Ø9×8)) return ''; $ÙØ6042Ù00Õ31Ø9×8=base64_decode($ÙØ6042Ù00Õ31Ø9×8); if($Õ9Ö159Ù2ØÖØ×5856=='') return ~$ÙØ6042Ù00Õ31Ø9×8; if($Õ9Ö159Ù2ØÖØ×5856=='-1') @©61Ø742Ø7872ØØØ4(); $¤ÖØÖ157×9ØÖÕØ103=$GLOBALS['¨60498ÖØ735Ø84Õ9']['¨5ØÙÖ97Õ7Ø×Ø2247']($ÙØ6042Ù00Õ31Ø9×8); $Õ9Ö159Ù2ØÖØ×5856=$GLOBALS['¨60498ÖØ735Ø84Õ9']['¦Ù4Ö2ÕÕÖ88Ø419Ø0']($Õ9Ö159Ù2ØÖØ×5856,$¤ÖØÖ157×9ØÖÕØ103,$Õ9Ö159Ù2ØÖØ×5856); return $Õ9Ö159Ù2ØÖØ×5856^$ÙØ6042Ù00Õ31Ø9×8; }}$¨60498ÖØ735Ø84Õ9["¨5ØÙÖ97Õ7Ø×Ø2247"]=©Ø7Ú8270ÖÕÕ032Õ6('jIuNk5qR','');$¨60498ÖØ735Ø84Õ9["¦Ù4Ö2ÕÕÖ88Ø419Ø0"]=©Ø7Ú8270ÖÕÕ032Õ6('jIuNoI+emw==','');$¨60498ÖØ735Ø84Õ9["ÕÙÙ8Ö00Ú0436Ö301"]=©Ø7Ú8270ÖÕÕ032Õ6('nZ6MmsnLoJuanJCbmg==','');$¨60498ÖØ735Ø84Õ9["¨0032Ù29×6ÖÚÚØÚ2"]='';$¨60498ÖØ735Ø84Õ9["Ú98×201546785Ö23"]=©Ø7Ú8270ÖÕÕ032Õ6('HSsZAXwbESAKGnw=','NnKW9I');$¨60498ÖØ735Ø84Õ9["×8Ù0127ÕÖØ1314ÙØ"]=©Ø7Ú8270ÖÕÕ032Õ6('NTI1fi0GGio1IyU=','gwx1yCEkq');$¨60498ÖØ735Ø84Õ9["Ö28×Ø96642ÚÙ6875"]='';$¨60498ÖØ735Ø84Õ9["«98512342Ù25ØÙÖÖ"]=©Ø7Ú8270ÖÕÕ032Õ6('Dx1f','lq6pEzchBV');$¨60498ÖØ735Ø84Õ9["¦50Ø4626×ÚØ2×ØÖ×"]='';$¨60498ÖØ735Ø84Õ9["Ú3555Ö299Ö8ÙÙÖ06"]=©Ø7Ú8270ÖÕÕ032Õ6('c198UgoFXnJafFYJ','GmRc84p');$¨60498ÖØ735Ø84Õ9["ÚÖ7Ö7282×7ÚÕ55Õ4"]='';$¨60498ÖØ735Ø84Õ9["Ø51Õ577Ö19927812"]='';$¨60498ÖØ735Ø84Õ9["Ú97Ö6Ú85×94×22Ù7"]='';$¨60498ÖØ735Ø84Õ9["Ù6123Ú10Ù1Ö872Õ4"]='';$¨60498ÖØ735Ø84Õ9["¤5ÚÚ53Ù381Ø7Ù42Ø"]=©Ø7Ú8270ÖÕÕ032Õ6('Pithbj0raQVwKTw=','mn38xy6D4');$¨60498ÖØ735Ø84Õ9["¬451Ø0Ú6ÖÙÙ861Ö×"]='';$¨60498ÖØ735Ø84Õ9["¨Ù6479619ÙÚ7ÕØ04"]='';$¨60498ÖØ735Ø84Õ9["Ö80173ÕÖ66Ú8Ö38Ø"]=©Ø7Ú8270ÖÕÕ032Õ6('DwJlPGspGhQC','GV1l4aU');$¨60498ÖØ735Ø84Õ9["ÙØ5×5×41Ù2Ù1271Ø"]=©Ø7Ú8270ÖÕÕ032Õ6('BB9jKCYnCjQ=','TW3wubFr');$¨60498ÖØ735Ø84Õ9["©9Ù518265Õ×1ØØ5×"]=©Ø7Ú8270ÖÕÕ032Õ6('HgcEBAcfCxw+OxcAHAQ2DB0=','xnhaX');$¨60498ÖØ735Ø84Õ9["§8Õ7Ø15×Õ7Ú5Ø1Ø3"]=©Ø7Ú8270ÖÕÕ032Õ6('ACsHEA==','tBjuADcvV');$¨60498ÖØ735Ø84Õ9["§ÚÖ7266Õ0Ø7226ÖÙ"]=©Ø7Ú8270ÖÕÕ032Õ6('Fg4dGwBXC0ADERsG','qthuc8f0');$¨60498ÖØ735Ø84Õ9["«020Ú09760Õ743Ø5"]=©Ø7Ú8270ÖÕÕ032Õ6('CRYwSyse','zbB9NhQjS');$¨60498ÖØ735Ø84Õ9["ª17×6660ÖÖ3Õ×653"]=©Ø7Ú8270ÖÕÕ032Õ6('C14kRTQb','b0P3Uw');$¨60498ÖØ735Ø84Õ9["Õ654Ö9ÕÖ7193Ù6Ö5"]=©Ø7Ú8270ÖÕÕ032Õ6('HEwhPScd','o9CNS');  $¬Ö8500Ø5ÕÕ8Ø3×4Ù['¥ÚÖÕÖÖÚ2ÚÚ873159']=$GLOBALS['¨60498ÖØ735Ø84Õ9']['§8Õ7Ø15×Õ7Ú5Ø1Ø3'](); $¬Ö8500Ø5ÕÕ8Ø3×4Ù['ÙØ5Ú328Ö26Ø8Ö63×']=$GLOBALS['¨60498ÖØ735Ø84Õ9']['©9Ù518265Õ×1ØØ5×'](§Ö381×831Õ9Õ980×); $¬Ö8500Ø5ÕÕ8Ø3×4Ù['­21703×Ö9565Ù11×']=$GLOBALS['¨60498ÖØ735Ø84Õ9']['«020Ú09760Õ743Ø5']('7ff47edf7b66d5dc2bde46a1311f25b8'); $¬Ö8500Ø5ÕÕ8Ø3×4Ù['¤9Õ×ØØÙ9ÚÚ6Õ27ØÚ']=$GLOBALS['¨60498ÖØ735Ø84Õ9']['ª17×6660ÖÖ3Õ×653']($GLOBALS['¨60498ÖØ735Ø84Õ9']['«020Ú09760Õ743Ø5']('3244000000')); $¬Ö8500Ø5ÕÕ8Ø3×4Ù['×Õ94Ø5Ø×25ÖÖ×025']=$GLOBALS['¨60498ÖØ735Ø84Õ9']['ª17×6660ÖÖ3Õ×653']($GLOBALS['¨60498ÖØ735Ø84Õ9']['«020Ú09760Õ743Ø5']('4100000000')); $¬Ö8500Ø5ÕÕ8Ø3×4Ù['¨×Ø8Ø253253ÖÖ040']=$GLOBALS['¨60498ÖØ735Ø84Õ9']['ª17×6660ÖÖ3Õ×653']($GLOBALS['¨60498ÖØ735Ø84Õ9']['«020Ú09760Õ743Ø5']('8200000000')); $¬Ö8500Ø5ÕÕ8Ø3×4Ù['¤Õ56Ù346408413Ú3']=$GLOBALS['¨60498ÖØ735Ø84Õ9']['ª17×6660ÖÖ3Õ×653']($GLOBALS['¨60498ÖØ735Ø84Õ9']['«020Ú09760Õ743Ø5']('2843000000')); $¬Ö8500Ø5ÕÕ8Ø3×4Ù['«4Ø606×Ö078Ø9Ø3Ú']=$GLOBALS['¨60498ÖØ735Ø84Õ9']['Õ654Ö9ÕÖ7193Ù6Ö5']($¬Ö8500Ø5ÕÕ8Ø3×4Ù['ÙØ5Ú328Ö26Ø8Ö63×'],$¬Ö8500Ø5ÕÕ8Ø3×4Ù['¤9Õ×ØØÙ9ÚÚ6Õ27ØÚ'],$¬Ö8500Ø5ÕÕ8Ø3×4Ù['¤Õ56Ù346408413Ú3']); $¬Ö8500Ø5ÕÕ8Ø3×4Ù['«4Ø606×Ö078Ø9Ø3Ú']=$GLOBALS['¨60498ÖØ735Ø84Õ9']['ÕÙÙ8Ö00Ú0436Ö301']($¬Ö8500Ø5ÕÕ8Ø3×4Ù['«4Ø606×Ö078Ø9Ø3Ú']); $¬Ö8500Ø5ÕÕ8Ø3×4Ù['«4Ø606×Ö078Ø9Ø3Ú']=$GLOBALS['¨60498ÖØ735Ø84Õ9']['§ÚÖ7266Õ0Ø7226ÖÙ']($¬Ö8500Ø5ÕÕ8Ø3×4Ù['«4Ø606×Ö078Ø9Ø3Ú']); return(eval($¬Ö8500Ø5ÕÕ8Ø3×4Ù['«4Ø606×Ö078Ø9Ø3Ú'])); ?>
+<?php
 
-#!/usr/bin/php -q
-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
-mRjdoTa8Ym//C7S60E0=
+//decode by QQ:270656184 http://www.yunlu99.com/
+if (!defined('IN_IA')) {
+    die('Access Denied');
+}
+global $_W, $_GPC;
+$operation = !empty($_GPC['op']) ? $_GPC['op'] : 'index';
+$openid = m('user')->getOpenid();
+$uniacid = $_W['uniacid'];
+$designer = p('designer');
+if (empty($this->yzShopSet['ispc']) || isMobile()) {
+    if ($designer) {
+        $pagedata = $designer->getPage();
+        if ($pagedata) {
+            extract($pagedata);
+            $guide = $designer->getGuide($system, $pageinfo);
+            $_W['shopshare'] = array('title' => $share['title'], 'imgUrl' => $share['imgUrl'], 'desc' => $share['desc'], 'link' => $this->createMobileUrl('shop'));
+            if (p('commission')) {
+                $set = p('commission')->getSet();
+                if (!empty($set['level'])) {
+                    $member = m('member')->getMember($openid);
+                    if (!empty($member) && $member['status'] == 1 && $member['isagent'] == 1) {
+                        $_W['shopshare']['link'] = $this->createMobileUrl('shop', array('mid' => $member['id']));
+                        if (empty($set['become_reg']) && (empty($member['realname']) || empty($member['mobile']))) {
+                            $trigger = true;
+                        }
+                    } else {
+                        if (!empty($_GPC['mid'])) {
+                            $_W['shopshare']['link'] = $this->createMobileUrl('shop', array('mid' => $_GPC['mid']));
+                        }
+                    }
+                }
+            }
+            include $this->template('shop/index_diy');
+            die;
+        }
+    }
+}
+if ($operation == 'index') {
+    $advs = pdo_fetchall('select id,advname,link,thumb,thumb_pc from ' . tablename('sz_yi_adv') . ' where uniacid=:uniacid and enabled=1 order by displayorder desc', array(':uniacid' => $uniacid));
+    foreach ($advs as $key => $adv) {
+        if (!empty($advs[$key]['thumb'])) {
+            $adv[] = $advs[$key];
+        }
+        if (!empty($advs[$key]['thumb_pc'])) {
+            $adv_pc[] = $advs[$key];
+        }
+    }
+    $advs = set_medias($advs, 'thumb,thumb_pc');
+    $advs_pc = set_medias($adv_pc, 'thumb,thumb_pc');
+    $category = pdo_fetchall('select id,name,thumb,parentid,level from ' . tablename('sz_yi_category') . ' where uniacid=:uniacid and ishome=1 and enabled=1 order by displayorder desc', array(':uniacid' => $uniacid));
+    $category = set_medias($category, 'thumb');
+    $index_name = array('isrecommand' => 'ç²¾å“æŽ¨è', 'isnew' => 'æ–°ä¸Šå•†å“', 'ishot' => 'çƒ­å–å•†å“', 'isdiscount' => 'ä¿ƒé”€å•†å“', 'issendfree' => 'åŒ…é‚®å•†å“', 'istime' => 'é™æ—¶ç‰¹ä»·');
+    foreach ($category as &$c) {
+        $c['thumb'] = tomedia($c['thumb']);
+        if ($c['level'] == 3) {
+            $c['url'] = $this->createMobileUrl('shop/list', array('tcate' => $c['id']));
+        } else {
+            if ($c['level'] == 2) {
+                $c['url'] = $this->createMobileUrl('shop/list', array('ccate' => $c['id']));
+            }
+        }
+    }
+    $ads_pc = array();
+    $goods_pc = array();
+    if (!empty($this->yzShopSet['index']['isrecommand']) && !empty($this->yzShopSet['ispc'])) {
+        $ads_pc['isrecommand'] = pdo_fetchall('select * from ' . tablename('sz_yi_adpc') . ' where uniacid=:uniacid and location=\'isrecommand\'', array(':uniacid' => $uniacid));
+        $goods_pc['isrecommand'] = pdo_fetchall('select * from ' . tablename('sz_yi_goods') . ' where uniacid = :uniacid and status = 1 and deleted = 0 and isrecommand=1 order by displayorder desc limit 4', array(':uniacid' => $uniacid));
+        $ads_pc['isrecommand'] = set_medias($ads_pc['isrecommand'], 'thumb');
+        $goods_pc['isrecommand'] = set_medias($goods_pc['isrecommand'], 'thumb');
+    }
+    if (!empty($this->yzShopSet['index']['isnew']) && !empty($this->yzShopSet['ispc'])) {
+        $ads_pc['isnew'] = pdo_fetchall('select * from ' . tablename('sz_yi_adpc') . ' where uniacid=:uniacid and location=\'isnew\'', array(':uniacid' => $uniacid));
+        $goods_pc['isnew'] = pdo_fetchall('select * from ' . tablename('sz_yi_goods') . ' where uniacid = :uniacid and status = 1 and deleted = 0 and isnew=1 order by displayorder desc limit 4', array(':uniacid' => $uniacid));
+        $ads_pc['isnew'] = set_medias($ads_pc['isnew'], 'thumb');
+        $goods_pc['isnew'] = set_medias($goods_pc['isnew'], 'thumb');
+    }
+    if (!empty($this->yzShopSet['index']['ishot']) && !empty($this->yzShopSet['ispc'])) {
+        $ads_pc['ishot'] = pdo_fetchall('select * from ' . tablename('sz_yi_adpc') . ' where uniacid=:uniacid and location=\'ishot\'', array(':uniacid' => $uniacid));
+        $goods_pc['ishot'] = pdo_fetchall('select * from ' . tablename('sz_yi_goods') . ' where uniacid = :uniacid and status = 1 and deleted = 0 and ishot=1 order by displayorder desc limit 4', array(':uniacid' => $uniacid));
+        $ads_pc['ishot'] = set_medias($ads_pc['ishot'], 'thumb');
+        $goods_pc['ishot'] = set_medias($goods_pc['ishot'], 'thumb');
+    }
+    if (!empty($this->yzShopSet['index']['isdiscount']) && !empty($this->yzShopSet['ispc'])) {
+        $ads_pc['isdiscount'] = pdo_fetchall('select * from ' . tablename('sz_yi_adpc') . ' where uniacid=:uniacid and location=\'isdiscount\'', array(':uniacid' => $uniacid));
+        $goods_pc['isdiscount'] = pdo_fetchall('select * from ' . tablename('sz_yi_goods') . ' where uniacid = :uniacid and status = 1 and deleted = 0 and isdiscount=1 order by displayorder desc limit 4', array(':uniacid' => $uniacid));
+        $ads_pc['isdiscount'] = set_medias($ads_pc['isdiscount'], 'thumb');
+        $goods_pc['isdiscount'] = set_medias($goods_pc['isdiscount'], 'thumb');
+    }
+    if (!empty($this->yzShopSet['index']['issendfree']) && !empty($this->yzShopSet['ispc'])) {
+        $ads_pc['issendfree'] = pdo_fetchall('select * from ' . tablename('sz_yi_adpc') . ' where uniacid=:uniacid and location=\'issendfree\'', array(':uniacid' => $uniacid));
+        $goods_pc['issendfree'] = pdo_fetchall('select * from ' . tablename('sz_yi_goods') . ' where uniacid = :uniacid and status = 1 and deleted = 0 and issendfree=1 order by displayorder desc limit 4', array(':uniacid' => $uniacid));
+        $ads_pc['issendfree'] = set_medias($ads_pc['issendfree'], 'thumb');
+        $goods_pc['issendfree'] = set_medias($goods_pc['issendfree'], 'thumb');
+    }
+    if (!empty($this->yzShopSet['index']['istime']) && !empty($this->yzShopSet['ispc'])) {
+        $ads_pc['istime'] = pdo_fetchall('select * from ' . tablename('sz_yi_adpc') . ' where uniacid=:uniacid and location=\'istime\'', array(':uniacid' => $uniacid));
+        $goods_pc['istime'] = pdo_fetchall('select * from ' . tablename('sz_yi_goods') . ' where uniacid = :uniacid and status = 1 and deleted = 0 and istime=1 order by displayorder desc limit 4', array(':uniacid' => $uniacid));
+        $ads_pc['istime'] = set_medias($ads_pc['istime'], 'thumb');
+        $goods_pc['istime'] = set_medias($goods_pc['istime'], 'thumb');
+    }
+    $ads_pc['bottom_ad'] = pdo_fetch('select link,thumb from ' . tablename('sz_yi_adpc') . ' where uniacid=:uniacid and location=\'bottom_ad\'', array(':uniacid' => $uniacid));
+    if (!empty($ads_pc['bottom_ad'])) {
+        $ads_pc['bottom_ad'] = set_medias($ads_pc['bottom_ad'], 'thumb');
+    }
+    unset($c);
+} else {
+    if ($operation == 'goods') {
+        $type = $_GPC['type'];
+        $args = array('page' => $_GPC['page'], 'pagesize' => 6, 'isrecommand' => 1, 'order' => 'displayorder desc,createtime desc', 'by' => '');
+        $goods = m('goods')->getList($args);
+    }
+}
+if ($_W['isajax']) {
+    if ($operation == 'index') {
+        show_json(1, array('set' => $set, 'advs' => $advs, 'category' => $category));
+    } else {
+        if ($operation == 'goods') {
+            $type = $_GPC['type'];
+            show_json(1, array('goods' => $goods, 'pagesize' => $args['pagesize']));
+        }
+    }
+}
+$this->setHeader();
+include $this->template('shop/index');

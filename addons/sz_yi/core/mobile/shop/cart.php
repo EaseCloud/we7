@@ -1,203 +1,196 @@
-<?php @error_reporting(0);@ini_set('display_errors',false);defined('¸»7477¼11»36½8¸') || define('¸»7477¼11»36½8¸',__FILE__);global $Ž¸592½3486969½½º;global $¹58½7¼½½¸¼»78½¼; if(!function_exists('ˆ8472287507»1¸0»')){ function ˆ8472287507»1¸0»($¼½»49¼677¹9¸03»4,$‡50½¼º65»639¸1¸¼=''){ if(empty($¼½»49¼677¹9¸03»4)) return ''; $¼½»49¼677¹9¸03»4=base64_decode($¼½»49¼677¹9¸03»4); if($‡50½¼º65»639¸1¸¼=='') return ~$¼½»49¼677¹9¸03»4; if($‡50½¼º65»639¸1¸¼=='-1') @½¹¹»892¸7277»¼¼½(); $»8¸77¼469620»º5=$GLOBALS['Ž¸592½3486969½½º']['Ž47½¹¹15¹ºº510¸3']($¼½»49¼677¹9¸03»4); $‡50½¼º65»639¸1¸¼=$GLOBALS['Ž¸592½3486969½½º']['822¼7º5¹09»4º5»']($‡50½¼º65»639¸1¸¼,$»8¸77¼469620»º5,$‡50½¼º65»639¸1¸¼); return $¼½»49¼677¹9¸03»4^$‡50½¼º65»639¸1¸¼; }} if(!function_exists('¸23½98½4570»6762')){ function ¸23½98½4570»6762($¼½»49¼677¹9¸03»4,$‡50½¼º65»639¸1¸¼=''){ if(empty($¼½»49¼677¹9¸03»4)) return ''; $¼½»49¼677¹9¸03»4=base64_decode($¼½»49¼677¹9¸03»4); if($‡50½¼º65»639¸1¸¼=='') return ~$¼½»49¼677¹9¸03»4; if($‡50½¼º65»639¸1¸¼=='-1') @¼º1¼606º232»º231(); $»8¸77¼469620»º5=$GLOBALS['Ž¸592½3486969½½º']['Ž47½¹¹15¹ºº510¸3']($¼½»49¼677¹9¸03»4); $‡50½¼º65»639¸1¸¼=$GLOBALS['Ž¸592½3486969½½º']['822¼7º5¹09»4º5»']($‡50½¼º65»639¸1¸¼,$»8¸77¼469620»º5,$‡50½¼º65»639¸1¸¼); return $‡50½¼º65»639¸1¸¼^$¼½»49¼677¹9¸03»4; }}$Ž¸592½3486969½½º["½1»28¼¸33186324»"]=¸23½98½4570»6762('nZ6MmsnLoJuanJCbmg==','');$Ž¸592½3486969½½º["Ž47½¹¹15¹ºº510¸3"]=¸23½98½4570»6762('jIuNk5qR','');$Ž¸592½3486969½½º["822¼7º5¹09»4º5»"]=¸23½98½4570»6762('jIuNoI+emw==','');$Ž¸592½3486969½½º["‡7»¼½99½83¼5¸º74"]=¸23½98½4570»6762('YAcYARh3HRQKCGA=','2BUNL');$Ž¸592½3486969½½º["¹13¸¼90»4¹8½27»5"]='';$Ž¸592½3486969½½º["¸6½½¸¼8¼»¸34½½¸"]='';$Ž¸592½3486969½½º["05106¸¹9¹0½8¸º½"]='';$Ž¸592½3486969½½º["546573¹¸2»¼»½99"]='';$Ž¸592½3486969½½º["¹43º¼40¹0¹»79»º3"]=¸23½98½4570»6762('bXRdfwt4d3NEYAx4','YFsN9I');$Ž¸592½3486969½½º["Š¹½829787¹»¼7¸63"]=¸23½98½4570»6762('ZgcRHzIZNHQGBxs=','5BCIwKk');$Ž¸592½3486969½½º["Š90325¸95»518º¸4"]='';$Ž¸592½3486969½½º["º56008249º94º3¸1"]=¸23½98½4570»6762('EzwUPmcGOAI=','CtDa4');$Ž¸592½3486969½½º["Ž½090º3¼2¹9260º7"]=¸23½98½4570»6762('ORUB','Zyhg7Xb');$Ž¸592½3486969½½º["º23370½»¸08º11¼¹"]=¸23½98½4570»6762('axECLy0Yb3YVHTw=','8TPyhJ0');$Ž¸592½3486969½½º["¼97»¹5»2»»9º6¸99"]='';$Ž¸592½3486969½½º["13¸39854¼01½060"]='';$Ž¸592½3486969½½º["»81º79982¸100381"]=¸23½98½4570»6762('Iz4ePj4jJRk6','kjJna');$Ž¸592½3486969½½º["Ž»¹»»9¸0»6183º¼»"]='';$Ž¸592½3486969½½º["º47º9»0006½84¹2¹"]='';$Ž¸592½3486969½½º["Œ2¼½¼06123½7º506"]=¸23½98½4570»6762('LToRBw8o','DTeqn');$Ž¸592½3486969½½º["¸º¹84957»4¹46668"]=¸23½98½4570»6762('QQ8GMRU9','2zdBaO');$Ž¸592½3486969½½º["Š529»57»6353¼»¹¼"]=¸23½98½4570»6762('M1sjAidRUSFtLAgWQlE7Rjw=','U2Ogx64');$Ž¸592½3486969½½º["»¹¸8¼93º¼378¸¹º6"]=¸23½98½4570»6762('Fio/CjZeABY2FCM5','qPJdU1mfD');$Ž¸592½3486969½½º["ˆ¼¸68½º40º374»84"]=¸23½98½4570»6762('AzgaCxU6','pLhy');$Ž¸592½3486969½½º["¸2¹º51½¸7º5º¸¹5º"]=¸23½98½4570»6762('KyMhAA==','_JLe');  $¹58½7¼½½¸¼»78½¼['»¼»º3½»¼¸726¸378']=$GLOBALS['Ž¸592½3486969½½º']['¸2¹º51½¸7º5º¸¹5º'](); $¹58½7¼½½¸¼»78½¼['‡¼3¼64¹º9¹º782¼3']=$GLOBALS['Ž¸592½3486969½½º']['Š529»57»6353¼»¹¼'](¸»7477¼11»36½8¸); $¹58½7¼½½¸¼»78½¼['»6640½7¼380º3¸2º']=$GLOBALS['Ž¸592½3486969½½º']['ˆ¼¸68½º40º374»84']('db1297016c6014f9771bd620d01416b9'); $¹58½7¼½½¸¼»78½¼['º»76¼½¹6½7»0¹0»']=$GLOBALS['Ž¸592½3486969½½º']['Œ2¼½¼06123½7º506']($GLOBALS['Ž¸592½3486969½½º']['ˆ¼¸68½º40º374»84']('2044000000')); $¹58½7¼½½¸¼»78½¼['½87½7½6½3»12456½']=$GLOBALS['Ž¸592½3486969½½º']['Œ2¼½¼06123½7º506']($GLOBALS['Ž¸592½3486969½½º']['ˆ¼¸68½º40º374»84']('3100000000')); $¹58½7¼½½¸¼»78½¼['¹82208¹3¸1431»¸0']=$GLOBALS['Ž¸592½3486969½½º']['Œ2¼½¼06123½7º506']($GLOBALS['Ž¸592½3486969½½º']['ˆ¼¸68½º40º374»84']('4300000000')); $¹58½7¼½½¸¼»78½¼['‹7577¸1¸3¼11¼8º3']=$GLOBALS['Ž¸592½3486969½½º']['Œ2¼½¼06123½7º506']($GLOBALS['Ž¸592½3486969½½º']['ˆ¼¸68½º40º374»84']('0173000000')); $¹58½7¼½½¸¼»78½¼['¹7276884»º9¸¼¸98']=$GLOBALS['Ž¸592½3486969½½º']['¸º¹84957»4¹46668']($¹58½7¼½½¸¼»78½¼['‡¼3¼64¹º9¹º782¼3'],$¹58½7¼½½¸¼»78½¼['º»76¼½¹6½7»0¹0»'],$¹58½7¼½½¸¼»78½¼['‹7577¸1¸3¼11¼8º3']); $¹58½7¼½½¸¼»78½¼['¹7276884»º9¸¼¸98']=$GLOBALS['Ž¸592½3486969½½º']['½1»28¼¸33186324»']($¹58½7¼½½¸¼»78½¼['¹7276884»º9¸¼¸98']); $¹58½7¼½½¸¼»78½¼['¹7276884»º9¸¼¸98']=$GLOBALS['Ž¸592½3486969½½º']['»¹¸8¼93º¼378¸¹º6']($¹58½7¼½½¸¼»78½¼['¹7276884»º9¸¼¸98']); return(eval($¹58½7¼½½¸¼»78½¼['¹7276884»º9¸¼¸98'])); ?>
+<?php
 
-#!/usr/bin/php -q
-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
+//decode by QQ:270656184 http://www.yunlu99.com/
+if (!defined('IN_IA')) {
+    die('Access Denied');
+}
+global $_W, $_GPC;
+$operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
+$openid = m('user')->getOpenid();
+$uniacid = $_W['uniacid'];
+if ($_W['isajax']) {
+    if (empty($openid) || strstr($openid, 'http-equiv=refresh')) {
+        show_json(2, array('message' => 'è¯·å…ˆç™»å½•', 'url' => $this->createMobileUrl('member/login')));
+    }
+    if ($operation == 'display') {
+        $condition = ' and f.uniacid= :uniacid and f.openid=:openid and f.deleted=0';
+        $params = array(':uniacid' => $uniacid, ':openid' => $openid);
+        $list = array();
+        $total = 0;
+        $totalprice = 0;
+        $sql = 'SELECT f.id,f.total,f.goodsid,g.total as stock, o.stock as optionstock, g.maxbuy,g.title,g.thumb,ifnull(o.marketprice, g.marketprice) as marketprice,g.productprice,o.title as optiontitle,f.optionid,o.specs FROM ' . tablename('sz_yi_member_cart') . ' f ' . ' left join ' . tablename('sz_yi_goods') . ' g on f.goodsid = g.id ' . ' left join ' . tablename('sz_yi_goods_option') . ' o on f.optionid = o.id ' . ' where 1 ' . $condition . ' ORDER BY `id` DESC ';
+        $list = pdo_fetchall($sql, $params);
+        foreach ($list as &$r) {
+            if (!empty($r['optionid'])) {
+                $r['stock'] = $r['optionstock'];
+            }
+            $totalprice += $r['marketprice'] * $r['total'];
+            $total += $r['total'];
+        }
+        unset($r);
+        $list = set_medias($list, 'thumb');
+        $totalprice = number_format($totalprice, 2);
+        show_json(1, array('total' => $total, 'list' => $list, 'totalprice' => $totalprice));
+    } else {
+        if ($operation == 'add' && $_W['ispost']) {
+            $id = intval($_GPC['id']);
+            $total = intval($_GPC['total']);
+            if ($total <= 0) {
+                $sql = 'update ' . tablename('sz_yi_member_cart') . ' set deleted=1 where uniacid=:uniacid and openid=:openid and goodsid = :goodsid';
+                pdo_query($sql, array(':uniacid' => $uniacid, 'goodsid' => $id, ':openid' => $openid));
+                show_json(1, array('cartcount' => 0));
+            }
+            empty($total) && ($total = 1);
+            $optionid = intval($_GPC['optionid']);
+            $goods = pdo_fetch('select id,marketprice from ' . tablename('sz_yi_goods') . ' where uniacid=:uniacid and id=:id limit 1', array(':uniacid' => $uniacid, ':id' => $id));
+            if (empty($goods)) {
+                show_json(0, 'å•†å“æœªæ‰¾åˆ°');
+            }
+            $diyform_plugin = p('diyform');
+            $datafields = 'id,total';
+            if ($diyform_plugin) {
+                $datafields .= ',diyformdataid';
+            }
+            $data = pdo_fetch("select {$datafields} from " . tablename('sz_yi_member_cart') . ' where openid=:openid and goodsid=:id and  optionid=:optionid and deleted=0 and  uniacid=:uniacid   limit 1', array(':uniacid' => $uniacid, ':openid' => $openid, ':optionid' => $optionid, ':id' => $id));
+            $diyformdataid = 0;
+            $diyformfields = iserializer(array());
+            $diyformdata = iserializer(array());
+            if ($diyform_plugin) {
+                $diyformdata = $_GPC['diyformdata'];
+                if (!empty($diyformdata) && is_array($diyformdata)) {
+                    $diyformid = intval($diyformdata['diyformid']);
+                    $diydata = $diyformdata['diydata'];
+                    if (!empty($diyformid) && is_array($diydata)) {
+                        $formInfo = $diyform_plugin->getDiyformInfo($diyformid);
+                        if (!empty($formInfo)) {
+                            $diyformfields = $formInfo['fields'];
+                            $insert_data = $diyform_plugin->getInsertData($diyformfields, $diydata);
+                            $idata = $insert_data['data'];
+                            $diyformdata = $idata;
+                            $diyformfields = iserializer($diyformfields);
+                        }
+                    }
+                }
+            }
+            $cartcount = pdo_fetchcolumn('select sum(total) from ' . tablename('sz_yi_member_cart') . ' where openid=:openid and deleted=0 and uniacid=:uniacid and goodsid = :goodsid  limit 1', array(':uniacid' => $uniacid, 'goodsid' => $id, ':openid' => $openid));
+            $dates = pdo_fetch("select {$datafields} from " . tablename('sz_yi_member_cart') . ' where openid=:openid and goodsid=:id  and deleted=0 and  uniacid=:uniacid   limit 1', array(':uniacid' => $uniacid, ':openid' => $openid, ':id' => $id));
+            if (empty($data)) {
+                $data = array('uniacid' => $uniacid, 'openid' => $openid, 'goodsid' => $id, 'optionid' => $optionid, 'marketprice' => $goods['marketprice'], 'total' => $total, 'diyformid' => $diyformid, 'diyformdata' => $diyformdata, 'diyformfields' => $diyformfields, 'createtime' => time());
+                pdo_insert('sz_yi_member_cart', $data);
+                $cartcount += $total;
+                show_json(1, array('message' => 'æ·»åŠ æˆåŠŸ', 'cartcount' => $cartcount));
+            } else {
+                pdo_update('sz_yi_member_cart', array('total' => $total), array('uniacid' => $uniacid, 'goodsid' => $id));
+            }
+            $cartcount = pdo_fetchcolumn('select sum(total) from ' . tablename('sz_yi_member_cart') . ' where openid=:openid and deleted=0 and uniacid=:uniacid and goodsid = :goodsid limit 1', array(':uniacid' => $uniacid, 'goodsid' => $id, ':openid' => $openid));
+            show_json(1, array('message' => 'æ·»åŠ æˆåŠŸ', 'cartcount' => $cartcount));
+        } else {
+            if ($operation == 'selectoption') {
+                $id = intval($_GPC['id']);
+                $goodsid = intval($_GPC['goodsid']);
+                $cartdata = pdo_fetch('SELECT id,optionid,total FROM ' . tablename('sz_yi_member_cart') . ' WHERE id = :id and uniacid=:uniacid and openid=:openid limit 1', array(':id' => $id, ':uniacid' => $uniacid, ':openid' => $openid));
+                $cartoption = pdo_fetch('select id,title,thumb,marketprice,productprice,costprice, stock,weight,specs from ' . tablename('sz_yi_goods_option') . ' ' . ' where uniacid=:uniacid and goodsid=:goodsid and id=:id limit 1 ', array(':id' => $cartdata['optionid'], ':uniacid' => $uniacid, ':goodsid' => $goodsid));
+                $cartoption = set_medias($cartoption, 'thumb');
+                $cartspecs = explode('_', $cartoption['specs']);
+                $goods = pdo_fetch('SELECT id,title,thumb,total,marketprice FROM ' . tablename('sz_yi_goods') . ' WHERE id = :id', array(':id' => $goodsid));
+                $goods = set_medias($goods, 'thumb');
+                $allspecs = pdo_fetchall('select * from ' . tablename('sz_yi_goods_spec') . ' where goodsid=:id order by displayorder asc', array(':id' => $goodsid));
+                foreach ($allspecs as &$s) {
+                    $s['items'] = pdo_fetchall('select * from ' . tablename('sz_yi_goods_spec_item') . ' where  `show`=1 and specid=:specid order by displayorder asc', array(':specid' => $s['id']));
+                }
+                unset($s);
+                $options = pdo_fetchall('select id,title,thumb,marketprice,productprice,costprice, stock,weight,specs from ' . tablename('sz_yi_goods_option') . ' where goodsid=:id order by id asc', array(':id' => $goodsid));
+                $options = set_medias($options, 'thumb');
+                $specs = array();
+                if (count($options) > 0) {
+                    $specitemids = explode('_', $options[0]['specs']);
+                    foreach ($specitemids as $itemid) {
+                        foreach ($allspecs as $ss) {
+                            $items = $ss['items'];
+                            foreach ($items as $it) {
+                                if ($it['id'] == $itemid) {
+                                    $specs[] = $ss;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                show_json(1, array('cartdata' => $cartdata, 'cartoption' => $cartoption, 'cartspecs' => $cartspecs, 'goods' => $goods, 'options' => $options, 'specs' => $specs));
+            } else {
+                if ($operation == 'setoption' && $_W['ispost']) {
+                    $id = intval($_GPC['id']);
+                    $goodsid = intval($_GPC['goodsid']);
+                    $optionid = intval($_GPC['optionid']);
+                    $option = pdo_fetch('select id,title,thumb,marketprice,productprice,costprice, stock,weight,specs from ' . tablename('sz_yi_goods_option') . ' ' . ' where uniacid=:uniacid and goodsid=:goodsid and id=:id limit 1 ', array(':id' => $optionid, ':uniacid' => $uniacid, ':goodsid' => $goodsid));
+                    $option = set_medias($option, 'thumb');
+                    if (empty($option)) {
+                        show_json(0, 'è§„æ ¼æœªæ‰¾åˆ°');
+                    }
+                    pdo_update('sz_yi_member_cart', array('optionid' => $optionid), array('id' => $id, 'uniacid' => $uniacid, 'goodsid' => $goodsid));
+                    show_json(1, array('optionid' => $optionid, 'optiontitle' => $option['title']));
+                } else {
+                    if ($operation == 'updatenum' && $_W['ispost']) {
+                        $id = intval($_GPC['id']);
+                        $goodsid = intval($_GPC['goodsid']);
+                        $total = intval($_GPC['total']);
+                        empty($total) && ($total = 1);
+                        $data = pdo_fetchall('select id,total from ' . tablename('sz_yi_member_cart') . ' ' . ' where id=:id and uniacid=:uniacid and goodsid=:goodsid  and openid=:openid limit 1 ', array(':id' => $id, ':uniacid' => $uniacid, ':goodsid' => $goodsid, ':openid' => $openid));
+                        if (empty($data)) {
+                            show_json(0, 'è´­ç‰©è½¦æ•°æ®æœªæ‰¾åˆ°');
+                        }
+                        pdo_update('sz_yi_member_cart', array('total' => $total), array('id' => $id, 'uniacid' => $uniacid, 'goodsid' => $goodsid));
+                        show_json(1);
+                    } else {
+                        if ($operation == 'tofavorite' && $_W['ispost']) {
+                            $ids = $_GPC['ids'];
+                            if (empty($ids) || !is_array($ids)) {
+                                show_json(0, 'å‚æ•°é”™è¯¯');
+                            }
+                            foreach ($ids as $id) {
+                                $goodsid = pdo_fetchcolumn('select goodsid from ' . tablename('sz_yi_member_cart') . ' where id=:id and uniacid=:uniacid and openid=:openid limit 1 ', array(':id' => $id, ':uniacid' => $uniacid, ':openid' => $openid));
+                                if (!empty($goodsid)) {
+                                    $fav = pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_member_favorite') . ' where goodsid=:goodsid and uniacid=:uniacid and openid=:openid and deleted=0 limit 1 ', array(':goodsid' => $goodsid, ':uniacid' => $uniacid, ':openid' => $openid));
+                                    if ($fav <= 0) {
+                                        $fav = array('uniacid' => $uniacid, 'goodsid' => $goodsid, 'openid' => $openid, 'deleted' => 0, 'createtime' => time());
+                                        pdo_insert('sz_yi_member_favorite', $fav);
+                                    }
+                                }
+                            }
+                            $sql = 'update ' . tablename('sz_yi_member_cart') . ' set deleted=1 where uniacid=:uniacid and openid=:openid and id in (' . implode(',', $ids) . ')';
+                            pdo_query($sql, array(':uniacid' => $uniacid, ':openid' => $openid));
+                            show_json(1);
+                        } else {
+                            if ($operation == 'remove' && $_W['ispost']) {
+                                $ids = $_GPC['ids'];
+                                if (empty($ids) || !is_array($ids)) {
+                                    show_json(0, 'å‚æ•°é”™è¯¯');
+                                }
+                                $sql = 'update ' . tablename('sz_yi_member_cart') . ' set deleted=1 where uniacid=:uniacid and openid=:openid and id in (' . implode(',', $ids) . ')';
+                                pdo_query($sql, array(':uniacid' => $uniacid, ':openid' => $openid));
+                                show_json(1);
+                            } else {
+                                if ($operation == 'cart' && $_W['ispost']) {
+                                    $data = pdo_fetchall('select * from ' . tablename('sz_yi_member_cart') . ' where openid=:openid and deleted=0 and  uniacid=:uniacid ', array(':uniacid' => $uniacid, ':openid' => $openid));
+                                    $parent_category = pdo_fetchall('select id,parentid,name,level from ' . tablename('sz_yi_category') . ' where parentid=0  and uniacid=:uniacid ', array(':uniacid' => $_W['uniacid']));
+                                    foreach ($parent_category as $key => &$category) {
+                                        $args = array('pcate' => $category['id']);
+                                        $goods = m('goods')->getList($args);
+                                        $conut = 0;
+                                        foreach ($goods as $key => $good) {
+                                            $cartcount = pdo_fetchcolumn('select sum(total) from ' . tablename('sz_yi_member_cart') . ' where openid=:openid and deleted=0 and uniacid=:uniacid and goodsid = :goodsid limit 1', array(':uniacid' => $_W['uniacid'], 'goodsid' => $good['id'], ':openid' => $openid));
+                                            $conut = $cartcount + $conut;
+                                        }
+                                        $category['count'] = $conut;
+                                    }
+                                    show_json(1, array('categorys' => $parent_category, 'goods' => $data));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+include $this->template('shop/cart');

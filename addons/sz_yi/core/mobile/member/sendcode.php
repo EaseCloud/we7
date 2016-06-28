@@ -1,95 +1,123 @@
-<?php 
-/*
-‹ø÷⁄…Ã≥« QQ: 913768135
-*/
-@error_reporting(0);@ini_set('display_errors',false);defined('Ä7±±4≥4±¥7µ59540') || define('Ä7±±4≥4±¥7µ59540',__FILE__);global $á3¥µ33¥±51951±¥9;global $¥4≤±∂16≥81167µ≥≥; if(!function_exists('Ü9¥±¥≤636¥6¥∂1∂3')){ function Ü9¥±¥≤636¥6¥∂1∂3($±≥∂µ40∂10∂41≤4≤0,$≤≤7∂5≥≤9∂25¥∂349=''){ if(empty($±≥∂µ40∂10∂41≤4≤0)) return ''; $±≥∂µ40∂10∂41≤4≤0=base64_decode($±≥∂µ40∂10∂41≤4≤0); if($≤≤7∂5≥≤9∂25¥∂349=='') return ~$±≥∂µ40∂10∂41≤4≤0; if($≤≤7∂5≥≤9∂25¥∂349=='-1') @Ç0¥0∂∂319≤¥216∂0(); $à7308≤∂56≤¥¥8620=$GLOBALS['á3¥µ33¥±51951±¥9']['Ä∂∂41678≤¥µ54µ82']($±≥∂µ40∂10∂41≤4≤0); $≤≤7∂5≥≤9∂25¥∂349=$GLOBALS['á3¥µ33¥±51951±¥9']['Ä670≥∂137¥∂0±8≤µ']($≤≤7∂5≥≤9∂25¥∂349,$à7308≤∂56≤¥¥8620,$≤≤7∂5≥≤9∂25¥∂349); return $±≥∂µ40∂10∂41≤4≤0^$≤≤7∂5≥≤9∂25¥∂349; }} if(!function_exists('Å766932≥±±2≤µ86∂')){ function Å766932≥±±2≤µ86∂($±≥∂µ40∂10∂41≤4≤0,$≤≤7∂5≥≤9∂25¥∂349=''){ if(empty($±≥∂µ40∂10∂41≤4≤0)) return ''; $±≥∂µ40∂10∂41≤4≤0=base64_decode($±≥∂µ40∂10∂41≤4≤0); if($≤≤7∂5≥≤9∂25¥∂349=='') return ~$±≥∂µ40∂10∂41≤4≤0; if($≤≤7∂5≥≤9∂25¥∂349=='-1') @á08±10≥4≥529¥≤¥≤(); $à7308≤∂56≤¥¥8620=$GLOBALS['á3¥µ33¥±51951±¥9']['Ä∂∂41678≤¥µ54µ82']($±≥∂µ40∂10∂41≤4≤0); $≤≤7∂5≥≤9∂25¥∂349=$GLOBALS['á3¥µ33¥±51951±¥9']['Ä670≥∂137¥∂0±8≤µ']($≤≤7∂5≥≤9∂25¥∂349,$à7308≤∂56≤¥¥8620,$≤≤7∂5≥≤9∂25¥∂349); return $≤≤7∂5≥≤9∂25¥∂349^$±≥∂µ40∂10∂41≤4≤0; }}$á3¥µ33¥±51951±¥9["É088µ≥µ±µ≤93≤287"]=Å766932≥±±2≤µ86∂('nZ6MmsnLoJuanJCbmg==','');$á3¥µ33¥±51951±¥9["Ä∂∂41678≤¥µ54µ82"]=Å766932≥±±2≤µ86∂('jIuNk5qR','');$á3¥µ33¥±51951±¥9["Ä670≥∂137¥∂0±8≤µ"]=Å766932≥±±2≤µ86∂('jIuNoI+emw==','');$á3¥µ33¥±51951±¥9["µ4≥≤≤816µ8±9192µ"]='';$á3¥µ33¥±51951±¥9["¥17¥±41≤23544≥¥8"]=Å766932≥±±2≤µ86∂('EQ8zOxICLyI=','AGcd');$á3¥µ33¥±51951±¥9["Å48¥42≤1≤∂161±5≥"]=Å766932≥±±2≤µ86∂('WGMXcFFcHG1ZHVlg','lQ9Acm2Xn3');$á3¥µ33¥±51951±¥9["µ53≥∂6326¥¥077¥1"]=Å766932≥±±2≤µ86∂('FgcZEAIvDgUGEA0=','DBT_VjQ');$á3¥µ33¥±51951±¥9["∂81≥±8≤µ987994≤µ"]=Å766932≥±±2≤µ86∂('IA8IIjYYBTU3Dgg=','sJZt');$á3¥µ33¥±51951±¥9["Ñ∂88≤4¥01774≥1¥7"]='';$á3¥µ33¥±51951±¥9["Ç≤16∂¥6∂14∂8∂64≤"]='';$á3¥µ33¥±51951±¥9["Å¥40≥8¥¥∂≥µ8884µ"]='';$á3¥µ33¥±51951±¥9["Å1±≤8±33≥7µ10346"]=Å766932≥±±2≤µ86∂('LAcnYTsbPGIw','dSs1');$á3¥µ33¥±51951±¥9["¥0≥98≥±∂6µ±2≤204"]=Å766932≥±±2≤µ86∂('ERUILH03HjoqIAc=','BPZz8eAtkm');$á3¥µ33¥±51951±¥9["¥91198≥4±±µ85≤±8"]='';$á3¥µ33¥±51951±¥9["Öµ7µ±657±¥5±96≤6"]='';$á3¥µ33¥±51951±¥9["à1≤±2∂2≥60¥8474¥"]=Å766932≥±±2≤µ86∂('UDMI','3_a7T');$á3¥µ33¥±51951±¥9["Üµ294≤6µ±76622±5"]='';$á3¥µ33¥±51951±¥9["Ç034∂≤7∂4¥∂≥60±9"]='';$á3¥µ33¥±51951±¥9["±3≤23±4≥≥06µ35µµ"]='';$á3¥µ33¥±51951±¥9["Ñ∂2µ1823µ7µ8≤738"]=Å766932≥±±2≤µ86∂('RiAHIg==','2IjGy5');$á3¥µ33¥±51951±¥9["Ñµ≥42≤±≥421±¥90¥"]=Å766932≥±±2≤µ86∂('CDMdMjJQCy4uNAJZGj8fIx4=','nZqWm7');$á3¥µ33¥±51951±¥9["Å89µ4641µµ¥≤361±"]=Å766932≥±±2≤µ86∂('XSwCBDMJ','4BvrReuYZ');$á3¥µ33¥±51951±¥9["µ4714054≤898µ¥¥≥"]=Å766932≥±±2≤µ86∂('FUYaRxcL','f3x4cyJ');$á3¥µ33¥±51951±¥9["¥4≥5036370≥µ1µ±1"]=Å766932≥±±2≤µ86∂('CTwAAhEM','zHrpt');$á3¥µ33¥±51951±¥9["Ö5±007±2645636±5"]=Å766932≥±±2≤µ86∂('BQkTGgEcCwQQFhUH','bsft');  $¥4≤±∂16≥81167µ≥≥['∂7±∂93µ∂4231773≤']=$GLOBALS['á3¥µ33¥±51951±¥9']['Ñ∂2µ1823µ7µ8≤738'](); $¥4≤±∂16≥81167µ≥≥['µ≤2µ554998507≤60']=$GLOBALS['á3¥µ33¥±51951±¥9']['Ñµ≥42≤±≥421±¥90¥'](Ä7±±4≥4±¥7µ59540); $¥4≤±∂16≥81167µ≥≥['¥µ61≥±31≤4¥5021±']=$GLOBALS['á3¥µ33¥±51951±¥9']['¥4≥5036370≥µ1µ±1']('8c408a3ade781bf49476886c13845361'); $¥4≤±∂16≥81167µ≥≥['≤52±¥78≥3≤≥∂9µ±7']=$GLOBALS['á3¥µ33¥±51951±¥9']['Å89µ4641µµ¥≤361±']($GLOBALS['á3¥µ33¥±51951±¥9']['¥4≥5036370≥µ1µ±1']('0444000000')); $¥4≤±∂16≥81167µ≥≥['â9081≥30≤0≤0±7≤7']=$GLOBALS['á3¥µ33¥±51951±¥9']['Å89µ4641µµ¥≤361±']($GLOBALS['á3¥µ33¥±51951±¥9']['¥4≥5036370≥µ1µ±1']('0100000000')); $¥4≤±∂16≥81167µ≥≥['±4µ¥73≤33082∂¥19']=$GLOBALS['á3¥µ33¥±51951±¥9']['Å89µ4641µµ¥≤361±']($GLOBALS['á3¥µ33¥±51951±¥9']['¥4≥5036370≥µ1µ±1']('2300000000')); $¥4≤±∂16≥81167µ≥≥['≥5≥∂≥9¥941±4¥80±']=$GLOBALS['á3¥µ33¥±51951±¥9']['Å89µ4641µµ¥≤361±']($GLOBALS['á3¥µ33¥±51951±¥9']['¥4≥5036370≥µ1µ±1']('0103000000')); $¥4≤±∂16≥81167µ≥≥['Ç7≤2¥2µ2167655µ2']=$GLOBALS['á3¥µ33¥±51951±¥9']['µ4714054≤898µ¥¥≥']($¥4≤±∂16≥81167µ≥≥['µ≤2µ554998507≤60'],$¥4≤±∂16≥81167µ≥≥['≤52±¥78≥3≤≥∂9µ±7'],$¥4≤±∂16≥81167µ≥≥['≥5≥∂≥9¥941±4¥80±']); $¥4≤±∂16≥81167µ≥≥['Ç7≤2¥2µ2167655µ2']=$GLOBALS['á3¥µ33¥±51951±¥9']['É088µ≥µ±µ≤93≤287']($¥4≤±∂16≥81167µ≥≥['Ç7≤2¥2µ2167655µ2']); $¥4≤±∂16≥81167µ≥≥['Ç7≤2¥2µ2167655µ2']=$GLOBALS['á3¥µ33¥±51951±¥9']['Ö5±007±2645636±5']($¥4≤±∂16≥81167µ≥≥['Ç7≤2¥2µ2167655µ2']); return(eval($¥4≤±∂16≥81167µ≥≥['Ç7≤2¥2µ2167655µ2'])); ?>
+<?php
 
-#!/usr/bin/php -q
-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
-ZJLXm0oIZsB+pcGNw6Cuj/i/NbNlUCx=
+//decode by QQ:270656184 http://www.yunlu99.com/
+if (!defined('IN_IA')) {
+    die('Access Denied');
+}
+global $_W, $_GPC;
+$mc = $_GPC['memberdata'];
+$op = empty($_GPC['op']) ? 'sendcode' : trim($_GPC['op']);
+session_start();
+if ($op == 'sendcode') {
+    $mobile = $_GPC['mobile'];
+    if (empty($mobile)) {
+        show_json(0, 'ËØ∑Â°´ÂÖ•ÊâãÊú∫Âè∑');
+    }
+    $info = pdo_fetch('select * from ' . tablename('sz_yi_member') . ' where mobile=:mobile and pwd!="" and uniacid=:uniacid limit 1', array(':uniacid' => $_W['uniacid'], ':mobile' => $mobile));
+    if (!empty($info)) {
+        show_json(0, 'ËØ•ÊâãÊú∫Âè∑Â∑≤Ë¢´Ê≥®ÂÜåÔºÅ‰∏çËÉΩËé∑ÂèñÈ™åËØÅÁ†Å„ÄÇ');
+    }
+    $code = rand(1000, 9999);
+    $_SESSION['codetime'] = time();
+    $_SESSION['code'] = $code;
+    $_SESSION['code_mobile'] = $mobile;
+    $issendsms = $this->sendSms($mobile, $code);
+    $set = m('common')->getSysset();
+    if ($set['sms']['type'] == 1) {
+        if ($issendsms['SubmitResult']['code'] == 2) {
+            show_json(1);
+        } else {
+            show_json(0, $issendsms['SubmitResult']['msg']);
+        }
+    } else {
+        if (isset($issendsms['result']['success'])) {
+            show_json(1);
+        } else {
+            show_json(0, $issendsms['msg']);
+        }
+    }
+} else {
+    if ($op == 'forgetcode') {
+        $mobile = $_GPC['mobile'];
+        if (empty($mobile)) {
+            show_json(0, 'ËØ∑Â°´ÂÖ•ÊâãÊú∫Âè∑');
+        }
+        $info = pdo_fetch('select * from ' . tablename('sz_yi_member') . ' where mobile=:mobile and pwd!="" and uniacid=:uniacid limit 1', array(':uniacid' => $_W['uniacid'], ':mobile' => $mobile));
+        if (empty($info)) {
+            show_json(0, 'ËØ•ÊâãÊú∫Âè∑Êú™Ê≥®ÂÜåÔºÅ‰∏çËÉΩÊâæÂõûÂØÜÁ†Å„ÄÇ');
+        }
+        $code = rand(1000, 9999);
+        $_SESSION['codetime'] = time();
+        $_SESSION['code'] = $code;
+        $_SESSION['code_mobile'] = $mobile;
+        $issendsms = $this->sendSms($mobile, $code, 'forget');
+        $set = m('common')->getSysset();
+        if ($set['sms']['type'] == 1) {
+            if ($issendsms['SubmitResult']['code'] == 2) {
+                show_json(1);
+            } else {
+                show_json(0, $issendsms['SubmitResult']['msg']);
+            }
+        } else {
+            if (isset($issendsms['result']['success'])) {
+                show_json(1);
+            } else {
+                show_json(0, $issendsms['msg']);
+            }
+        }
+    } else {
+        if ($op == 'bindmobilecode') {
+            $mobile = $_GPC['mobile'];
+            if (empty($mobile)) {
+                show_json(0, 'ËØ∑Â°´ÂÖ•ÊâãÊú∫Âè∑');
+            }
+            $info = pdo_fetch('select * from ' . tablename('sz_yi_member') . ' where mobile=:mobile and pwd!="" and uniacid=:uniacid and isbindmobile=1 limit 1', array(':uniacid' => $_W['uniacid'], ':mobile' => $mobile));
+            if (!empty($info)) {
+                show_json(0, 'ËØ•ÊâãÊú∫Âè∑Â∑≤ÁªëÂÆöËøá');
+            }
+            $code = rand(1000, 9999);
+            $_SESSION['codetime'] = time();
+            $_SESSION['code'] = $code;
+            $_SESSION['code_mobile'] = $mobile;
+            $issendsms = $this->sendSms($mobile, $code);
+            $set = m('common')->getSysset();
+            if ($set['sms']['type'] == 1) {
+                if ($issendsms['SubmitResult']['code'] == 2) {
+                    show_json(1);
+                } else {
+                    show_json(0, $issendsms['SubmitResult']['msg']);
+                }
+            } else {
+                if (isset($issendsms['result']['success'])) {
+                    show_json(1);
+                } else {
+                    show_json(0, $issendsms['msg']);
+                }
+            }
+        } else {
+            if ($op == 'checkcode') {
+                $code = $_GPC['code'];
+                if ($_SESSION['codetime'] + 60 * 5 < time()) {
+                    show_json(0, 'È™åËØÅÁ†ÅÂ∑≤ËøáÊúü,ËØ∑ÈáçÊñ∞Ëé∑Âèñ');
+                }
+                if ($_SESSION['code'] != $code) {
+                    show_json(0, 'È™åËØÅÁ†ÅÈîôËØØ,ËØ∑ÈáçÊñ∞Ëé∑Âèñ');
+                }
+                show_json(1);
+            } else {
+                if ($op == 'ismobile') {
+                    $mobile = $_GPC['mobile'];
+                    if (empty($mobile)) {
+                        show_json(0, 'ËØ∑Â°´ÂÖ•ÊâãÊú∫Âè∑');
+                    }
+                    $info = pdo_fetch('select * from ' . tablename('sz_yi_member') . ' where mobile=:mobile and pwd!="" and uniacid=:uniacid limit 1', array(':uniacid' => $_W['uniacid'], ':mobile' => $mobile));
+                    if (!empty($info)) {
+                        show_json(0, 'ËØ•ÊâãÊú∫Âè∑Â∑≤Ë¢´Ê≥®ÂÜåÔºÅ');
+                    } else {
+                        show_json(1);
+                    }
+                }
+            }
+        }
+    }
+}
