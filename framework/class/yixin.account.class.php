@@ -6,6 +6,7 @@
 defined('IN_IA') or exit('Access Denied');
 
 class YiXinAccount extends WeAccount {
+	
 	private $account = null;
 	
 	public function __construct($account) {
