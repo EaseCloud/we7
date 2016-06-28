@@ -36,7 +36,7 @@ $_W['uniacid'] = $_W['weid'] = intval($get['attach']);
 $setting = uni_setting($_W['uniacid'], array('payment'));
 if(is_array($setting['payment'])) {
 	$wechat = $setting['payment']['wechat'];
-	WeUtility::logging('pay', var_export($get, true));
+	WeUtility::logging('pay-wechat', var_export($get, true));
 	if(!empty($wechat)) {
 		ksort($get);
 		$string1 = '';
@@ -53,7 +53,7 @@ if(is_array($setting['payment'])) {
 			$params = array();
 			$params[':uniontid'] = $get['out_trade_no'];
 			$log = pdo_fetch($sql, $params);
-			if(!empty($log) && $log['status'] == '0') {
+			if(!empty($log) && $log['status'] == '0' && (($get['total_fee'] / 100) == $log['card_fee'])) {
 				$log['tag'] = iunserializer($log['tag']);
 				$log['tag']['transaction_id'] = $get['transaction_id'];
 				$log['uid'] = $log['tag']['uid'];

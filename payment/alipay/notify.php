@@ -21,11 +21,12 @@ if(!empty($_POST)) {
 			$string .= $alipay['secret'];
 			$sign = md5($string);
 			if($sign == $_POST['sign']) {
+				WeUtility::logging('pay-alipay', var_export($_POST, true));
 				$sql = 'SELECT * FROM ' . tablename('core_paylog') . ' WHERE `uniontid`=:uniontid';
 				$params = array();
 				$params[':uniontid'] = $out_trade_no;
 				$log = pdo_fetch($sql, $params);
-				if(!empty($log) && $log['status'] == '0') {
+				if(!empty($log) && $log['status'] == '0' && ($_POST['total_fee'] == $log['card_fee'])) {
 					$log['transaction_id'] = $_POST['trade_no'];
 					$record = array();
 					$record['status'] = '1';

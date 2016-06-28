@@ -134,12 +134,14 @@ abstract class WeAccount {
 				case 'pic_photo_or_album':
 				case 'pic_weixin':
 				case 'pic_sysphoto':
+					$packet['sendpicsinfo']['piclist'] = array();
 					$packet['sendpicsinfo']['count'] = $message['SendPicsInfo']['Count'];
 					if (!empty($message['SendPicsInfo']['PicList'])) {
 						foreach ($message['SendPicsInfo']['PicList']['item'] as $item) {
-							if (!empty($item)) {
-								$packet['sendpicsinfo']['piclist'][] = $item['PicMd5Sum'];
+							if (empty($item)) {
+								continue;
 							}
+							$packet['sendpicsinfo']['piclist'][] = is_array($item) ? $item['PicMd5Sum'] : $item;
 						}
 					}
 					break;

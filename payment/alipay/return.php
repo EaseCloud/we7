@@ -28,11 +28,12 @@ $string .= $alipay['secret'];
 $sign = md5($string);
 if($sign == $_GET['sign'] && $_GET['is_success'] == 'T' && ($_GET['trade_status'] == 'TRADE_FINISHED' || $_GET['trade_status'] == 'TRADE_SUCCESS')) {
 	$sql = 'SELECT * FROM ' . tablename('core_paylog') . ' WHERE `uniontid`=:uniontid';
+	WeUtility::logging('pay-alipay', var_export($_GET, true));
 	$params = array();
 	$params[':uniontid'] = $_GET['out_trade_no'];
 	$log = pdo_fetch($sql, $params);
 	if (!empty($log)) {
-		if (!empty($log['status'])) {
+		if (!empty($log['status']) && ($_GET['total_fee'] == $log['card_fee'])) {
 			$record = array();
 			$record['status'] = $log['status'] = '1';
 			pdo_update('core_paylog', $record, array('plid' => $log['plid']));
