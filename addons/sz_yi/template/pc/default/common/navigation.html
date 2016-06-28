@@ -68,7 +68,7 @@
     {/if}
 
     <!--<form id="searchForm" name="searchForm" method="get" action="" onSubmit="return checkSearchForm()" class="search-product fl">-->
-	<div class="search-product fl">
+    <div class="search-product fl">
         <input name="k_template" type="hidden" class="k_value" value="0">
         <i class="fontello-icon-search fr search"></i>
         <input autocomplete="off" name="keywords" type="text" id="keyword" placeholder="输入关键字搜索" value="" class="form-control search-box fr"/>
@@ -81,12 +81,12 @@
 </div>
 <script type="text/javascript">
     require(['tpl', 'core'], function(tpl, core) {
-	$('#keyword').keyup(function(){
-	    if(event.keyCode == 13){
-		$('.search').click();
-		return;
-	    }
-	});
+    $('#keyword').keyup(function(){
+        if(event.keyCode == 13){
+        $('.search').click();
+        return;
+        }
+    });
 
         $('.search').click(function(){
             var args  = {

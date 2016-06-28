@@ -17,7 +17,7 @@
             }
         {/if}
     {/if}
-	
+    
     {if $v1['data_type'] == 2}
         if( $('#field_data{php echo $i}').isEmpty()){
             core.tip.show('请选择{php echo $v1['tp_name']}!');
@@ -27,16 +27,16 @@
 
 
     {if $v1['data_type'] == 6}
-		if( $('#field_data{php echo $i}').isEmpty()){
-			core.tip.show('请输入{php echo $v1['tp_name']}!');
-			return;
-		}
+        if( $('#field_data{php echo $i}').isEmpty()){
+            core.tip.show('请输入{php echo $v1['tp_name']}!');
+            return;
+        }
 
-		if(!$('#field_data{php echo $i}').isIDCard())
-		{
-			core.tip.show('请输入正确的{php echo $v1['tp_name']}!');
-			return;
-		}
+        if(!$('#field_data{php echo $i}').isIDCard())
+        {
+            core.tip.show('请输入正确的{php echo $v1['tp_name']}!');
+            return;
+        }
     {/if}
 
     {if $v1['data_type'] == 7}
@@ -46,26 +46,26 @@
         }
     {/if}
 
-	{if $v1['data_type'] == 8}
-			if( $('#field_data{php echo $i}_0').isEmpty() || $('#field_data{php echo $i}_1').isEmpty()){
-				core.tip.show('请选择{php echo $v1['tp_name']}!');
-				return;
-			}
-	{/if}
+    {if $v1['data_type'] == 8}
+            if( $('#field_data{php echo $i}_0').isEmpty() || $('#field_data{php echo $i}_1').isEmpty()){
+                core.tip.show('请选择{php echo $v1['tp_name']}!');
+                return;
+            }
+    {/if}
 {/if}
 
 
  {if $v1['data_type'] == 6}
  
-	if(!$('#field_data{php echo $i}').isEmpty()){
-	 
-	     if(!$('#field_data{php echo $i}').isIDCard()){
-		core.tip.show('请输入正确的{php echo $v1['tp_name']}!');
-		return;
-	     }
-	}
+    if(!$('#field_data{php echo $i}').isEmpty()){
+     
+         if(!$('#field_data{php echo $i}').isIDCard()){
+        core.tip.show('请输入正确的{php echo $v1['tp_name']}!');
+        return;
+         }
+    }
     {/if}
-	
+    
 {if $v1['data_type'] == 3}
  
     var mycheck{php echo $i} = [];
@@ -80,7 +80,7 @@
             return;
         }
     {/if}
-	 
+     
 {/if}
 
 {if $v1['data_type'] == 5}

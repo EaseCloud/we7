@@ -15,24 +15,24 @@ if (!class_exists('SaleModel')) {
     }
     class SaleModel extends PluginModel
     {
-		public function getEnoughs()
-		{
-			$set = $this->getSet();
-			$_var_5 = array();
-			$_var_6 = $set['enoughs'];
-			if (floatval($set['enoughmoney']) > 0 && floatval($set['enoughdeduct']) > 0) {
-				$_var_5[] = array('enough' => floatval($set['enoughmoney']), 'money' => floatval($set['enoughdeduct']));
-			}
-			if (is_array($_var_6)) {
-				foreach ($_var_6 as $_var_7) {
-					if (floatval($_var_7['enough']) > 0 && floatval($_var_7['give']) > 0) {
-						$_var_5[] = array('enough' => floatval($_var_7['enough']), 'money' => floatval($_var_7['give']));
-					}
-				}
-			}
-			@usort($_var_5, 'sort_enoughs');
-			return $_var_5;
-		}
+        public function getEnoughs()
+        {
+            $set = $this->getSet();
+            $_var_5 = array();
+            $_var_6 = $set['enoughs'];
+            if (floatval($set['enoughmoney']) > 0 && floatval($set['enoughdeduct']) > 0) {
+                $_var_5[] = array('enough' => floatval($set['enoughmoney']), 'money' => floatval($set['enoughdeduct']));
+            }
+            if (is_array($_var_6)) {
+                foreach ($_var_6 as $_var_7) {
+                    if (floatval($_var_7['enough']) > 0 && floatval($_var_7['give']) > 0) {
+                        $_var_5[] = array('enough' => floatval($_var_7['enough']), 'money' => floatval($_var_7['give']));
+                    }
+                }
+            }
+            @usort($_var_5, 'sort_enoughs');
+            return $_var_5;
+        }
         public function perms()
         {
             return array(

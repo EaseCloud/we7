@@ -35,7 +35,7 @@
                             <label class="radio-inline">
                                 <input type="radio" name='goodstype' value="1" {if $item['goodstype']==1}checked{/if} onclick="$('.goodstype').hide();$('.goodstype1').show();"/> 优惠券
                             </label>
-							 <div class='help-block'>设置为优惠券类型，则无需进行领取，兑换或抽中直接发送到优惠券账户</div>
+                             <div class='help-block'>设置为优惠券类型，则无需进行领取，兑换或抽中直接发送到优惠券账户</div>
                                 {else}
                              <div class='form-control-static'>{if empty($item['goodstype'])}商品{else}优惠券{/if}</div>
                              {/if}
@@ -50,15 +50,15 @@
                           {ife 'creditshop.goods' $item}
                         <div class='input-group'>
                             <input type="text" name="title" maxlength="30" value="{$item['title']}" class="form-control"  />
-		        <input type="hidden" id="couponid" name='couponid' maxlength="30" value="{$item['couponid']}" />
+                <input type="hidden" id="couponid" name='couponid' maxlength="30" value="{$item['couponid']}" />
                             <div class='input-group-btn   goodstype goodstype0'  {if $item['goodstype']!=0}style="display:none"{/if}>
                                 <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-menus-goods').modal();">从商品库中选择</button>
                             </div>
-						{if $pcoupon}
-		        <div class='input-group-btn   goodstype goodstype1'  {if $item['goodstype']!=1}style="display:none"{/if}>
+                        {if $pcoupon}
+                <div class='input-group-btn   goodstype goodstype1'  {if $item['goodstype']!=1}style="display:none"{/if}>
                                 <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-menus-coupon').modal();">从优惠券中选择</button>
                             </div>
-						{/if}
+                        {/if}
                         </div>
                         <div id="modal-module-menus-goods"  class="modal fade" tabindex="-1">
                             <div class="modal-dialog" style='width: 920px;'>
@@ -78,8 +78,8 @@
 
                             </div>
                         </div>
-						  {if $pcoupon}
-		 <div id="modal-module-menus-coupon"  class="modal fade" tabindex="-1">
+                          {if $pcoupon}
+         <div id="modal-module-menus-coupon"  class="modal fade" tabindex="-1">
                             <div class="modal-dialog" style='width: 920px;'>
                                 <div class="modal-content">
                                     <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3>选择优惠券</h3></div>
@@ -97,7 +97,7 @@
 
                             </div>
                         </div>
-				{/if}		  
+                {/if}          
                       {else}
                              <div class='form-control-static'>{$item['title']}</div>
                              {/if}

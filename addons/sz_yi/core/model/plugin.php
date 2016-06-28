@@ -48,31 +48,31 @@ class Sz_DYi_Plugin
     /*public function getAll()
     {
         global $_W;
-		$path = IA_ROOT . "/addons/sz_yi/data/perm";
-		if (!is_dir($path)) {
-			load()->func('file');
-			@mkdirs($path);
-		}
-		$cachefile = $path . "/plugins";
-		$plugins = iunserializer(@file_get_contents($cachefile));
-		if (!is_array($plugins)) {
-			$plugins = pdo_fetchall('select * from ' . tablename('sz_yi_plugin') . ' order by displayorder asc');
-			file_put_contents($cachefile, iserializer($plugins));
+        $path = IA_ROOT . "/addons/sz_yi/data/perm";
+        if (!is_dir($path)) {
+            load()->func('file');
+            @mkdirs($path);
+        }
+        $cachefile = $path . "/plugins";
+        $plugins = iunserializer(@file_get_contents($cachefile));
+        if (!is_array($plugins)) {
+            $plugins = pdo_fetchall('select * from ' . tablename('sz_yi_plugin') . ' order by displayorder asc');
+            file_put_contents($cachefile, iserializer($plugins));
         }
         return $plugins;
     }*/
-	public function getAll()
-	{
-		global $_W;
-		$plugins = m('cache')->getArray('plugins', 'global');
-		if (empty($plugins)) {
-			$plugins = pdo_fetchall('select * from ' . tablename('sz_yi_plugin') . ' order by displayorder asc');
-			m('cache')->set('plugins', $plugins, 'global');
-		}
-		return $plugins;
-	}
-	public function getCategory()
-	{
-		return array('biz' => array('name' => '业务类'), 'sale' => array('name' => '营销类'), 'tool' => array('name' => '工具类'), 'help' => array('name' => '辅助类'));
-	}
+    public function getAll()
+    {
+        global $_W;
+        $plugins = m('cache')->getArray('plugins', 'global');
+        if (empty($plugins)) {
+            $plugins = pdo_fetchall('select * from ' . tablename('sz_yi_plugin') . ' order by displayorder asc');
+            m('cache')->set('plugins', $plugins, 'global');
+        }
+        return $plugins;
+    }
+    public function getCategory()
+    {
+        return array('biz' => array('name' => '业务类'), 'sale' => array('name' => '营销类'), 'tool' => array('name' => '工具类'), 'help' => array('name' => '辅助类'));
+    }
 }

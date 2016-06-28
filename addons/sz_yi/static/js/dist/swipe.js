@@ -37,9 +37,9 @@ window.Swipe = function(element, options) {
 
   // add event listeners
   if (this.element.addEventListener) {
-  	//by anjey
-  	this.element.addEventListener('mousedown', this, false);
-  	 
+      //by anjey
+      this.element.addEventListener('mousedown', this, false);
+       
     this.element.addEventListener('touchstart', this, false);
     this.element.addEventListener('touchmove', this, false);
     this.element.addEventListener('touchend', this, false);
@@ -48,7 +48,7 @@ window.Swipe = function(element, options) {
     this.element.addEventListener('oTransitionEnd', this, false);
     this.element.addEventListener('transitionend', this, false);
     if(!this.unresize){ // anjey
-    	window.addEventListener('resize', this, false);
+        window.addEventListener('resize', this, false);
     }
   }
 
@@ -163,33 +163,33 @@ Swipe.prototype = {
   },
 
   handleEvent: function(e) {
-  	var that = this;
-  	if(!e.touches){
-  		e.touches = new Array(e);
-  		e.scale = false;
-  	}
+      var that = this;
+      if(!e.touches){
+          e.touches = new Array(e);
+          e.scale = false;
+      }
     switch (e.type) {
       // by anjey
       case 'mousedown': (function(){
-      		that.element.addEventListener('mousemove', that, false);
-   			that.element.addEventListener('mouseup', that, false);
-   			that.element.addEventListener('mouseout', that, false);
-      		that.onTouchStart(e);
+              that.element.addEventListener('mousemove', that, false);
+               that.element.addEventListener('mouseup', that, false);
+               that.element.addEventListener('mouseout', that, false);
+              that.onTouchStart(e);
       })(); break;
       case 'mousemove': this.onTouchMove(e); break;
       case 'mouseup': (function(){
-	      	that.element.removeEventListener('mousemove', that, false);
-	   		that.element.removeEventListener('mouseup', that, false);
-	   		that.element.removeEventListener('mouseout', that, false);
-	      	that.onTouchEnd(e);
+              that.element.removeEventListener('mousemove', that, false);
+               that.element.removeEventListener('mouseup', that, false);
+               that.element.removeEventListener('mouseout', that, false);
+              that.onTouchEnd(e);
       })(); break;
      case 'mouseout': (function(){
-      		that.element.removeEventListener('mousemove', that, false);
-   			that.element.removeEventListener('mouseup', that, false);
-   			that.element.removeEventListener('mouseout', that, false);
-      		that.onTouchEnd(e);
+              that.element.removeEventListener('mousemove', that, false);
+               that.element.removeEventListener('mouseup', that, false);
+               that.element.removeEventListener('mouseout', that, false);
+              that.onTouchEnd(e);
       })(); break;
-    	
+        
       case 'touchstart': this.onTouchStart(e); break;
       case 'touchmove': this.onTouchMove(e); break;
       case 'touchend': this.onTouchEnd(e); break;

@@ -27,7 +27,7 @@
                 </div>
                  
                 <div class="form-group">
-					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关注时间</label>
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关注时间</label>
                                         <div class="col-sm-1" >
                             <label class='radio-inline'>
                                 <input type='radio' value='0' name='searchtime' {if $_GPC['searchtime']=='0'}checked{/if}>不搜索
@@ -36,11 +36,11 @@
                                 <input type='radio' value='1' name='searchtime' {if $_GPC['searchtime']=='1'}checked{/if}>搜索
                             </label>
                      </div>
-					<div class="col-sm-7 col-lg-9 col-xs-12" style='padding:0'>
-						{php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i', $starttime),'endtime'=>date('Y-m-d H:i', $endtime)),true);}
-					</div>
-					 
-				</div>
+                    <div class="col-sm-7 col-lg-9 col-xs-12" style='padding:0'>
+                        {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i', $starttime),'endtime'=>date('Y-m-d H:i', $endtime)),true);}
+                    </div>
+                     
+                </div>
                   <div class="form-group">
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"> </label>
                     <div class="col-xs-12 col-sm-8 col-lg-9">

@@ -11,7 +11,7 @@ if($_W['isajax']){
     $page=pdo_fetch('select * from '.tablename('sz_yi_chooseagent'). ' where id=:id and uniacid=:uniacid',array(':uniacid'=>$_W['uniacid'],':id'=>$pageid));
     if($page['isopen']!=0){
 
-	    $args=array(
+        $args=array(
         
         
         'pcate'=>$_GPC['pcate'],
@@ -19,7 +19,7 @@ if($_W['isajax']){
         'tcate'=>$_GPC['tcate'],
         'supplier_uid'=>$page['uid']
         );
-	}else{
+    }else{
         if($operation == 'moren'){
             if(!empty($page['tcate'])){
                 $args=array(
@@ -63,9 +63,9 @@ if($_W['isajax']){
             'tcate'=>$_GPC['tcate']
             );
         }
-		
-	}
-	    
+        
+    }
+        
     $goods = m('goods')->getList($args);
     show_json(1,array('goods'=>$goods));
 }

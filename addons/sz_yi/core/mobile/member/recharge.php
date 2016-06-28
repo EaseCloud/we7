@@ -114,7 +114,7 @@ if ($operation == 'display' && $_W['isajax']) {
 
     /*修复支付问题*/
     $couponid = intval($_GPC['couponid']);
-	if($log['money'] <= 0){
+    if($log['money'] <= 0){
         pdo_update('sz_yi_member_log', array('money' => $money, 'couponid' => $couponid), array('id' => $log['id']));
     }
 
@@ -220,8 +220,8 @@ if ($operation == 'display' && $_W['isajax']) {
     die("<script>top.window.location.href='{$url}'</script>");
 }else if ($operation == 'returnyunpay') {
     $lognos = $_REQUEST['i2'];
-	$strs          = explode(':', $lognos);
-	$logno=$strs [0];
+    $strs          = explode(':', $lognos);
+    $logno=$strs [0];
     if (empty($logno)) {
         die('充值出现错误，请重试!');
     }

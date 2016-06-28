@@ -17,36 +17,36 @@
 .pager-position{width:100%;margin:0 auto;text-align:center;}
 </style>
 <div class="head">
-	<a href="javascript:history.go(-1);" class="bn pull-left"><i class="fa fa-reply"></i></a>
-	<span class="title">{$title}</span>
-	<a href="javascript:;" id="category_show" class="bn pull-right"><i class="fa fa-reorder"></i></a>
-	<ul class="list-unstyled order hide">
-		<li class="fa fa-caret-up"></li>
-		{data module="site" func="site_category"}
-			<li>
-				<a href="{$row['linkurl']}">
-					{$row['name']}
-				</a>
-			</li>
-		{/data}
-	</ul>
+    <a href="javascript:history.go(-1);" class="bn pull-left"><i class="fa fa-reply"></i></a>
+    <span class="title">{$title}</span>
+    <a href="javascript:;" id="category_show" class="bn pull-right"><i class="fa fa-reorder"></i></a>
+    <ul class="list-unstyled order hide">
+        <li class="fa fa-caret-up"></li>
+        {data module="site" func="site_category"}
+            <li>
+                <a href="{$row['linkurl']}">
+                    {$row['name']}
+                </a>
+            </li>
+        {/data}
+    </ul>
 </div>
 <div class="category">
-	{data module="site" func="site_category" parentid="$cid"}
-	<a href="{$row['linkurl']}">{$row['name']}</a>
-	{/data}
+    {data module="site" func="site_category" parentid="$cid"}
+    <a href="{$row['linkurl']}">{$row['name']}</a>
+    {/data}
 </div>
 <ul class="list list-unstyled">
-	{data module="site" func="site_article" cid="$cid" assign="result" return="true"}
-	{loop $result['list'] $row}
-	<li>
-		<a href="{$row['linkurl']}">
-			{if $row['thumb']}<img src="{$row['thumb']}" class="pull-right thumb" onerror="this.parentNode.removeChild(this)" />{/if}
-			<div class="title">{php echo cutstr($row['title'],25,1);}</div>
-			<div class="createtime">{php echo date('Y-m-d H:i:s', $row['createtime'])}</div>
-		</a>
-	</li>
-	{/loop}
+    {data module="site" func="site_article" cid="$cid" assign="result" return="true"}
+    {loop $result['list'] $row}
+    <li>
+        <a href="{$row['linkurl']}">
+            {if $row['thumb']}<img src="{$row['thumb']}" class="pull-right thumb" onerror="this.parentNode.removeChild(this)" />{/if}
+            <div class="title">{php echo cutstr($row['title'],25,1);}</div>
+            <div class="createtime">{php echo date('Y-m-d H:i:s', $row['createtime'])}</div>
+        </a>
+    </li>
+    {/loop}
 </ul>
 <div class="pager-position">{$result['pager']}</div>
 {template 'common/footer'}

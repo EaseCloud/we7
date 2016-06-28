@@ -1,7 +1,7 @@
 {template 'web/_header'}
 {template 'tabs'}
 <div class='alert alert-danger'>
-	此功能仅超级管理员可见
+    此功能仅超级管理员可见
 </div>
 {if $operation == 'post'}
 <div class="main">
@@ -14,7 +14,7 @@
  
                  <div class='panel-body'>
                  
-					 
+                     
                  <div class="form-group type-wechat">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>  选择公众号</label>
                     <div class="col-sm-5">
@@ -178,7 +178,7 @@
                         <td>
                             {if !empty($row['username']) && empty($row['type']) }用户: {$row['username']}{/if}
                             {if !empty($row['name']) && $row['type']==1}{$row['name']}{/if}
-							  {if empty($row['type'])}
+                              {if empty($row['type'])}
                           <label class='label label-default'>失效</label>
                           {/if}
                         </td>
@@ -213,31 +213,31 @@
 <script language='javascript'>
  
                 function search_users() {
-		$("#module-menus").html("正在搜索....")
-		$.get('{php echo $this->createPluginWebUrl('perm/plugins',array('op'=>'query_user'));}', {
-			keyword: $.trim($('#search-kwd').val())
-		}, function(dat){
-			$('#module-menus').html(dat);
-		});
-	}
-	function select_user(o) {
-	             $("#uid").val(o.uid);
-          	             $("#user").val( o.username  );
+        $("#module-menus").html("正在搜索....")
+        $.get('{php echo $this->createPluginWebUrl('perm/plugins',array('op'=>'query_user'));}', {
+            keyword: $.trim($('#search-kwd').val())
+        }, function(dat){
+            $('#module-menus').html(dat);
+        });
+    }
+    function select_user(o) {
+                 $("#uid").val(o.uid);
+                           $("#user").val( o.username  );
                              $("#modal-module-menus .close").click();
-	}
+    }
         
         function search_wechats() { 
-		$("#module-menus1").html("正在搜索....")
-		$.get('{php echo $this->createPluginWebUrl('perm/plugins',array('op'=>'query_wechat'));}', {
-		    keyword: $.trim($('#search-kwd1').val())
-		}, function(dat){
-		    $('#module-menus1').html(dat);
-		});
-	}
-	function select_wechat(o) {
-	             $("#acid").val(o.acid);
-          	             $("#account").val( o.name);
+        $("#module-menus1").html("正在搜索....")
+        $.get('{php echo $this->createPluginWebUrl('perm/plugins',array('op'=>'query_wechat'));}', {
+            keyword: $.trim($('#search-kwd1').val())
+        }, function(dat){
+            $('#module-menus1').html(dat);
+        });
+    }
+    function select_wechat(o) {
+                 $("#acid").val(o.acid);
+                           $("#account").val( o.name);
                              $("#modal-module-menus1 .close").click();
-	}
+    }
     </script>
 {template 'web/_footer'}

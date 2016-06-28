@@ -7,9 +7,9 @@ defined('IN_IA') or exit('Access Denied');
 load()->model('app');
 $multiid = intval($_GPC['t']);
 if(empty($multiid)) {
-	load()->model('account');
-	$setting = uni_setting($_W['uniacid'], array('default_site'));
-	$multiid = $setting['default_site'];
+    load()->model('account');
+    $setting = uni_setting($_W['uniacid'], array('default_site'));
+    $multiid = $setting['default_site'];
 }
 $title = $_W['page']['title'];
 $navs = app_navs('home', $multiid);
@@ -18,6 +18,6 @@ $_share['imgUrl'] = tomedia($share_tmp['thumb']);
 $_share['desc'] = $share_tmp['description'];
 $_share['title'] = $share_tmp['title'];
 if (!empty($multiid)) {
-	isetcookie('__multiid', $multiid);
+    isetcookie('__multiid', $multiid);
 }
 template('home/home');

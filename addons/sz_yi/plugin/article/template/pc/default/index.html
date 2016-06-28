@@ -98,13 +98,13 @@
                 <a href="{php echo $this->createPluginMobileUrl('article',array('method'=>'report','aid'=>$article['id']))}"><div class="rich_tool_text right" style="margin-right: 0;">举报</div></a>
             {/if}
         </div>
-		<!--如果设定的任务总金额显示@phpdb.net-->
-		{if $article['article_rule_money_total']>0}
-		<div class="rich_tool">
-			<p>任务总金额：{$article['article_rule_money_total']}元</p>
-			<p>截至目前累计奖励金额：{$total_money}元</p>
-		</div>
-		{/if}
+        <!--如果设定的任务总金额显示@phpdb.net-->
+        {if $article['article_rule_money_total']>0}
+        <div class="rich_tool">
+            <p>任务总金额：{$article['article_rule_money_total']}元</p>
+            <p>截至目前累计奖励金额：{$total_money}元</p>
+        </div>
+        {/if}
     </div>
     {if $article['product_advs_type']!=0 && !empty($advs)}
         <div class="rich_sift">

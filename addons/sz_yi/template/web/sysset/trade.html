@@ -5,10 +5,10 @@
         <input type='hidden' name='setid' value="{$set['id']}" />
         <input type='hidden' name='op' value="trade" />
         <div class="panel panel-default">
-			<div class="panel-heading">
-				自动关闭未付款订单
-			</div>
-			<div class='panel-body'>
+            <div class="panel-heading">
+                自动关闭未付款订单
+            </div>
+            <div class='panel-body'>
                 <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">自动关闭未付款订单天数</label>
                     <div class="col-sm-5">
@@ -28,30 +28,30 @@
                 </div>
 
                 {if $_W['isfounder']}
-				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">自动关闭未付款订单执行间隔时间</label>
-					<div class="col-sm-5">
-						{ifp 'sysset.save.trade'}
-						<div class="input-group">
-							<input type="text" name="trade[closeordertime]" class="form-control" value="{$set['trade']['closeordertime']}" />
-							<div class="input-group-addon">分钟</div>
-						</div>
-						<span class='help-block'>执行自动关闭未付款订单操作的间隔时间，如果为空默认为 60分钟 执行一次关闭到期未付款订单</span>
-						{else}
-						<input type="hidden" name="trade[closeordertime]" value="{$set['trade']['closeordertime']}"/>
-						<div class='form-control-static'>
-							{if empty($set['trade']['closeordertime'])}60{else}{$set['trade']['closeordertime']}{/if} 分钟
-						</div>
-						{/if}
-					</div>
-				</div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">自动关闭未付款订单执行间隔时间</label>
+                    <div class="col-sm-5">
+                        {ifp 'sysset.save.trade'}
+                        <div class="input-group">
+                            <input type="text" name="trade[closeordertime]" class="form-control" value="{$set['trade']['closeordertime']}" />
+                            <div class="input-group-addon">分钟</div>
+                        </div>
+                        <span class='help-block'>执行自动关闭未付款订单操作的间隔时间，如果为空默认为 60分钟 执行一次关闭到期未付款订单</span>
+                        {else}
+                        <input type="hidden" name="trade[closeordertime]" value="{$set['trade']['closeordertime']}"/>
+                        <div class='form-control-static'>
+                            {if empty($set['trade']['closeordertime'])}60{else}{$set['trade']['closeordertime']}{/if} 分钟
+                        </div>
+                        {/if}
+                    </div>
+                </div>
                 {/if}
-			</div>
+            </div>
 
-			<div class="panel-heading">
-				自动收货
-			</div>
-			<div class='panel-body'>
+            <div class="panel-heading">
+                自动收货
+            </div>
+            <div class='panel-body'>
 
                 <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">自动收货天数</label>
@@ -90,10 +90,10 @@
                     </div>
                 </div>
                 {/if}
-			</div>
-			<div class="panel-heading">
-				交易设置
-			</div>	
+            </div>
+            <div class="panel-heading">
+                交易设置
+            </div>    
 
             <div class='panel-body'>
 
@@ -124,15 +124,15 @@
                         {else}
                         <input type="hidden" name="trade[refundcontent]" value="{$set['trade']['refundcontent']}"/>
                         <div class='form-control-static'>
-							{$set['trade']['refundcontent']}
+                            {$set['trade']['refundcontent']}
                         </div>
                         {/if}
                     </div>
                 </div>
-			</div>
-			<div class="panel-heading">
-				余额设置
-			</div>	
+            </div>
+            <div class="panel-heading">
+                余额设置
+            </div>    
 
             <div class='panel-body'>
 
@@ -177,10 +177,10 @@
                         {/if}
                     </div>
                 </div>
-			</div>
-			<div class="panel-heading">
-				积分比例
-			</div>	
+            </div>
+            <div class="panel-heading">
+                积分比例
+            </div>    
 
             <div class='panel-body'>
                 <div class="form-group">
@@ -207,10 +207,10 @@
                         {/if}
                     </div>
                 </div>
-			</div>
-			<div class="panel-heading">
-				共享收货地址
-			</div>	
+            </div>
+            <div class="panel-heading">
+                共享收货地址
+            </div>    
 
             <div class='panel-body'>
 
@@ -227,13 +227,13 @@
                         {/if}
                     </div>
                 </div>
-			</div>
-			      {if $_W['isfounder']}
-			<div class="panel-heading">
-				支付日志 
-			</div>	
+            </div>
+                  {if $_W['isfounder']}
+            <div class="panel-heading">
+                支付日志 
+            </div>    
 
-			<div class='panel-body'>
+            <div class='panel-body'>
           
                 <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">支付回调日志</label>
@@ -247,22 +247,22 @@
                     </div>
                 </div>
       
-			</div>
-				            {/if}
-			<div class="form-group"></div>
+            </div>
+                            {/if}
+            <div class="form-group"></div>
             <div class="form-group">
-				<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
-				<div class="col-sm-9 col-xs-12">
-					{ifp 'sysset.save.trade'}
-					<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"  />
-					<input type="hidden" name="token" value="{$_W['token']}" />
-					{/if}
-				</div>
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    {ifp 'sysset.save.trade'}
+                    <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"  />
+                    <input type="hidden" name="token" value="{$_W['token']}" />
+                    {/if}
+                </div>
             </div>
 
 
 
-	 </div>     
+     </div>     
 </form>
  
 {template 'web/_footer'}     

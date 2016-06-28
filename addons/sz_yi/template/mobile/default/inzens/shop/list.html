@@ -60,19 +60,19 @@ i.do-desc{ width:16px; height:16px; background-position:-97px -148px; top:11px;}
 <script id='tpl_main' type='text/html'>
      <!--搜索-->
     <div class="search1">
-		<div class="topbar1">
-			<div class='right'>
-				<button class="sub1"><i class="do do-search1"></i></button>
-				<div class="home1">取消</div>
-			</div>
-			<div class='left_wrap'>
-				<div class='left'>
-					<input type="text" id='keywords' class="input1" placeholder='搜索: 输入商品关键词' value='{$_GPC['keywords']}'/>
-				</div>
-			</div>
-		</div>
-		<div id='search_container' class='result1'></div>
-	</div>
+        <div class="topbar1">
+            <div class='right'>
+                <button class="sub1"><i class="do do-search1"></i></button>
+                <div class="home1">取消</div>
+            </div>
+            <div class='left_wrap'>
+                <div class='left'>
+                    <input type="text" id='keywords' class="input1" placeholder='搜索: 输入商品关键词' value='{$_GPC['keywords']}'/>
+                </div>
+            </div>
+        </div>
+        <div id='search_container' class='result1'></div>
+    </div>
 
     <div class="main">
         <div id='category_container'></div>
@@ -86,10 +86,10 @@ i.do-desc{ width:16px; height:16px; background-position:-97px -148px; top:11px;}
             </div>
             <!--topbar-->
             <div class="topbar">
-				<a href="javascript:history.back()" class="fl"><i class="do do-back"></i></a>
-				<div class="name">{if empty($current_category)}全部商品{else}{$current_category['name']}{/if}</div>
-				<div class="search"><i class="do do-search"></i></div>
-				<div class="sort"><i class="do do-desc" style="float:right;"></i></div>
+                <a href="javascript:history.back()" class="fl"><i class="do do-back"></i></a>
+                <div class="name">{if empty($current_category)}全部商品{else}{$current_category['name']}{/if}</div>
+                <div class="search"><i class="do do-search"></i></div>
+                <div class="sort"><i class="do do-desc" style="float:right;"></i></div>
             </div>
             <div id="category_group"></div>
             <!--商品列表-->

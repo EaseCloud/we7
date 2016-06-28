@@ -105,7 +105,7 @@ if ($_W['isajax']) {
         'verifytime' => $time,
         'verified' => 1,
         'verifyopenid' => $openid,
-	'verifystoreid' => $saler['storeid']
+    'verifystoreid' => $saler['storeid']
     ), array(
         'id' => $order['id']
     ));

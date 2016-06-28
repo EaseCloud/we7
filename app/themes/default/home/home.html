@@ -1,14 +1,14 @@
 {template 'common/header'}
 <style type="text/css">
 body{
-	font:{$_W['styles']['fontsize']} {$_W['styles']['fontfamily']};
-	color:{if empty($_W['styles']['fontcolor'])}#555{else}{$_W['styles']['fontcolor']}{/if};
-	padding:0;
-	margin:0;
-	background-image:url('{if empty($_W['styles']['indexbgimg'])}./themes/default/images/bg_index.jpg{else}{$_W['styles']['indexbgimg']}{/if}');
-	background-size:cover;
-	background-color:{if empty($_W['styles']['indexbgcolor'])}#fbf5df{else}{$_W['styles']['indexbgcolor']}{/if};
-	{$_W['styles']['indexbgextra']}
+    font:{$_W['styles']['fontsize']} {$_W['styles']['fontfamily']};
+    color:{if empty($_W['styles']['fontcolor'])}#555{else}{$_W['styles']['fontcolor']}{/if};
+    padding:0;
+    margin:0;
+    background-image:url('{if empty($_W['styles']['indexbgimg'])}./themes/default/images/bg_index.jpg{else}{$_W['styles']['indexbgimg']}{/if}');
+    background-size:cover;
+    background-color:{if empty($_W['styles']['indexbgcolor'])}#fbf5df{else}{$_W['styles']['indexbgcolor']}{/if};
+    {$_W['styles']['indexbgextra']}
 }
 a{color:{$_W['styles']['linkcolor']}; text-decoration:none;}
 {$_W['styles']['css']}
@@ -19,8 +19,8 @@ a{color:{$_W['styles']['linkcolor']}; text-decoration:none;}
 .footer{color:#dddddd;}
 </style>
 <div class="home-container clearfix">
-	{data func="site_navs" item="row"}
-		{$row['html']}
-	{/data}
+    {data func="site_navs" item="row"}
+        {$row['html']}
+    {/data}
 </div>
 {template 'common/footer'}

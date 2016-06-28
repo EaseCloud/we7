@@ -8,7 +8,7 @@ load()->func('cron');
 $id = intval($_GPC['id']);
 $cron = cron_check($id);
 if(is_error($cron)) {
-	message($cron, '', 'ajax');
+    message($cron, '', 'ajax');
 }
 
 $_W['uniacid'] = $cron['uniacid'];
@@ -19,10 +19,10 @@ $_W['cron'] = $cron;
 
 $moduleCron = WeUtility::createModuleCron($cron['module']);
 if(!is_error($moduleCron)) {
-	define('IN_MODULE', $cron['module']);
-	$method = 'doCron' . ucfirst($cron['filename']);
-	$moduleCron->$method();
-	exit();
+    define('IN_MODULE', $cron['module']);
+    $method = 'doCron' . ucfirst($cron['filename']);
+    $moduleCron->$method();
+    exit();
 } else {
-	message($moduleCron, '', 'ajax');
+    message($moduleCron, '', 'ajax');
 }

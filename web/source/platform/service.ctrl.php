@@ -13,32 +13,32 @@ $cfg = $m['config'];
 $ds = reply_search("`uniacid` = 0 AND module = 'userapi' AND `status`=1");
 $apis = array();
 foreach($ds as $row) {
-	$apis[$row['id']] = $row; 
+    $apis[$row['id']] = $row; 
 }
 
 if($_W['ispost'] && $_W['isajax']) {
-	$rids = explode(',', $_GPC['rids']);
-	if(is_array($rids)) {
-		$cfg = array();
-		foreach($rids as $rid) {
-			if(!empty($apis[$rid])) {
-				$cfg[intval($rid)] = true;
-			}
-		}
-		$module = WeUtility::createModule('userapi');
-		$module->saveSettings($cfg);
-	}
-	exit();
+    $rids = explode(',', $_GPC['rids']);
+    if(is_array($rids)) {
+        $cfg = array();
+        foreach($rids as $rid) {
+            if(!empty($apis[$rid])) {
+                $cfg[intval($rid)] = true;
+            }
+        }
+        $module = WeUtility::createModule('userapi');
+        $module->saveSettings($cfg);
+    }
+    exit();
 }
 $ds = array();
 foreach($apis as $row) {
-	$reply = pdo_fetch('SELECT * FROM ' . tablename('userapi_reply') . ' WHERE `rid`=:rid', array(':rid' => $row['id']));
-	$r = array();
-	$r['title'] = $row['name'];
-	$r['rid'] = $row['id'];
-	$r['description'] = $reply['description'];
-	$r['switch'] = $cfg[$r['rid']] ? ' checked="checked"' : '';
-	$ds[] = $r;
+    $reply = pdo_fetch('SELECT * FROM ' . tablename('userapi_reply') . ' WHERE `rid`=:rid', array(':rid' => $row['id']));
+    $r = array();
+    $r['title'] = $row['name'];
+    $r['rid'] = $row['id'];
+    $r['description'] = $reply['description'];
+    $r['switch'] = $cfg[$r['rid']] ? ' checked="checked"' : '';
+    $ds[] = $r;
 }
 
 template('platform/service');

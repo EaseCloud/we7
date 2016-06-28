@@ -561,7 +561,7 @@ $(function(){
                         {/if}
                         <li role="presentation" style="display: block;"><a aria-controls="link_diy" role="tab" data-toggle="tab" href="#link_article" aria-expanded="false">营销文章</a></li>
                         <li role="presentation" style="display: block;"><a aria-controls="link_other" role="tab" data-toggle="tab" href="#link_other" aria-expanded="false">自定义链接</a></li>
-                    </ul>	
+                    </ul>    
                 </div>
                  <div class="modal-body tab-content">
                      <div role="tabpanel" class="tab-pane link_system active" id="link_system">
@@ -824,32 +824,32 @@ $(function(){
                                 <span class="input-group-addon">元余额</span> 
                             </div>
                         </div>
-						
-						
-						
+                        
+                        
+                        
                     </div>
                     <div class="line">
-						<div class="line2">
+                        <div class="line2">
                             <div class="input-group form-group">
                                 <span class="input-group-addon" style="border-right: 0px;">最高累计奖金</span> 
                                 <input type="text" name="article_rule_money_total"  class="form-control" value="{if $aid}{$article['article_rule_money_total']}{/if}" placeholder="">
                                 <span class="input-group-addon" style="border-left: 0px; ">元</span> 
                                 
                             </div>
-							
+                            
                         </div>
-						
-						<div class="line2">
+                        
+                        <div class="line2">
                             <div class="input-group form-group">
                                 <span class="input-group-addon" style="border-right: 0px;">截止目前累计奖励金额</span> 
                                 <input type="text" name="article_rule_userd_money"  class="form-control" value="{if $aid}{$article['article_rule_userd_money']}{/if}" placeholder="">
                                 <span class="input-group-addon" style="border-left: 0px; ">元</span> 
                                 
                             </div>
-							
+                            
                         </div>
-					</div>
-					
+                    </div>
+                    
                     <div class="line">
                         <div class="line2" style="margin-right: 10px; width: 500px;">
                             <div class="input-group form-group">
@@ -1324,89 +1324,89 @@ $(function(){
                 <div class="help-block">公众平台模板消息编号: OPENTM200605630 (同分销 任务处理通知 一个模板id)</div>
             </div>
         </div>
-		
-		{loop $article_sys['article_area'] $area_key $area_item}
-		<div class="form-group district_html" style="{if $area_key==0}padding-top:20px;{/if}">
+        
+        {loop $article_sys['article_area'] $area_key $area_item}
+        <div class="form-group district_html" style="{if $area_key==0}padding-top:20px;{/if}">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">{if $area_key==0}可阅读的地区{/if}</label>
             <div class="col-sm-9 col-xs-12 " >
-				
-				<div class="row row-fix tpl-district-container">
-					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-						<select name="birth[province]"  data-value="{$area_item['province']}" class="form-control tpl-province">
-						</select>
-					</div>
-					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-						<select name="birth[city]" data-value="{$area_item['city']}" class="form-control tpl-city">
-						</select>
-					</div>
-					<div class="col-sm-1">
-						<input type="button" class="btn btn-default" value="删除" onclick="$(this).parent().parent().parent().remove();" />
-					</div>
-				</div> 
+                
+                <div class="row row-fix tpl-district-container">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <select name="birth[province]"  data-value="{$area_item['province']}" class="form-control tpl-province">
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <select name="birth[city]" data-value="{$area_item['city']}" class="form-control tpl-city">
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <input type="button" class="btn btn-default" value="删除" onclick="$(this).parent().parent().parent().remove();" />
+                    </div>
+                </div> 
 
             </div>
         </div>
-		{/loop}
-	    <div class="form-group" style="padding-top:20px;">
+        {/loop}
+        <div class="form-group" style="padding-top:20px;">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
             <div class="col-sm-9 col-xs-12">
                 <input type="button" name="" class="btn btn-default" value="添加新区域" onclick="addDistrict();" />
-				<input value="{$area_count}" type="hidden" id="distrist_index">
+                <input value="{$area_count}" type="hidden" id="distrist_index">
             </div>
         </div>
-		
-		<script type="text/javascript">
-			function addDistrict(){
-				
-				require(["jquery", "district"], function($, dis){
-					//alert(objIndex);
-					var objIndex = $('#distrist_index').val();
-					
-					if (objIndex > 0){
-						//复制html：
-						html = '<div class="form-group district_html" style="padding-top:0px;"><label class="col-xs-12 col-sm-3 col-md-2 control-label"></label><div class="col-sm-9 col-xs-12 " ><div class="row row-fix tpl-district-container"><div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"><select name="birth[province]" data-value="" class="form-control tpl-province"></select></div><div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"><select name="birth[city]" data-value="" class="form-control tpl-city"></select></div><div class="col-sm-1"><input type="button" class="btn btn-default" value="删除" onclick="$(this).parent().parent().parent().remove();" /></div></div> </div></div>';
-						//alert(html);
-						prevIndex = objIndex - 1;
-						$('.district_html').eq(prevIndex).after(html);
-					}
-					
-					var contain = $('.tpl-district-container')[objIndex];
-					var elms = {};
-					elms.province = $(contain).find(".tpl-province")[0];
-					elms.city = $(contain).find(".tpl-city")[0];
+        
+        <script type="text/javascript">
+            function addDistrict(){
+                
+                require(["jquery", "district"], function($, dis){
+                    //alert(objIndex);
+                    var objIndex = $('#distrist_index').val();
+                    
+                    if (objIndex > 0){
+                        //复制html：
+                        html = '<div class="form-group district_html" style="padding-top:0px;"><label class="col-xs-12 col-sm-3 col-md-2 control-label"></label><div class="col-sm-9 col-xs-12 " ><div class="row row-fix tpl-district-container"><div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"><select name="birth[province]" data-value="" class="form-control tpl-province"></select></div><div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"><select name="birth[city]" data-value="" class="form-control tpl-city"></select></div><div class="col-sm-1"><input type="button" class="btn btn-default" value="删除" onclick="$(this).parent().parent().parent().remove();" /></div></div> </div></div>';
+                        //alert(html);
+                        prevIndex = objIndex - 1;
+                        $('.district_html').eq(prevIndex).after(html);
+                    }
+                    
+                    var contain = $('.tpl-district-container')[objIndex];
+                    var elms = {};
+                    elms.province = $(contain).find(".tpl-province")[0];
+                    elms.city = $(contain).find(".tpl-city")[0];
 
-					var vals = {};
-					vals.province = $(elms.province).attr("data-value");
-					vals.city = $(elms.city).attr("data-value");
+                    var vals = {};
+                    vals.province = $(elms.province).attr("data-value");
+                    vals.city = $(elms.city).attr("data-value");
 
-					dis.render(elms, vals, {withTitle: true});
-					
-					objIndex++;
-					$('#distrist_index').val(objIndex);
-				});
-				
-			}
-			
-			
-			require(["jquery", "district"], function($, dis){
-				
-				$('.tpl-district-container').each(function(objIndex){
-					var elms = {};
-					elms.province = $(this).find(".tpl-province")[0];
-					elms.city = $(this).find(".tpl-city")[0];
+                    dis.render(elms, vals, {withTitle: true});
+                    
+                    objIndex++;
+                    $('#distrist_index').val(objIndex);
+                });
+                
+            }
+            
+            
+            require(["jquery", "district"], function($, dis){
+                
+                $('.tpl-district-container').each(function(objIndex){
+                    var elms = {};
+                    elms.province = $(this).find(".tpl-province")[0];
+                    elms.city = $(this).find(".tpl-city")[0];
 
-					var vals = {};
-					vals.province = $(elms.province).attr("data-value");
-					vals.city = $(elms.city).attr("data-value");
+                    var vals = {};
+                    vals.province = $(elms.province).attr("data-value");
+                    vals.city = $(elms.city).attr("data-value");
 
-					dis.render(elms, vals, {withTitle: true});
-				
-				});
-				
-			});
-			//addDistrict();
-		</script>
-		
+                    dis.render(elms, vals, {withTitle: true});
+                
+                });
+                
+            });
+            //addDistrict();
+        </script>
+        
         <div class="form-group" style="padding-top:20px;">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">文章列表标题</label>
             <div class="col-sm-9 col-xs-12">
@@ -1457,20 +1457,20 @@ $(function(){
             var article_shownum = $("input[name=article_shownum]").val();
             var article_keyword = $("input[name=article_keyword]").val();
             var article_temp = $("input[name=article_temp]:checked").val();
-			
-			//读取区域设置的：
-			var article_province = '';
-			$('.tpl-province').each(function(){
-				article_province += $(this).val() + ',';
-			});
-			
-			var article_city = '';
-			$('.tpl-city').each(function(){
-				article_city += $(this).val() + ',';
-			});
-		
-			
-			
+            
+            //读取区域设置的：
+            var article_province = '';
+            $('.tpl-province').each(function(){
+                article_province += $(this).val() + ',';
+            });
+            
+            var article_city = '';
+            $('.tpl-city').each(function(){
+                article_city += $(this).val() + ',';
+            });
+        
+            
+            
             if(!article_title){
                 $("input[name=article_title]").focus();
                 alert('文章封面标题不能为空！');

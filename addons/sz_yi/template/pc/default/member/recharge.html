@@ -113,7 +113,7 @@
                     
                 })
             }
-			if (result.yunpay.success) {
+            if (result.yunpay.success) {
                 $('.balance_sub10').click(function () {
                    
                     var money = $('#money').val();
@@ -180,7 +180,7 @@
                                         core.tip.show('取消支付');
                                     } else {
                                         $('.button').removeAttr('submitting');
-                                    	alert(res.err_msg);
+                                        alert(res.err_msg);
                                     }
                            });
 //                        require(['http://res.wx.qq.com/open/js/jweixin-1.0.0.js'], function (wx) {

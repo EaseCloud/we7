@@ -18,13 +18,13 @@ if ($operation == 'display') {
     $params    = array();
     if (!empty($_GPC['keyword'])) {
         $_GPC['keyword'] = trim($_GPC['keyword']);
-		$condition .= ' and ac.name like :keyword';
+        $condition .= ' and ac.name like :keyword';
         $params[':keyword'] = "%{$_GPC['keyword']}%";
     }
     if ($_GPC['type'] != '') {
         $condition .= ' and p.type=' . intval($_GPC['type']);
     }
-	$list = pdo_fetchall("SELECT p.*,ac.name FROM " . tablename('sz_yi_perm_plugin') . " p  " . " left join " . tablename('account_wechats') . " ac on p.acid = ac.acid  " . " WHERE 1 {$condition} ORDER BY id desc LIMIT " . ($pindex - 1) * $psize . ',' . $psize, $params);
+    $list = pdo_fetchall("SELECT p.*,ac.name FROM " . tablename('sz_yi_perm_plugin') . " p  " . " left join " . tablename('account_wechats') . " ac on p.acid = ac.acid  " . " WHERE 1 {$condition} ORDER BY id desc LIMIT " . ($pindex - 1) * $psize . ',' . $psize, $params);
     foreach ($list as &$row) {
         $row_plugins = explode(",", $row['plugins']);
         $aplugins    = array();
@@ -41,14 +41,14 @@ if ($operation == 'display') {
     $total   = pdo_fetchcolumn("SELECT count(*) FROM " . tablename('sz_yi_perm_plugin') . " p  " . " left join " . tablename('users') . " u on p.uid = u.uid  " . " left join " . tablename('account_wechats') . " ac on p.acid = ac.acid  " . " WHERE 1 {$condition} ", $params);
     $pager   = pagination($total, $pindex, $psize);
     $plugins = m('plugin')->getAll();
-	
+    
 } elseif ($operation == 'post') {
-	
+    
     $id           = intval($_GPC['id']);
     $item         = pdo_fetch("SELECT * FROM " . tablename('sz_yi_perm_plugin') . " WHERE id =:id limit 1", array(
         ':id' => $id
     ));
-	
+    
     $item_plugins = array();
     if (!empty($item)) {
         $item_plugins = explode(',', $item['plugins']);
@@ -60,14 +60,14 @@ if ($operation == 'display') {
         ));
     }
     if (checksubmit('submit')) {
-		
+        
         $data = array(
             'type' => 1,
             'acid' => intval($_GPC['acid']),
             'uid' => intval($_GPC['uid']),
             'plugins' => is_array($_GPC['plugins']) ? implode(',', $_GPC['plugins']) : ''
         );
-		
+        
         if (empty($data['type'])) {
             $data['acid'] = 0;
         } else {
@@ -78,7 +78,7 @@ if ($operation == 'display') {
                 'id' => $id
             ));
         } else {
-			
+            
             if (empty($data['type'])) {
                 $usercount = pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_perm_plugin') . ' where uid=:uid limit 1', array(
                     ':uid' => $data['uid']
@@ -94,16 +94,16 @@ if ($operation == 'display') {
                     message('此公众号的插件权限已经设置过，不能重复设置!', '', 'error');
                 }
             }
-			
-			
+            
+            
             pdo_insert('sz_yi_perm_plugin', $data);
             $id = pdo_insertid();
-			
+            
         }
-		
+        
         message('保存成功!', $this->createPluginWebUrl('perm/plugins'), 'success');
     }
-	
+    
 } elseif ($operation == 'delete') {
     $id   = intval($_GPC['id']);
     $item = pdo_fetch("SELECT id FROM " . tablename('sz_yi_perm_plugin') . " WHERE id = '$id'");

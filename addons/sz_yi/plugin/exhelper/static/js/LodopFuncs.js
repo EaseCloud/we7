@@ -3,34 +3,34 @@ var CreatedOKLodop7766=null;
 //====判断是否需要安装CLodop云打印服务器:====
 function needCLodop(){
     try{
-	var ua=navigator.userAgent;
-	if (ua.match(/Windows\sPhone/i) !=null) return true;
-	if (ua.match(/iPhone|iPod/i) != null) return true;
-	if (ua.match(/Android/i) != null) return true;
-	if (ua.match(/Edge\D?\d+/i) != null) return true;
-	if (ua.match(/QQBrowser/i) != null) return false;
-	var verTrident=ua.match(/Trident\D?\d+/i);
-	var verIE=ua.match(/MSIE\D?\d+/i);
-	var verOPR=ua.match(/OPR\D?\d+/i);
-	var verFF=ua.match(/Firefox\D?\d+/i);
-	var x64=ua.match(/x64/i);
-	if ((verTrident==null)&&(verIE==null)&&(x64!==null)) 
-		return true; else
-	if ( verFF !== null) {
-		verFF = verFF[0].match(/\d+/);
-		if ( verFF[0] >= 42 ) return true;
-	} else 
-	if ( verOPR !== null) {
-		verOPR = verOPR[0].match(/\d+/);
-		if ( verOPR[0] >= 32 ) return true;
-	} else 
-	if ((verTrident==null)&&(verIE==null)) {
-		var verChrome=ua.match(/Chrome\D?\d+/i);		
-		if ( verChrome !== null ) {
-			verChrome = verChrome[0].match(/\d+/);
-			if (verChrome[0]>=42) return true;
-		};
-	};
+    var ua=navigator.userAgent;
+    if (ua.match(/Windows\sPhone/i) !=null) return true;
+    if (ua.match(/iPhone|iPod/i) != null) return true;
+    if (ua.match(/Android/i) != null) return true;
+    if (ua.match(/Edge\D?\d+/i) != null) return true;
+    if (ua.match(/QQBrowser/i) != null) return false;
+    var verTrident=ua.match(/Trident\D?\d+/i);
+    var verIE=ua.match(/MSIE\D?\d+/i);
+    var verOPR=ua.match(/OPR\D?\d+/i);
+    var verFF=ua.match(/Firefox\D?\d+/i);
+    var x64=ua.match(/x64/i);
+    if ((verTrident==null)&&(verIE==null)&&(x64!==null)) 
+        return true; else
+    if ( verFF !== null) {
+        verFF = verFF[0].match(/\d+/);
+        if ( verFF[0] >= 42 ) return true;
+    } else 
+    if ( verOPR !== null) {
+        verOPR = verOPR[0].match(/\d+/);
+        if ( verOPR[0] >= 32 ) return true;
+    } else 
+    if ((verTrident==null)&&(verIE==null)) {
+        var verChrome=ua.match(/Chrome\D?\d+/i);        
+        if ( verChrome !== null ) {
+            verChrome = verChrome[0].match(/\d+/);
+            if (verChrome[0]>=42) return true;
+        };
+    };
         return false;
     } catch(err) {return true;};
 };
@@ -64,20 +64,20 @@ function getLodop(oOBJECT,oEMBED){
         var isIE = (navigator.userAgent.indexOf('MSIE')>=0) || (navigator.userAgent.indexOf('Trident')>=0);
         if (needCLodop()) {
             try{ LODOP=getCLodop();} catch(err) {};
-	    if (!LODOP && document.readyState!=="complete") {alert("C-Lodop没准备好，请稍后再试！"); return;};
+        if (!LODOP && document.readyState!=="complete") {alert("C-Lodop没准备好，请稍后再试！"); return;};
             if (!LODOP) {
-		 if (isIE) document.write(strCLodopInstall); else
-		 document.documentElement.innerHTML=strCLodopInstall+document.documentElement.innerHTML;
+         if (isIE) document.write(strCLodopInstall); else
+         document.documentElement.innerHTML=strCLodopInstall+document.documentElement.innerHTML;
                  return;
             } else {
 
-	         if (CLODOP.CVERSION<"2.0.4.0") { 
-			if (isIE) document.write(strCLodopUpdate); else
-			document.documentElement.innerHTML=strCLodopUpdate+document.documentElement.innerHTML;
-		 };
-		 if (oEMBED && oEMBED.parentNode) oEMBED.parentNode.removeChild(oEMBED);
-		 if (oOBJECT && oOBJECT.parentNode) oOBJECT.parentNode.removeChild(oOBJECT);	
-	    };
+             if (CLODOP.CVERSION<"2.0.4.0") { 
+            if (isIE) document.write(strCLodopUpdate); else
+            document.documentElement.innerHTML=strCLodopUpdate+document.documentElement.innerHTML;
+         };
+         if (oEMBED && oEMBED.parentNode) oEMBED.parentNode.removeChild(oEMBED);
+         if (oOBJECT && oOBJECT.parentNode) oOBJECT.parentNode.removeChild(oOBJECT);    
+        };
         } else {
             var is64IE  = isIE && (navigator.userAgent.indexOf('x64')>=0);
             //=====如果页面有Lodop就直接使用，没有则新建:==========

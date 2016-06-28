@@ -50,10 +50,10 @@
                 <div class="col-sm-9 col-xs-12">
                     <input type="text" id="send_total" name="send_total" class="form-control" value="1"  />
                 </div>
-            </div>			
-		</div>
-			
-	 <div class='panel-heading'>
+            </div>            
+        </div>
+            
+     <div class='panel-heading'>
             发送对象
         </div>
 
@@ -115,9 +115,9 @@
                 </div>
             </div>
             {/if}
-		</div>
-			
-	 <div class='panel-heading'>
+        </div>
+            
+     <div class='panel-heading'>
             推送设置
         </div>
 
@@ -140,17 +140,17 @@
         <textarea name="send_desc" class="form-control" >{$coupon['respdesc']}</textarea>
     </div>
 </div>
-			
+            
  <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">推送连接</label>
                 <div class="col-sm-9 col-xs-12">
                  
                     <input type="text" name="send_url" class="form-control" value="{$coupon['respurl']}"  />
-					<span class='help-block'>消息推送点击的连接，为空默认为优惠券详情</span>
+                    <span class='help-block'>消息推送点击的连接，为空默认为优惠券详情</span>
                    
                 </div>
-            </div>	
-			</div>
+            </div>    
+            </div>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label" ></label>
                 <div class="col-sm-9 col-xs-12">
@@ -212,5 +212,5 @@
             return true;
         });
     });
-</script>				
+</script>                
 {template 'web/_footer'}

@@ -253,16 +253,16 @@
                             <thead>
                             <tr>
                                 <th style="height:40px;width:400px;">运送到</th>
-			                    <th class="show_h" style="width:120px;">首重(克)</th>
-			                    <th class="show_h" style="width:120px;">首费(元)</th>
-			                    <th class="show_h" style="width:120px;">续重(克)</th>
-			                    <th class="show_h" style="width:120px;">续费(元)</th>
+                                <th class="show_h" style="width:120px;">首重(克)</th>
+                                <th class="show_h" style="width:120px;">首费(元)</th>
+                                <th class="show_h" style="width:120px;">续重(克)</th>
+                                <th class="show_h" style="width:120px;">续费(元)</th>
 
 
-			                    <th class="show_n" style="width:120px;">首件(个)</th>
-			                    <th class="show_n" style="width:120px;">运费(元)</th>
-			                    <th class="show_n" style="width:120px;">续件(个)</th>
-			                    <th class="show_n" style="width:120px;">续费(元)</th>
+                                <th class="show_n" style="width:120px;">首件(个)</th>
+                                <th class="show_n" style="width:120px;">运费(元)</th>
+                                <th class="show_n" style="width:120px;">续件(个)</th>
+                                <th class="show_n" style="width:120px;">续费(元)</th>
                                 <th style="width:120px;">管理</th>
                             </tr>
                             </thead>
@@ -332,7 +332,7 @@
                           {ife 'shop.dispatch' $dispatch}
                           <a class='btn btn-default' href="javascript:;" onclick='addArea(this)'><span class="fa fa-plus"></span> 新增配送区域</a>
                          <span class='help-block show_h' {if $dispatch['type']==1}style='display:block'{/if}>根据重量来计算运费，当物品不足《首重重量》时，按照《首重费用》计算，超过部分按照《续重重量》和《续重费用》乘积来计算</span>
-		     <span class='help-block show_n' {if $dispatch['type']==0}style='display:block'{/if}>根据件数来计算运费，当物品不足《首件数量》时，按照《首件费用》计算，超过部分按照《续件数量》和《续件费用》乘积来计算</span>
+             <span class='help-block show_n' {if $dispatch['type']==0}style='display:block'{/if}>根据件数来计算运费，当物品不足《首件数量》时，按照《首件费用》计算，超过部分按照《续件数量》和《续件费用》乘积来计算</span>
                           {/if}
                         
                     </div>
@@ -416,9 +416,9 @@
             <div class="modal-body" style='height:280px;;' > 
                 
                 {loop $areas['address']['province'] $value}
-				{if $value['@attributes']['name']=='请选择省份'}
-				{php continue;}
-				{/if}
+                {if $value['@attributes']['name']=='请选择省份'}
+                {php continue;}
+                {/if}
                 <div class='province'>
                      <label class='checkbox-inline' style='margin-left:20px;'>
                          <input type='checkbox' class='cityall' /> {php echo $value['@attributes']['name']}

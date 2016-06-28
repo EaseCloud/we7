@@ -10,9 +10,9 @@ load()->model('mc');
 $creditnames = array();
 $unisettings = uni_setting($uniacid, array('creditnames'));
 if (!empty($unisettings) && !empty($unisettings['creditnames'])) {
-	foreach ($unisettings['creditnames'] as $key=>$credit) {
-		$creditnames[$key] = $credit['title'];
-	}
+    foreach ($unisettings['creditnames'] as $key=>$credit) {
+        $creditnames[$key] = $credit['title'];
+    }
 }
 
 
@@ -20,15 +20,15 @@ $sql = 'SELECT `status` FROM ' . tablename('mc_card') . " WHERE `uniacid` = :uni
 $cardstatus = pdo_fetch($sql, array(':uniacid' => $_W['uniacid']));
 
 if($do == 'token_qrcode') {
-	require_once('../framework/library/qrcode/phpqrcode.php');
-	$errorCorrectionLevel = "L";
-	$matrixPointSize = "8";
-	$token_id = intval($_GPC['id']);
-	$recid = intval($_GPC['recid']);
-	$type = intval($_GPC['type']);
-	$url = $_W['siteroot'] . 'app' . ltrim(murl('entry', array('m' => 'paycenter', 'do' => 'syscard', 'op' => 'consume', 'recid' => $recid, 'type' => $type)), '.');
-	QRcode::png($url, false, $errorCorrectionLevel, $matrixPointSize);
-	exit();
+    require_once('../framework/library/qrcode/phpqrcode.php');
+    $errorCorrectionLevel = "L";
+    $matrixPointSize = "8";
+    $token_id = intval($_GPC['id']);
+    $recid = intval($_GPC['recid']);
+    $type = intval($_GPC['type']);
+    $url = $_W['siteroot'] . 'app' . ltrim(murl('entry', array('m' => 'paycenter', 'do' => 'syscard', 'op' => 'consume', 'recid' => $recid, 'type' => $type)), '.');
+    QRcode::png($url, false, $errorCorrectionLevel, $matrixPointSize);
+    exit();
 }
 
 

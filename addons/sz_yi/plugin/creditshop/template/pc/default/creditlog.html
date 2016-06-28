@@ -48,8 +48,8 @@ body{max-width: none;}
     <%each list as row%> 
     <div class="my_line">
           <div class="right" style="color:#093">-<%row.credit%></div>
-    	<div class="left">
-        	<div class="desc"><%if row.type==0%>兑换<%else%>抽取<%/if%><%row.title%></div>
+        <div class="left">
+            <div class="desc"><%if row.type==0%>兑换<%else%>抽取<%/if%><%row.title%></div>
             <div class="date"><%row.createtime%></div>
         </div>
     </div>

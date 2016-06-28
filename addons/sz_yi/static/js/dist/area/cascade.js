@@ -1,7 +1,7 @@
 /**
- * @name		jQuery Cascdejs plugin
- * @author		zdy
- * @version 	1.0 
+ * @name        jQuery Cascdejs plugin
+ * @author        zdy
+ * @version     1.0 
  */
 
 //首先需要初始化
@@ -60,7 +60,7 @@ function cascdeInit(v1,v2,v3) {
                 }
                 dropElement2.add(option);
             }
-			selectcounty(v3);
+            selectcounty(v3);
         }
     }
 }
@@ -130,7 +130,7 @@ function selectcounty(v3) {
         option.value = countyNode.getAttribute("name");
         option.text = countyNode.getAttribute("name");
         if(v3==option.value){
-        	option.selected=true;
+            option.selected=true;
         }
         city.add(option);
     }

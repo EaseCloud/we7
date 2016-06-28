@@ -8,5 +8,5 @@ $dos = array('check');
 $do = in_array($do, $dos) ? $do : 'check';
 
 if($do == 'check') {
-	template('clerk/check');
+    template('clerk/check');
 }

@@ -2,7 +2,7 @@
 <div class='panel panel-default' style='margin-top:10px;'>
 
     {loop $category $ck $cv}
-	 {if count($cv['plugins'])<=0}{php continue;}{/if}
+     {if count($cv['plugins'])<=0}{php continue;}{/if}
     <div class="panel-heading">
         {$cv['name']}
     </div>
@@ -14,12 +14,12 @@
             <br/>
             <span>{$plugin['name']}</span>
         </a>
-		{else}
-		 
+        {else}
+         
         {/if}
         {/loop}
     </div>
-	{/loop}
+    {/loop}
 </div>
 
 

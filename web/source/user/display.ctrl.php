@@ -13,28 +13,28 @@ $psize = 20;
 $where = ' WHERE 1 ';
 $params = array();
 if ($_GPC['status'] > 0) {
-	$where .= " AND status = :status";
-	$params[':status'] = intval($_GPC['status']);
+    $where .= " AND status = :status";
+    $params[':status'] = intval($_GPC['status']);
 }
 if (!empty($_GPC['username'])) {
-	$where .= " AND username LIKE :username";
-	$params[':username'] = "%{$_GPC['username']}%";
+    $where .= " AND username LIKE :username";
+    $params[':username'] = "%{$_GPC['username']}%";
 }
 if (!empty($_GPC['group'])) {
-	$where .= " AND groupid = :groupid";
-	$params[':groupid'] = intval($_GPC['group']);
+    $where .= " AND groupid = :groupid";
+    $params[':groupid'] = intval($_GPC['group']);
 }
 $endtime = intval($_GPC['endtime']);
 if($endtime != 0) {
-	if($endtime == -1) {
-		$where .= " AND endtime <= :endtime AND endtime != 0";
-		$params[':endtime'] = TIMESTAMP;
-	} else {
-		$end = strtotime($endtime . 'days');
-		$where .= " AND endtime <= :endtime AND endtime > :starttime";
-		$params[':endtime'] = $end;
-		$params[':starttime'] = TIMESTAMP;
-	}
+    if($endtime == -1) {
+        $where .= " AND endtime <= :endtime AND endtime != 0";
+        $params[':endtime'] = TIMESTAMP;
+    } else {
+        $end = strtotime($endtime . 'days');
+        $where .= " AND endtime <= :endtime AND endtime > :starttime";
+        $params[':endtime'] = $end;
+        $params[':starttime'] = TIMESTAMP;
+    }
 }
 $sql = 'SELECT * FROM ' . tablename('users') .$where . " LIMIT " . ($pindex - 1) * $psize .',' .$psize;
 $users = pdo_fetchall($sql, $params);
@@ -43,7 +43,7 @@ $pager = pagination($total, $pindex, $psize);
 
 $founders = explode(',', $_W['config']['setting']['founder']);
 foreach($users as &$user) {
-	$user['founder'] = in_array($user['uid'], $founders);
+    $user['founder'] = in_array($user['uid'], $founders);
 }
 unset($user);
 

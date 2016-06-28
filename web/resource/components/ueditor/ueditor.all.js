@@ -55,7 +55,7 @@ var browser = UE.browser = function(){
          * }
          * ```
          */
-        ie		:  /(msie\s|trident.*rv:)([\w.]+)/.test(agent),
+        ie        :  /(msie\s|trident.*rv:)([\w.]+)/.test(agent),
 
         /**
          * @property {boolean} opera 检测当前浏览器是否为Opera
@@ -66,7 +66,7 @@ var browser = UE.browser = function(){
          * }
          * ```
          */
-        opera	: ( !!opera && opera.version ),
+        opera    : ( !!opera && opera.version ),
 
         /**
          * @property {boolean} webkit 检测当前浏览器是否是webkit内核的浏览器
@@ -77,7 +77,7 @@ var browser = UE.browser = function(){
          * }
          * ```
          */
-        webkit	: ( agent.indexOf( ' applewebkit/' ) > -1 ),
+        webkit    : ( agent.indexOf( ' applewebkit/' ) > -1 ),
 
         /**
          * @property {boolean} mac 检测当前浏览器是否是运行在mac平台下
@@ -88,7 +88,7 @@ var browser = UE.browser = function(){
          * }
          * ```
          */
-        mac	: ( agent.indexOf( 'macintosh' ) > -1 ),
+        mac    : ( agent.indexOf( 'macintosh' ) > -1 ),
 
         /**
          * @property {boolean} quirks 检测当前浏览器是否处于“怪异模式”下
@@ -237,7 +237,7 @@ var browser = UE.browser = function(){
      * ```
      */
     if(/(\d+\.\d)?(?:\.\d)?\s+safari\/?(\d+\.\d+)?/i.test(agent) && !/chrome/i.test(agent)){
-    	browser.safari = + (RegExp['\x241'] || RegExp['\x242']);
+        browser.safari = + (RegExp['\x241'] || RegExp['\x242']);
     }
 
 
@@ -8365,21 +8365,21 @@ UE.ajax = function() {
          * } );
          * ```
          */
-		request:function(url, opts) {
+        request:function(url, opts) {
             if (opts && opts.dataType == 'jsonp') {
                 doJsonp(url, opts);
             } else {
                 doAjax(url, opts);
             }
-		},
+        },
         getJSONP:function(url, data, fn) {
             var opts = {
                 'data': data,
                 'oncomplete': fn
             };
             doJsonp(url, opts);
-		}
-	};
+        }
+    };
 
 
 }();
@@ -17476,7 +17476,7 @@ UE.plugins['autofloat'] = function() {
         docStyle.backgroundImage = 'url("about:blank")';
         docStyle.backgroundAttachment = 'fixed';
     }
-    var	bakCssText,
+    var    bakCssText,
         placeHolder = document.createElement('div'),
         toolbarBox,orgTop,
         getPosition,

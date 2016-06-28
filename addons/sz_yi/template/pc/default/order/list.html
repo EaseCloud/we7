@@ -81,9 +81,9 @@
         <div class="sub">
         <div class="sub1" onclick="location.href='{php echo $this->createMobileUrl('order/detail')}&id=<%order.id%>'">订单详情</div>
             <%if order.status==0%>
-			<%if order.paytype!=3%>
+            <%if order.paytype!=3%>
             <div class="sub1" onclick="location.href='{php echo $this->createMobileUrl('order/pay')}&orderid=<%order.id%>&openid={$openid}'">付款</div>
-			<%/if%>
+            <%/if%>
             <div class="sub2 order_cancel" style='position:relative;width:56px;'>
                 <span style='position:absolute;display:block;width:56px;'>取消订单</span>
                 <select>
@@ -101,9 +101,9 @@
         
             <%if order.status==2%>
                     <div class="sub1 order_complete">确认收货</div>
-					<%if order.expresssn!=''%>
+                    <%if order.expresssn!=''%>
                    <div class="sub2 order_express">查看物流</div>
-				   <%/if%> 
+                   <%/if%> 
 
             <%/if%>
             <%if order.status==3 && order.iscomment==0%>

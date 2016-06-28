@@ -321,27 +321,27 @@
             <%if discountprice>0%>
             <div class="line" style="line-height:26px;">-会员折扣(<d class='memberdiscount'><%discount%></d>折)<span>-￥<span class='discountprice'><%discountprice%></span></span></div>
             <%/if%>
-		
-						
+        
+                        
 
             <%if saleset.showenough %>
             <div class="line" style="line-height:26px;">-单笔满 <d style='color:#ff6600'><%saleset.enoughmoney%></d> 元立减  <span>-￥<span id="deductenough_money"><%saleset.enoughdeduct%></span><span></div>
             <%/if%>
-				{if $hascouponplugin}
+                {if $hascouponplugin}
             
-			<div id="coupondeduct_div" class="line" style="line-height:26px;display:none"><d id='coupondeduct_text'></d><span>-￥<span id="coupondeduct_money">0</span><span></div>
-				   {/if}
+            <div id="coupondeduct_div" class="line" style="line-height:26px;display:none"><d id='coupondeduct_text'></d><span>-￥<span id="coupondeduct_money">0</span><span></div>
+                   {/if}
             
         </div>
     </div>
-	<input type="hidden" id="couponid" value="" />
-	 
-	 
+    <input type="hidden" id="couponid" value="" />
+     
+     
      <div id="coupondiv" class="addorder_price" style="margin-top:5px;<%if !hascoupon%>display:none<%/if%>" >
             <div class="price" style="border:none;">
           
           <div class="line" style="line-height:32px;" id="selectcoupon">
-			  <d id="couponselect">我要使用优惠券</d>
+              <d id="couponselect">我要使用优惠券</d>
                                 <div class="ico2" style="float:right;color:#999;margin-top:2px;"><i class='fa fa-angle-right fa-2x'></i></div>
                                 <div class="couponcount"><%couponcount%></div>
             </div>
@@ -351,7 +351,7 @@
       
     </div>
    
-	
+    
     <%if deductcredit>0 || deductcredit2>0  %>
      <div class="addorder_price" style="margin-top:5px;">
             <div class="price" style="border:none;">
@@ -366,14 +366,14 @@
                 <div id='deductcredit2' class="nav" on="0" credit2="<%deductcredit2%>"><nav></nav></div>
             </div>
             <%/if%>
-	 
+     
 
 
         </div>
       
     </div>
     <%/if%>
-	
+    
     <div class="addorder_pay">
         <div class="paysub">确认订单</div>
         <span>需付：￥<t class='totalprice'><%realprice%></t>元</span>
@@ -558,7 +558,7 @@ var fromcart = 0;
 
                     }, true);
                 })
-				$(".chooser").height($(document.body).height());
+                $(".chooser").height($(document.body).height());
                 $(".choose_address").animate({right: "0px"}, 200);
                 $('.add_address').click(function() {
                     addAddress($(this));
@@ -582,15 +582,15 @@ var fromcart = 0;
                 core.tip.show('请输入正确的联系电话!');
                 return;
             }
-	   if($('#sel-provance').val()=='请选择省份'){
+       if($('#sel-provance').val()=='请选择省份'){
                     core.tip.show('请选择省份!');
                     return;
                 }
-	       if($('#sel-city').val()=='请选择城市'){
+           if($('#sel-city').val()=='请选择城市'){
                     core.tip.show('请选择城市!');
                     return;
                 }
-		  if($('#sel-area').val()=='请选择地区'){
+          if($('#sel-area').val()=='请选择地区'){
                     core.tip.show('请选择地区!');
                     return;
                 }
@@ -656,7 +656,7 @@ var fromcart = 0;
                 var num = parseInt( $('.shownum').val());
                 $('#goods').val(goodsid + "," + optionid +"," + num + '|');
             }
-					 
+                     
 
             core.json('order/confirm', {
                 op: 'getdispatchprice',
@@ -664,30 +664,30 @@ var fromcart = 0;
                 addressid: $('#addressid').val(),
                 dispatchid: $('#dispatchid').val(),
                 weight: weight,
-	      goods: $('#goods').val()
+          goods: $('#goods').val()
             }, function(getjson) {
                 if (getjson.status == 1) {
                     $('.dispatchprice').html(getjson.result.price);
-					if(getjson.result.hascoupon){
-						$('#coupondiv').show();
-						$('#coupondiv .couponcount').html(getjson.result.couponcount);
-						bindCouponEvents();
-					}else{
-						$('#couponid').val('');
-						$('#couponselect').html('我要使用优惠券');
-						$('#coupondiv').hide();
-					}
+                    if(getjson.result.hascoupon){
+                        $('#coupondiv').show();
+                        $('#coupondiv .couponcount').html(getjson.result.couponcount);
+                        bindCouponEvents();
+                    }else{
+                        $('#couponid').val('');
+                        $('#couponselect').html('我要使用优惠券');
+                        $('#coupondiv').hide();
+                    }
                     calctotalprice();
 
                        if( $('.shownum').length>0){
 
-					var goodsinfo = $('#goods').val().split('|')[0];
-					var goods = goodsinfo.split(',');
-					var goodsid = goods[0];
-					var optionid = goods[1];
-					var num = parseInt( $('.shownum').val());
-					$('#goods').val(goodsid + "," + optionid +"," + num + '|');
-				}
+                    var goodsinfo = $('#goods').val().split('|')[0];
+                    var goods = goodsinfo.split(',');
+                    var goodsid = goods[0];
+                    var optionid = goods[1];
+                    var num = parseInt( $('.shownum').val());
+                    $('#goods').val(goodsid + "," + optionid +"," + num + '|');
+                }
                    
 
                 }
@@ -712,7 +712,7 @@ var fromcart = 0;
                                     }
                     });
                 {/if}
-					$(".chooser").height($(document.body).height());
+                    $(".chooser").height($(document.body).height());
                 $(".address_main").animate({right: "0px"}, 200); 
                 $('.address_sub2').click(function() {
                     $(".address_main").animate({right: "-100%"}, 200);
@@ -737,14 +737,14 @@ var fromcart = 0;
             if($('.discountprice').length>0){
                  discountprice = parseFloat($(".discountprice").html().replace(',',''));
             }
-	  var totalprice = goodsprice  - discountprice;
+      var totalprice = goodsprice  - discountprice;
              var enoughprice =0;
             if($("#deductenough_money").length>0){
                  enoughprice = parseFloat($("#deductenough_money").html().replace(',',''));
             }
-	   {if $hascouponplugin}
-	       totalprice = calcCouponPrice(totalprice);
-	   {/if}
+       {if $hascouponplugin}
+           totalprice = calcCouponPrice(totalprice);
+       {/if}
             totalprice = totalprice - enoughprice  + dispatchprice;
         
 
@@ -797,7 +797,7 @@ var fromcart = 0;
 
             json.result.selectedDispatchID = $("#dispatchid").val();
             $('#dispatch_container').html(tpl('tpl_dispatch_list', json.result));
-			$(".chooser").height($(document.body).height());
+            $(".chooser").height($(document.body).height());
             $(".choose_dispatch").animate({right: "0px"}, 200);
             $('.dispatch').click(function() {
                 var obj = $(this);
@@ -894,9 +894,9 @@ var fromcart = 0;
                       data.deduct2 = 1;       
                 }
             }
-	   {if $hascouponplugin}
-		data.couponid = $('#couponid').val();
-	  {/if}
+       {if $hascouponplugin}
+        data.couponid = $('#couponid').val();
+      {/if}
             core.json('order/confirm', data, function(create_json) {
 
                 if (create_json.status == 1) {
@@ -940,85 +940,85 @@ var fromcart = 0;
        {if $hascouponplugin}
             bindCouponEvents();
             function calcCouponPrice(totalprice){
-	  
-	       $('#coupondeduct_div').hide();
-	       $('#coupondeduct_text').html('');
-	       $('#coupondeduct_money').html('0');
-	       if($('#couponid').val()=='' ||  $('#couponid').val()=='0')   {
-			  return totalprice;
-	       }
-	       var deduct   = parseFloat( $('#couponselect').data('deduct') );
+      
+           $('#coupondeduct_div').hide();
+           $('#coupondeduct_text').html('');
+           $('#coupondeduct_money').html('0');
+           if($('#couponid').val()=='' ||  $('#couponid').val()=='0')   {
+              return totalprice;
+           }
+           var deduct   = parseFloat( $('#couponselect').data('deduct') );
                  var discount = parseFloat( $('#couponselect').data('discount') );
                  var backtype = parseFloat( $('#couponselect').data('backtype') );
-	     
-	       var deductprice = 0;
-	       if(deduct>0 && backtype==0){ //抵扣
-		   if(deduct>totalprice){
-			   deduct=totalprice;
-		   }
-		   if(deduct<=0){
-			   deduct = 0;
-		   }
- 		   deductprice = deduct;
-		   totalprice-=deduct;
-		   $('#coupondeduct_text').html('-优惠券优惠');
-	      }else if(discount>0 && backtype==1){//打折
-			  
-		   deductprice = totalprice *  (1 - discount/10 );
-		   if(deductprice>totalprice){
-			   deductprice=totalprice;
-		   }
-		  if(deductprice<=0){
-			   deductprice = 0;
-		   }
-    		   totalprice-=deductprice;		
-		   $('#coupondeduct_text').html('-优惠券折扣(' + discount + '折)');
-	        }
-	       if(deductprice>0){
-		 $('#coupondeduct_div').show();
-	          $('#coupondeduct_money').html(deductprice.toFixed(2));	
-	       }
-	      return totalprice;
-				
+         
+           var deductprice = 0;
+           if(deduct>0 && backtype==0){ //抵扣
+           if(deduct>totalprice){
+               deduct=totalprice;
+           }
+           if(deduct<=0){
+               deduct = 0;
+           }
+            deductprice = deduct;
+           totalprice-=deduct;
+           $('#coupondeduct_text').html('-优惠券优惠');
+          }else if(discount>0 && backtype==1){//打折
+              
+           deductprice = totalprice *  (1 - discount/10 );
+           if(deductprice>totalprice){
+               deductprice=totalprice;
+           }
+          if(deductprice<=0){
+               deductprice = 0;
+           }
+               totalprice-=deductprice;        
+           $('#coupondeduct_text').html('-优惠券折扣(' + discount + '折)');
+            }
+           if(deductprice>0){
+         $('#coupondeduct_div').show();
+              $('#coupondeduct_money').html(deductprice.toFixed(2));    
+           }
+          return totalprice;
+                
             }
             function bindCouponEvents(){
-				$('#selectcoupon').click( function(){
+                $('#selectcoupon').click( function(){
                                               
-                                             var money =parseFloat( $('.totalprice').html().replace(",","") ) ;	
- 				     core.pjson('coupon/util', {op: 'query', money: money, type:0}, function (rjson) {
-							if (rjson.status != 1) {
-								core.tip.show(rjson.result);
-								$('#couponid').val('');
-								calctotalprice(); 
-								return;
-							}
-							if(rjson.result.coupons.length>0){
-								CouponChooser.cancelCallback = function(){
-									
-									$('#coupondeduct_div').hide();
-									$('#coupondeduct_text').html('');
-									$('#coupondeduct_money').html('0');
-									calctotalprice();
-									 
-								}
-								CouponChooser.confirmCallback = function(){
-									calctotalprice();
-								}
-								CouponChooser.open( rjson.result );
-								
-							}
-						}, true, true);
-				});
-		}
-			
+                                             var money =parseFloat( $('.totalprice').html().replace(",","") ) ;    
+                      core.pjson('coupon/util', {op: 'query', money: money, type:0}, function (rjson) {
+                            if (rjson.status != 1) {
+                                core.tip.show(rjson.result);
+                                $('#couponid').val('');
+                                calctotalprice(); 
+                                return;
+                            }
+                            if(rjson.result.coupons.length>0){
+                                CouponChooser.cancelCallback = function(){
+                                    
+                                    $('#coupondeduct_div').hide();
+                                    $('#coupondeduct_text').html('');
+                                    $('#coupondeduct_money').html('0');
+                                    calctotalprice();
+                                     
+                                }
+                                CouponChooser.confirmCallback = function(){
+                                    calctotalprice();
+                                }
+                                CouponChooser.open( rjson.result );
+                                
+                            }
+                        }, true, true);
+                });
+        }
+            
        {/if}
-						  
+                          
        
 
 
     }, true);
-	
-	
-	
+    
+    
+    
     });
 </script>

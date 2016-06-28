@@ -53,7 +53,7 @@
            <%if tops.length>0%>
            <a href="{php echo $this->createPluginMobileUrl('creditshop/detail')}&id=<%tops[0].id%>">
               <div class="info">
-             	<div class="classs"><%tops[0].subtitle%>
+                 <div class="classs"><%tops[0].subtitle%>
                     <%if tops[0].type=='1'%><span class="span1">抽奖</span><%/if%>
                 </div>
                   <div class="name"><%tops[0].title%></div>
@@ -206,13 +206,13 @@
               
                     
                     new Swipe($('#banner')[0], {
-			speed:300,
-			auto:4000,
-			callback: function(){
-			  
+            speed:300,
+            auto:4000,
+            callback: function(){
+              
                                  $(".flicking_con  .inner  a").removeClass("on").eq(this.index).addClass("on");
-		}
-	  }); 
+        }
+      }); 
        
                     
                 

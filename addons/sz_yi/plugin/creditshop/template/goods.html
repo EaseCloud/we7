@@ -84,25 +84,25 @@
                  Tip.focus('#search-kwd-goods','请输入关键词');
                  return;
              }
-		$("#module-menus-goods").html("正在搜索....")
-		$.get('{php echo $this->createWebUrl('shop/query')}', {
-			keyword: $.trim($('#search-kwd-goods').val())
-		}, function(dat){
-			$('#module-menus-goods').html(dat);
-		});
-	}
-	function select_good(o) {
+        $("#module-menus-goods").html("正在搜索....")
+        $.get('{php echo $this->createWebUrl('shop/query')}', {
+            keyword: $.trim($('#search-kwd-goods').val())
+        }, function(dat){
+            $('#module-menus-goods').html(dat);
+        });
+    }
+    function select_good(o) {
                               $("#goodsid").val(o.id);
-							  $("#couponid").val('');
+                              $("#couponid").val('');
                                $(":input[name=thumb]").val(o.thumb);
                                $(".img-thumbnail").attr('src',o.thumb);
                                $(":input[name=title]").val(o.title);
                                 $(":input[name=total]").val(o.total);
                                 $(":input[name=price]").val(o.marketprice);
-   	               $("#modal-module-menus-goods .close").click();
-	}
-	
-	{if p('coupon')}
+                      $("#modal-module-menus-goods .close").click();
+    }
+    
+    {if p('coupon')}
    function search_coupons() {
 
         $("#module-menus-coupon").html("正在搜索....")
@@ -114,16 +114,16 @@
     }
     function select_coupon(o) {
     $("#goodsid").val('');
-	
+    
          $("#couponid").val(o.id);
-		 
+         
          $(":input[name=thumb]").val(o.thumb);
          $(".img-thumbnail").attr('src',o.thumb);
          $(":input[name=title]").val(o.couponname);
          $(":input[name=total]").val(o.total=='-1'?'':o.total);
-		 $(":input[name=money]").val(o.money);
-		 $(":input[name=credit]").val(o.credit);
-		 $(":checkbox[name=usecredit2]").get(0).checked = o.usecredit2=='1';
+         $(":input[name=money]").val(o.money);
+         $(":input[name=credit]").val(o.credit);
+         $(":checkbox[name=usecredit2]").get(0).checked = o.usecredit2=='1';
          $(":input[name=price]").val('');
          $("#modal-module-menus-coupon .close").click();
     }
@@ -231,16 +231,16 @@
                               <span class='label label-primary'>{$category[$row['cate']]['name']}</span><br/>{$row['title']}
                           </td>
                           <td>
-							  {if $pcoupon}
-			  {if $row['goodstype']==1}
+                              {if $pcoupon}
+              {if $row['goodstype']==1}
                               <span class='label label-warning'>优惠券</span>
                               {else}
                               <span class='label label-success'>商品</span>
                               {/if}
-							  <br/>
-							  {/if}
-							  
-							  {if $row['type']==1}
+                              <br/>
+                              {/if}
+                              
+                              {if $row['type']==1}
                               <span class='label label-danger'>抽奖</span>
                               {else}
                               <span class='label label-primary'>兑换</span>

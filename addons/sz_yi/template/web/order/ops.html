@@ -1,17 +1,17 @@
   {if empty($item['statusvalue'])}
                              <!--未付款-->
-				  
+                  
                                 {ifp 'order.op.pay'}
-				{if $item['paytypevalue']==3}
-				<div>
-					   <input class='addressdata' type='hidden' value='{php echo json_encode($item['addressdata'])}'  />
+                {if $item['paytypevalue']==3}
+                <div>
+                       <input class='addressdata' type='hidden' value='{php echo json_encode($item['addressdata'])}'  />
                                         <input class='itemid'  type='hidden' value="{$item['id']}"  />
                                          <a class="btn btn-primary btn-sm" href="javascript:;" onclick="send(this)" data-toggle="modal" data-target="#modal-confirmsend">确认发货</a>
-										 </div>
-				{else}
+                                         </div>
+                {else}
                                 <a class="btn btn-primary btn-sm" href="{php echo $this->createWebUrl('order', array('op' => 'deal','to'=>'confirmpay','id' => $item['id']))}" onclick="return confirm('确认此订单已付款吗？');return false;">确认付款</a>
                                {/if}
-							   
+                               
                                 {/if}
                             
                             {elseif $item['statusvalue'] == 1}

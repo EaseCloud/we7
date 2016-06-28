@@ -84,7 +84,7 @@
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">全局统计代码</label>
                     <div class="col-sm-9 col-xs-12">
                         {ifp 'sysset.save.shop'}
-			 <textarea name="shop[diycode]" class="form-control richtext" cols="70" rows="5">{$set['shop']['diycode']}</textarea>
+             <textarea name="shop[diycode]" class="form-control richtext" cols="70" rows="5">{$set['shop']['diycode']}</textarea>
                         {else}
                         <textarea name="shop[diycode]" class="form-control richtext" cols="70" style="display:none"  rows="5">{$set['shop']['diycode']}</textarea>
                         <div class='form-control-static'>{$set['shop']['diycode']}</div>

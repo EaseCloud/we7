@@ -29,14 +29,14 @@ function sz_tpl_form_field_date($_var_4, $_var_2 = '', $_var_5 = false)
     $_var_6 = '';
     if (!defined('TPL_INIT_DATA')) {
         $_var_6 = "
-					<script type=\"text/javascript\">
-						require([\"datetimepicker\"], function(){
-							\$(function(){
-								\$(\".datetimepicker\").each(function(){
-									var option = {
-										lang : \"zh\",
-										step : \"10\",
-										timepicker : " . (!empty($_var_5) ? 'true' : 'false') . ",closeOnDateSelect : true,\r\n\t\t\tformat : \"Y-m-d" . (!empty($_var_5) ? ' H:i:s"' : '"') . "};\r\n\t\t\t\$(this).datetimepicker(option);\r\n\t\t});\r\n\t});\r\n});\r\n</script>";
+                    <script type=\"text/javascript\">
+                        require([\"datetimepicker\"], function(){
+                            \$(function(){
+                                \$(\".datetimepicker\").each(function(){
+                                    var option = {
+                                        lang : \"zh\",
+                                        step : \"10\",
+                                        timepicker : " . (!empty($_var_5) ? 'true' : 'false') . ",closeOnDateSelect : true,\r\n\t\t\tformat : \"Y-m-d" . (!empty($_var_5) ? ' H:i:s"' : '"') . "};\r\n\t\t\t\$(this).datetimepicker(option);\r\n\t\t});\r\n\t});\r\n});\r\n</script>";
         define('TPL_INIT_DATA', true);
     }
     $_var_5 = empty($_var_5) ? false : true;
@@ -519,67 +519,67 @@ function tpl_form_field_category_3level($_var_4, $_var_90, $_var_91, $_var_92, $
     $_var_95 = "\r\n<script type=\"text/javascript\">\r\n\twindow._" . $_var_4 . ' = ' . json_encode($_var_91) . ";\r\n</script>";
     if (!defined('TPL_INIT_CATEGORY_THIRD')) {
         $_var_95 .= "
-		<script type=\"text/javascript\">
-			function renderCategoryThird(obj, name){
-				var index = obj.options[obj.selectedIndex].value;
-				require(['jquery', 'util'], function(\$, u){
-					\$selectChild = \$('#'+name+'_child');
-		                                                      \$selectThird = \$('#'+name+'_third');
-					var html = '<option value=\"0\">请选择二级分类</option>';
-		                                                      var html1 = '<option value=\"0\">请选择三级分类</option>';
-					if (!window['_'+name] || !window['_'+name][index]) {
-						\$selectChild.html(html);
-		                                                                        \$selectThird.html(html1);
-						return false;
-					}
-					for(var i=0; i< window['_'+name][index].length; i++){
-						html += '<option value=\"'+window['_'+name][index][i]['id']+'\">'+window['_'+name][index][i]['name']+'</option>';
-					}
-					\$selectChild.html(html);
-		                                                    \$selectThird.html(html1);
-				});
-			}
-		        function renderCategoryThird1(obj, name){
-				var index = obj.options[obj.selectedIndex].value;
-				require(['jquery', 'util'], function(\$, u){
-					\$selectChild = \$('#'+name+'_third');
-					var html = '<option value=\"0\">请选择三级分类</option>';
-					if (!window['_'+name] || !window['_'+name][index]) {
-						\$selectChild.html(html);
-						return false;
-					}
-					for(var i=0; i< window['_'+name][index].length; i++){
-						html += '<option value=\"'+window['_'+name][index][i]['id']+'\">'+window['_'+name][index][i]['name']+'</option>';
-					}
-					\$selectChild.html(html);
-				});
-			}
-		</script>
-					";
+        <script type=\"text/javascript\">
+            function renderCategoryThird(obj, name){
+                var index = obj.options[obj.selectedIndex].value;
+                require(['jquery', 'util'], function(\$, u){
+                    \$selectChild = \$('#'+name+'_child');
+                                                              \$selectThird = \$('#'+name+'_third');
+                    var html = '<option value=\"0\">请选择二级分类</option>';
+                                                              var html1 = '<option value=\"0\">请选择三级分类</option>';
+                    if (!window['_'+name] || !window['_'+name][index]) {
+                        \$selectChild.html(html);
+                                                                                \$selectThird.html(html1);
+                        return false;
+                    }
+                    for(var i=0; i< window['_'+name][index].length; i++){
+                        html += '<option value=\"'+window['_'+name][index][i]['id']+'\">'+window['_'+name][index][i]['name']+'</option>';
+                    }
+                    \$selectChild.html(html);
+                                                            \$selectThird.html(html1);
+                });
+            }
+                function renderCategoryThird1(obj, name){
+                var index = obj.options[obj.selectedIndex].value;
+                require(['jquery', 'util'], function(\$, u){
+                    \$selectChild = \$('#'+name+'_third');
+                    var html = '<option value=\"0\">请选择三级分类</option>';
+                    if (!window['_'+name] || !window['_'+name][index]) {
+                        \$selectChild.html(html);
+                        return false;
+                    }
+                    for(var i=0; i< window['_'+name][index].length; i++){
+                        html += '<option value=\"'+window['_'+name][index][i]['id']+'\">'+window['_'+name][index][i]['name']+'</option>';
+                    }
+                    \$selectChild.html(html);
+                });
+            }
+        </script>
+                    ";
         define('TPL_INIT_CATEGORY_THIRD', true);
     }
     $_var_95 .= "<div class=\"row row-fix tpl-category-container\">
-		<div class=\"col-xs-12 col-sm-3 col-md-3 col-lg-3\">
-			<select class=\"form-control tpl-category-parent\" id=\"" . $_var_4 . '_parent" name="' . $_var_4 . '[parentid]" onchange="renderCategoryThird(this,\'' . $_var_4 . "')\">\r\n\t\t\t<option value=\"0\">请选择一级分类</option>";
+        <div class=\"col-xs-12 col-sm-3 col-md-3 col-lg-3\">
+            <select class=\"form-control tpl-category-parent\" id=\"" . $_var_4 . '_parent" name="' . $_var_4 . '[parentid]" onchange="renderCategoryThird(this,\'' . $_var_4 . "')\">\r\n\t\t\t<option value=\"0\">请选择一级分类</option>";
     $_var_96 = '';
     foreach ($_var_90 as $_var_58) {
         $_var_95 .= "\r\n\t\t\t<option value=\"" . $_var_58['id'] . '" ' . ($_var_58['id'] == $_var_92 ? 'selected="selected"' : '') . '>' . $_var_58['name'] . '</option>';
     }
     $_var_95 .= "
-			</select>
-		</div>
-		<div class=\"col-xs-12 col-sm-3 col-md-3 col-lg-3\">
-			<select class=\"form-control tpl-category-child\" id=\"" . $_var_4 . '_child" name="' . $_var_4 . '[childid]" onchange="renderCategoryThird1(this,\'' . $_var_4 . "')\">\r\n\t\t\t<option value=\"0\">请选择二级分类</option>";
+            </select>
+        </div>
+        <div class=\"col-xs-12 col-sm-3 col-md-3 col-lg-3\">
+            <select class=\"form-control tpl-category-child\" id=\"" . $_var_4 . '_child" name="' . $_var_4 . '[childid]" onchange="renderCategoryThird1(this,\'' . $_var_4 . "')\">\r\n\t\t\t<option value=\"0\">请选择二级分类</option>";
     if (!empty($_var_92) && !empty($_var_91[$_var_92])) {
         foreach ($_var_91[$_var_92] as $_var_58) {
             $_var_95 .= "\r\n\t\t\t<option value=\"" . $_var_58['id'] . '"' . ($_var_58['id'] == $_var_93 ? 'selected="selected"' : '') . '>' . $_var_58['name'] . '</option>';
         }
     }
     $_var_95 .= "
-			</select>
-		</div>
-	                  <div class=\"col-xs-12 col-sm-3 col-md-3 col-lg-3\">
-			<select class=\"form-control tpl-category-child\" id=\"" . $_var_4 . '_third" name="' . $_var_4 . "[thirdid]\">\r\n\t\t\t<option value=\"0\">请选择三级分类</option>";
+            </select>
+        </div>
+                      <div class=\"col-xs-12 col-sm-3 col-md-3 col-lg-3\">
+            <select class=\"form-control tpl-category-child\" id=\"" . $_var_4 . '_third" name="' . $_var_4 . "[thirdid]\">\r\n\t\t\t<option value=\"0\">请选择三级分类</option>";
     if (!empty($_var_93) && !empty($_var_91[$_var_93])) {
         foreach ($_var_91[$_var_93] as $_var_58) {
             $_var_95 .= "\r\n\t\t\t<option value=\"" . $_var_58['id'] . '"' . ($_var_58['id'] == $_var_94 ? 'selected="selected"' : '') . '>' . $_var_58['name'] . '</option>';

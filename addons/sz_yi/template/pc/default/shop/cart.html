@@ -104,7 +104,7 @@ position: absolute;
 </div>-->
  <div class="card_no"><i class="fa fa-shopping-cart" style="font-size:100px;"></i><br><span style="line-height:18px; font-size:16px;">购物车快饿瘪了</span><br>主人快去给我找点东西吧</div>
 <div class="card_no_menu">
-   	<div class="card_no_nav" onclick="location.href='{php echo $this->createMobileUrl('member')}'">个人中心</div>
+       <div class="card_no_nav" onclick="location.href='{php echo $this->createMobileUrl('member')}'">个人中心</div>
         <div class="card_no_nav"  onclick="location.href='{php echo $this->getUrl()}'">去逛逛</div>
  </div>
 
@@ -130,7 +130,7 @@ position: absolute;
                  <div class="img" onclick="location.href='{php echo $this->createMobileUrl('shop/detail')}&id=<%value.goodsid%>'"><img src="<%value.thumb%>"/></div>
                  <div class="info">
                      <div class='inner' >
-            	      <div class="name" onclick="location.href='{php echo $this->createMobileUrl('shop/detail')}&id=<%value.goodsid%>'"><%value.title%></div>
+                      <div class="name" onclick="location.href='{php echo $this->createMobileUrl('shop/detail')}&id=<%value.goodsid%>'"><%value.title%></div>
                         <%if value.optionid!='0'%>
                          <div class="optionsel">
                             <div class='content'>
@@ -162,19 +162,19 @@ position: absolute;
 <script language="javascript">
     function choose(){
                        $('.good_choose_layer').fadeIn(200);
-	     $('.good_choose').fadeIn(200);
+         $('.good_choose').fadeIn(200);
              $('.good_choose_layer').click(function(){
                  closechoose();
              })
-	}
+    }
                 function closechoose(){
                       $('.good_choose_layer').fadeOut(100);
                       $('.good_choose').fadeOut(100); 
                 }
-	function choose2(direct){
-	    
+    function choose2(direct){
+        
                           
-	}
+    }
         
     function setSelect(obj, sel,isall){
             if(sel=='1'){
@@ -230,22 +230,22 @@ position: absolute;
         return total;
     }
     
-	function option_sel(hasoption){
-	var ret= {
-		no: "",
-		all: []
-	};
-	if(!hasoption){
-		return ret;
-	}
-			$(".optionid").each(function(){
-				ret.all.push($(this).val());
-				if($(this).val()==''){
-					ret.no = $(this).attr("title");
-					return false;
-				}
-	})
-	return ret;
+    function option_sel(hasoption){
+    var ret= {
+        no: "",
+        all: []
+    };
+    if(!hasoption){
+        return ret;
+    }
+            $(".optionid").each(function(){
+                ret.all.push($(this).val());
+                if($(this).val()==''){
+                    ret.no = $(this).attr("title");
+                    return false;
+                }
+    })
+    return ret;
 }
 
     require(['tpl', 'core'], function(tpl, core) {
@@ -380,46 +380,46 @@ position: absolute;
                             $(this).find('.option[oid=' +cartspecs[i] + ']' ).addClass('on');
                         });
                         var stock =0;
-			var marketprice = 0;
-			var productprice = 0;
-			
-				var len = options.length;
-				for(var i=0;i<len;i++) {
-					var o = options[i];
+            var marketprice = 0;
+            var productprice = 0;
+            
+                var len = options.length;
+                for(var i=0;i<len;i++) {
+                    var o = options[i];
                                       
-					if( o.specs==cartoption.specs){
-						optionid = o.id;
-						stock = o.stock;
-						marketprice = o.marketprice;
-						productprice = o.productprice;
-						break;
-					}
+                    if( o.specs==cartoption.specs){
+                        optionid = o.id;
+                        stock = o.stock;
+                        marketprice = o.marketprice;
+                        productprice = o.productprice;
+                        break;
+                    }
                                                                            }
-					if(stock==0){
-					   $('.sub').addClass('disabled').html('库存不足,无法购买');
-					}
-					else{
-					     $('.sub').removeClass('disabled').html('确认');
-					}
+                    if(stock==0){
+                       $('.sub').addClass('disabled').html('库存不足,无法购买');
+                    }
+                    else{
+                         $('.sub').removeClass('disabled').html('确认');
+                    }
                                
-				 
-				
-		     	$("#option_price").html(marketprice);	
-		     	$("#option_stock").html(stock);	
+                 
+                
+                 $("#option_price").html(marketprice);    
+                 $("#option_stock").html(stock);    
                         
             
                        $(".spec_items .option").click(function() {
-			 var specid = $(this).attr("specid");
-			 var oid = $(this).attr("oid");
-			$(".optionid_"+specid).val(oid);
-			$(".options_" + specid + "  .option").removeClass("on").attr("sel", "false");
-			$(this).addClass("on").attr("sel", "true");
-	      var titles='已选: ';
-			     $('.spec_items').each(function(){
+             var specid = $(this).attr("specid");
+             var oid = $(this).attr("oid");
+            $(".optionid_"+specid).val(oid);
+            $(".options_" + specid + "  .option").removeClass("on").attr("sel", "false");
+            $(this).addClass("on").attr("sel", "true");
+          var titles='已选: ';
+                 $('.spec_items').each(function(){
                                   if($(this).find('.on').length>0){
-			        titles+= $(this).find('.on').attr('title')+";";   
+                    titles+= $(this).find('.on').attr('title')+";";   
                             }
-			     });
+                 });
                              
                              $('.good_choose .info .right .option').html(titles);
          var thumb = $(this).attr('thumb');
@@ -430,49 +430,49 @@ position: absolute;
              
              $("#chooser_img").attr('src',json.result.goods.thumb);
          }
-			var optionid = "";
-			var stock =0;
-			var marketprice = 0;
-			var productprice = 0;
-			 var ret = option_sel(json.result.options.length>0);
+            var optionid = "";
+            var stock =0;
+            var marketprice = 0;
+            var productprice = 0;
+             var ret = option_sel(json.result.options.length>0);
   
-			if(ret.no==''){
-				var len = options.length;
-				for(var i=0;i<len;i++) {
-					var o = options[i];
-					var ids = ret.all.join("_");
-					if( o.specs==ids){
-						optionid = o.id;
-						stock = o.stock;
-						marketprice = o.marketprice;
-						productprice = o.productprice;
-						break;
-					}
-					
-				}
-			   $("#optionid").val(optionid); 
-			    
-				if(stock!="-1"){
-				      $("#stockcontainer").html("库存:<span id='stock'>" + stock + "</span>");
-				}
-				else{
-				       $("#stockcontainer").html("<span id='stock'></span>");
-				}
-				if(ret.no==''){
-					if(stock==0){
-					   $('.sub').addClass('disabled').html('库存不足,无法购买');
-					}
-					else{
-					     $('.sub').removeClass('disabled').html('确认');
-					}
-				} 
-				 
-				
-		     	$("#option_price").html(marketprice);	
-		     	$("#option_stock").html(stock);	
-				 
-			}
-		});
+            if(ret.no==''){
+                var len = options.length;
+                for(var i=0;i<len;i++) {
+                    var o = options[i];
+                    var ids = ret.all.join("_");
+                    if( o.specs==ids){
+                        optionid = o.id;
+                        stock = o.stock;
+                        marketprice = o.marketprice;
+                        productprice = o.productprice;
+                        break;
+                    }
+                    
+                }
+               $("#optionid").val(optionid); 
+                
+                if(stock!="-1"){
+                      $("#stockcontainer").html("库存:<span id='stock'>" + stock + "</span>");
+                }
+                else{
+                       $("#stockcontainer").html("<span id='stock'></span>");
+                }
+                if(ret.no==''){
+                    if(stock==0){
+                       $('.sub').addClass('disabled').html('库存不足,无法购买');
+                    }
+                    else{
+                         $('.sub').removeClass('disabled').html('确认');
+                    }
+                } 
+                 
+                
+                 $("#option_price").html(marketprice);    
+                 $("#option_stock").html(stock);    
+                 
+            }
+        });
                                 }
                   
                         $('.sub').click(function(){

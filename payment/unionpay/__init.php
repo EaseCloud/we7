@@ -22,12 +22,12 @@ define('SDK_BACK_NOTIFY_URL', $_W['siteroot'] . 'notify.php');
 define('SDK_FILE_DOWN_PATH', 0);
 define('SDK_LOG_FILE_PATH', IA_ROOT . '/data/logs/');
 if (!empty($_W['config']['setting']['development'])) {
-	define('SDK_LOG_LEVEL', PhpLog::INFO);
+    define('SDK_LOG_LEVEL', PhpLog::INFO);
 } else {
-	define('SDK_LOG_LEVEL', PhpLog::OFF);
+    define('SDK_LOG_LEVEL', PhpLog::OFF);
 }
 if (!file_exists(IA_ROOT . '/attachment/unionpay/PM_'.$_W['uniacid'].'_acp.pfx')) {
-	message('缺少支付证书，请联系管理员！');
+    message('缺少支付证书，请联系管理员！');
 }
 define('SDK_SIGN_CERT_PATH', IA_ROOT . '/attachment/unionpay/PM_'.$_W['uniacid'].'_acp.pfx');
 define('SDK_SIGN_CERT_PWD', $payment['signcertpwd']);

@@ -12,7 +12,7 @@ $_W['uniacid'] = $_GPC['uniacid'];
 $args = $_GPC['args'];
 $site = WeUtility::createModuleSite($modulename);
 if (empty($site)) {
-	message(array(), '', 'ajax');
+    message(array(), '', 'ajax');
 }
 $ret = @$site->$callname($args);
 message($ret, '', 'ajax');

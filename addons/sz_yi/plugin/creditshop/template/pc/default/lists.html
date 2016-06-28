@@ -80,7 +80,7 @@
                                     page++;
                                     core.pjson('creditshop/lists', {page:page,cate:"{$cateid}"}, function(morejson) { 
                                        
-				stop = true;
+                stop = true;
                                         $('#list_loading').remove();
                                         $("#container_list").append(tpl('tpl_list', morejson.result));
                                         if (morejson.result.list.length <morejson.result.pagesize) {

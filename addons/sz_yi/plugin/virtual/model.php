@@ -158,9 +158,9 @@ if (!class_exists('VirtualModel')) {
             ));
             m('member')->upgradeLevel($order['openid']);
             m('notice')->sendOrderMessage($order['id']);
-	    if (p('coupon') && !empty($order['couponid'])) {
-	    	p('coupon')->backConsumeCoupon($order['id']);
-	    }
+        if (p('coupon') && !empty($order['couponid'])) {
+            p('coupon')->backConsumeCoupon($order['id']);
+        }
             if (p('commission')) {
                 p('commission')->checkOrderPay($order['id']);
                 p('commission')->checkOrderFinish($order['id']);

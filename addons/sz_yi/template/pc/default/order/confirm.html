@@ -218,77 +218,77 @@
     {if $show==1}
       <%if isverify || isvirtual || goods.type==2%>
           <input type="hidden"  id="dispatchtype" value="0" />
-	      <%if carrier_list.length>0%>
-		      <div class="addorder_nav">
-		        <div class="nav selected" data-nav='0'>配送核销</div>
-		        <div class="nav"  data-nav='1'>上门自提</div>
-		      </div>
-	      <%/if%>
+          <%if carrier_list.length>0%>
+              <div class="addorder_nav">
+                <div class="nav selected" data-nav='0'>配送核销</div>
+                <div class="nav"  data-nav='1'>上门自提</div>
+              </div>
+          <%/if%>
 
-		  <div class="addorder_user addorder_user_0">
-	        <input type='hidden' id='addressid' value='<%address.id%>' />
-	        <div class="info" id='address_select' <%if !address %>style='display:none'<%/if%>>
-	           <div class="ico"><i class="fa fa-map-marker"></i></div>
-	           <div class='info1'>
-	             <div class='inner'>
-	                <div class="user">收件人：<span id='address_realname'><%address.realname%></span>(<span id='address_mobile'><%address.mobile%></span>)</div>
-	                <div class="address"><span id='address_address'><%address.address%></span></div>
-	             </div>
-	           </div>
-	           <div class="ico2"><i class='fa fa-angle-right fa-2x'></i></div>
-	        </div>
-	        <div class='info' id='address_new'  <%if address %>style='display:none'<%/if%>>
-	          <div class="ico"><i class="fa fa-plus-circle"></i></div>
-	          <div class='info1'>
-	             <div class='inner'>
-	               <div class="user" style='padding-top:8px;'>新增地址</div>  
-	             </div>
-	          </div>
-	          <div class="ico2"><i class='fa fa-angle-right fa-2x'></i></div>
-	        </div>
-	      </div>
+          <div class="addorder_user addorder_user_0">
+            <input type='hidden' id='addressid' value='<%address.id%>' />
+            <div class="info" id='address_select' <%if !address %>style='display:none'<%/if%>>
+               <div class="ico"><i class="fa fa-map-marker"></i></div>
+               <div class='info1'>
+                 <div class='inner'>
+                    <div class="user">收件人：<span id='address_realname'><%address.realname%></span>(<span id='address_mobile'><%address.mobile%></span>)</div>
+                    <div class="address"><span id='address_address'><%address.address%></span></div>
+                 </div>
+               </div>
+               <div class="ico2"><i class='fa fa-angle-right fa-2x'></i></div>
+            </div>
+            <div class='info' id='address_new'  <%if address %>style='display:none'<%/if%>>
+              <div class="ico"><i class="fa fa-plus-circle"></i></div>
+              <div class='info1'>
+                 <div class='inner'>
+                   <div class="user" style='padding-top:8px;'>新增地址</div>  
+                 </div>
+              </div>
+              <div class="ico2"><i class='fa fa-angle-right fa-2x'></i></div>
+            </div>
+          </div>
 
 
-	       <%if carrier%>
-		      <div class="addorder_user addorder_user_1" style='display:none'>
-		        <input type='hidden' id='carrierindex' value='0' />
-		        <input type='hidden' id='carrierid' value='<%carrier.id%>' />
-		        <div class="info" id='carrier_select' >
-		          <div class="ico"><i class="fa fa-map-marker"></i></div>
-		          <div class='info1'>
-		             <div class='inner'>
-		               <div class="user">自提地点：<span id='carrier_realname'><%carrier.storename%></span>(<span id='carrier_mobile'><%carrier.tel%></span>)</div>
-		               <div class="address"><span id='carrier_address'><%carrier.address%></span></div>
-		             </div>
-		          </div>
-		          <div class="ico2"><i class='fa fa-angle-right fa-2x'></i></div>
-		        </div>
-		      </div>
-		      <div id='address_container'></div>
-		      <div class="carrier_input_info" style='display:none' >
-		          <div class="row">
-		            <div class='title'>提货人姓名</div>
-		            <div class='info'>
-		                <div class='inner'><input type="text" placeholder="提货人姓名" id="carrier_input_realname" value="<%member.realname%>" style='height:35px;'/></div>
-		            </div>
-		          </div>
-		          <div class="row">
-		            <div class='title'>提货人手机</div>
-		            <div class='info'>
-		                <div class='inner'><input type="text" placeholder="提货人手机"  id="carrier_input_mobile" value="<%member.mobile%>" style='height:35px;'/></div>
-		            </div>
-		          </div>
-		      </div>
-		   <%/if%>
+           <%if carrier%>
+              <div class="addorder_user addorder_user_1" style='display:none'>
+                <input type='hidden' id='carrierindex' value='0' />
+                <input type='hidden' id='carrierid' value='<%carrier.id%>' />
+                <div class="info" id='carrier_select' >
+                  <div class="ico"><i class="fa fa-map-marker"></i></div>
+                  <div class='info1'>
+                     <div class='inner'>
+                       <div class="user">自提地点：<span id='carrier_realname'><%carrier.storename%></span>(<span id='carrier_mobile'><%carrier.tel%></span>)</div>
+                       <div class="address"><span id='carrier_address'><%carrier.address%></span></div>
+                     </div>
+                  </div>
+                  <div class="ico2"><i class='fa fa-angle-right fa-2x'></i></div>
+                </div>
+              </div>
+              <div id='address_container'></div>
+              <div class="carrier_input_info" style='display:none' >
+                  <div class="row">
+                    <div class='title'>提货人姓名</div>
+                    <div class='info'>
+                        <div class='inner'><input type="text" placeholder="提货人姓名" id="carrier_input_realname" value="<%member.realname%>" style='height:35px;'/></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class='title'>提货人手机</div>
+                    <div class='info'>
+                        <div class='inner'><input type="text" placeholder="提货人手机"  id="carrier_input_mobile" value="<%member.mobile%>" style='height:35px;'/></div>
+                    </div>
+                  </div>
+              </div>
+           <%/if%>
 
-		   <%if dispatch%>
-		      <div class="addorder_exp" id='dispatch_select' style="display: none;">
-		        <input type='hidden' id='dispatchid' value='<%dispatch.id%>' />
-		        <div class="t1">配送方式</div>
-		        <div class="ico"><i class='fa fa-angle-right fa-2x'></i></div>
-		        <div class="t2"><span class='dispatchname'><%dispatch.dispatchname%></span> <span class='dispatchprice'><%dispatch.price%></span>元</div>
-		      </div>
-      	   <%/if%>
+           <%if dispatch%>
+              <div class="addorder_exp" id='dispatch_select' style="display: none;">
+                <input type='hidden' id='dispatchid' value='<%dispatch.id%>' />
+                <div class="t1">配送方式</div>
+                <div class="ico"><i class='fa fa-angle-right fa-2x'></i></div>
+                <div class="t2"><span class='dispatchname'><%dispatch.dispatchname%></span> <span class='dispatchprice'><%dispatch.price%></span>元</div>
+              </div>
+             <%/if%>
 
       
        <!-- <input type="hidden"  id="dispatchtype" value="0" />
@@ -307,7 +307,7 @@
           </div>
       </div> -->
       <%else%>
-		<input type="hidden"  id="dispatchtype" value="0" />
+        <input type="hidden"  id="dispatchtype" value="0" />
       <div class="addorder_user addorder_user_0">
         <input type='hidden' id='addressid' value='<%address.id%>' />
         <div class="info" id='address_select' <%if !address %>style='display:none'<%/if%>>
@@ -331,18 +331,18 @@
           <div class="ico2"><i class='fa fa-angle-right fa-2x'></i></div>
         </div>
       </div>
-	<div id='address_container'></div>
-		   <%if dispatch%>
-		      <div class="addorder_exp" id='dispatch_select' style="display: none;">
-		        <input type='hidden' id='dispatchid' value='<%dispatch.id%>' />
-		        <div class="t1">配送方式</div>
-		        <div class="ico"><i class='fa fa-angle-right fa-2x'></i></div>
-		        <div class="t2"><span class='dispatchname'><%dispatch.dispatchname%></span> <span class='dispatchprice'><%dispatch.price%></span>元</div>
-		      </div>
-      	   <%/if%>
+    <div id='address_container'></div>
+           <%if dispatch%>
+              <div class="addorder_exp" id='dispatch_select' style="display: none;">
+                <input type='hidden' id='dispatchid' value='<%dispatch.id%>' />
+                <div class="t1">配送方式</div>
+                <div class="ico"><i class='fa fa-angle-right fa-2x'></i></div>
+                <div class="t2"><span class='dispatchname'><%dispatch.dispatchname%></span> <span class='dispatchprice'><%dispatch.price%></span>元</div>
+              </div>
+             <%/if%>
      
 
-	  <%/if%>
+      <%/if%>
 
     {/if}
 
@@ -463,38 +463,38 @@
 <!-- 结算订单 -->
 <!--
 <div class="contentorder w m0a">
-	<div class="checkout-tit"><span class="tit-txt">填写并核对订单信息</span></div>
-	<div class="checkout-steps">
-		<div class="step-tit">
+    <div class="checkout-tit"><span class="tit-txt">填写并核对订单信息</span></div>
+    <div class="checkout-steps">
+        <div class="step-tit">
              <h3>收货人信息</h3>
              <div class="fr">
                 <a href="#" class="ftx-05">新增收货地址</a>
               </div>
         </div>
         <div class="list-address">
-        	<div class="user-name item-selected"><span>杨柳</span><b></b></div>
-	        <div class="addr-detail">
-    	    	<span class="addr-name">{$address['realname']}</span>
-        		<span class="addr-info">黑龙江 哈尔滨市 南岗区 城区中兴大道555号东辉明珠园D4栋3单元601</span>
-        		<span class="addr-tel">{$address['mobile']}</span>
-        		<span class="addr-default">默认地址</span>
-        	</div>
-        	<div class="choose-div">
-        		<a href="#">编辑</a><a href="#">删除</a>
-        	</div>
+            <div class="user-name item-selected"><span>杨柳</span><b></b></div>
+            <div class="addr-detail">
+                <span class="addr-name">{$address['realname']}</span>
+                <span class="addr-info">黑龙江 哈尔滨市 南岗区 城区中兴大道555号东辉明珠园D4栋3单元601</span>
+                <span class="addr-tel">{$address['mobile']}</span>
+                <span class="addr-default">默认地址</span>
+            </div>
+            <div class="choose-div">
+                <a href="#">编辑</a><a href="#">删除</a>
+            </div>
         </div>
 
 
         <div class="list-address">
-        	<div class="user-name"><span>杨柳</span></div>
-	        <div class="addr-detail">
-    	    	<span class="addr-name">杨柳</span>
-        		<span class="addr-info">黑龙江 哈尔滨市 南岗区 城区中兴大道555号东辉明珠园D4栋3单元601</span>
-        		<span class="addr-tel">188****7259</span>
-        	</div>
-        	<div class="choose-div">
-        		<a href="#">编辑</a><a href="#">删除</a>
-        	</div>
+            <div class="user-name"><span>杨柳</span></div>
+            <div class="addr-detail">
+                <span class="addr-name">杨柳</span>
+                <span class="addr-info">黑龙江 哈尔滨市 南岗区 城区中兴大道555号东辉明珠园D4栋3单元601</span>
+                <span class="addr-tel">188****7259</span>
+            </div>
+            <div class="choose-div">
+                <a href="#">编辑</a><a href="#">删除</a>
+            </div>
         </div>
 
         
@@ -512,22 +512,22 @@
               data-goodsid="{$g['goodsid']}"
               data-maxbuy='{$g['maxbuy']}' 
               data-stock='{$g['stock']}'>
-        	<div class="p-img">
-       			<a href="{php echo $this->createMobileUrl('shop/detail')}&id={$g['goodsid']}"><img src="{$g['thumb']}"></a>
-      		</div>
-      		<div class="list-name"><a href="{php echo $this->createMobileUrl('shop/detail')}&id={$g['goodsid']}">{$g['title']}</a></div>
-      		<div class="cell-pos fl">
-  				  <div class="div-add" data-maxbuy="{$g['totalmaxbuy']}" data-stock="{$g['stock']}" data-marketprice="{$g['marketprice']}">
-      				<div class="add-pos">-</div>
-      				<input type="text" class="num-pos" value="{$g['total']}">
-    					<div class="less-pos">+</div>
-  				  </div>
-		    	</div>
+            <div class="p-img">
+                   <a href="{php echo $this->createMobileUrl('shop/detail')}&id={$g['goodsid']}"><img src="{$g['thumb']}"></a>
+              </div>
+              <div class="list-name"><a href="{php echo $this->createMobileUrl('shop/detail')}&id={$g['goodsid']}">{$g['title']}</a></div>
+              <div class="cell-pos fl">
+                    <div class="div-add" data-maxbuy="{$g['totalmaxbuy']}" data-stock="{$g['stock']}" data-marketprice="{$g['marketprice']}">
+                      <div class="add-pos">-</div>
+                      <input type="text" class="num-pos" value="{$g['total']}">
+                        <div class="less-pos">+</div>
+                    </div>
+                </div>
           <div class="list-price fr"><strong class="jd-price" id = "{$g['goodsid']}">{php echo $g['marketprice'] * $g['total']}</strong></div>
         </div>
 {/loop}
 
-	</div>
+    </div>
   <div class="order-summary">
     <div class="statistic fr">
         <div class="list">
@@ -667,13 +667,13 @@ console.log($('#address_container').html());
                 $('.addorder_user_' + nav).show();
                 if (nav == '1') {
                     $('.carrier_input_info').show();
-					$('.addorder_user addorder_user_0').hide();	
+                    $('.addorder_user addorder_user_0').hide();    
                     $('.addorder_exp').hide();
                     getDispatchPrice(true);
                 }
                 else {
                     $('.carrier_input_info').hide();
-					$('.addorder_user addorder_user_0').show();
+                    $('.addorder_user addorder_user_0').show();
                     $('.addorder_exp').show();
                     getDispatchPrice();
                 }
@@ -736,10 +736,10 @@ console.log($('#address_container').html());
             core.json('shop/address', {}, function(addresslist_json) {
                 //默认地址
                 addresslist_json.result.selectedAdressID = $("#addressid").val();
-				var arrlist = '';//$('#address_container').html();
-				console.log(addresslist_json.result);
-				$('#address_container').html(tpl('tpl_address_list', addresslist_json.result));
-				console.log($('#address_container').html());
+                var arrlist = '';//$('#address_container').html();
+                console.log(addresslist_json.result);
+                $('#address_container').html(tpl('tpl_address_list', addresslist_json.result));
+                console.log($('#address_container').html());
                 $('.address .ico,.address .info').click(function() {
                     var $this = $(this).parent();
                     $("#addressid").val($this.data('addressid'));
@@ -1030,7 +1030,7 @@ console.log($('#address_container').html());
 
             json.result.selectedDispatchID = $("#dispatchid").val();
             $('#dispatch_container').html(tpl('tpl_dispatch_list', json.result));
-      	$(".chooser").height($(document.body).height());
+          $(".chooser").height($(document.body).height());
             $(".choose_dispatch").animate({right: "0px"}, 200);
             $('.dispatch').click(function() {
                 var obj = $(this);

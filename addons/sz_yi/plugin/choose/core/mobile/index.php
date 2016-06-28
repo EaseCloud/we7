@@ -10,8 +10,8 @@ $uniacid    = $_W['uniacid'];
 $shopset    = set_medias(m('common')->getSysset('shop'), 'catadvimg');
 $commission = p('commission');
 if ($commission) {
-	$shopid = intval($_GPC['shopid']);
-	$shop = set_medias($commission->getShop($openid), array('img', 'logo'));
+    $shopid = intval($_GPC['shopid']);
+    $shop = set_medias($commission->getShop($openid), array('img', 'logo'));
 }
 $color=pdo_fetch('select color from ' .tablename('sz_yi_chooseagent'). ' where id='.$_GPC['pageid']);
 $this->setHeader();

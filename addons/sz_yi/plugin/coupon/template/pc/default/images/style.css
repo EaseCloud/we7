@@ -18,11 +18,11 @@
 .coupon_item .cright .rinfo .rinner .type { font-size:12px; text-align: right;padding-right:10px; }
 .coupon_item .cright .sideright { float:right;width:4px;height:65px; 
 
-								  -moz-transform: rotate(180deg); 
-								  -webkit-transform: rotate(180deg); 
-								  -o-transform: rotate(180deg);  
-								  -ms-transform: rotate(180deg); 
-								  transform: rotate(180deg); 
+                                  -moz-transform: rotate(180deg); 
+                                  -webkit-transform: rotate(180deg); 
+                                  -o-transform: rotate(180deg);  
+                                  -ms-transform: rotate(180deg); 
+                                  transform: rotate(180deg); 
 }
 .coupon_item .cright .png { position: absolute;bottom:0;left:5%; width:80%;height:80%; opacity:0.8 }
 
@@ -30,10 +30,10 @@
 .coupon_content .png { position: absolute;bottom:0;left:10%;height:80px; opacity:0.8; width:50%; }
 .coupon_content .bd { height:5px;  font-size:1px;} 
 .coupon_content .bd1 { height:5px;  -moz-transform: rotate(180deg); 
-					   -webkit-transform: rotate(180deg); 
-					   -o-transform: rotate(180deg);  
-					   -ms-transform: rotate(180deg); 
-					   transform: rotate(180deg); font-size:1px; } 
+                       -webkit-transform: rotate(180deg); 
+                       -o-transform: rotate(180deg);  
+                       -ms-transform: rotate(180deg); 
+                       transform: rotate(180deg); font-size:1px; } 
 .coupon_content .body { height:120px; padding:10px; position:relative;} 
 .coupon_content .body .topna{ height:60px;}
 .coupon_content .body .topna .left { width: 60px; float:left}

@@ -154,8 +154,8 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
                 <div class="nav" onclick="share()" style="border:none;"><i class='fa fa-share'></i> 分享</div>
           </div>
     </div>
-	
-	<div class="good_choose_layer"></div>
+    
+    <div class="good_choose_layer"></div>
     <div class="good_choose">
         <div class="info">
              <div class="left">
@@ -193,13 +193,13 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
         <div class="close" onClick="closechoose()"><i class="fa fa-times-circle-o"></i></div>
         <div class="sub " onClick="choose2()">确认</div>
     </div>
-	
-	<div class="good_img">
+    
+    <div class="good_img">
         <%if pics.length>1%>
         <div class="flicking_con">
             <div class="inner">
-				<div id="buytime" style="display:none"></div>
-            	<div id="notbuy" style="display:none"></div>
+                <div id="buytime" style="display:none"></div>
+                <div id="notbuy" style="display:none"></div>
             </div>
         </div>
         <%/if%>
@@ -211,135 +211,135 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
             </ul>
         </div>
     </div>
-	
-	<div class="good_info1">
-		<%if commission && goods.nocommission==0 && goods.hidecommission==0%>
-		<div class="info1">
-			<div class="name"><%goods.title%></div>
-			<div class="love">
-				<i class="fa <%if isfavorite%>fa-star<%else%>fa-star-o<%/if%>" <%if isfavorite==1%>style="color:#f90"<%/if%>></i>
-				<br><span>喜欢</span>
-			</div>
-		</div>
-		<%else%>
-		<div class="info2"><%goods.title%></div>
-		<%/if%>
-		
-		<div class="price">￥<span id='marketprice'>
-			<%if goods.minprice !=goods.maxprice%>
-			<%goods.minprice%> - <%goods.maxprice%>
-			<%else%>
-			<%goods.marketprice%>
-			<%/if%>
-			</span><span class="cx">今日促销</span><%if goods.issendfree==1%><span class='cx'>包邮</span><%/if%><br>
-			<span id='productpricecontainer'><%if goods.productprice>0%>原价￥<%/if%><span id='productprice'><%if goods.productprice>0%><%goods.productprice%><%/if%></span></span>
-			<span class="sale">已售:<%goods.sales%>件</span>
-		</div>
-	
-		<%if saleset && saleset.enoughfree=='1' %>
-		<div class="other">
-			<%if saleset.enoughorder<=0%>
-			<span><i class='do do-man'></i>全场包邮</span>
-			<%else%>  
-			<span><i class='do do-man'></i>满<%saleset.enoughorder%>元包邮</span>
-			<%/if%>
-			
-			<%if saleset && saleset.enoughmoney>0 && saleset.enoughdeduct >0 %>
-			<span><i class='do do-low'></i>满<%saleset.enoughmoney%>元减<%saleset.enoughdeduct%>元</span>
-			<%/if%> 
-		</div>
-		<%/if%> 
-	
-		<%if goods.deduct>0%>
-		<div class="other">
-			<div class='left'>
-				<span><i class='do do-di'></i> 可使用积分抵扣<span style='color:#ff6600'><%goods.deduct%></span> 元</span>
-			</div>
-		</div>
-		<%/if%> 
-	
-		<%if goods.isnodiscount=='0' && level.discount>0 && level.discount<10%>
-		<div class="other">
-			<div class='left'>
-				<i class='fa fa-user'></i>您是<%level.levelname%>,可享<span style='color:#ff6600'><%level.discount%></span> 折优惠
-			</div>
-		</div> 
-		<%/if%>
-	</div>
+    
+    <div class="good_info1">
+        <%if commission && goods.nocommission==0 && goods.hidecommission==0%>
+        <div class="info1">
+            <div class="name"><%goods.title%></div>
+            <div class="love">
+                <i class="fa <%if isfavorite%>fa-star<%else%>fa-star-o<%/if%>" <%if isfavorite==1%>style="color:#f90"<%/if%>></i>
+                <br><span>喜欢</span>
+            </div>
+        </div>
+        <%else%>
+        <div class="info2"><%goods.title%></div>
+        <%/if%>
+        
+        <div class="price">￥<span id='marketprice'>
+            <%if goods.minprice !=goods.maxprice%>
+            <%goods.minprice%> - <%goods.maxprice%>
+            <%else%>
+            <%goods.marketprice%>
+            <%/if%>
+            </span><span class="cx">今日促销</span><%if goods.issendfree==1%><span class='cx'>包邮</span><%/if%><br>
+            <span id='productpricecontainer'><%if goods.productprice>0%>原价￥<%/if%><span id='productprice'><%if goods.productprice>0%><%goods.productprice%><%/if%></span></span>
+            <span class="sale">已售:<%goods.sales%>件</span>
+        </div>
+    
+        <%if saleset && saleset.enoughfree=='1' %>
+        <div class="other">
+            <%if saleset.enoughorder<=0%>
+            <span><i class='do do-man'></i>全场包邮</span>
+            <%else%>  
+            <span><i class='do do-man'></i>满<%saleset.enoughorder%>元包邮</span>
+            <%/if%>
+            
+            <%if saleset && saleset.enoughmoney>0 && saleset.enoughdeduct >0 %>
+            <span><i class='do do-low'></i>满<%saleset.enoughmoney%>元减<%saleset.enoughdeduct%>元</span>
+            <%/if%> 
+        </div>
+        <%/if%> 
+    
+        <%if goods.deduct>0%>
+        <div class="other">
+            <div class='left'>
+                <span><i class='do do-di'></i> 可使用积分抵扣<span style='color:#ff6600'><%goods.deduct%></span> 元</span>
+            </div>
+        </div>
+        <%/if%> 
+    
+        <%if goods.isnodiscount=='0' && level.discount>0 && level.discount<10%>
+        <div class="other">
+            <div class='left'>
+                <i class='fa fa-user'></i>您是<%level.levelname%>,可享<span style='color:#ff6600'><%level.discount%></span> 折优惠
+            </div>
+        </div> 
+        <%/if%>
+    </div>
 
-	
-	<%if goods.isverify=='2'%>
-	<div class="good_speci" onclick="showStores(this)" show="1">适用的门店
-		<i class="fa fa-angle-down" style="float:right; line-height:44px; font-size:26px;"></i>
-	</div>
-	<div>
-		<%each stores as store index%>
-		<%if index<=1%>
-		<div class="store" >
-			<div class="info">
-				<div class="ico"><i class="fa fa-building-o"></i></div>
-				<div class='info1'>
-					<div class='inner'>
-						<div class="user"><%store.storename%></div>
-						<div class="address">地址: <%store.address%></div>
-						<div class="tel">电话: <%store.tel%></div>
-					</div>
-				</div>
-			<a href="http://api.map.baidu.com/marker?location=<%store.lat%>,<%store.lng%>&title=<%store.storename%>&name=<%store.storename%>&content=<%store.address%>&output=html"><div class="ico2"><i class='fa fa-map-marker'></i></div></a>
-			<a href="tel:<%store.tel%>"><div class="ico3" ><i class='fa fa-phone'></i></div></a>
-			</div>
-		</div>
-		<%/if%>
-		<%/each%> 
-		
-		<div id='store_more' style="display:none">
-			<%each stores as store index%>
-			<%if index>1%>
-			<div class="store" >
-				<div class="info">
-					<div class="ico"><i class="fa fa-building-o"></i></div>
-					<div class='info1'>
-					<div class='inner'>
-						<div class="user"><%store.storename%></div>
-						<div class="address">地址: <%store.address%></div>
-						<div class="tel">电话: <%store.tel%></div>
-					</div>
-				</div>
-				<a href="http://api.map.baidu.com/marker?location=<%store.lat%>,<%store.lng%>&title=<%store.storename%>&name=<%store.storename%>&content=<%store.address%>&output=html"><div class="ico2"><i class='fa fa-map-marker'></i></div></a>
-				<a href="tel:<%store.tel%>"><div class="ico3" ><i class='fa fa-phone'></i></div></a>
-				</div>
-			</div>
-			<%/if%>
-			<%/each%> 
-		</div>
-		
-		<%if stores.length>=3%>
-		<div class="store_more" onclick="$('#store_more').show();$(this).remove()">显示更多 <i class="fa fa-angle-double-down"></i></div>
-		<%/if%>
-	</div>
-	<%/if%>
-	
-	<%if goods.canbuy && goods.total!=0 && goods.timebuy=='0' && goods.userbuy=='1'  && goods.groupbuy=='1'  && goods.levelbuy=='1'%> 
-		<div class="good_speci1" onClick="choose()">
-			<span id="optiondiv">请选择商品规格及数量</span>
-			<i class="fa fa-angle-right" style="float:right; line-height:44px; font-size:26px;"></i>
-		</div>
-	<%/if%>
-	
-	<div class="good_shop clear_in">
-		<div class="shop1 fl" onClick="location.href='<%detail.btnurl2%>'">
-			<img src="<%shop.logo%>">
-			<div class="shop_info"><%shop.name%><br><span>官方推荐合作商家</span></div>
-		</div>
-		<div class="shop2 fr"><div class="sub1" onClick="location.href='{php echo $this->createPluginMobileUrl('commission/shares',array('goodsid'=>$_GPC['id']))}'"><%commission_text%></div></div>
-	</div>
-	<div class="good_shop1">
-		<div class="shop_deta">
-			<span><i class="do do-gow"></i>正品保障</span><span><i class="do do-gow"></i>金牌服务</span><span><i class="do do-gow"></i>专业配送</span><span><i class="do do-gow"></i>无忧售后</span>
-		</div>
-	</div>
-	
-	<div class="good_info2">
+    
+    <%if goods.isverify=='2'%>
+    <div class="good_speci" onclick="showStores(this)" show="1">适用的门店
+        <i class="fa fa-angle-down" style="float:right; line-height:44px; font-size:26px;"></i>
+    </div>
+    <div>
+        <%each stores as store index%>
+        <%if index<=1%>
+        <div class="store" >
+            <div class="info">
+                <div class="ico"><i class="fa fa-building-o"></i></div>
+                <div class='info1'>
+                    <div class='inner'>
+                        <div class="user"><%store.storename%></div>
+                        <div class="address">地址: <%store.address%></div>
+                        <div class="tel">电话: <%store.tel%></div>
+                    </div>
+                </div>
+            <a href="http://api.map.baidu.com/marker?location=<%store.lat%>,<%store.lng%>&title=<%store.storename%>&name=<%store.storename%>&content=<%store.address%>&output=html"><div class="ico2"><i class='fa fa-map-marker'></i></div></a>
+            <a href="tel:<%store.tel%>"><div class="ico3" ><i class='fa fa-phone'></i></div></a>
+            </div>
+        </div>
+        <%/if%>
+        <%/each%> 
+        
+        <div id='store_more' style="display:none">
+            <%each stores as store index%>
+            <%if index>1%>
+            <div class="store" >
+                <div class="info">
+                    <div class="ico"><i class="fa fa-building-o"></i></div>
+                    <div class='info1'>
+                    <div class='inner'>
+                        <div class="user"><%store.storename%></div>
+                        <div class="address">地址: <%store.address%></div>
+                        <div class="tel">电话: <%store.tel%></div>
+                    </div>
+                </div>
+                <a href="http://api.map.baidu.com/marker?location=<%store.lat%>,<%store.lng%>&title=<%store.storename%>&name=<%store.storename%>&content=<%store.address%>&output=html"><div class="ico2"><i class='fa fa-map-marker'></i></div></a>
+                <a href="tel:<%store.tel%>"><div class="ico3" ><i class='fa fa-phone'></i></div></a>
+                </div>
+            </div>
+            <%/if%>
+            <%/each%> 
+        </div>
+        
+        <%if stores.length>=3%>
+        <div class="store_more" onclick="$('#store_more').show();$(this).remove()">显示更多 <i class="fa fa-angle-double-down"></i></div>
+        <%/if%>
+    </div>
+    <%/if%>
+    
+    <%if goods.canbuy && goods.total!=0 && goods.timebuy=='0' && goods.userbuy=='1'  && goods.groupbuy=='1'  && goods.levelbuy=='1'%> 
+        <div class="good_speci1" onClick="choose()">
+            <span id="optiondiv">请选择商品规格及数量</span>
+            <i class="fa fa-angle-right" style="float:right; line-height:44px; font-size:26px;"></i>
+        </div>
+    <%/if%>
+    
+    <div class="good_shop clear_in">
+        <div class="shop1 fl" onClick="location.href='<%detail.btnurl2%>'">
+            <img src="<%shop.logo%>">
+            <div class="shop_info"><%shop.name%><br><span>官方推荐合作商家</span></div>
+        </div>
+        <div class="shop2 fr"><div class="sub1" onClick="location.href='{php echo $this->createPluginMobileUrl('commission/shares',array('goodsid'=>$_GPC['id']))}'"><%commission_text%></div></div>
+    </div>
+    <div class="good_shop1">
+        <div class="shop_deta">
+            <span><i class="do do-gow"></i>正品保障</span><span><i class="do do-gow"></i>金牌服务</span><span><i class="do do-gow"></i>专业配送</span><span><i class="do do-gow"></i>无忧售后</span>
+        </div>
+    </div>
+    
+    <div class="good_info2">
         <div class="menu">
             <div id="nav_1" class="nav navon" onClick="tab(1)">图文详情</div>
             <div id="nav_2" class="nav" onClick="tab(2)">产品参数</div>
@@ -360,16 +360,16 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
             <div class="con_x" id="con_4"><div id='recommand_container'></div></div>
         </div>
     </div>
-	
-	{php $shopset = m('common')->getSysset('shop')}
+    
+    {php $shopset = m('common')->getSysset('shop')}
     <div class="good_copyright">© 版权所有 {if !empty($shopset['name'])}{$shopset['name']}{else}{$_W['account']['name']}{/if}</div>
 
     <%if goods.canbuy && goods.total!=0 && goods.timebuy=='0' && goods.userbuy=='1' && goods.groupbuy=='1'  && goods.levelbuy=='1'%>
     <div class="good_bottom">
         <div class="like" >
             <a href="000000000000000">
-				<i class="do do-kf"></i><br><span>客服</span>
-			</a>
+                <i class="do do-kf"></i><br><span>客服</span>
+            </a>
         </div>
          <%if goods.canaddcart%>
         <div class="cart" onclick="location.href='{php echo $this->createMobileUrl('shop/cart')}'"><i class="do do-cart_b"></i><br><span>购物车</span>
@@ -378,7 +378,7 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
         <div class="add" onclick="choose('cart')">加入购物车</div>
         <%/if%>
         <div class="buy" onclick="choose('buy')" <%if !goods.canaddcart%>style='width:80%'<%/if%>>立即购买</div>
-	</div>
+    </div>
     <%/if%>
 </script>
 <script id='tpl_comment' type='text/html'>
@@ -684,55 +684,55 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
    
            $('#total').blur(function(){
               var total = $("#total");
-	if(!total.isInt()){
-	     total.val("1");
+    if(!total.isInt()){
+         total.val("1");
                        return;
-	}
+    }
                   if(parseInt(total.val())<=0){
-	     total.val("1");
+         total.val("1");
                        return;
-	} 
-	var stock = $("#stock").html()==''?-1:parseInt($("#stock").html());
-	var num = parseInt(total.val() );
+    } 
+    var stock = $("#stock").html()==''?-1:parseInt($("#stock").html());
+    var num = parseInt(total.val() );
                   if(num>maxbuy && maxbuy>0){
-		tip.show("您最多可购买 " + maxbuy + " 件!");
-		num = maxbuy;
-	}
-	else if(num>stock && stock!=-1){
-		tip.show("您最多可购买 " + stock + " 件");
-		num = stock;
-	}
-	
-	total.val(num);
+        tip.show("您最多可购买 " + maxbuy + " 件!");
+        num = maxbuy;
+    }
+    else if(num>stock && stock!=-1){
+        tip.show("您最多可购买 " + stock + " 件");
+        num = stock;
+    }
+    
+    total.val(num);
         
                
            });
  
                
                     new Swipe($('.main_image')[0], {
-			speed:300,
-			auto:4000,
-			callback: function(){
-			  
+            speed:300,
+            auto:4000,
+            callback: function(){
+              
                                  $(".flicking_con  .inner  a").removeClass("on").eq(this.index).addClass("on");
-		}
-	  });
+        }
+      });
      
  
             $(".option").click(function() {
                
-			 var specid = $(this).attr("specid");
-			 var oid = $(this).attr("oid");
-			$(".optionid_"+specid).val(oid);
-			$(".options_" + specid + "  .option").removeClass("on").attr("sel", "false");
-			$(this).addClass("on").attr("sel", "true");
-	 
+             var specid = $(this).attr("specid");
+             var oid = $(this).attr("oid");
+            $(".optionid_"+specid).val(oid);
+            $(".options_" + specid + "  .option").removeClass("on").attr("sel", "false");
+            $(this).addClass("on").attr("sel", "true");
+     
              var titles='已选: ';
-			     $('.spec_items').each(function(){
+                 $('.spec_items').each(function(){
                                  if($(this).find('.on').length>0){
-			        titles+= $(this).find('.on').attr('title')+";";   
+                    titles+= $(this).find('.on').attr('title')+";";   
                             }
-			     });
+                 });
                              
                              $('.good_choose .info .right .option').html(titles);
          var thumb = $(this).attr('thumb');
@@ -744,17 +744,17 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
              $("#chooser_img").attr('src',json.result.goods.thumb);
          }
          setoptions();
-			var optionid = "";
-			var stock =0;
-			var marketprice = 0;
-			var productprice = 0;
-			 var ret = option_selected();
+            var optionid = "";
+            var stock =0;
+            var marketprice = 0;
+            var productprice = 0;
+             var ret = option_selected();
   
-			if(ret.no==''){
-				var len = options.length;
-				for(var i=0;i<len;i++) {
-					var o = options[i];
-					var ids = ret.all.join("_");
+            if(ret.no==''){
+                var len = options.length;
+                for(var i=0;i<len;i++) {
+                    var o = options[i];
+                    var ids = ret.all.join("_");
                                 
                                 var specarr = o.specs.split('_').sort();
                                 var idsarr = ret.all.sort();
@@ -762,47 +762,47 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
                                 
                                 
                              
-					if(specarr.join('_') ==idsarr.join('_') ){
-						optionid = o.id;
-						stock = o.stock;
-						marketprice = o.marketprice;
-						productprice = o.productprice;
-						break;
-					}
-					
-				}
+                    if(specarr.join('_') ==idsarr.join('_') ){
+                        optionid = o.id;
+                        stock = o.stock;
+                        marketprice = o.marketprice;
+                        productprice = o.productprice;
+                        break;
+                    }
+                    
+                }
                                 
-			   $("#optionid").val(optionid); 
-			    
-				if(stock!="-1"){
-					$("#stockcontainer").html("库存:<span id='stock'>" + stock + "</span>");
-				}
-				else{
-				  $("#stockcontainer").html("<span id='stock'></span>");
-				}
-				if(ret.no==''){
-					if(stock==0){
-					   $('.sub').addClass('disabled').html('库存不足,无法购买');
-					}
-					else{
-					 $('.sub').removeClass('disabled').html('确认');
-					}
-				} 
-				$("#marketprice").html(marketprice);
-				
-		     	$("#option_price").html(marketprice);	
-		     	$("#option_stock").html(stock);	
-				 
-				$("#productprice").html(productprice);
-				if(productprice<=0){
-				$('#productpricecontainer').html("");
-				}
-				else{
-			
-				   $('#productpricecontainer').html("市场价￥<span id='productprice'>" + productprice + "</span>");
-				}
-			}
-		});
+               $("#optionid").val(optionid); 
+                
+                if(stock!="-1"){
+                    $("#stockcontainer").html("库存:<span id='stock'>" + stock + "</span>");
+                }
+                else{
+                  $("#stockcontainer").html("<span id='stock'></span>");
+                }
+                if(ret.no==''){
+                    if(stock==0){
+                       $('.sub').addClass('disabled').html('库存不足,无法购买');
+                    }
+                    else{
+                     $('.sub').removeClass('disabled').html('确认');
+                    }
+                } 
+                $("#marketprice").html(marketprice);
+                
+                 $("#option_price").html(marketprice);    
+                 $("#option_stock").html(stock);    
+                 
+                $("#productprice").html(productprice);
+                if(productprice<=0){
+                $('#productpricecontainer').html("");
+                }
+                else{
+            
+                   $('#productpricecontainer').html("市场价￥<span id='productprice'>" + productprice + "</span>");
+                }
+            }
+        });
                 
            
                 $('.love').click(function(){
@@ -909,18 +909,18 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
     })
 </script>
 <script type="text/javascript">
-	function tab(n){
-		$('#con_'+n).fadeIn();
-		$('#con_'+n).siblings().hide();
-		$('#nav_'+n).addClass('navon');
-		$('#nav_'+n).siblings().removeClass('navon');
+    function tab(n){
+        $('#con_'+n).fadeIn();
+        $('#con_'+n).siblings().hide();
+        $('#nav_'+n).addClass('navon');
+        $('#nav_'+n).siblings().removeClass('navon');
                       
-	}
+    }
         function closechoose(){
                  $('.good_choose_layer').fadeOut(100);
-		$('.good_choose').fadeOut(100); 
+        $('.good_choose').fadeOut(100); 
         }
-	function choose(act){
+    function choose(act){
             
                           if($('#followed').val()=='0'  && $('#needfollow').val()=='1' ){
                                 require(['core'],function(core){
@@ -931,7 +931,7 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
                                 });
                              return;
                           }
-	        action = act;
+            action = act;
                          if(!action){
                                      
                                 $('.good_choose_layer').fadeIn(200);
@@ -942,35 +942,35 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
                                 $('.good_choose').fadeIn(200);
                                 return;
                          }
-						
+                        
                          var specselected  = '';
                  if( action=='cart'){
-		    
-			 $('.good_choose_layer').fadeIn(200);
-							 $('.good_choose_layer').unbind('click').click(function(){
-								   closechoose();
-							 })
-			   $('.good_choose').fadeIn(200);
-			   return;	 
-	         }else{
-				 
-				   $('.spec_items').each(function(){
-							 var self = $(this);
-				   if( $(this).find('.on').length<=0){
-											 specselected = self.attr('title');
-											 return false;
-										   }
-							});  
-		     if(specselected!='') {
-			   $('.good_choose_layer').fadeIn(200);
-							 $('.good_choose_layer').unbind('click').click(function(){
-								   closechoose();
-							 })
-			   $('.good_choose').fadeIn(200);
-			   return;
-		     }
-			
-		 }
+            
+             $('.good_choose_layer').fadeIn(200);
+                             $('.good_choose_layer').unbind('click').click(function(){
+                                   closechoose();
+                             })
+               $('.good_choose').fadeIn(200);
+               return;     
+             }else{
+                 
+                   $('.spec_items').each(function(){
+                             var self = $(this);
+                   if( $(this).find('.on').length<=0){
+                                             specselected = self.attr('title');
+                                             return false;
+                                           }
+                            });  
+             if(specselected!='') {
+               $('.good_choose_layer').fadeIn(200);
+                             $('.good_choose_layer').unbind('click').click(function(){
+                                   closechoose();
+                             })
+               $('.good_choose').fadeIn(200);
+               return;
+             }
+            
+         }
                           if(action=='cart'){
                                                 require(['core'],function(core){
 
@@ -994,43 +994,43 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
                                          location.href = "{php echo $this->createMobileUrl('order/confirm')}&id={$_GPC['id']}&optionid=" +$("#optionid").val() + "&total=" + $("#total").val();
                                     }
  
-	}
+    }
         function setoptions(){
              var titles = '';
-   		         if(hasoption){
-			     
-			 titles+='已选: ';
-			     $('.spec_items').each(function(){
- 			        titles+= $(this).find('.on').attr('title')+";";   
-			     });
-		         }
+                    if(hasoption){
+                 
+             titles+='已选: ';
+                 $('.spec_items').each(function(){
+                     titles+= $(this).find('.on').attr('title')+";";   
+                 });
+                 }
                                              titles+='数量:' + $('#total').val();
-		         $("#optiondiv").html(titles);
+                 $("#optiondiv").html(titles);
         }
-	function choose2(direct,close){
+    function choose2(direct,close){
             if(close){
                 closechoose();
                 return;
             }
-	    if(!direct){
-		    if($('.sub').hasClass('disabled')){
-		       return;
-		    }
-		    else{
-		        setoptions();
-		    }
+        if(!direct){
+            if($('.sub').hasClass('disabled')){
+               return;
+            }
+            else{
+                setoptions();
+            }
                                       
-		  
-	    } else {
+          
+        } else {
                             action = "";
                       }
-		
+        
                 var specselected  = '';
                 
-	    $('.spec_items').each(function(){
+        $('.spec_items').each(function(){
                 
                    var self = $(this);
- 		 if( $(this).find('.on').length<=0){
+          if( $(this).find('.on').length<=0){
                                           specselected = self.attr('title');
                                           return false;
                                         }
@@ -1044,7 +1044,7 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
                                
                              closechoose();
                               
-		if(action=='cart'){
+        if(action=='cart'){
                                                 require(['core'],function(core){
 
                                                                            core.json('shop/cart',{op:'add', id:'{$_GPC['id']}',optionid:$('#optionid').val(),total:$('#total').val()},function(ret){
@@ -1067,53 +1067,53 @@ i.do-gow{ width:12px; height:12px; background-position:-64px -185px; top:1px; ma
                                          location.href = "{php echo $this->createMobileUrl('order/confirm')}&id={$_GPC['id']}&optionid=" +$("#optionid").val() + "&total=" + $("#total").val();
                                     }
 
-	}
+    }
   function addNum(){
-	var total = $("#total");
-	if(!total.isInt()){
-		total.val("1");
-	}
-	var stock = $("#stock").html()==''?-1:parseInt($("#stock").html());
-	var num = parseInt(total.val() ) + 1;
+    var total = $("#total");
+    if(!total.isInt()){
+        total.val("1");
+    }
+    var stock = $("#stock").html()==''?-1:parseInt($("#stock").html());
+    var num = parseInt(total.val() ) + 1;
                   if(num>maxbuy && maxbuy>0){
-		tip.show("您最多可购买 " + maxbuy + " 件!");
-		num = maxbuy;
-	}
-	else if(num>stock && stock!=-1){
-		tip.show("您最多可购买 " + stock + " 件");
-		num = stock;
-	}
-	total.val(num);
+        tip.show("您最多可购买 " + maxbuy + " 件!");
+        num = maxbuy;
+    }
+    else if(num>stock && stock!=-1){
+        tip.show("您最多可购买 " + stock + " 件");
+        num = stock;
+    }
+    total.val(num);
 }
 function reduceNum(){
-	var total = $("#total");
-	if(!total.isInt()){
-		total.val("1");
-	}
-	var num = parseInt( total.val() );
-	if(num-1<=0){
-		return;
-	}
-	num--;
-	total.val(num);
+    var total = $("#total");
+    if(!total.isInt()){
+        total.val("1");
+    }
+    var num = parseInt( total.val() );
+    if(num-1<=0){
+        return;
+    }
+    num--;
+    total.val(num);
 }
 
-	function option_selected(){
-	var ret= {
-		no: "",
-		all: []
-	};
-	if(!hasoption){
-		return ret;
-	}
-			$(".optionid").each(function(){
-				ret.all.push($(this).val());
-				if($(this).val()==''){
-					ret.no = $(this).attr("title");
-					return false;
-				}
-	})
-	return ret;
+    function option_selected(){
+    var ret= {
+        no: "",
+        all: []
+    };
+    if(!hasoption){
+        return ret;
+    }
+            $(".optionid").each(function(){
+                ret.all.push($(this).val());
+                if($(this).val()==''){
+                    ret.no = $(this).attr("title");
+                    return false;
+                }
+    })
+    return ret;
 }
 </script>
 {php $hide_footer=1}

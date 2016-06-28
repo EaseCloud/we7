@@ -42,63 +42,63 @@
                         $member = m('member')->getMember($openid);
                         
                         if(!empty($member) && $member['status']==1 && $member['isagent']==1){
-                        	
-                        	if (empty($set['closemyshop'])){
-                        	    $myshop = $plugin_commission->getShop($member['id']);
-                        	    $_W['shopshare'] = array(
-					               'title'=> $myshop['name'],
-					               'imgUrl'=>tomedia($myshop['logo']),
-					               'desc'=>$myshop['desc'],
-					               'link'=>$this->createPluginMobileUrl('commission/myshop',array('mid'=>$member['id']))
-					            );
-                        	}
-                        	else{
-                        	    
-                        	   $_W['shopshare']['link'] = $this->createMobileUrl('shop',array('mid'=>$member['id']));
-                        	}
-                        	
+                            
+                            if (empty($set['closemyshop'])){
+                                $myshop = $plugin_commission->getShop($member['id']);
+                                $_W['shopshare'] = array(
+                                   'title'=> $myshop['name'],
+                                   'imgUrl'=>tomedia($myshop['logo']),
+                                   'desc'=>$myshop['desc'],
+                                   'link'=>$this->createPluginMobileUrl('commission/myshop',array('mid'=>$member['id']))
+                                );
+                            }
+                            else{
+                                
+                               $_W['shopshare']['link'] = $this->createMobileUrl('shop',array('mid'=>$member['id']));
+                            }
+                            
                             if(empty($set['become_reg']) && ( empty($member['realname']) || empty($member['mobile']))){
                                 $trigger = true;
                             }
                          } 
                          else if(!empty($_GPC['mid'])){
-                         	$m = m('member')->getMember($_GPC['mid']);
-                         	if(!empty($m) && $m['status']==1 && $m['isagent']==1){
+                             $m = m('member')->getMember($_GPC['mid']);
+                             if(!empty($m) && $m['status']==1 && $m['isagent']==1){
                               if (empty($set['closemyshop'])){
-	                        	    $myshop = $plugin_commission->getShop($_GPC['mid']);
-	                        	    $_W['shopshare'] = array(
-						               'title'=> $myshop['name'],
-						               'imgUrl'=>tomedia($myshop['logo']),
-						               'desc'=>$myshop['desc'],
-						               'link'=>$this->createPluginMobileUrl('commission/myshop',array('mid'=>$member['id']))
-						            );
-	                        	}
-	                        	else{
-	                        	   $_W['shopshare']['link'] = $this->createPluginMobileUrl('commission/myshop',array('mid'=>$_GPC['mid']));
-	                        	}
+                                    $myshop = $plugin_commission->getShop($_GPC['mid']);
+                                    $_W['shopshare'] = array(
+                                       'title'=> $myshop['name'],
+                                       'imgUrl'=>tomedia($myshop['logo']),
+                                       'desc'=>$myshop['desc'],
+                                       'link'=>$this->createPluginMobileUrl('commission/myshop',array('mid'=>$member['id']))
+                                    );
+                                }
+                                else{
+                                   $_W['shopshare']['link'] = $this->createPluginMobileUrl('commission/myshop',array('mid'=>$_GPC['mid']));
+                                }
                             } else{
-                           	   $_W['shopshare']['link'] = $this->createMobileUrl('shop',array('mid'=>$_GPC['mid']));
+                                  $_W['shopshare']['link'] = $this->createMobileUrl('shop',array('mid'=>$_GPC['mid']));
                             }
                          }
                    }
              }
         } ?>
-		<span style='display:none'>
+        <span style='display:none'>
  {php $shopset = m('common')->getSysset('shop')}{php echo htmlspecialchars_decode($shopset['diycode'])} 
  </span>
-		<script language='javascript'>
-	$(function(){
-		$.ajax({
-			url: "{php echo $this->createMobileUrl('runtasks')}",
-			cache:false 
-		});
-	})
+        <script language='javascript'>
+    $(function(){
+        $.ajax({
+            url: "{php echo $this->createMobileUrl('runtasks')}",
+            cache:false 
+        });
+    })
 </script>
  <script>
      require(['http://res.wx.qq.com/open/js/jweixin-1.0.0.js'],function(wx){
                  window.shareData = {php echo json_encode($_W['shopshare'])};
                
-	jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || { jsApiList:[] };
+    jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || { jsApiList:[] };
         {if $trigger}
                 window.shareData.trigger =function(e){
                     
@@ -110,15 +110,15 @@
                 }
         {/if}
                   jssdkconfig.debug = false;
-	jssdkconfig.jsApiList = ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','showOptionMenu',		];
-	wx.config(jssdkconfig);
-	wx.ready(function () {
-		wx.showOptionMenu();
-		wx.onMenuShareAppMessage(window.shareData);
-		wx.onMenuShareTimeline(window.shareData);
-		wx.onMenuShareQQ(window.shareData);
-		wx.onMenuShareWeibo(window.shareData);
-	});
+    jssdkconfig.jsApiList = ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','showOptionMenu',        ];
+    wx.config(jssdkconfig);
+    wx.ready(function () {
+        wx.showOptionMenu();
+        wx.onMenuShareAppMessage(window.shareData);
+        wx.onMenuShareTimeline(window.shareData);
+        wx.onMenuShareQQ(window.shareData);
+        wx.onMenuShareWeibo(window.shareData);
+    });
       });
 </script>
 

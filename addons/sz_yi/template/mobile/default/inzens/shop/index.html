@@ -108,27 +108,27 @@ div.flicking_con a.on{background-position:0 -9px}
 
 <div class="itemlist-ad background"><div class="title"><i></i><span>猜你喜欢</span></div></div>
 <div class="goods">
-	<div id='goods_container'></div>
+    <div id='goods_container'></div>
 </div>
 
 <script id='tpl_index' type='text/html'>
-	<!--搜索
-	<div class='search'><i class="fa fa-search"></i> 在店铺内搜索</div>
-	<div class="search1">
-		<div class="topbar1">
-			<div class='right'>
-				<button class="sub1"><i class="iconfont icon-search"></i></button>
-				<div class="home1">取消</div>
-			</div>
-			<div class="left_wrap">
-				<div class="left">
-					<input type="text" id='keywords' class="input1" placeholder="搜索: 输入商品关键词" value='{$_GPC['keywords']}'/>
-				</div>
-			</div>
-		</div>
-		<div id='search_container' class='result1'></div>
-	</div>
-	-->
+    <!--搜索
+    <div class='search'><i class="fa fa-search"></i> 在店铺内搜索</div>
+    <div class="search1">
+        <div class="topbar1">
+            <div class='right'>
+                <button class="sub1"><i class="iconfont icon-search"></i></button>
+                <div class="home1">取消</div>
+            </div>
+            <div class="left_wrap">
+                <div class="left">
+                    <input type="text" id='keywords' class="input1" placeholder="搜索: 输入商品关键词" value='{$_GPC['keywords']}'/>
+                </div>
+            </div>
+        </div>
+        <div id='search_container' class='result1'></div>
+    </div>
+    -->
 
     <%if advs.length>0%>
     <div class="banner">
@@ -150,12 +150,12 @@ div.flicking_con a.on{background-position:0 -9px}
         </div>
     </div>
     <%/if%>
-	
-	{template 'new/index_menu'}
-	
-	{template 'new/index_ad'}
-	
-	{template 'new/index_ms'}
+    
+    {template 'new/index_menu'}
+    
+    {template 'new/index_ad'}
+    
+    {template 'new/index_ms'}
 
 <!--右悬浮客服
 <div class="service"><a href="0000000000000"><i class="iconfont icon-comment"></i></a></div>
@@ -213,13 +213,13 @@ div.flicking_con a.on{background-position:0 -9px}
               
                     
                     new Swipe($('#banner')[0], {
-			speed:300,
-			auto:4000,
-			callback: function(){
-			  
+            speed:300,
+            auto:4000,
+            callback: function(){
+              
                                  $(".flicking_con  .inner  a").removeClass("on").eq(this.index).addClass("on");
-		}
-	  }); 
+        }
+      }); 
        
                     
                 

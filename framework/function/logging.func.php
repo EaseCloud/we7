@@ -11,48 +11,48 @@ define('LOGGING_WARNING', 'warning');
 define('LOGGING_INFO', 'info');
 
 function logging_run($log, $type = 'trace', $filename = 'run') {
-	global $_W;
-	$filename = IA_ROOT . '/data/logs/' . $filename . '_' . date('Ymd') . '.log';
-	
-	load()->func('file');
-	mkdirs(dirname($filename));
+    global $_W;
+    $filename = IA_ROOT . '/data/logs/' . $filename . '_' . date('Ymd') . '.log';
+    
+    load()->func('file');
+    mkdirs(dirname($filename));
 
-	$logFormat = "%date %type %user %url %context";
+    $logFormat = "%date %type %user %url %context";
 
-	if (!empty($GLOBALS['_POST'])) {
-		$context[] = logging_implode($GLOBALS['_POST']);
-	}
+    if (!empty($GLOBALS['_POST'])) {
+        $context[] = logging_implode($GLOBALS['_POST']);
+    }
 
-	if (is_array($log)) {
-		$context[] = logging_implode($log);
-	} else {
-		$context[] = preg_replace('/[ \t\r\n]+/', ' ', $log);
-	}
+    if (is_array($log)) {
+        $context[] = logging_implode($log);
+    } else {
+        $context[] = preg_replace('/[ \t\r\n]+/', ' ', $log);
+    }
 
-	$log = str_replace(explode(' ', $logFormat), array(
-		'[' . date('Y-m-d H:i:s', $_W['timestamp']) . ']',
-		$type,
-		$_W['username'],
-		$_SERVER["PHP_SELF"] . "?" . $_SERVER["QUERY_STRING"],
-		implode("\n", $context),
-	), $logFormat);
+    $log = str_replace(explode(' ', $logFormat), array(
+        '[' . date('Y-m-d H:i:s', $_W['timestamp']) . ']',
+        $type,
+        $_W['username'],
+        $_SERVER["PHP_SELF"] . "?" . $_SERVER["QUERY_STRING"],
+        implode("\n", $context),
+    ), $logFormat);
 
-	file_put_contents($filename, $log . "\r\n", FILE_APPEND);
-	return true;
+    file_put_contents($filename, $log . "\r\n", FILE_APPEND);
+    return true;
 }
 
 function logging_implode($array, $skip = array()) {
-	$return = '';
-	if (is_array($array) && !empty($array)) {
-		foreach ($array as $key => $value) {
-			if (empty($skip) || !in_array($key, $skip, true)) {
-				if (is_array($value)) {
-					$return .= $key . '={' . logging_implode($value, $skip) . '}; ';
-				} else {
-					$return .= "$key=$value; ";
-				}
-			}
-		}
-	}
-	return $return;
+    $return = '';
+    if (is_array($array) && !empty($array)) {
+        foreach ($array as $key => $value) {
+            if (empty($skip) || !in_array($key, $skip, true)) {
+                if (is_array($value)) {
+                    $return .= $key . '={' . logging_implode($value, $skip) . '}; ';
+                } else {
+                    $return .= "$key=$value; ";
+                }
+            }
+        }
+    }
+    return $return;
 }

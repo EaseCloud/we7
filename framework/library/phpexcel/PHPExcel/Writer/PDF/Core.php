@@ -69,7 +69,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
      *
      * @var string
      */
-	private $_saveArrayReturnType;
+    private $_saveArrayReturnType;
 
     /**
      * Paper Sizes xRef List

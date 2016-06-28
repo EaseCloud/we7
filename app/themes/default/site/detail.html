@@ -52,21 +52,21 @@ body > .tips{display:none;left:50%;padding:20px;position:fixed;text-align:center
 #mcover img{position:fixed;right: 18px;top:5px;width:260px;height:180px;z-index:20001;}
 </style>
 <div class="page-bizinfo">
-	<div class="header">
-		<h1 id="activity-name">{$detail['title']}</h1>
-		<span id="post-date">
-			<span>{php echo date("Y-m-d", $detail['createtime']);}</span>
-			<span>{$detail['author']}</span>
-			{if !empty($detail['source'])}<a href="{$detail['source']}">文章来源</a>{/if}
-			{if !empty($subscribeurl)}<a href="{$subscribeurl}">{$_W['account']['name']}</a>{/if}
-			<span>阅读:{$detail['click']}次</span>
-		</span>
-	</div>
+    <div class="header">
+        <h1 id="activity-name">{$detail['title']}</h1>
+        <span id="post-date">
+            <span>{php echo date("Y-m-d", $detail['createtime']);}</span>
+            <span>{$detail['author']}</span>
+            {if !empty($detail['source'])}<a href="{$detail['source']}">文章来源</a>{/if}
+            {if !empty($subscribeurl)}<a href="{$subscribeurl}">{$_W['account']['name']}</a>{/if}
+            <span>阅读:{$detail['click']}次</span>
+        </span>
+    </div>
 </div>
 <div class="page-content">
-	<div class="text">
-		{$detail['content']}
-	</div>
+    <div class="text">
+        {$detail['content']}
+    </div>
 </div>
 </div>
 {template 'common/footer'}

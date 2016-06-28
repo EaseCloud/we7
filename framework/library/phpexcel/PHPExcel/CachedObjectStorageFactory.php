@@ -241,11 +241,11 @@ class PHPExcel_CachedObjectStorageFactory
      * Clear the cache storage
      *
      **/
-	public static function finalize()
-	{
-		self::$_cacheStorageMethod = NULL;
-		self::$_cacheStorageClass = NULL;
-		self::$_storageMethodParameters = array();
-	}
+    public static function finalize()
+    {
+        self::$_cacheStorageMethod = NULL;
+        self::$_cacheStorageClass = NULL;
+        self::$_storageMethodParameters = array();
+    }
 
 }

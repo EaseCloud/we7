@@ -427,84 +427,84 @@ function tpl_form_field_category_3level($name, $parents, $children, $parentid, $
 {
     $html = '
 <script type="text/javascript">
-	window._' . $name . ' = ' . json_encode($children) . ';
+    window._' . $name . ' = ' . json_encode($children) . ';
 </script>';
     if (!defined('TPL_INIT_CATEGORY_THIRD')) {
-        $html .= '	
+        $html .= '    
 <script type="text/javascript">
-	function renderCategoryThird(obj, name){
-		var index = obj.options[obj.selectedIndex].value;
-		require([\'jquery\', \'util\'], function($, u){
-			$selectChild = $(\'#\'+name+\'_child\');
+    function renderCategoryThird(obj, name){
+        var index = obj.options[obj.selectedIndex].value;
+        require([\'jquery\', \'util\'], function($, u){
+            $selectChild = $(\'#\'+name+\'_child\');
                                                       $selectThird = $(\'#\'+name+\'_third\');
-			var html = \'<option value="0">请选择二级分类</option>\';
+            var html = \'<option value="0">请选择二级分类</option>\';
                                                       var html1 = \'<option value="0">请选择三级分类</option>\';
-			if (!window[\'_\'+name] || !window[\'_\'+name][index]) {
-				$selectChild.html(html); 
+            if (!window[\'_\'+name] || !window[\'_\'+name][index]) {
+                $selectChild.html(html); 
                                                                         $selectThird.html(html1);
-				return false;
-			}
-			for(var i=0; i< window[\'_\'+name][index].length; i++){
-				html += \'<option value="\'+window[\'_\'+name][index][i][\'id\']+\'">\'+window[\'_\'+name][index][i][\'name\']+\'</option>\';
-			}
-			$selectChild.html(html);
+                return false;
+            }
+            for(var i=0; i< window[\'_\'+name][index].length; i++){
+                html += \'<option value="\'+window[\'_\'+name][index][i][\'id\']+\'">\'+window[\'_\'+name][index][i][\'name\']+\'</option>\';
+            }
+            $selectChild.html(html);
                                                     $selectThird.html(html1);
-		});
-	}
+        });
+    }
         function renderCategoryThird1(obj, name){
-		var index = obj.options[obj.selectedIndex].value;
-		require([\'jquery\', \'util\'], function($, u){
-			$selectChild = $(\'#\'+name+\'_third\');
-			var html = \'<option value="0">请选择三级分类</option>\';
-			if (!window[\'_\'+name] || !window[\'_\'+name][index]) {
-				$selectChild.html(html);
-				return false;
-			}
-			for(var i=0; i< window[\'_\'+name][index].length; i++){
-				html += \'<option value="\'+window[\'_\'+name][index][i][\'id\']+\'">\'+window[\'_\'+name][index][i][\'name\']+\'</option>\';
-			}
-			$selectChild.html(html);
-		});
-	}
+        var index = obj.options[obj.selectedIndex].value;
+        require([\'jquery\', \'util\'], function($, u){
+            $selectChild = $(\'#\'+name+\'_third\');
+            var html = \'<option value="0">请选择三级分类</option>\';
+            if (!window[\'_\'+name] || !window[\'_\'+name][index]) {
+                $selectChild.html(html);
+                return false;
+            }
+            for(var i=0; i< window[\'_\'+name][index].length; i++){
+                html += \'<option value="\'+window[\'_\'+name][index][i][\'id\']+\'">\'+window[\'_\'+name][index][i][\'name\']+\'</option>\';
+            }
+            $selectChild.html(html);
+        });
+    }
 </script>
-			';
+            ';
         define('TPL_INIT_CATEGORY_THIRD', true);
     }
     $html .= '<div class="row row-fix tpl-category-container">
-	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-		<select class="form-control tpl-category-parent" id="' . $name . '_parent" name="' . $name . '[parentid]" onchange="renderCategoryThird(this,\'' . $name . '\')">
-			<option value="0">请选择一级分类</option>';
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <select class="form-control tpl-category-parent" id="' . $name . '_parent" name="' . $name . '[parentid]" onchange="renderCategoryThird(this,\'' . $name . '\')">
+            <option value="0">请选择一级分类</option>';
     $ops = '';
     foreach ($parents as $row) {
         $html .= '
-			<option value="' . $row['id'] . '" ' . (($row['id'] == $parentid) ? 'selected="selected"' : '') . '>' . $row['name'] . '</option>';
+            <option value="' . $row['id'] . '" ' . (($row['id'] == $parentid) ? 'selected="selected"' : '') . '>' . $row['name'] . '</option>';
     }
     $html .= '
-		</select>
-	</div>
-	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-		<select class="form-control tpl-category-child" id="' . $name . '_child" name="' . $name . '[childid]" onchange="renderCategoryThird1(this,\'' . $name . '\')">
-			<option value="0">请选择二级分类</option>';
+        </select>
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <select class="form-control tpl-category-child" id="' . $name . '_child" name="' . $name . '[childid]" onchange="renderCategoryThird1(this,\'' . $name . '\')">
+            <option value="0">请选择二级分类</option>';
     if (!empty($parentid) && !empty($children[$parentid])) {
         foreach ($children[$parentid] as $row) {
             $html .= '
-			<option value="' . $row['id'] . '"' . (($row['id'] == $childid) ? 'selected="selected"' : '') . '>' . $row['name'] . '</option>';
+            <option value="' . $row['id'] . '"' . (($row['id'] == $childid) ? 'selected="selected"' : '') . '>' . $row['name'] . '</option>';
         }
     }
     $html .= '
-		</select> 
-	</div> 
+        </select> 
+    </div> 
                   <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-		<select class="form-control tpl-category-child" id="' . $name . '_third" name="' . $name . '[thirdid]">
-			<option value="0">请选择三级分类</option>';
+        <select class="form-control tpl-category-child" id="' . $name . '_third" name="' . $name . '[thirdid]">
+            <option value="0">请选择三级分类</option>';
     if (!empty($childid) && !empty($children[$childid])) {
         foreach ($children[$childid] as $row) {
             $html .= '
-			<option value="' . $row['id'] . '"' . (($row['id'] == $thirdid) ? 'selected="selected"' : '') . '>' . $row['name'] . '</option>';
+            <option value="' . $row['id'] . '"' . (($row['id'] == $thirdid) ? 'selected="selected"' : '') . '>' . $row['name'] . '</option>';
         }
     }
     $html .= '</select>
-	</div>
+    </div>
 </div>';
     return $html;
 }

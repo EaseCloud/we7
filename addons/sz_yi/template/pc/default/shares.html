@@ -29,7 +29,7 @@ body {margin:0px; background:#f4f4f4;}
 </style> 
  {if !empty($goods)}
       <div class="top">
-    	<div class="ico"><i class="fa fa-cny"></i></div>
+        <div class="ico"><i class="fa fa-cny"></i></div>
         <div class="info1">
             <div class="t1">{php echo $this->set['texts']['commission1']}<span>{$commission}</span>元</div>
             <div class="t2">已销售 <span>{$goods['sales']}</span> 件</div>
@@ -42,33 +42,33 @@ body {margin:0px; background:#f4f4f4;}
         <img id='posterimg' style='display:none' />
     </div>
     <!-- 系统生成图片 结束 -->
-	<div class="info">
-    	<div class="title">
-        	<div class="ico"><i class="fa fa-cubes"></i></div>
+    <div class="info">
+        <div class="title">
+            <div class="ico"><i class="fa fa-cubes"></i></div>
             <div class="text">如何赚钱</div>
         </div>
         <div class="con">
           <div class="line">
-           	<div class="t1">第一步</div>
+               <div class="t1">第一步</div>
                 <div class="t2">
-                	<div class="t3">转发商品链接或商品图片给微信好友；</div>
+                    <div class="t3">转发商品链接或商品图片给微信好友；</div>
                 </div>
           </div>
           <div class="line">
-           	<div class="t1">第二步</div>
+               <div class="t1">第二步</div>
                 <div class="t2">
-                	<div class="t3">从您转发的链接或图片进入商城的好友，{if $this->set['become_child']==1}如果您的好友下单，{/if}{if $this->set['become_child']==2}如果您的好友下单并付款，{/if}系统将自动锁定成为您的客户, 他们在微信商城中购买任何商品，您都可以获得{php echo $this->set['texts']['commission1']}；</div>
+                    <div class="t3">从您转发的链接或图片进入商城的好友，{if $this->set['become_child']==1}如果您的好友下单，{/if}{if $this->set['become_child']==2}如果您的好友下单并付款，{/if}系统将自动锁定成为您的客户, 他们在微信商城中购买任何商品，您都可以获得{php echo $this->set['texts']['commission1']}；</div>
                 </div>
           </div>
           <div class="line">
-           	<div class="t1">第三步</div>
+               <div class="t1">第三步</div>
                 <div class="t2">
-                	<div class="t3">您可以在{php echo $this->set['texts']['center']}查看【{php echo $this->set['texts']['myteam']}】和【{php echo $this->set['texts']['order']}】，好友确认收货后{php echo $this->set['texts']['commission']}方可{php echo $this->set['texts']['withdraw']}。</div>
+                    <div class="t3">您可以在{php echo $this->set['texts']['center']}查看【{php echo $this->set['texts']['myteam']}】和【{php echo $this->set['texts']['order']}】，好友确认收货后{php echo $this->set['texts']['commission']}方可{php echo $this->set['texts']['withdraw']}。</div>
                 </div>
           </div>
-  	    </div>
+          </div>
         <div class="info2">说明：分享后会带有独有的推荐码，您的好友访问之后，系统会自动检测并记录客户关系。如果您的好友已被其他人抢先发展成了客户，他就不能成为您的客户，以最早发展成为客户为准。</div>
-	</div>
+    </div>
 
     <!-- 底部浮层 开始 -->
     <div class="bottom">

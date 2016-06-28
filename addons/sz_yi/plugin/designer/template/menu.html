@@ -257,80 +257,80 @@
 
             $scope.selectIcon = function(menu,event){
              
-				require(["util","jquery"], function(u, $){
-					var btn = $(event.currentTarget);
-					var spview = btn.parent();
-					var ipt = spview.find('.icon');
-					u.iconBrowser(function(ico){
-						ipt.val(ico);
-						menu.icon = ico;
+                require(["util","jquery"], function(u, $){
+                    var btn = $(event.currentTarget);
+                    var spview = btn.parent();
+                    var ipt = spview.find('.icon');
+                    u.iconBrowser(function(ico){
+                        ipt.val(ico);
+                        menu.icon = ico;
                                                                                                             $scope.$apply();
                                                                                                              
-					});
-				});
+                    });
+                });
                 
             }
             $scope.addMenu = function() {
-				if($scope.menus.length >= 5) {
-					return;
-				}
+                if($scope.menus.length >= 5) {
+                    return;
+                }
                                                                         var mid = "menu_" + new Date().getTime();
-				$scope.menus.push({
+                $scope.menus.push({
                                                                                           id: mid,
-					title: '',
+                    title: '',
                                                                                           icon:'',
-					url: '',
-					subMenus: []
-				});
-				    require(['jquery.ui'],function(){
+                    url: '',
+                    subMenus: []
+                });
+                    require(['jquery.ui'],function(){
                                                                             $('.ui-sortable').sortable({handle: '.btn-move'});
                                                                         });
                                                                         $scope.clear();
-			};
+            };
                         
 $scope.addSubMenu = function(menu, obj) {
-				$('.parentmenu').eq(obj.$index).find('a').eq(2).hide();
-				if(menu.subMenus.length >= 5) {
-					return;
-				}
-				menu.subMenus.push({
-					title: '',
-					type: 'url',
-					url: '',
-					forward: ''
-				});
-				    require(['jquery.ui'],function(){
+                $('.parentmenu').eq(obj.$index).find('a').eq(2).hide();
+                if(menu.subMenus.length >= 5) {
+                    return;
+                }
+                menu.subMenus.push({
+                    title: '',
+                    type: 'url',
+                    url: '',
+                    forward: ''
+                });
+                    require(['jquery.ui'],function(){
                     $('.ui-sortable').sortable({handle: '.btn-move'});
                 });
-			};
+            };
                         
                         $scope.deleteMenu = function(menu, sub, obj) {
-				if(sub) {
-					if (typeof obj == 'object') {
-						var text = $('.sonmenu').eq(obj.$parent.$index).find('input[type="text"]').eq(obj.$index);
+                if(sub) {
+                    if (typeof obj == 'object') {
+                        var text = $('.sonmenu').eq(obj.$parent.$index).find('input[type="text"]').eq(obj.$index);
                                                 
-						if (text.val() != '') {
-							if (confirm('将删除该菜单, 是否继续? ')) {
-								if (menu.subMenus.length == 1) {
-									$('.parentmenu').eq(obj.$parent.$index).find('a').eq(2).show();
-								}
-								menu.subMenus = _.without(menu.subMenus, sub);
-							}
-						} else {
-							if (menu.subMenus.length == 1) {
-								$('.parentmenu').eq(obj.$parent.$index).find('a').eq(2).show();
-							}
-							menu.subMenus = _.without(menu.subMenus, sub);
-						}
-					}
-				} else {
-					if(menu.subMenus.length > 0 && !confirm('将同时删除所有子菜单, 是否继续? ')) {
-						return;
-					}
-					$scope.menus = _.without($scope.menus, menu);
+                        if (text.val() != '') {
+                            if (confirm('将删除该菜单, 是否继续? ')) {
+                                if (menu.subMenus.length == 1) {
+                                    $('.parentmenu').eq(obj.$parent.$index).find('a').eq(2).show();
+                                }
+                                menu.subMenus = _.without(menu.subMenus, sub);
+                            }
+                        } else {
+                            if (menu.subMenus.length == 1) {
+                                $('.parentmenu').eq(obj.$parent.$index).find('a').eq(2).show();
+                            }
+                            menu.subMenus = _.without(menu.subMenus, sub);
+                        }
+                    }
+                } else {
+                    if(menu.subMenus.length > 0 && !confirm('将同时删除所有子菜单, 是否继续? ')) {
+                        return;
+                    }
+                    $scope.menus = _.without($scope.menus, menu);
                                         $scope.clear();
-				}
-			};
+                }
+            };
              
             //选择链接
             $scope.currentMenu = null;

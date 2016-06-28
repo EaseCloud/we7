@@ -77,7 +77,7 @@
         <div class="line"><div class="label">支付金额</div><div class="info"><div class="inner"><div style='color:#ff6600'>￥<span id="orderprice" price="<%order.price%>"><%order.price%></span>元</div></div></div></div>
     </div>
     <%if order.price>0%>    
-	<%if yunpay.success%><div class="button order_sub10" >云支付</div><%/if%>    
+    <%if yunpay.success%><div class="button order_sub10" >云支付</div><%/if%>    
     <%if wechat.success%><div class="button order_sub1">微信支付</div><%/if%>
     <%if wechat.qrcode%><div class="button order_sub_qr">微信扫码支付</div><%/if%>
     <div id="qrcode" class="hide" style="margin:0 auto; text-align:center">
@@ -115,7 +115,7 @@
      <%if order.virtual!='0'%>
         <img src="../addons/sz_yi/template/mobile/default/static/images/pay_virtual.png" style="width:100%;" />
      <%/if%>
-	 <%if order.isvirtual=='1'%>
+     <%if order.isvirtual=='1'%>
         <img src="../addons/sz_yi/template/mobile/default/static/images/pay_success.png?v=1" style="width:100%;" />
      <%/if%>
      <%if goods%>
@@ -339,7 +339,7 @@
                                                                      type:'weixin',deduct:deduct
                                                                  },function(pay_json){ 
                                                                      if(pay_json.status==1){
-																		
+                                                                        
                                                                         $('#container').html(tpl('tpl_order_pay',pay_json.result));
                                                                         return;
                                                                      }
@@ -351,7 +351,7 @@
                                         core.tip.show('取消支付');
                                     } else {
                                       $('.button').removeAttr('submitting');
-                                    	alert(res.err_msg);
+                                        alert(res.err_msg);
                                     }
                                 });
                           },true,true); 

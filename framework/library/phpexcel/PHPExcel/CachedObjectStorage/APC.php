@@ -162,18 +162,18 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
     }    //    function getCacheData()
 
 
-	/**
-	 * Get a list of all cell addresses currently held in cache
-	 *
-	 * @return  array of string
-	 */
-	public function getCellList() {
-		if ($this->_currentObjectID !== null) {
-			$this->_storeData();
-		}
+    /**
+     * Get a list of all cell addresses currently held in cache
+     *
+     * @return  array of string
+     */
+    public function getCellList() {
+        if ($this->_currentObjectID !== null) {
+            $this->_storeData();
+        }
 
-		return parent::getCellList();
-	}
+        return parent::getCellList();
+    }
 
 
     /**

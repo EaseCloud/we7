@@ -10,7 +10,7 @@
     .addorder_user .info .info1 .inner .user {height:30px; padding-left:15px; width:100%; font-size:16px; color:#333; line-height:35px;overflow:hidden;}
     .addorder_user .info .info1 .inner .address {padding-left:15px; height:20px; width:100%; font-size:14px; color:#999; line-height:20px;overflow:hidden;}
     .addorder_user .info .ico2 {height:50px; width:30px;padding-right:15px;padding-top:15px; float:right; font-size:16px; text-align:right; color:#999;}
-	
+    
     .chooser { overflow: auto; width: 100%; background:#efefef; position: fixed; top: 0px; right: -100%; z-index: 999;}
     .chooser .store {height:50px; background:#fff; padding:10px;; border-bottom:1px solid #eaeaea;}
     .chooser .store .ico {float:left; height:50px; width:30px; line-height:50px; float:left; font-size:20px; text-align:center; color:#999;}
@@ -34,15 +34,15 @@
 <div id='container'></div>
  
   
-	
+    
 <script type='text/html' id='tpl_main'>
-	 
+     
     <div class="chooser" >
         <%each stores as store%>
         <div class="store" 
              data-storeid='<%store.id%>' 
-	data-storename='<%store.storename%>' 
-	data-address='<%store.address%>' 
+    data-storename='<%store.storename%>' 
+    data-address='<%store.address%>' 
              >
             <div class="ico store_ico_<%store.id%>" ><i class="fa fa-check" style="display:none;color:#0c9"></i></div>
             <div class="info">
@@ -52,25 +52,25 @@
                 </div>
             </div>
             <div class="edit">
-		<a href="tel:<%store.tel%>"><i class='fa fa-phone fa-2x'></i></a>
-		 <a href="http://api.map.baidu.com/marker?location=<%store.lat%>,<%store.lng%>&title=<%store.storename%>&name=<%store.storename%>&content=<%store.address%>&output=html"><i class='fa fa-map-marker  fa-2x'></i></a></div>
+        <a href="tel:<%store.tel%>"><i class='fa fa-phone fa-2x'></i></a>
+         <a href="http://api.map.baidu.com/marker?location=<%store.lat%>,<%store.lng%>&title=<%store.storename%>&name=<%store.storename%>&content=<%store.address%>&output=html"><i class='fa fa-map-marker  fa-2x'></i></a></div>
           </div>
         
         <%/each%>
 </div>
-	
+    
     <div class="page_topbar">
     <a href="javascript:;" class="back" onclick="history.back()"><i class="fa fa-angle-left"></i></a>
     <a href="{php echo $this->createPluginMobileUrl('creditshop')}" class="btn" ><i class="fa fa-home"></i></a>
     <div class="title">商品详情</div>
 </div>
       <div class="info_top">
-    	<img src="<%goods.thumb%>"/>
+        <img src="<%goods.thumb%>"/>
         <div class="info">
-        	   <div class="classs"><%goods.subtitle%></div>
+               <div class="classs"><%goods.subtitle%></div>
             <div class="name"><%goods.title%></div>
         </div>
-		 
+         
     </div>
         <div class="info_price">
             <div class="num">
@@ -84,10 +84,10 @@
             <%if goods.acttype==2%>
                <%goods.money%><i class="fa fa-rmb"></i>
             <%/if%>
-			
-			<%if goods.acttype!=0 && goods.acttype!=1 &&goods.acttype!=2%>
-			<span style="font-size:16px;line-height:55px;display:block;">免费<%if goods.type=='1'%>抽奖<%else%>兑换<%/if%></span>
-			<%/if%>
+            
+            <%if goods.acttype!=0 && goods.acttype!=1 &&goods.acttype!=2%>
+            <span style="font-size:16px;line-height:55px;display:block;">免费<%if goods.type=='1'%>抽奖<%else%>兑换<%/if%></span>
+            <%/if%>
     
             </div>
             <div class="<%if goods.canbuy%>sub<%else%>sub2<%/if%>" id="btnsub">
@@ -99,60 +99,60 @@
             </div>
          
         </div>
-	      <%if goods.isverify==1 && goods.type==0%>
+          <%if goods.isverify==1 && goods.type==0%>
           
                           <input type='hidden' id='storeid' value='' />
-		 <div class="carrier_input_info" >
-				<div class="row">
-					<div class='title'>联系人姓名</div>
-					<div class='info'>
-						<div class='inner'><input type="text" placeholder="联系人姓名" id="carrier_realname" value="<%member.realname%>" style='height:40px;'/></div>
-					</div>
-				</div>
-				<div class="row">
-					<div class='title'>联系人手机</div>
-					<div class='info'>
-						  <div class='inner'><input type="text" placeholder="联系人手机"  id="carrier_mobile"value="<%member.mobile%>" style='height:40px;'/></div>
-					</div>
-				</div>
-		</div>
-						  
-		  <div class="addorder_user store_select" id="store_info" style="display:none;">
+         <div class="carrier_input_info" >
+                <div class="row">
+                    <div class='title'>联系人姓名</div>
+                    <div class='info'>
+                        <div class='inner'><input type="text" placeholder="联系人姓名" id="carrier_realname" value="<%member.realname%>" style='height:40px;'/></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='title'>联系人手机</div>
+                    <div class='info'>
+                          <div class='inner'><input type="text" placeholder="联系人手机"  id="carrier_mobile"value="<%member.mobile%>" style='height:40px;'/></div>
+                    </div>
+                </div>
+        </div>
                           
-			<div class="info store_select">
-				 <div class='info1'>
-					 <div class='inner'>
-							<div class="user"></div>
-							<div class="address"></div>
-					 </div>
-				 </div>
-				 <div class="ico2"><i class='fa fa-angle-right  fa-2x'></i></div>
-			</div>  
-		  </div>
-		
-		 				 
+          <div class="addorder_user store_select" id="store_info" style="display:none;">
+                          
+            <div class="info store_select">
+                 <div class='info1'>
+                     <div class='inner'>
+                            <div class="user"></div>
+                            <div class="address"></div>
+                     </div>
+                 </div>
+                 <div class="ico2"><i class='fa fa-angle-right  fa-2x'></i></div>
+            </div>  
+          </div>
+        
+                          
                     <div class="addorder_user store_select"  id='store_select'>
-			     <div class='info store_select'>
-				<div class='info1'>
-					 <div class='inner'>
-						 <div class="user" style='padding-top:8px;'>请选择兑换门店</div>  
-					 </div>
-				</div>
-				<div class="ico2"><i class='fa fa-angle-right fa-2x'></i></div>
-		  </div>
+                 <div class='info store_select'>
+                <div class='info1'>
+                     <div class='inner'>
+                         <div class="user" style='padding-top:8px;'>请选择兑换门店</div>  
+                     </div>
+                </div>
+                <div class="ico2"><i class='fa fa-angle-right fa-2x'></i></div>
+          </div>
   
       
     </div>
-		  <%/if%>
-		  
+          <%/if%>
+          
         <div class="info_content">
                <div class="info_timestate" <%if goods.timestate==''%>style="display:none"<%/if%>></div>
          
-		<%if goods.price>0%>
-		<div class='ctitle'>商品原价: <span style='color:#f90'>￥<%=goods.price%></span></div>
+        <%if goods.price>0%>
+        <div class='ctitle'>商品原价: <span style='color:#f90'>￥<%=goods.price%></span></div>
         
             <%/if%>
-			
+            
             <%if goods.goodsdetail!=''%>
             <div class='ctitle'>商品简介:</div>
             <%=goods.goodsdetail%>
@@ -219,15 +219,15 @@
                                                       location.href =core.getUrl('plugin/creditshop/log',{shine:1});
                                                   });   },1);
                                               }
-				     else if(json.status==3){
-						setTimeout(function(){
+                     else if(json.status==3){
+                        setTimeout(function(){
                                                  swal({ 'title':'',text:'恭喜您，优惠券兑换成功!', imageUrl:'../addons/sz_yi/plugin/creditshop/template/mobile/default/images/lo1.gif', 
                                                   confirmButtonText: '确 定',
                                                   confirmButtonColor:'#f90' },function(){
                                                       location.href =core.getUrl('plugin/creditshop/log',{shine:1});
-                                                  });   },1);						  
-												  
-				     } else{
+                                                  });   },1);                          
+                                                  
+                     } else{
                                                   core.tip.show( json.result);
                                               }
                                           },true,true);
@@ -283,7 +283,7 @@
                                         jssdkconfig.debug = false;
                                         jssdkconfig.jsApiList = ['checkJsApi','chooseWXPay'];
                                         wx.config(jssdkconfig);
-	                      wx.ready(function () {
+                          wx.ready(function () {
                                                 $('.button').removeAttr('submitting');
                                                  var appid = wechat.appid?wechat.appid:wechat.appId;
                                                 wx.chooseWXPay({
@@ -364,7 +364,7 @@
                 core.message('商品已下架或被删除!',"{php echo $this->createPluginMobileUrl('creditshop')}",'error');
                 return;
             }
-			
+            
             window.canbuy = goods.canbuy;
       
             $('#container').html(  tpl('tpl_main',result) );
@@ -386,27 +386,27 @@
                   } 
               
                   goods.storeid =0;
-		goods.realname = '';
-		goods.mobile = '';
+        goods.realname = '';
+        goods.mobile = '';
                  if(goods.type==0){
-		     if(goods.isverify==1){
-				 if($.trim( $('#carrier_realname').val())==''){
-					 core.tip.show('请填写联系人');
-					 return;
-				 }
-				 if($.trim( $('#carrier_mobile').val())==''){
-					 core.tip.show('请填写联系电话');
-					 return;
-				 }
-				if($('#storeid').val()=='' || $('#storeid').val()=='0') {
-					core.tip.show('请选择兑换门店');
-					 return;
-				}
-		     }
-		  goods.storeid = $('#storeid').val();
-		  goods.realname = $('#carrier_realname').val();
-		  goods.mobile = $('#carrier_mobile').val();
-		 
+             if(goods.isverify==1){
+                 if($.trim( $('#carrier_realname').val())==''){
+                     core.tip.show('请填写联系人');
+                     return;
+                 }
+                 if($.trim( $('#carrier_mobile').val())==''){
+                     core.tip.show('请填写联系电话');
+                     return;
+                 }
+                if($('#storeid').val()=='' || $('#storeid').val()=='0') {
+                    core.tip.show('请选择兑换门店');
+                     return;
+                }
+             }
+          goods.storeid = $('#storeid').val();
+          goods.realname = $('#carrier_realname').val();
+          goods.mobile = $('#carrier_mobile').val();
+         
                        swal({ 'title':'',text:'确认要兑换吗？',
                                        confirmButtonText: '确 定',
                                        confirmButtonColor:'#f90' ,
@@ -423,29 +423,29 @@
                      pay(goods);   
                  }
               });
-	 
-			  //门店选择,兑换直接选择门店，抽奖中了以后选择
-	    if(goods.isverify==1 && goods.type==0){
-		   $('.chooser').css('height',$(document.body).height());
-		   $('.store_select').click(function(){
-	 
-	                   $('.chooser .ico i').hide();
+     
+              //门店选择,兑换直接选择门店，抽奖中了以后选择
+        if(goods.isverify==1 && goods.type==0){
+           $('.chooser').css('height',$(document.body).height());
+           $('.store_select').click(function(){
+     
+                       $('.chooser .ico i').hide();
                            $('.chooser .store_ico_' + window.selectStoreID + ' i').show();
-			   $(".chooser").animate({right: "0"}, 200);
-			   $('.chooser .store .info').unbind('click').click(function(){
-				   var store = $(this).closest('.store');
-				   var storeid = store.data('storeid');
-				   window.selectStoreID = storeid;
-				   var storename = store.data('storename');
-				   var address = store.data('address');
-				   $('#storeid').val(storeid);
-				   $('#store_info .user').html(storename);
-				   $('#store_info .address').html(address); 
-				   $('#store_info').show();
-				  $('#store_select').hide();
-			           $(".chooser").animate({right: "-100%"}, 200);	   
-			   })
-		   });
+               $(".chooser").animate({right: "0"}, 200);
+               $('.chooser .store .info').unbind('click').click(function(){
+                   var store = $(this).closest('.store');
+                   var storeid = store.data('storeid');
+                   window.selectStoreID = storeid;
+                   var storename = store.data('storename');
+                   var address = store.data('address');
+                   $('#storeid').val(storeid);
+                   $('#store_info .user').html(storename);
+                   $('#store_info .address').html(address); 
+                   $('#store_info').show();
+                  $('#store_select').hide();
+                       $(".chooser").animate({right: "-100%"}, 200);       
+               })
+           });
               }
            
             

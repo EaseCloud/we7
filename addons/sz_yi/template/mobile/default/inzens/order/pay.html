@@ -72,7 +72,7 @@
         <img src="../addons/sz_yi/template/mobile/default/static/images/pay_virtual.png" style="width:100%;" />
      <%/if%>
 
-	 <%if order.isvirtual=='1'%>
+     <%if order.isvirtual=='1'%>
         <img src="../addons/sz_yi/template/mobile/default/static/images/pay_success.png?v=1" style="width:100%;" />
      <%/if%>
     <div class="order_main" >
@@ -236,7 +236,7 @@
 
                                                                  },function(pay_json){ 
                                                                      if(pay_json.status==1){
-																		
+                                                                        
                                                                         $('#container').html(tpl('tpl_order_pay',pay_json.result));
                                                                         return;
                                                                      }
@@ -248,7 +248,7 @@
                                         core.tip.show('取消支付');
                                     } else {
                                       $('.button').removeAttr('submitting');
-                                    	alert(res.err_msg);
+                                        alert(res.err_msg);
                                     }
                                 });
 //                                require(['http://res.wx.qq.com/open/js/jweixin-1.0.0.js'],function(wx){
@@ -256,7 +256,7 @@
 //                                        jssdkconfig.debug = false;
 //                                        jssdkconfig.jsApiList = ['checkJsApi','chooseWXPay'];
 //                                        wx.config(jssdkconfig);
-//	                      wx.ready(function () {
+//                          wx.ready(function () {
 //                                                $('.button').removeAttr('submitting');
 //                                                 var appid = wechat.appid?wechat.appid:wechat.appId;
 //                                                wx.chooseWXPay({

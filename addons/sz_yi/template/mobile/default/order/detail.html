@@ -237,7 +237,7 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
    
     <%else%>
     
-	
+    
  
 
 
@@ -283,14 +283,14 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
 <div class='dline   {$value['tp_css']}'>
         <div class='dtitle'>{$value['tp_name']}：</div>
         <div class='dinfo'>
-			<div class='dinner'>
-		           {$value['tp_value']}
-			</div>
+            <div class='dinner'>
+                   {$value['tp_value']}
+            </div>
         </div>
 </div>
 {/loop}
 </div>
-{/if}	
+{/if}    
 <div class="detail_good">
     <div class="ico"><i class="fa fa-gift" style="color:#666; font-size:20px;"></i></div>
     <div class="shop"><%set.name%></div>
@@ -308,27 +308,27 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
                 <div class='pnum'><span class='total'>×<%g.total%></span></div>
             </div>
         </div>
-	{if count($goods)>1}
-	<%if g.diyformfields.length>0%>
-	 
-	<div class="diyform_info diyform_info1">
-	        <a href='javascript:;' class='btn' onclick='showDiyInfo(this)' hide='1'>查看提交的资料</a>
-	        <div style='display:none'>
-		<%each g.diyformfields as v %>
-			<div class='dline  <%=v.tp_css%>'>
-				 <div class='dtitle'><%=v.tp_name%>：</div>
-				 <div class='dinfo'>
-					 <div class='dinner'>
-						 <%=v.tp_value%>
-					 </div>
-				 </div>
-		   </div> <%/each%>
-		 </div>
-	      
+    {if count($goods)>1}
+    <%if g.diyformfields.length>0%>
+     
+    <div class="diyform_info diyform_info1">
+            <a href='javascript:;' class='btn' onclick='showDiyInfo(this)' hide='1'>查看提交的资料</a>
+            <div style='display:none'>
+        <%each g.diyformfields as v %>
+            <div class='dline  <%=v.tp_css%>'>
+                 <div class='dtitle'><%=v.tp_name%>：</div>
+                 <div class='dinfo'>
+                     <div class='dinner'>
+                         <%=v.tp_value%>
+                     </div>
+                 </div>
+           </div> <%/each%>
+         </div>
+          
           </div>
-		<%/if%>
-		
-		{/if}
+        <%/if%>
+        
+        {/if}
 
     <%/each%>
 </div> 
@@ -344,10 +344,10 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
     <input type="hidden" id="weight" value="<%weight%>" />
     <div class="price">
         <div class="line">商品小计:<span>￥<span class='goodsprice'><%order.goodsprice%></span></span></div>
-        	
+            
         <div class="line">运费:<span>￥<span class='dispatchprice'><%order.olddispatchprice%></span></span></div>
       
-	
+    
         <%if order.discountprice>0%>
         <div class="line">会员折扣:<span>-￥<span class='discountprice'><%order.discountprice%></span></span></div>
         <%/if%>
@@ -384,8 +384,8 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
      
 <div class="detail_pay">
       <%if order.status==0%>
-	  <%if order.paytype!=3%>
-		<div class="paysub" onclick="location.href ='{php echo $this->createMobileUrl('order/pay')}&orderid=<%order.id%>&openid={$openid}'">付款</div>
+      <%if order.paytype!=3%>
+        <div class="paysub" onclick="location.href ='{php echo $this->createMobileUrl('order/pay')}&orderid=<%order.id%>&openid={$openid}'">付款</div>
            <%/if%>
            <div class="paysub1 order_cancel" style='position:relative;width:63px;'>
                <span style='position:absolute;display:block;width:70px;top:-10px;color:#5f6e8b'>取消订单</span>
@@ -402,9 +402,9 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
       
       <%if order.status==2 %>
              <div class="paysub order_complete">确认收货</div>
-			 <%if order.expresssn!=''%>
+             <%if order.expresssn!=''%>
              <div class="paysub1 order_express">查看物流</div>
-			 <%/if%>
+             <%/if%>
       <%/if%>
       <%if order.status==3 && order.iscomment==0%>
              <div class="paysub1 order_comment">评价</div>
@@ -436,12 +436,12 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
 {/if}
 
 <script type="text/javascript">
-	function showDiyInfo(obj){
-				var hide = $(obj).attr('hide');
-				$(obj).next().toggle('fadeIn');
-				$(obj).attr('hide',hide=='1'?'0':'1');
-			}
-			
+    function showDiyInfo(obj){
+                var hide = $(obj).attr('hide');
+                $(obj).next().toggle('fadeIn');
+                $(obj).attr('hide',hide=='1'?'0':'1');
+            }
+            
      function showStores(obj){
         if($(obj).attr('show')=='1'){
             $(obj).next('div').slideUp(100);
@@ -454,9 +454,9 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
     }
     require(['tpl', 'core'], function(tpl, core) {
     
-	function is_weixin(){
-		
-	}
+    function is_weixin(){
+        
+    }
         core.json('order/detail',{id:'{$_GPC['id']}'},function(json){
                  
                  if(json.status==0){
@@ -464,32 +464,32 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
                      return;
                  }
                  $('#container').html(  tpl('tpl_detail',json.result) );
-				 
-				 
-				     var ua = navigator.userAgent.toLowerCase();
-						var isWX = ua.match(/MicroMessenger/i) == "micromessenger";
-						var z = []; 
-						$(".diyform_info img").each(function() {
-							 z.push($(this).attr("src"));
-						 });
-						 var current;
-						 if (isWX) {
-							 $(".diyform_info img").click(function(e) {
-								 e.preventDefault();
-								 var startingIndex = $(".diyform_info img").index($(e.currentTarget));
-								 var current = null;
-								 $(".diyform_info img").each(function(B, A) {
-									 if (B === startingIndex) {
-										 current = $(A).attr("src");
-									 }
-								 });
-								 WeixinJSBridge.invoke("imagePreview", {
-									 current: current,
-									 urls: z
-								 });
-							 });
-						 }
-			 
+                 
+                 
+                     var ua = navigator.userAgent.toLowerCase();
+                        var isWX = ua.match(/MicroMessenger/i) == "micromessenger";
+                        var z = []; 
+                        $(".diyform_info img").each(function() {
+                             z.push($(this).attr("src"));
+                         });
+                         var current;
+                         if (isWX) {
+                             $(".diyform_info img").click(function(e) {
+                                 e.preventDefault();
+                                 var startingIndex = $(".diyform_info img").index($(e.currentTarget));
+                                 var current = null;
+                                 $(".diyform_info img").each(function(B, A) {
+                                     if (B === startingIndex) {
+                                         current = $(A).attr("src");
+                                     }
+                                 });
+                                 WeixinJSBridge.invoke("imagePreview", {
+                                     current: current,
+                                     urls: z
+                                 });
+                             });
+                         }
+             
                  $("#verifycode").html( json.result.order.verifycode);
                  $(".order_cancel").find('select').change(function(){
                         var reason = $(this).val();

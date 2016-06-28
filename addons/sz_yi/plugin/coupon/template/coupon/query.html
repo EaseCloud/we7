@@ -11,26 +11,26 @@
     <tbody>   
         {loop $ds $row}
         <tr>
-			<td><img src="{$row['thumb']}" style="width:30px;height:30px;padding:1px solid #ccc" /></td>
+            <td><img src="{$row['thumb']}" style="width:30px;height:30px;padding:1px solid #ccc" /></td>
             <td>{if $row['coupontype']==0}
-				  <label class='label label-success'>购物</label>
-						  {else}
-						  <label class='label label-warning'>充值</label>
-					 {/if}
-					 {if !empty($row['catid'])}
-					 <label class='label label-primary'>{$category[$row['catid']]['name']}</label>
-					 {/if}[{$row['id']}]{$row['couponname']}</td>
-	  <td>{if $row['enough']>0}{if $row['coupontype']==0}消费{else}充值{/if}满{$row['enough']}元{else}不限制{/if}</td>
-	  <td>   {if $row['backtype']==0}
-						  立减 {$row['deduct']} 元
-						  {else if $row['backtype']==1}
-						  打 {$row['discount']} 折
-						  {else if $row['backtype']==2}
-						  {if $row['backmoney']>0}返 {$row['backmoney']} 余额;{/if}
-						  {if $row['backcredit']>0}返 {$row['backcredit']} 积分;{/if}
-						  {if $row['backredpack']>0}返 {$row['backredpack']} 红包;{/if}
-						  {/if}</td>
-	  <td>{$row['last']}</td>
+                  <label class='label label-success'>购物</label>
+                          {else}
+                          <label class='label label-warning'>充值</label>
+                     {/if}
+                     {if !empty($row['catid'])}
+                     <label class='label label-primary'>{$category[$row['catid']]['name']}</label>
+                     {/if}[{$row['id']}]{$row['couponname']}</td>
+      <td>{if $row['enough']>0}{if $row['coupontype']==0}消费{else}充值{/if}满{$row['enough']}元{else}不限制{/if}</td>
+      <td>   {if $row['backtype']==0}
+                          立减 {$row['deduct']} 元
+                          {else if $row['backtype']==1}
+                          打 {$row['discount']} 折
+                          {else if $row['backtype']==2}
+                          {if $row['backmoney']>0}返 {$row['backmoney']} 余额;{/if}
+                          {if $row['backcredit']>0}返 {$row['backcredit']} 积分;{/if}
+                          {if $row['backredpack']>0}返 {$row['backredpack']} 红包;{/if}
+                          {/if}</td>
+      <td>{$row['last']}</td>
             <td style="width:80px;"><a href="javascript:;" onclick='select_coupon({"id":"{$row['id']}","couponname":"{$row['couponname']}","thumb":"{$row['thumb']}","total":"{$row['total']}","money":"{$row['money']}","credit":"{$row['credit']}","usecredit2":"{$row['usecredit2']}"})'>选择</a></td>
         </tr>
         {/loop}

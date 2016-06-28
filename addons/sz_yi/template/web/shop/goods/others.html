@@ -71,19 +71,19 @@
                  Tip.focus('#search-kwd-notice','请输入关键词');
                  return;
              }
-		$("#module-menus-notice").html("正在搜索....")
-		$.get('{php echo $this->createWebUrl('member/query')}', {
-			keyword: $.trim($('#search-kwd-notice').val())
-		}, function(dat){
-			$('#module-menus-notice').html(dat);
-		});
-	}
-	function select_member(o) {
-		$("#noticeopenid").val(o.openid);
+        $("#module-menus-notice").html("正在搜索....")
+        $.get('{php echo $this->createWebUrl('member/query')}', {
+            keyword: $.trim($('#search-kwd-notice').val())
+        }, function(dat){
+            $('#module-menus-notice').html(dat);
+        });
+    }
+    function select_member(o) {
+        $("#noticeopenid").val(o.openid);
                                 $("#saleravatar").show();
                                  $("#saleravatar").find('img').attr('src',o.avatar);
-		$("#saler").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
-		$("#modal-module-menus-notice .close").click();
-	}
+        $("#saler").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
+        $("#modal-module-menus-notice .close").click();
+    }
         
     </script>

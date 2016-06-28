@@ -102,18 +102,18 @@
                         {/if}
                     </div> 
                 </div> 
-				
-				<div class="form-group" id='goodsdiv' {if empty($goods)}style="display:none"{/if}>
+                
+                <div class="form-group" id='goodsdiv' {if empty($goods)}style="display:none"{/if}>
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">选择商品</label>
                   <div class="col-sm-9 col-xs-12">
                           {ife 'postera' $item}
                         <div class='input-group'>
                             <input type="text" id="goods" name="goods" maxlength="30" value="{if !empty($goods)}[{$goods['id']}]{$goods['title']}{/if}" class="form-control"  readonly />
-		        <input type="hidden" id="goodsid" name='goodsid' maxlength="30" value="{$item['goodsid']}" />
+                <input type="hidden" id="goodsid" name='goodsid' maxlength="30" value="{$item['goodsid']}" />
                             <div class='input-group-btn'>
                                 <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-menus-goods').modal();">从商品库中选择</button>
                             </div>
-					 
+                     
                         </div>
                         <div id="modal-module-menus-goods"  class="modal fade" tabindex="-1">
                             <div class="modal-dialog" style='width: 920px;'>
@@ -133,15 +133,15 @@
 
                             </div>
                         </div>
-		 	  
+               
                       {else}
                              <div class='form-control-static'>{$item['title']}</div>
                              {/if}
                              
                     </div>
-                </div>			  
-	     
-				
+                </div>              
+         
+                
                 
                 <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 关键词</label>
@@ -159,16 +159,16 @@
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动有效期</label>
                     <div class="col-sm-9 col-xs-12">
                             {ife 'postera' $item}
-			    {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i', $starttime),'endtime'=>date('Y-m-d H:i', $endtime)),true);}
-			   <span class='help-block'>粉丝在活动有效期外是不能生成海报</span>
-			    <span class='help-block'>粉丝生成的海报有效期为生成日起到活动结束时间内最长30天</span>
+                {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i', $starttime),'endtime'=>date('Y-m-d H:i', $endtime)),true);}
+               <span class='help-block'>粉丝在活动有效期外是不能生成海报</span>
+                <span class='help-block'>粉丝生成的海报有效期为生成日起到活动结束时间内最长30天</span>
                             {else}
                             <div class='form-control-static'>{$item['days']}天</div>
                         {/if}
                     </div> 
                 </div>
-				
-				 <div class="form-group">
+                
+                 <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否启用</label>
                     <div class="col-sm-9 col-xs-12">
                            {ife 'postera' $item}
@@ -187,7 +187,7 @@
                         {/if}
                     </div> 
                 </div> 
-				
+                
                      <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 海报设计</label>
                     <div class="col-sm-9 col-xs-12">
@@ -213,7 +213,7 @@
                                                   <img src="{php echo empty($d['src'])?'../addons/sz_yi/plugin/postera/static/images/img.jpg':tomedia($d['src'])}" />
                                                 {elseif $d['type']=='nickname'}
                                                    <div class=text style="font-size:{$d['size']};color:{$d['color']}">昵称</div> 
-			                 {elseif $d['type']=='time'}
+                             {elseif $d['type']=='time'}
                                                    <div class=text style="font-size:{$d['size']};color:{$d['color']}">到期时间</div> 
                                                {elseif $d['type']=='title'}
                                                    <div class=text style="font-size:{$d['size']};color:{$d['color']}">商品名称</div> 
@@ -250,14 +250,14 @@
                                                              <button class='btn btn-default btn-com' type='button' data-type='qr' >二维码</button>
                                                              <button class='btn btn-default btn-com' type='button' data-type='img' >图片</button>
                                                             <button class='btn btn-default btn-com' type='button' data-type='time' >失效时间(Y-m-d H:i)</button>
-															
+                                                            
                                                              <span id="goodsparams" {if empty($goods)}style="display:none"{/if}>
                                                                   <button class='btn btn-default btn-com' type='button' data-type='title' >商品名称</button>    
                                                                   <button class='btn btn-default btn-com' type='button' data-type='thumb' >商品图片</button>    
                                                                   <button class='btn btn-default btn-com' type='button' data-type='marketprice' >商品现价</button>    
                                                                   <button class='btn btn-default btn-com' type='button' data-type='productprice' >商品原价</button>    
                                                              </span>
-														
+                                                        
                                                         </div>
                                                     </div>
                                                   <div id='qrset' style='display:none'>
@@ -311,45 +311,45 @@
                     </div>
                      </div>
                   
-				  <div class="form-group">
+                  <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动未开始提示</label>
                     <div class="col-sm-9 col-xs-12">
                               {ife 'postera' $item}
                           
-		    <textarea name="starttext" class="form-control"  >{$item['starttext']}</textarea>
+            <textarea name="starttext" class="form-control"  >{$item['starttext']}</textarea>
                               <span class="help-block">默认：活动于 [starttime] 开始，请耐心等待...</span>
-			<span class="help-block">变量：[starttime] 活动开始时间 [endtime] 活动结束时间</span>
+            <span class="help-block">变量：[starttime] 活动开始时间 [endtime] 活动结束时间</span>
                             {else}
                             <div class='form-control-static'>{if empty($item['starttext'])}活动于 [starttime] 开始，请耐心等待...{else}{$item['starttext']}{/if}</div>
                         {/if}
                   
                     </div>
                 </div>
-				
-				  <div class="form-group">
+                
+                  <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动结束提示</label>
                     <div class="col-sm-9 col-xs-12">
                               {ife 'postera' $item}
                           
-		    <textarea name="endtext" class="form-control"  >{$item['starttext']}</textarea>
+            <textarea name="endtext" class="form-control"  >{$item['starttext']}</textarea>
                               <span class="help-block">默认：活动已结束，谢谢您的关注!</span>
-			<span class="help-block">变量：[starttime] 活动开始时间 [endtime] 活动结束时间</span>
+            <span class="help-block">变量：[starttime] 活动开始时间 [endtime] 活动结束时间</span>
                             {else}
                             <div class='form-control-static'>{if empty($item['endtext'])}活动已结束，谢谢您的关注!{else}{$item['endtext']}{/if}</div>
                         {/if}
                   
                     </div>
                 </div>
-				
-				
+                
+                
                 <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">生成等待文字</label>
                     <div class="col-sm-9 col-xs-12">
                               {ife 'postera' $item}
                           
-							  <textarea name="waittext" class="form-control"  >{$item['waittext']}</textarea>
+                              <textarea name="waittext" class="form-control"  >{$item['waittext']}</textarea>
                        <span class="help-block">例如：您的专属海报正在拼命生成中，请等待片刻...</span>
-				<span class="help-block">变量：[starttime] 活动开始时间 [endtime] 活动结束时间</span>
+                <span class="help-block">变量：[starttime] 活动开始时间 [endtime] 活动结束时间</span>
                             {else}
                             <div class='form-control-static'>{if empty($item['waittext'])}未填写{$item['waittext']}{/if}</div>
                         {/if}
@@ -421,7 +421,7 @@
                     <div class="col-sm-9 col-xs-12">
                              {ife 'postera' $item}
                         <input type="text" name="resptitle" class="form-control" value="{$item['resptitle']}" />
-			<span class="help-block">如果设置为空，则不推送内容</span>
+            <span class="help-block">如果设置为空，则不推送内容</span>
                             {else}
                             <div class='form-control-static'>{$item['resptitle']}</div>
                         {/if}
@@ -477,14 +477,14 @@
                             <div class="input-group-addon">积分</div>
                             <input type="text" name="recmoney" class="form-control" value="{$item['recmoney']}" />
                             <div class="input-group-addon">元现金{if $plugin_coupon} 送优惠券{/if}</div>
-			   {if $plugin_coupon}
-			<div class='input-group-btn recgroup'>
-				<input type='hidden' name='reccouponid' id='reccouponid' value="{$item['reccouponid']}" />
-				<button type='button' onclick='selectCoupon("rec")'  class='btn btn-default' style='border-radius:0'>
-				{if !empty($reccoupon)}[{$reccoupon['id']}]{$reccoupon['couponname']} {$item['reccouponnum']} 张{else}请选择{/if}
-				</button>
-			</div>
-    		        <input type="text" name="reccouponnum" class="form-control" value="{$item['reccouponnum']}" />
+               {if $plugin_coupon}
+            <div class='input-group-btn recgroup'>
+                <input type='hidden' name='reccouponid' id='reccouponid' value="{$item['reccouponid']}" />
+                <button type='button' onclick='selectCoupon("rec")'  class='btn btn-default' style='border-radius:0'>
+                {if !empty($reccoupon)}[{$reccoupon['id']}]{$reccoupon['couponname']} {$item['reccouponnum']} 张{else}请选择{/if}
+                </button>
+            </div>
+                    <input type="text" name="reccouponnum" class="form-control" value="{$item['reccouponnum']}" />
                             <div class="input-group-addon">张</div>
                               {/if}
                         </div>
@@ -492,7 +492,7 @@
                             <div class='form-control-static'>
                                 {if !empty($item['recredit'])}{$item['reccredit']} 积分; {/if}
                                 {if !empty($item['recmoney'])}{$item['recmoney']} 元现金; {/if}
-			  {if !empty($reccoupon)}[{$reccoupon['id']}]{$reccoupon['couponname']} {$item['reccouponnum']} 张{/if}
+              {if !empty($reccoupon)}[{$reccoupon['id']}]{$reccoupon['couponname']} {$item['reccouponnum']} 张{/if}
                             </div>
                             {/if}
                     </div>
@@ -507,23 +507,23 @@
                             <div class="input-group-addon">积分</div>
                             <input type="text" name="submoney" class="form-control" value="{$item['submoney']}" />
                             <div class="input-group-addon">元现金{if $plugin_coupon} 送优惠券{/if}</div>
-			   {if $plugin_coupon}
-			<div class='input-group-btn subgroup'>
-				<input type='hidden' name='subcouponid' id='subcouponid' value="{$item['subcouponid']}" />
-				<button type='button' onclick='selectCoupon("sub")' class='btn btn-default' style='border-radius:0'>
-				{if !empty($subcoupon)}[{$subcoupon['id']}]{$subcoupon['couponname']} {$item['subcouponnum']} 张{else}请选择{/if}
-				</button>
-			</div>
-    		        <input type="text" name="subcouponnum" class="form-control" value="{$item['subcouponnum']}" />
+               {if $plugin_coupon}
+            <div class='input-group-btn subgroup'>
+                <input type='hidden' name='subcouponid' id='subcouponid' value="{$item['subcouponid']}" />
+                <button type='button' onclick='selectCoupon("sub")' class='btn btn-default' style='border-radius:0'>
+                {if !empty($subcoupon)}[{$subcoupon['id']}]{$subcoupon['couponname']} {$item['subcouponnum']} 张{else}请选择{/if}
+                </button>
+            </div>
+                    <input type="text" name="subcouponnum" class="form-control" value="{$item['subcouponnum']}" />
                             <div class="input-group-addon">张</div>
                               {/if}
-							  
+                              
                         </div>
                               {else}
                             <div class='form-control-static'>
                                 {if !empty($item['subcredit'])}{$item['subcredit']} 积分; {/if}
                                 {if !empty($item['submoney'])}{$item['submoney']} 元现金; {/if}
-			   {if !empty($subcoupon)}[{$subcoupon['id']}]{$subcoupon['couponname']} {$item['subcouponnum']} 张{/if}
+               {if !empty($subcoupon)}[{$subcoupon['id']}]{$subcoupon['couponname']} {$item['subcouponnum']} 张{/if}
                             </div>
                             {/if}
                     </div>
@@ -614,7 +614,7 @@
                     </div>
                 </div> 
             </div>
-			{if p('commission')}
+            {if p('commission')}
             <div class="panel-heading">
                 分销设置（只适用于推荐人是分销商的情况，才能发展下线）
             </div>
@@ -656,7 +656,7 @@
                     
                     
             </div>
-			{/if}
+            {/if}
             <div class="panel-body">
                        
             <div class="form-group">
@@ -696,45 +696,45 @@
 
       </div>
 </div>
-				{/if}		  
-				
+                {/if}          
+                
 <script language='javascript'>
-	
-	function showGoodsSelect(show){
-		if(show){
-			$('#goodsdiv').show();
-		}
-		else{
-			$('#goodsdiv').hide();
-		}
-	}
-	  function search_goods() {
+    
+    function showGoodsSelect(show){
+        if(show){
+            $('#goodsdiv').show();
+        }
+        else{
+            $('#goodsdiv').hide();
+        }
+    }
+      function search_goods() {
              if( $.trim($('#search-kwd-goods').val())==''){
                  Tip.focus('#search-kwd-goods','请输入关键词');
                  return;
              }
-		$("#module-menus-goods").html("正在搜索....")
-		$.get('{php echo $this->createWebUrl('shop/query')}', {
-			keyword: $.trim($('#search-kwd-goods').val())
-		}, function(dat){
-			$('#module-menus-goods').html(dat);
-		});
-	}
-	function select_good(o) {
+        $("#module-menus-goods").html("正在搜索....")
+        $.get('{php echo $this->createWebUrl('shop/query')}', {
+            keyword: $.trim($('#search-kwd-goods').val())
+        }, function(dat){
+            $('#module-menus-goods').html(dat);
+        });
+    }
+    function select_good(o) {
                     $("#goodsid").val(o.id);
-					
+                    
                     $(":input[name=goods]").val( "[" + o.id + "]" + o.title);
-			
-		          $(":input[name=resptitle]").val(o.share_title==''?o.title:o.share_title);
-			 $(":input[name=respthumb]").val(o.share_icon==''?o.thumb:o.share_icon);
+            
+                  $(":input[name=resptitle]").val(o.share_title==''?o.title:o.share_title);
+             $(":input[name=respthumb]").val(o.share_icon==''?o.thumb:o.share_icon);
                                $(".respthumb .img-thumbnail").attr('src',o.share_icon==''?o.thumb:o.share_icon);
                                $("textarea[name=respdesc]").val(o.description);
                              $(":input[name=respurl]").val( "{php echo $this->createMobileUrl('shop/detail')}&id=" + o.id);
-								
-								
-	          $("#modal-module-menus-goods .close").click();
-	}
-	
+                                
+                                
+              $("#modal-module-menus-goods .close").click();
+    }
+    
     $('form').submit(function(){
         if($(':input[name=title]').isEmpty()){
             Tip.focus($(':input[name=title]'),'请输入海报名称!');
@@ -963,7 +963,7 @@
             bgtimer = setInterval(function(){
                  var bg = $(':input[name=bg]').val();
                  if(oldbg!=bg){
-                 	  bg = getImgUrl(bg);
+                       bg = getImgUrl(bg);
                        
                       $('#postera .bg').remove();
                       var bgh = $("<img src='" + bg + "' class='bg' />");
@@ -1002,7 +1002,7 @@
             else if(type=='nickname'){
                 img = '<div class=text>昵称</div>';
             }
-	  else if(type=='time'){
+      else if(type=='time'){
                 img = '<div class=text>失效时间</div>';
             }  else if(type=='title'){
                 img = '<div class=text>商品名称</div>';
@@ -1025,13 +1025,13 @@
          })
         
     })
-	
-		{if $plugin_coupon}
-		var currentCouponType = null;
-		function selectCoupon(type){
-			currentCouponType = type;
-			$('#modal-module-menus-coupon').modal();
-		}
+    
+        {if $plugin_coupon}
+        var currentCouponType = null;
+        function selectCoupon(type){
+            currentCouponType = type;
+            $('#modal-module-menus-coupon').modal();
+        }
    function search_coupons() {
 
         $("#module-menus-coupon").html("正在搜索....")
@@ -1043,14 +1043,14 @@
     }
     function select_coupon(o) {
 
-		
+        
          $(":input[name=" + currentCouponType + "couponid]").val(o.id);
          $("."+currentCouponType + "group").find('button').html( "[" + o.id + "]" + o.couponname );
          $("#modal-module-menus-coupon .close").click();
-		 
+         
     }
 {/if}
-	
+    
     </script>
 {elseif $operation == 'display'}
   <div class="panel panel-info">
@@ -1103,7 +1103,7 @@
                 <thead>
                     <tr>
                         <th>海报名称</th>
-		    <th>关键词</th>				
+            <th>关键词</th>                
                         <th>海报类型</th>
                         <th>关注数</th>
                         <th>操作</th>
@@ -1113,7 +1113,7 @@
                     {loop $list $row}
                     <tr>
                         <td>{$row['title']}</td>
-		      <td>{$row['keyword']}</td>
+              <td>{$row['keyword']}</td>
                         <td>
                             {if $row['type']==1}
                             <label class='label label-primary'>商城</label>
@@ -1147,7 +1147,7 @@
                             {/if}
                             {ifp 'postera.clear'}
                                  <input type="submit" name="submit" value="清除当前公众号海报缓存" class="btn btn-danger" onclick="return confirm('确认要清除海报缓存?')" />
-	               <input type="hidden" name="token" value="{$_W['token']}" />
+                   <input type="hidden" name="token" value="{$_W['token']}" />
                             {/if}
                         </td>
                     </tr>

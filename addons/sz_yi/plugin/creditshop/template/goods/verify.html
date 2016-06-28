@@ -73,18 +73,18 @@
 </div>
 <script language='javascript'>
          function search_stores() {
-		$("#module-menus").html("正在搜索....")
-		$.get('{php echo $this->createPluginWebUrl('verify/store',array('op'=>'query'))}', {
-			keyword: $.trim($('#search-kwd').val())
-		}, function(dat){
-			$('#module-menus').html(dat);
-		});
-	}
+        $("#module-menus").html("正在搜索....")
+        $.get('{php echo $this->createPluginWebUrl('verify/store',array('op'=>'query'))}', {
+            keyword: $.trim($('#search-kwd').val())
+        }, function(dat){
+            $('#module-menus').html(dat);
+        });
+    }
                     function remove_store(obj){
                          var storeid = $(obj).closest('.multi-audio-item').attr('storeid');
                          $('.multi-audio-item[storeid="' + storeid +'"]').remove();
                     }
-	function select_store(o) {
+    function select_store(o) {
                         if($('.multi-audio-item[storeid="' + o.id +'"]').length>0){
                             return;
                         }
@@ -95,5 +95,5 @@
                     html+='<div class="input-group-btn"><button type="button" onclick="remove_store(this)" class="btn btn-default"><i class="fa fa-remove"></i></button></div>';
              html+='</div></div>';
                         $('#stores').append(html);
- 	}
+     }
 </script>

@@ -36,36 +36,36 @@
                     <div class="col-sm-9 col-xs-12">
                           {ife 'member.level' $level}
                         <div class='input-group'>
-							{if empty($shopset['leveltype'])}
-								  <span class='input-group-addon'>完成订单金额满</span>
-								   <input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
-								   <span class='input-group-addon'>元</span>
-							{/if}
-							{if $shopset['leveltype']==1} 
-							<span class='input-group-addon'>完成订单数量满</span>
+                            {if empty($shopset['leveltype'])}
+                                  <span class='input-group-addon'>完成订单金额满</span>
+                                   <input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
+                                   <span class='input-group-addon'>元</span>
+                            {/if}
+                            {if $shopset['leveltype']==1} 
+                            <span class='input-group-addon'>完成订单数量满</span>
                             <input type="text" name="ordercount" class="form-control" value="{$level['ordercount']}" />
                             <span class='input-group-addon'>个</span>
                           
-							{/if}
+                            {/if}
                         </div>
-						  <span class='help-block'>会员升级条件，不填写默认为不自动升级, 设置<a href="{php echo $this->createWebUrl('sysset',array('op'=>'member'))}">【会员升级依据】</a> </span>
+                          <span class='help-block'>会员升级条件，不填写默认为不自动升级, 设置<a href="{php echo $this->createWebUrl('sysset',array('op'=>'member'))}">【会员升级依据】</a> </span>
                          {else}
                            <div class='form-control-static'>
                               
-						 {if empty($shopset['leveltype'])}
-						 {if $level['ordermoney']>0}
-						      完成订单金额满 {$level['ordermoney']}元
-							  {else}
-							  不自动升级
-							  {/if}
-						 {/if}
-						 {if $shopset['leveltype']==1}
-						     {if $level['ordercount']>0}
-						           完成订单数量满 {$level['ordercount']}个
-							    {else}
-							  不自动升级
-							  {/if}
-						 {/if}
+                         {if empty($shopset['leveltype'])}
+                         {if $level['ordermoney']>0}
+                              完成订单金额满 {$level['ordermoney']}元
+                              {else}
+                              不自动升级
+                              {/if}
+                         {/if}
+                         {if $shopset['leveltype']==1}
+                             {if $level['ordercount']>0}
+                                   完成订单数量满 {$level['ordercount']}个
+                                {else}
+                              不自动升级
+                              {/if}
+                         {/if}
                            
                            </div>
                         {/if}
@@ -138,21 +138,21 @@
                         <td>{$row['level']}</td>
                         <td>{$row['levelname']}</td>
                            <td>
-							  
-							   {if empty($shopset['leveltype'])}
-						 {if $row['ordermoney']>0}
-						      完成订单金额满 {$row['ordermoney']}元
-							  {else}
-							  不自动升级
-							  {/if} 
-						 {/if}
-			  {if $shopset['leveltype']==1}
-						     {if $row['ordercount']>0}
-						           完成订单数量满 {$row['ordercount']}个
-							    {else}
-							  不自动升级
-							  {/if}
-						 {/if}
+                              
+                               {if empty($shopset['leveltype'])}
+                         {if $row['ordermoney']>0}
+                              完成订单金额满 {$row['ordermoney']}元
+                              {else}
+                              不自动升级
+                              {/if} 
+                         {/if}
+              {if $shopset['leveltype']==1}
+                             {if $row['ordercount']>0}
+                                   完成订单数量满 {$row['ordercount']}个
+                                {else}
+                              不自动升级
+                              {/if}
+                         {/if}
                           </td>                            
                         <td>
                             {ifp 'member.level.add|member.group.view'}

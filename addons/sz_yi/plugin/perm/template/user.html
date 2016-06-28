@@ -15,7 +15,7 @@
                     <div class="col-sm-9 col-xs-12">
                         {ife 'perm.user' $item}
                         <input type="text" name="username" class="form-control" value="{$item['username']}" {if !empty($item)}readonly{/if}/>
-							   		<span class='help-block'>您可以直接输入系统已存在用户，且保证用户密码正确才能添加</span>
+                                       <span class='help-block'>您可以直接输入系统已存在用户，且保证用户密码正确才能添加</span>
                                {else}
                                <div class='form-control-static'>{$item['username']}</div>
                                {/if}
@@ -45,7 +45,7 @@
                                 <button class="btn btn-danger" type="button" onclick="$('#roleid').val('');$('#role').val('');">清除选择</button>
                             </div>
                         </div>
-						<span class='help-block'>如果您选择了角色，则此用户本身就继承了此角色的所有权限</span>
+                        <span class='help-block'>如果您选择了角色，则此用户本身就继承了此角色的所有权限</span>
                         <div id="modal-module-menus1"  class="modal fade" tabindex="-1">
                             <div class="modal-dialog" style='width: 920px;'>
                                 <div class="modal-content">
@@ -289,16 +289,16 @@
 <script language='javascript'>
  
                 function search_roles() {
-		$("#module-menus1").html("正在搜索....")
-		$.get('{php echo $this->createPluginWebUrl('perm/role',array('op'=>'query'));}', {
-			keyword: $.trim($('#search-kwd1').val())
-		}, function(dat){
-			$('#module-menus1').html(dat);
-		});
-	}
-	function select_role(o) {
-		$("#roleid").val(o.id);
-		$("#role").val( o.rolename );
+        $("#module-menus1").html("正在搜索....")
+        $.get('{php echo $this->createPluginWebUrl('perm/role',array('op'=>'query'));}', {
+            keyword: $.trim($('#search-kwd1').val())
+        }, function(dat){
+            $('#module-menus1').html(dat);
+        });
+    }
+    function select_role(o) {
+        $("#roleid").val(o.id);
+        $("#role").val( o.rolename );
                                 var perms = o.perms.split(',');
                                 $(':checkbox')
                                 $(':checkbox').removeAttr('disabled').removeAttr('checked').each(function(){
@@ -319,8 +319,8 @@
                                     }
                                      
                                 });
-		$(".close").click();
-	}
+        $(".close").click();
+    }
     </script>
 {template 'web/_footer'}
  

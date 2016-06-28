@@ -13,12 +13,12 @@ $do = !empty($_GPC['do']) && in_array($do, array('module', 'system')) ? $_GPC['d
 $result = cloud_prepare();
 
 if (is_error($result)) {
-	message($result['message'], '', 'ajax');
+    message($result['message'], '', 'ajax');
 }
 
 if ($do == 'module') {
-	$info = cloud_m_info(trim($_GPC['m']));
-	if (is_error($info) && $info['errno'] == -10) {
-		message($info, '', 'ajax');
-	}
+    $info = cloud_m_info(trim($_GPC['m']));
+    if (is_error($info) && $info['errno'] == -10) {
+        message($info, '', 'ajax');
+    }
 }

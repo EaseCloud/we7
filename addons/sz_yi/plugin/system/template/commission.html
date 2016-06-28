@@ -11,19 +11,19 @@
                 分销关系修改
             </div>
             <div class="panel-body">
-	 <div class="form-group">
+     <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 选择公众号</label>
                     <div class="col-sm-9">
-						<select id='wechatid' name='wechatid' class='form-control' onchange="changeWechat()" >
-							<option value=''>--请选择公众号--</option>
-							{loop $wechats $we}	
-							<option value='{$we['uniacid']}' ><?php echo $we['name'] ?></option>
-							{/loop}
-							 
-						</select>
+                        <select id='wechatid' name='wechatid' class='form-control' onchange="changeWechat()" >
+                            <option value=''>--请选择公众号--</option>
+                            {loop $wechats $we}    
+                            <option value='{$we['uniacid']}' ><?php echo $we['name'] ?></option>
+                            {/loop}
+                             
+                        </select>
                     </div>
                 </div>
-	       <div class="form-group">
+           <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 选择会员</label>
                     <div class="col-sm-4">
                        <input type="hidden" id='mid' name='mid' class="form-control"  />
@@ -38,8 +38,8 @@
                         <span id="memberavatar" class='help-block' style="display:none"><img  style="width:100px;height:100px;border:1px solid #ccc;padding:1px" src=""/></span>
                     </div>
                 </div>
-				
-	 <div class="form-group">
+                
+     <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">选择上级分销商</label>
                     <div class="col-sm-4">
                        <input type="hidden" id='agentid' name='agentid' class="form-control"  />
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             
-			     <div class="form-group">
+                 <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否固定上级</label>
                 <div class="col-sm-9 col-xs-12">
                     
@@ -67,14 +67,14 @@
                     
                 </div>
             </div>
-		 
-				<div class="form-group">
+         
+                <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
                     <div class="col-sm-9">
-						<input id="btn_submit" type="submit" name='submit'  value="保存" class="btn btn-primary" onsubmit="return formcheck()"/>
-						<input type="hidden" name="token" value="{$_W['token']}" />
+                        <input id="btn_submit" type="submit" name='submit'  value="保存" class="btn btn-primary" onsubmit="return formcheck()"/>
+                        <input type="hidden" name="token" value="{$_W['token']}" />
                     </div>
-                </div>	
+                </div>    
             </div>
         </div>
 
@@ -103,84 +103,84 @@
  var currentTag = "";
  var oldwechatid = 0;
  function changeWechat(){
-	 $('#mid').val('');$('#member').val('');$('#memberavatar').hide();
-	 $('#agentid').val('');$('#agent').val('');$('#agentavatar').hide();
+     $('#mid').val('');$('#member').val('');$('#memberavatar').hide();
+     $('#agentid').val('');$('#agent').val('');$('#agentavatar').hide();
  }
  function selectMember(tag){
-	 currentTag = tag;
-	 if( tag=='agent'){
-		 $('#modalTitle').html("选择分销商");
-	 }else{
-		 $('#modalTitle').html("选择会员");
-	 }
-	 if($('#wechatid').isEmpty()){
-		 alert('请选择公众号!');
-		 return;
-	 }
-	 if(oldwechatid!=$('#wechatid').val()){
-		$("#module-menus-notice").html('');
-	}
-	oldwechatid =$('#wechatid').val();
-	 $("#modal-module-menus-notice").modal();
+     currentTag = tag;
+     if( tag=='agent'){
+         $('#modalTitle').html("选择分销商");
+     }else{
+         $('#modalTitle').html("选择会员");
+     }
+     if($('#wechatid').isEmpty()){
+         alert('请选择公众号!');
+         return;
+     }
+     if(oldwechatid!=$('#wechatid').val()){
+        $("#module-menus-notice").html('');
+    }
+    oldwechatid =$('#wechatid').val();
+     $("#modal-module-menus-notice").modal();
  }
  function formcheck(){
-	 if($('#wechatid').isEmpty()){
-		 alert('请选择公众号!');
-		 return false;
-	 }
-	 if($('#mid').isEmpty()){
-		 alert('请选择会员!');
-		 return false;
-	 }
-	 if($('#mid').val()==$('#agentid').val()){
-		 alert('不能选择相同的会员!');
-		 return false;
-	 }
-	 return true;
+     if($('#wechatid').isEmpty()){
+         alert('请选择公众号!');
+         return false;
+     }
+     if($('#mid').isEmpty()){
+         alert('请选择会员!');
+         return false;
+     }
+     if($('#mid').val()==$('#agentid').val()){
+         alert('不能选择相同的会员!');
+         return false;
+     }
+     return true;
  }
          function search_members() {
              if( $.trim($('#search-kwd-notice').val())==''){
                  Tip.focus('#search-kwd-notice','请输入关键词');
                  return;
              }
-	   $("#module-menus-notice").html("正在搜索....");
-	   var url = "",data = {};
-	   if(currentTag=='agent'){
-		url =    "{php echo $this->createPluginWebUrl('commission/agent')}";
-		data  = {keyword: $.trim($('#search-kwd-notice').val()),'op':'query','wechatid': $('#wechatid').val()}
-	   }else{
-		   url =    "{php echo $this->createWebUrl('member/query')}";
-		data  = {keyword: $.trim($('#search-kwd-notice').val()),'op':'query','wechatid': $('#wechatid').val()}
-	   }
-	   $.get(url, data, function(dat){
-		   $('#module-menus-notice').html(dat);
-	    });
-	}
-	function select_member(o) {
-		if( currentTag=='agent'){
-			$("#agentid").val(o.id);
-				  $("#agentavatar").show();
-				  $("#agentavatar").find('img').attr('src',o.avatar);
-			$("#agent").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
+       $("#module-menus-notice").html("正在搜索....");
+       var url = "",data = {};
+       if(currentTag=='agent'){
+        url =    "{php echo $this->createPluginWebUrl('commission/agent')}";
+        data  = {keyword: $.trim($('#search-kwd-notice').val()),'op':'query','wechatid': $('#wechatid').val()}
+       }else{
+           url =    "{php echo $this->createWebUrl('member/query')}";
+        data  = {keyword: $.trim($('#search-kwd-notice').val()),'op':'query','wechatid': $('#wechatid').val()}
+       }
+       $.get(url, data, function(dat){
+           $('#module-menus-notice').html(dat);
+        });
+    }
+    function select_member(o) {
+        if( currentTag=='agent'){
+            $("#agentid").val(o.id);
+                  $("#agentavatar").show();
+                  $("#agentavatar").find('img').attr('src',o.avatar);
+            $("#agent").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
 
-	 }
-	 else{
-			$("#mid").val(o.id);
-				  $("#memberavatar").show();
-				  $("#memberavatar").find('img').attr('src',o.avatar);
-			$("#member").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
-	 }
-	 $("#modal-module-menus-notice .close").click();
-	}
+     }
+     else{
+            $("#mid").val(o.id);
+                  $("#memberavatar").show();
+                  $("#memberavatar").find('img').attr('src',o.avatar);
+            $("#member").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
+     }
+     $("#modal-module-menus-notice .close").click();
+    }
  
  $(function () {
-		$('#wechatid').select2({
-			search: true,
-			placeholder: "请选择公众号",
-			allowClear: true
-		});
-		 
-	})
+        $('#wechatid').select2({
+            search: true,
+            placeholder: "请选择公众号",
+            allowClear: true
+        });
+         
+    })
 </script>
 
 {template 'web/_footer'}

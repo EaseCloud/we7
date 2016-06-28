@@ -61,99 +61,99 @@ i.i22{ width:22px; height:22px; border-radius:3px; margin-right:6px; color:#fff;
 <div id="container" style="width: 1200px;margin: 120px auto 0;padding-left:400px"></div>
 <script id="member_center" type="text/html">
     <div class="user_bar">
-		<a class="top_nav fl" href="{php echo $this->createMobileUrl('member/notice')}"><i class="iconfont icon-mark"></i></a>
-		<a class="top_nav fr" href="{php echo $this->createMobileUrl('member/info')}"><i class="iconfont icon-shezhi"></i></a>
-	</div>
-	
-	<div class="user clear_in">
-		<div class="user_face fl"><img src="<%member.avatar%>" /></div>
-		<div class="user_info fl">
-			<div class="clear_in"><div class="user_name"><%member.nickname%></div><span class="user_level"><%level.levelname%></span></div>
-			<div class="user_infos">当前账户余额：<%member.credit2%>元</div>
-		</div>
-		<div class="more fr"><a href="{php echo $this->createMobileUrl('member/info')}"><i class="icon-right iconfont" style="color:#ffcabb; font-size:40px; top:15px;"></i></a></div>
-	</div>
-	
-	<div class="user_warp">
-		<div class="user_tit"><a href="{php echo $this->createMobileUrl('order')}"><i class="icon-form iconfont i22"></i>我的订单<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	<div class="order_list clear_in">
-		<ul>
-			<li>
-				<a href="{php echo $this->createMobileUrl('order',array('status'=>0))}">
-				<i class="icon-pay iconfont i20"><%if order.status0>0%><span><%order.status0%></span><%/if%></i><p class="">待付款</p></a>
-			</li>
-			<li>
-				<a href="{php echo $this->createMobileUrl('order',array('status'=>1))}">
-				<i class="icon-send iconfont i20"><%if order.status1>0%><span><%order.status1%></span><%/if%></i><p class="">待发货</p></a>
-			</li>
-			<li>
-				<a href="{php echo $this->createMobileUrl('order',array('status'=>2))}">
-				<i class="icon-deliver iconfont i20"><%if order.status2>0%><span><%order.status2%></span><%/if%></i><p class="">待收货</p></a>
-			</li>
-			<li>
-				<a href="{php echo $this->createMobileUrl('order',array('status'=>4))}">
-				<i class="icon-refund iconfont i20"><%if order.status4>0%><span><%order.status4%></span><%/if%></i><p class="">退款/售后</p></a>
-			</li>
-		</ul>
-	</div>
-	
-	<div class="user_warp">
-		<div class="user_tit" style="margin-top:12px;"><a href="{php echo $this->createMobileUrl('member/log')}"><i class="icon-licaishouyi iconfont i22"></i>我的钱包<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	<div class="money_list clear_in">
-		<ul>
-			<li>
-				<a href="javascript:;">
-					<i class="icon-recharge iconfont"></i><span class="txt">余额</span><span class="num"><%member.credit2%></span>
-				</a>
-			</li>
-			<li>
-				<a href="javascript:;">
-					<i class="icon-brand iconfont"></i><span class="txt">积分</span><span class="num"><%member.credit1%></span>
-				</a>
-			</li>
-			<li class="money_cz">
-				{if isset($set['trade']) && $set['trade']['withdraw']==1}<a href="javascript:;" id="btnwithdraw">提现</a>{/if}
-			</li>
-		</ul>
-	</div>
-	{if $hascoupon}
-	{if $hascouponcenter}
-	<div class="user_warp">
-		<div class="user_tit"><a href="{php echo $this->createPluginMobileUrl('coupon')}"><i class="icon-fuwuchuanga iconfont i22"></i>领取优惠券<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	{/if}
-	<div class="user_warp" style="border-bottom:1px solid #e4e4e4;">
-		<div class="user_tit" style="border:none;"><a href="{php echo $this->createPluginMobileUrl('coupon/my')}"><i class="icon-sponsor iconfont i22"></i>我的优惠券<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	{/if}
-	
-	<div class="user_warp">
-		<div class="user_tit" style="margin-top:12px;"><a href="{php echo $this->createMobileUrl('shop/favorite')}"><i class="icon-collect iconfont i22"></i>我的喜欢<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	<div class="user_warp">
-		<div class="user_tit"><a href="{php echo $this->createMobileUrl('shop/address')}"><i class="icon-location iconfont i22"></i>收货地址<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	<div class="user_warp">
-		<div class="user_tit"><a href="{php echo $this->createMobileUrl('shop/cart')}"><i class="iconfont icon-cart i22"></i>我的购物车<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	<div class="user_warp">
-		<div class="user_tit1"><a href="{php echo $this->createMobileUrl('shop/history')}"><i class="iconfont icon-footprint i22"></i>浏览足迹<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	
-	<div class="user_warp">
-		<div class="user_tit" style="margin-top:12px;"><a href="{php echo $this->createMobileUrl('new/help')}"><i class="iconfont icon-question i22"></i>客服与帮助<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	<div class="user_warp">
-		<div class="user_tit"><a href="{php echo $this->createMobileUrl('member/notice')}"><i class="iconfont icon-notice i22"></i>消息提醒设置<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	<div class="user_warp">
-		<div class="user_tit"><a href="new/joof"><i class="iconfont icon-present i22"></i>积分抽奖<div class="fr user_titr">签到得海量积分噢！<i class="icon-right iconfont"></i></div></a></div>
-	</div>
-	<!--<div class="user_warp">
-		<div class="user_tit1"><a href="new/honb"><i class="iconfont icon-redpacket i22"></i>现金红包天天送<div class="fr user_titr">好友合体一起抢！<i class="icon-right iconfont"></i></div></a></div>
-	</div>-->
+        <a class="top_nav fl" href="{php echo $this->createMobileUrl('member/notice')}"><i class="iconfont icon-mark"></i></a>
+        <a class="top_nav fr" href="{php echo $this->createMobileUrl('member/info')}"><i class="iconfont icon-shezhi"></i></a>
+    </div>
+    
+    <div class="user clear_in">
+        <div class="user_face fl"><img src="<%member.avatar%>" /></div>
+        <div class="user_info fl">
+            <div class="clear_in"><div class="user_name"><%member.nickname%></div><span class="user_level"><%level.levelname%></span></div>
+            <div class="user_infos">当前账户余额：<%member.credit2%>元</div>
+        </div>
+        <div class="more fr"><a href="{php echo $this->createMobileUrl('member/info')}"><i class="icon-right iconfont" style="color:#ffcabb; font-size:40px; top:15px;"></i></a></div>
+    </div>
+    
+    <div class="user_warp">
+        <div class="user_tit"><a href="{php echo $this->createMobileUrl('order')}"><i class="icon-form iconfont i22"></i>我的订单<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    <div class="order_list clear_in">
+        <ul>
+            <li>
+                <a href="{php echo $this->createMobileUrl('order',array('status'=>0))}">
+                <i class="icon-pay iconfont i20"><%if order.status0>0%><span><%order.status0%></span><%/if%></i><p class="">待付款</p></a>
+            </li>
+            <li>
+                <a href="{php echo $this->createMobileUrl('order',array('status'=>1))}">
+                <i class="icon-send iconfont i20"><%if order.status1>0%><span><%order.status1%></span><%/if%></i><p class="">待发货</p></a>
+            </li>
+            <li>
+                <a href="{php echo $this->createMobileUrl('order',array('status'=>2))}">
+                <i class="icon-deliver iconfont i20"><%if order.status2>0%><span><%order.status2%></span><%/if%></i><p class="">待收货</p></a>
+            </li>
+            <li>
+                <a href="{php echo $this->createMobileUrl('order',array('status'=>4))}">
+                <i class="icon-refund iconfont i20"><%if order.status4>0%><span><%order.status4%></span><%/if%></i><p class="">退款/售后</p></a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="user_warp">
+        <div class="user_tit" style="margin-top:12px;"><a href="{php echo $this->createMobileUrl('member/log')}"><i class="icon-licaishouyi iconfont i22"></i>我的钱包<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    <div class="money_list clear_in">
+        <ul>
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-recharge iconfont"></i><span class="txt">余额</span><span class="num"><%member.credit2%></span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-brand iconfont"></i><span class="txt">积分</span><span class="num"><%member.credit1%></span>
+                </a>
+            </li>
+            <li class="money_cz">
+                {if isset($set['trade']) && $set['trade']['withdraw']==1}<a href="javascript:;" id="btnwithdraw">提现</a>{/if}
+            </li>
+        </ul>
+    </div>
+    {if $hascoupon}
+    {if $hascouponcenter}
+    <div class="user_warp">
+        <div class="user_tit"><a href="{php echo $this->createPluginMobileUrl('coupon')}"><i class="icon-fuwuchuanga iconfont i22"></i>领取优惠券<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    {/if}
+    <div class="user_warp" style="border-bottom:1px solid #e4e4e4;">
+        <div class="user_tit" style="border:none;"><a href="{php echo $this->createPluginMobileUrl('coupon/my')}"><i class="icon-sponsor iconfont i22"></i>我的优惠券<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    {/if}
+    
+    <div class="user_warp">
+        <div class="user_tit" style="margin-top:12px;"><a href="{php echo $this->createMobileUrl('shop/favorite')}"><i class="icon-collect iconfont i22"></i>我的喜欢<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    <div class="user_warp">
+        <div class="user_tit"><a href="{php echo $this->createMobileUrl('shop/address')}"><i class="icon-location iconfont i22"></i>收货地址<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    <div class="user_warp">
+        <div class="user_tit"><a href="{php echo $this->createMobileUrl('shop/cart')}"><i class="iconfont icon-cart i22"></i>我的购物车<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    <div class="user_warp">
+        <div class="user_tit1"><a href="{php echo $this->createMobileUrl('shop/history')}"><i class="iconfont icon-footprint i22"></i>浏览足迹<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    
+    <div class="user_warp">
+        <div class="user_tit" style="margin-top:12px;"><a href="{php echo $this->createMobileUrl('new/help')}"><i class="iconfont icon-question i22"></i>客服与帮助<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    <div class="user_warp">
+        <div class="user_tit"><a href="{php echo $this->createMobileUrl('member/notice')}"><i class="iconfont icon-notice i22"></i>消息提醒设置<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    <div class="user_warp">
+        <div class="user_tit"><a href="new/joof"><i class="iconfont icon-present i22"></i>积分抽奖<div class="fr user_titr">签到得海量积分噢！<i class="icon-right iconfont"></i></div></a></div>
+    </div>
+    <!--<div class="user_warp">
+        <div class="user_tit1"><a href="new/honb"><i class="iconfont icon-redpacket i22"></i>现金红包天天送<div class="fr user_titr">好友合体一起抢！<i class="icon-right iconfont"></i></div></a></div>
+    </div>-->
 </script>
 <script language="javascript">
     require(['tpl', 'core'], function(tpl, core) {

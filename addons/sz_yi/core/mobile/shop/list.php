@@ -84,24 +84,24 @@ if (intval($_GPC['page']) <= 1) {
     if (!empty($_GPC['tcate'])) {
         $parent_category1 = pdo_fetch('select id,parentid,name,level,thumb from ' . tablename('sz_yi_category') . " \n            where id=:id and uniacid=:uniacid limit 1", array(':id' => $parent_category['parentid'], ':uniacid' => $_W['uniacid']));
         $category = pdo_fetchall('select id,name,level,thumb from ' . tablename('sz_yi_category') . " 
-		            where parentid=:parentid 
-		            and enabled=1 and uniacid=:uniacid order by level asc, isrecommand desc, displayorder DESC", array(':parentid' => $parent_category['id'], ':uniacid' => $_W['uniacid']));
+                    where parentid=:parentid 
+                    and enabled=1 and uniacid=:uniacid order by level asc, isrecommand desc, displayorder DESC", array(':parentid' => $parent_category['id'], ':uniacid' => $_W['uniacid']));
         $category = array_merge(array(array('id' => 0, 'name' => '全部分类', 'level' => 0), $parent_category1, $parent_category), $category);
     } elseif (!empty($_GPC['ccate'])) {
         if (intval($set['catlevel']) == 3) {
             $category = pdo_fetchall('select id,name,level,thumb from ' . tablename('sz_yi_category') . " where 
-			                (parentid=:parentid or id=:parentid) and enabled=1  and uniacid=:uniacid 
-			                order by level asc, isrecommand desc, displayorder DESC", array(':parentid' => intval($_GPC['ccate']), ':uniacid' => $_W['uniacid']));
+                            (parentid=:parentid or id=:parentid) and enabled=1  and uniacid=:uniacid 
+                            order by level asc, isrecommand desc, displayorder DESC", array(':parentid' => intval($_GPC['ccate']), ':uniacid' => $_W['uniacid']));
         } else {
             $category = pdo_fetchall('select id,name,level,thumb from ' . tablename('sz_yi_category') . " where 
-			                parentid=:parentid and enabled=1 and uniacid=:uniacid order by level asc, 
-			                isrecommand desc, displayorder DESC", array(':parentid' => $parent_category['id'], ':uniacid' => $_W['uniacid']));
+                            parentid=:parentid and enabled=1 and uniacid=:uniacid order by level asc, 
+                            isrecommand desc, displayorder DESC", array(':parentid' => $parent_category['id'], ':uniacid' => $_W['uniacid']));
         }
         $category = array_merge(array(array('id' => 0, 'name' => '全部分类', 'level' => 0), $parent_category), $category);
     } elseif (!empty($_GPC['pcate'])) {
         $category = pdo_fetchall('select id,name,level,thumb from ' . tablename('sz_yi_category') . " 
-		            where (parentid=:parentid or id=:parentid) and enabled=1 and uniacid=:uniacid order by level asc, 
-		            isrecommand desc, displayorder DESC", array(':parentid' => intval($_GPC['pcate']), ':uniacid' => $_W['uniacid']));
+                    where (parentid=:parentid or id=:parentid) and enabled=1 and uniacid=:uniacid order by level asc, 
+                    isrecommand desc, displayorder DESC", array(':parentid' => intval($_GPC['pcate']), ':uniacid' => $_W['uniacid']));
         $category = array_merge(array(array('id' => 0, 'name' => '全部分类', 'level' => 0)), $category);
     } else {
         $category = pdo_fetchall('select id,name,level,thumb from ' . tablename('sz_yi_category') . " \n            where parentid=0 and enabled=1 and uniacid=:uniacid order by displayorder DESC", array(':uniacid' => $_W['uniacid']));

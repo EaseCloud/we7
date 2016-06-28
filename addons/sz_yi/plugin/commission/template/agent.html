@@ -190,8 +190,8 @@
                     <div class="btn-group btn-group-sm">
                         <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="javascript:;">操作 <span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-menu-left" role="menu" style='z-index: 99999'>
-                            {ifp 'member.member.view'}<li><a href="{php echo $this->createWebUrl('member',array('op'=>'detail', 'id' => $row['id']));}" title='会员信息'><i class='fa fa-user'></i> 会员信息</a></li>	{/if}
-                            {ifp 'commission.agent.view'}<li><a href="{php echo $this->createPluginWebUrl('commission/agent/detail',array('id' => $row['id']));}" title='详细信息'><i class='fa fa-edit'></i> 详细信息</a>	</li>	{/if}
+                            {ifp 'member.member.view'}<li><a href="{php echo $this->createWebUrl('member',array('op'=>'detail', 'id' => $row['id']));}" title='会员信息'><i class='fa fa-user'></i> 会员信息</a></li>    {/if}
+                            {ifp 'commission.agent.view'}<li><a href="{php echo $this->createPluginWebUrl('commission/agent/detail',array('id' => $row['id']));}" title='详细信息'><i class='fa fa-edit'></i> 详细信息</a>    </li>    {/if}
                             {ifp 'commission.agent.order'}<li><a  href="{php echo $this->createWebUrl('order',array('op'=>'display','agentid' => $row['id']));}" title='推广订单'><i class='fa fa-list'></i> 推广订单</a></li>{/if}
                             {ifp 'commission.agent.user'}<li><a  href="{php echo $this->createPluginWebUrl('commission/agent/user',array('id' => $row['id']));}"  title='推广下线'><i class='fa fa-users'></i> 推广下线</a></li>{/if}
                             {ifp 'commission.agent.agentblack'}

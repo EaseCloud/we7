@@ -52,9 +52,9 @@ if (is_error($qr)) {
 $img     = $this->model->createPoster($poster, $member, $qr);
 $mediaid = $img['mediaid'];
 if (!empty($mediaid)) {
-	m('message')->sendImage($openid, $mediaid);
+    m('message')->sendImage($openid, $mediaid);
 } else {
-	$oktext = '<a href=\'' . $img['img'] . '\'>点击查看您的专属海报</a>';
-	m('message')->sendCustomNotice($openid, $oktext);
+    $oktext = '<a href=\'' . $img['img'] . '\'>点击查看您的专属海报</a>';
+    m('message')->sendCustomNotice($openid, $oktext);
 }
 exit;

@@ -367,7 +367,7 @@
             <input type="text" name="weight" id="weight" class="form-control" value="{$item['weight']}" />
             <span class="input-group-addon">克</span>
         </div>
-		<div class='help-block'>商品重量设置空或0，则为包邮，如启用多规格，多规格内也需进行设置</div>
+        <div class='help-block'>商品重量设置空或0，则为包邮，如启用多规格，多规格内也需进行设置</div>
         {else}
          <div class='form-control-static'>{$item['weight']} 克</div>
         {/if}
@@ -416,7 +416,7 @@
             <span class="input-group-addon">件</span>
 
         </div>
-			   <span class="help-block">用户单次购买此商品数量限制</span>
+               <span class="help-block">用户单次购买此商品数量限制</span>
                     {else}
         <div class='form-control-static'>{$item['maxbuy']} 件</div>
         {/if}
@@ -431,7 +431,7 @@
             <input type="text" name="usermaxbuy" class="form-control" value="{$item['usermaxbuy']}" />
             <span class="input-group-addon">件</span>
         </div>
-			<span class="help-block">用户购买过的此商品数量限制</span>
+            <span class="help-block">用户购买过的此商品数量限制</span>
         {else}
         <div class='form-control-static'>{$item['usermaxbuy']} 件</div>
         {/if}
@@ -446,7 +446,7 @@
             <input type="text" name="sales" id="sales" class="form-control" value="{$item['sales']}" />
             <span class="input-group-addon">件</span>
         </div>
-			    <span class="help-block">物品虚拟出售数，会员下单此数据就增加, 无论是否支付</span>
+                <span class="help-block">物品虚拟出售数，会员下单此数据就增加, 无论是否支付</span>
             {else}
         <div class='form-control-static'>{$item['sales']} 件</div>
         {/if}
@@ -461,8 +461,8 @@
             <span class="input-group-addon">分</span>
         </div>
         <p class="help-block">会员购物赠送的积分, 如果不填写或填写0，则默认为不赠送积分，如果带%则为按成交价格的比例计算积分</p>
-		<p class="help-block">如: 购买2件，设置10 积分, 不管成交价格是多少， 则购买后获得20积分</p>
-		<p class="help-block">如: 购买2件，设置10%积分, 成交价格2 * 200= 400， 则购买后获得 40 积分（400*10%）</p>
+        <p class="help-block">如: 购买2件，设置10 积分, 不管成交价格是多少， 则购买后获得20积分</p>
+        <p class="help-block">如: 购买2件，设置10%积分, 成交价格2 * 200= 400， 则购买后获得 40 积分（400*10%）</p>
                {else}
         <div class='form-control-static'>{$item['credit']} 分</div>
         {/if}

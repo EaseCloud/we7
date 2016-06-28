@@ -27,54 +27,54 @@ $entries['clerk']['url'] = url('entry', array('i' => $_W['uniacid'],'do' => 'hom
 $entries['clerk']['url_show'] = murl('entry', array('m' => 'paycenter', 'do' => 'home'), true, true);
 
 if($do != 'module') {
-	$entry = $entries[$do];
-	if($do == 'mc') {
-		$_W['page']['title'] = '个人中心入口设置 - 会员中心访问入口- 会员中心';
-	}
-	if($do == 'clerk') {
-		$_W['page']['title'] = '店员操作入口设置 - 店员操作';
-	}
-	if($do == 'card') {
-		
-		$sql = 'SELECT `status` FROM ' . tablename('mc_card') . " WHERE `uniacid` = :uniacid";
-		$list = pdo_fetch($sql, array(':uniacid' => $_W['uniacid']));
-		if ($list['status'] == 0) {
-			message('会员卡功能未开启', url('mc/card'), 'error');
-		}
-		$_W['page']['title'] = '会员卡入口设置 - 会员中心访问入口- 会员中心';
-	}
+    $entry = $entries[$do];
+    if($do == 'mc') {
+        $_W['page']['title'] = '个人中心入口设置 - 会员中心访问入口- 会员中心';
+    }
+    if($do == 'clerk') {
+        $_W['page']['title'] = '店员操作入口设置 - 店员操作';
+    }
+    if($do == 'card') {
+        
+        $sql = 'SELECT `status` FROM ' . tablename('mc_card') . " WHERE `uniacid` = :uniacid";
+        $list = pdo_fetch($sql, array(':uniacid' => $_W['uniacid']));
+        if ($list['status'] == 0) {
+            message('会员卡功能未开启', url('mc/card'), 'error');
+        }
+        $_W['page']['title'] = '会员卡入口设置 - 会员中心访问入口- 会员中心';
+    }
 } else {
-	$eid = intval($_GPC['eid']);
-	if(empty($eid)) {
-		message('访问错误');
-	}
-	$sql = 'SELECT * FROM ' . tablename('modules_bindings') . ' WHERE `eid`=:eid';
-	$pars = array();
-	$pars[':eid'] = $eid;
-	$entry = pdo_fetch($sql, $pars);
-	if(empty($entry) || $entry['entry'] != 'cover') {
-		message('访问错误');
-	}
-	load()->model('module');
-	$module = module_fetch($entry['module']);
-	if(empty($module)) {
-		message('访问错误');
-	}
-	$entry['url'] = murl('entry', array('do' => $entry['do'], 'm' => $entry['module']));
-	$entry['url_show'] = murl('entry', array('do' => $entry['do'], 'm' => $entry['module']), true, true);
-	$cover['title'] = $entry['title'];
-		define('FRAME', 'ext');
-	$types = module_types();
+    $eid = intval($_GPC['eid']);
+    if(empty($eid)) {
+        message('访问错误');
+    }
+    $sql = 'SELECT * FROM ' . tablename('modules_bindings') . ' WHERE `eid`=:eid';
+    $pars = array();
+    $pars[':eid'] = $eid;
+    $entry = pdo_fetch($sql, $pars);
+    if(empty($entry) || $entry['entry'] != 'cover') {
+        message('访问错误');
+    }
+    load()->model('module');
+    $module = module_fetch($entry['module']);
+    if(empty($module)) {
+        message('访问错误');
+    }
+    $entry['url'] = murl('entry', array('do' => $entry['do'], 'm' => $entry['module']));
+    $entry['url_show'] = murl('entry', array('do' => $entry['do'], 'm' => $entry['module']), true, true);
+    $cover['title'] = $entry['title'];
+        define('FRAME', 'ext');
+    $types = module_types();
 
-	if(!$GLOBALS['ext_type']) {
-		define('ACTIVE_FRAME_URL', url('platform/cover', array('eid' => $entry['eid'])));
-	} else {
-		echo 8;
-		define('ACTIVE_FRAME_URL', url('home/welcome/ext', array('m' => $entry['module'])));
-	}
-	$frames = buildframes(array(FRAME));
-	$frames = $frames[FRAME];
-	}
+    if(!$GLOBALS['ext_type']) {
+        define('ACTIVE_FRAME_URL', url('platform/cover', array('eid' => $entry['eid'])));
+    } else {
+        echo 8;
+        define('ACTIVE_FRAME_URL', url('home/welcome/ext', array('m' => $entry['module'])));
+    }
+    $frames = buildframes(array(FRAME));
+    $frames = $frames[FRAME];
+    }
 
 $sql = "SELECT * FROM " . tablename('cover_reply') . ' WHERE `module` = :module AND `do` = :do AND uniacid = :uniacid';
 $pars = array();
@@ -84,90 +84,90 @@ $pars[':uniacid'] = $_W['uniacid'];
 $cover = pdo_fetch($sql, $pars);
 
 if(!empty($cover)) {
-	$cover['saved'] = true;
-	if(!empty($cover['thumb'])) {
-		$cover['src'] = tomedia($cover['thumb']);
-	}
-	$cover['url_show'] = $entry['url_show'];
-	$reply = reply_single($cover['rid']);
-	$entry['title'] = $cover['title'];
+    $cover['saved'] = true;
+    if(!empty($cover['thumb'])) {
+        $cover['src'] = tomedia($cover['thumb']);
+    }
+    $cover['url_show'] = $entry['url_show'];
+    $reply = reply_single($cover['rid']);
+    $entry['title'] = $cover['title'];
 } else {
-	$cover['title'] = $entry['title'];
-	$cover['url_show'] = $entry['url_show'];
+    $cover['title'] = $entry['title'];
+    $cover['url_show'] = $entry['url_show'];
 }
 if(empty($reply)) {
-	$reply = array();
+    $reply = array();
 }
 
 if (checksubmit('submit')) {
-	if(trim($_GPC['keywords']) == '') {
-		message('必须输入触发关键字.');
-	}
-	
-	$keywords = @json_decode(htmlspecialchars_decode($_GPC['keywords']), true);
-	if(empty($keywords)) {
-		message('必须填写有效的触发关键字.');
-	}
-	$rule = array(
-		'uniacid' => $_W['uniacid'],
-		'name' => $entry['title'],
-		'module' => 'cover', 
-		'status' => intval($_GPC['status']),
-	);
-	if(!empty($_GPC['istop'])) {
-		$rule['displayorder'] = 255;
-	} else {
-		$rule['displayorder'] = range_limit($_GPC['displayorder'], 0, 254);
-	}
-	if (!empty($reply)) {
-		$rid = $reply['id'];
-		$result = pdo_update('rule', $rule, array('id' => $rid));
-	} else {
-		$result = pdo_insert('rule', $rule);
-		$rid = pdo_insertid();
-	}
-	
-	if (!empty($rid)) {
-				$sql = 'DELETE FROM '. tablename('rule_keyword') . ' WHERE `rid`=:rid AND `uniacid`=:uniacid';
-		$pars = array();
-		$pars[':rid'] = $rid;
-		$pars[':uniacid'] = $_W['uniacid'];
-		pdo_query($sql, $pars);
+    if(trim($_GPC['keywords']) == '') {
+        message('必须输入触发关键字.');
+    }
+    
+    $keywords = @json_decode(htmlspecialchars_decode($_GPC['keywords']), true);
+    if(empty($keywords)) {
+        message('必须填写有效的触发关键字.');
+    }
+    $rule = array(
+        'uniacid' => $_W['uniacid'],
+        'name' => $entry['title'],
+        'module' => 'cover', 
+        'status' => intval($_GPC['status']),
+    );
+    if(!empty($_GPC['istop'])) {
+        $rule['displayorder'] = 255;
+    } else {
+        $rule['displayorder'] = range_limit($_GPC['displayorder'], 0, 254);
+    }
+    if (!empty($reply)) {
+        $rid = $reply['id'];
+        $result = pdo_update('rule', $rule, array('id' => $rid));
+    } else {
+        $result = pdo_insert('rule', $rule);
+        $rid = pdo_insertid();
+    }
+    
+    if (!empty($rid)) {
+                $sql = 'DELETE FROM '. tablename('rule_keyword') . ' WHERE `rid`=:rid AND `uniacid`=:uniacid';
+        $pars = array();
+        $pars[':rid'] = $rid;
+        $pars[':uniacid'] = $_W['uniacid'];
+        pdo_query($sql, $pars);
 
-		$rowtpl = array(
-			'rid' => $rid,
-			'uniacid' => $_W['uniacid'],
-			'module' => 'cover',
-			'status' => $rule['status'],
-			'displayorder' => $rule['displayorder'],
-		);
-		foreach($keywords as $kw) {
-			$krow = $rowtpl;
-			$krow['type'] = range_limit($kw['type'], 1, 4);
-			$krow['content'] = $kw['content'];
-			pdo_insert('rule_keyword', $krow);
-		}
-		
-		$entry = array(
-			'uniacid' => $_W['uniacid'],
-			'multiid' => 0,
-			'rid' => $rid,
-			'title' => $_GPC['title'],
-			'description' => $_GPC['description'],
-			'thumb' => $_GPC['thumb'],
-			'url' => $entry['url'],
-			'do' => $entry['do'],
-			'module' => $entry['module'],
-		);
-		if (empty($cover['id'])) {
-			pdo_insert('cover_reply', $entry);
-		} else {
-			pdo_update('cover_reply', $entry, array('id' => $cover['id']));
-		}
-		message('封面保存成功！', 'refresh', 'success');
-	} else {
-		message('封面保存失败, 请联系网站管理员！');
-	}
+        $rowtpl = array(
+            'rid' => $rid,
+            'uniacid' => $_W['uniacid'],
+            'module' => 'cover',
+            'status' => $rule['status'],
+            'displayorder' => $rule['displayorder'],
+        );
+        foreach($keywords as $kw) {
+            $krow = $rowtpl;
+            $krow['type'] = range_limit($kw['type'], 1, 4);
+            $krow['content'] = $kw['content'];
+            pdo_insert('rule_keyword', $krow);
+        }
+        
+        $entry = array(
+            'uniacid' => $_W['uniacid'],
+            'multiid' => 0,
+            'rid' => $rid,
+            'title' => $_GPC['title'],
+            'description' => $_GPC['description'],
+            'thumb' => $_GPC['thumb'],
+            'url' => $entry['url'],
+            'do' => $entry['do'],
+            'module' => $entry['module'],
+        );
+        if (empty($cover['id'])) {
+            pdo_insert('cover_reply', $entry);
+        } else {
+            pdo_update('cover_reply', $entry, array('id' => $cover['id']));
+        }
+        message('封面保存成功！', 'refresh', 'success');
+    } else {
+        message('封面保存失败, 请联系网站管理员！');
+    }
 }
 
 template('platform/cover');

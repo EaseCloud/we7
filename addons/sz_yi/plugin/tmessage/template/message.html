@@ -102,7 +102,7 @@
                     <div class="col-sm-9 col-xs-12">
                         {ife 'tmessage' $list}
                        <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"  />
-	       <input type="hidden" name="token" value="{$_W['token']}" />
+           <input type="hidden" name="token" value="{$_W['token']}" />
                         {/if}
                        <input type="button" name="back" onclick='history.back()' {ifp 'tmessage.add|tmessage.edit'}style='margin-left:10px;'{/if} value="返回列表" class="btn btn-default" />
                     </div>

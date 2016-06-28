@@ -3,33 +3,33 @@
     <label class="col-xs-12 col-sm-3 col-md-2 control-label">快速选择</label>
     <div class="col-sm-9 col-xs-12">
           <select id='selectdetail' class='form-control' onchange="selectDetail()">
-          	<option datas-datas=''>--快速选择--</option>
-          	{loop $details $detail}
-          	<option data-datas='{php echo json_encode($detail)}'>
-          		{$detail['detail_shopname']}
-          	</option>
-          	{/loop}
-          		
+              <option datas-datas=''>--快速选择--</option>
+              {loop $details $detail}
+              <option data-datas='{php echo json_encode($detail)}'>
+                  {$detail['detail_shopname']}
+              </option>
+              {/loop}
+                  
           </select>
     </div>
 </div>
 <script type="text/javascript">
-	function selectDetail(){
-		
-		var json = $('#selectdetail').find("option:selected").data('datas');
-		 
-		
-		$(':input[name=detail_shopname]').val(json.detail_shopname);
-		$(':input[name=detail_totaltitle]').val(json.detail_totaltitle);
-		$(':input[name=detail_btntext1]').val(json.detail_btntext1);
-		$(':input[name=detail_btnurl1]').val(json.detail_btnurl1);
-		$(':input[name=detail_btntext2]').val(json.detail_btntext2);
-		$(':input[name=detail_btnurl2]').val(json.detail_btnurl2);
-		
-		$(':input[name=detail_logo]').val(json.detail_logo);
-		$('.detail-logo img').attr('src', json.detail_logo_url);
-		
-	}
+    function selectDetail(){
+        
+        var json = $('#selectdetail').find("option:selected").data('datas');
+         
+        
+        $(':input[name=detail_shopname]').val(json.detail_shopname);
+        $(':input[name=detail_totaltitle]').val(json.detail_totaltitle);
+        $(':input[name=detail_btntext1]').val(json.detail_btntext1);
+        $(':input[name=detail_btnurl1]').val(json.detail_btnurl1);
+        $(':input[name=detail_btntext2]').val(json.detail_btntext2);
+        $(':input[name=detail_btnurl2]').val(json.detail_btnurl2);
+        
+        $(':input[name=detail_logo]').val(json.detail_logo);
+        $('.detail-logo img').attr('src', json.detail_logo_url);
+        
+    }
 </script>
 {/if}
 

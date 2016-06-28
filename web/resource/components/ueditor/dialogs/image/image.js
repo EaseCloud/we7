@@ -20,7 +20,7 @@
 
     /* 初始化tab标签 */
     function initTabs() {
-		alert('')
+        alert('')
         var tabs = $G('tabhead').children;
         for (var i = 0; i < tabs.length; i++) {
             domUtils.on(tabs[i], "click", function (e) {

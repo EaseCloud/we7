@@ -20,8 +20,8 @@ $uniacid    = $_W['uniacid'];
 $shopset    = set_medias(m('common')->getSysset('shop'), 'catadvimg');
 $commission = p('commission');
 if ($commission) {
-	$shopid = intval($_GPC['shopid']);
-	$shop = set_medias($commission->getShop($openid), array('img', 'logo'));
+    $shopid = intval($_GPC['shopid']);
+    $shop = set_medias($commission->getShop($openid), array('img', 'logo'));
 }
 $this->setHeader();
 include $this->template('shop/category');

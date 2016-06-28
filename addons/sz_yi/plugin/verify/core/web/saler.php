@@ -33,7 +33,7 @@ if ($operation == 'display') {
             'storeid' => intval($_GPC['storeid']),
             'openid' => trim($_GPC['openid']),
             'status' => intval($_GPC['status']),
-	    	'salername' => trim($_GPC['salername'])
+            'salername' => trim($_GPC['salername'])
         );
         $m    = m('member')->getMember($data['openid']);
         if (!empty($id)) {
@@ -43,10 +43,10 @@ if ($operation == 'display') {
             ));
             plog('verify.saler.edit', "编辑核销员 ID: {$id} <br/>核销员信息: ID: {$m['id']} / {$m['openid']}/{$m['nickname']}/{$m['realname']}/{$m['mobile']} ");
         } else {
-			$scount = pdo_fetchcolumn('SELECT count(*) FROM ' . tablename('sz_yi_saler') . ' WHERE openid =:openid and uniacid=:uniacid limit 1', array(':uniacid' => $_W['uniacid'], ':openid' => $data['openid']));
-			if ($scount > 0) {
-				message('此会员已经成为核销员，没法重复添加', '', 'error');
-			}
+            $scount = pdo_fetchcolumn('SELECT count(*) FROM ' . tablename('sz_yi_saler') . ' WHERE openid =:openid and uniacid=:uniacid limit 1', array(':uniacid' => $_W['uniacid'], ':openid' => $data['openid']));
+            if ($scount > 0) {
+                message('此会员已经成为核销员，没法重复添加', '', 'error');
+            }
             pdo_insert('sz_yi_saler', $data);
             $id = pdo_insertid();
             plog('verify.saler.add', "添加核销员 ID: {$id}  <br/>核销员信息: ID: {$m['id']} / {$m['openid']}/{$m['nickname']}/{$m['realname']}/{$m['mobile']} ");
@@ -55,7 +55,7 @@ if ($operation == 'display') {
             'op' => 'display'
         )), 'success');
     }
-	
+    
 } elseif ($operation == 'delete') {
     ca('verify.saler.delete');
     $id   = intval($_GPC['id']);

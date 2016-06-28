@@ -86,9 +86,9 @@ body {margin:0px; background:#f9f9f9; }
             
             $scope.hasCube = function(Item){
              
-            	 var has = false;
+                 var has = false;
                  var row=0,col = 0;
-            	 for(var i=row;i<4;i++){
+                 for(var i=row;i<4;i++){
                     for(var j=col;j<4;j++){
                       if (Item.params.layout[i][j] && !Item.params.layout[i][j].isempty) {
                           has = true;
@@ -112,9 +112,9 @@ body {margin:0px; background:#f9f9f9; }
                      $(this).height($(this).width());    
                  });
                  $('.fe-mod-cube table  tr').each(function(){
-                 	if( $(this).children().length<=0){
-                 		$(this).html('<td></td>');
-                 	}
+                     if( $(this).children().length<=0){
+                         $(this).html('<td></td>');
+                     }
                  });
             });
           

@@ -22,21 +22,21 @@ body{background:#d2e6e9; padding-bottom:63px;}
 .pcenter-main .profile label{color:#555; font-weight:lighter; margin-top:5px;}
 </style>
 <div class="pcenter-main">
-	<div class="head">
-		<a class="ptool" href="{php echo url('mc/profile')}"><i class="fa fa-cog fa-spin"></i></a>
-		<div class="pdetail">
-			<div class="img-circle"><img src="{php echo tomedia($profile['avatar']);}" onerror="this.src='resource/images/heading.jpg'"></div>
-			<div class="pull-left">
-				<span class="name">{if !empty($profile['nickname'])}{$profile['nickname']}{else}<a href="{php echo url('mc/profile')}" style="color:red;">设置昵称</a>{/if}</span>
-				<span class="type"><i class="fa fa-certificate"></i> {$profile['group']['title']}</span>
-				<span class="type"><i class="fa fa-flag-o"></i> 会员UID: {$profile['uid']}</span>
-			</div>
-		</div>
-		<div class="head-nav">
-			<a class="head-nav-list" href="{php echo url('activity/coupon/mine');}">折扣券<span>{$coupons['total']}</span></a>
-			<a class="head-nav-list" href="{php echo url('activity/token/mine');}">代金券<span>{$tokens['total']}</span></a>
-			<a class="head-nav-list" href="{php echo url('mc/bond/credits', array('credittype' => $behavior['activity']));}">{$creditnames[$behavior['activity']]['title']}<span>{$credits[$behavior['activity']]}</span></a>
-			<a class="head-nav-list" href="{php echo url('mc/bond/credits', array('credittype' => $behavior['currency']));}">{$creditnames[$behavior['currency']]['title']}<span>{$credits[$behavior['currency']]}</span></a>
-		</div>
-	</div>
-	<div class="clearfix">
+    <div class="head">
+        <a class="ptool" href="{php echo url('mc/profile')}"><i class="fa fa-cog fa-spin"></i></a>
+        <div class="pdetail">
+            <div class="img-circle"><img src="{php echo tomedia($profile['avatar']);}" onerror="this.src='resource/images/heading.jpg'"></div>
+            <div class="pull-left">
+                <span class="name">{if !empty($profile['nickname'])}{$profile['nickname']}{else}<a href="{php echo url('mc/profile')}" style="color:red;">设置昵称</a>{/if}</span>
+                <span class="type"><i class="fa fa-certificate"></i> {$profile['group']['title']}</span>
+                <span class="type"><i class="fa fa-flag-o"></i> 会员UID: {$profile['uid']}</span>
+            </div>
+        </div>
+        <div class="head-nav">
+            <a class="head-nav-list" href="{php echo url('activity/coupon/mine');}">折扣券<span>{$coupons['total']}</span></a>
+            <a class="head-nav-list" href="{php echo url('activity/token/mine');}">代金券<span>{$tokens['total']}</span></a>
+            <a class="head-nav-list" href="{php echo url('mc/bond/credits', array('credittype' => $behavior['activity']));}">{$creditnames[$behavior['activity']]['title']}<span>{$credits[$behavior['activity']]}</span></a>
+            <a class="head-nav-list" href="{php echo url('mc/bond/credits', array('credittype' => $behavior['currency']));}">{$creditnames[$behavior['currency']]['title']}<span>{$credits[$behavior['currency']]}</span></a>
+        </div>
+    </div>
+    <div class="clearfix">

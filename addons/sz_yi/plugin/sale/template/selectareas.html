@@ -14,7 +14,7 @@
             <div class="modal-body" style='height:280px;;' > 
                 
                 {loop $areas['address']['province'] $value}
-				{if $value['@attributes']['name']=='请选择省份'}{php continue;}{/if}
+                {if $value['@attributes']['name']=='请选择省份'}{php continue;}{/if}
                 <div class='province'>
                      <label class='checkbox-inline' style='margin-left:20px;'>
                          <input type='checkbox' class='cityall' /> {php echo $value['@attributes']['name']}

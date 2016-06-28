@@ -70,69 +70,69 @@
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">升级条件</label>
                     <div class="col-sm-9 col-xs-12">
                         <div class='input-group'>
-							{if $leveltype==0}
-									<span class='input-group-addon'>分销订单金额满</span>
-									<input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
-									<span class='input-group-addon'>元</span>
-							{/if}
-							
-							{if $leveltype==1}
-									<span class='input-group-addon'>一级分销订单金额满</span>
-									<input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
-									<span class='input-group-addon'>元</span>
-							{/if}
+                            {if $leveltype==0}
+                                    <span class='input-group-addon'>分销订单金额满</span>
+                                    <input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
+                                    <span class='input-group-addon'>元</span>
+                            {/if}
+                            
+                            {if $leveltype==1}
+                                    <span class='input-group-addon'>一级分销订单金额满</span>
+                                    <input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
+                                    <span class='input-group-addon'>元</span>
+                            {/if}
 
-							{if $leveltype==2}
-									<span class='input-group-addon'>分销订单数量满</span>
-									<input type="text" name="ordercount" class="form-control" value="{$level['ordercount']}" />
-									<span class='input-group-addon'>个</span>
-							{/if}
-							
-							{if $leveltype==3}
-									<span class='input-group-addon'>一级分销订单数量满</span>
-									<input type="text" name="ordercount" class="form-control" value="{$level['ordercount']}" />
-									<span class='input-group-addon'>个</span>
-							{/if}
-							
-							{if $leveltype==4}
-									<span class='input-group-addon'>自购订单金额满</span>
-									<input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
-									<span class='input-group-addon'>元</span>
-							{/if}
-							
-							{if $leveltype==5}
-									<span class='input-group-addon'>自购订单数量满</span>
-									<input type="text" name="ordercount" class="form-control" value="{$level['ordercount']}" />
-									<span class='input-group-addon'>个</span>
-							{/if}
-							{if $leveltype==6}
-									<span class='input-group-addon'>下级总人数满</span>
-									<input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
-									<span class='input-group-addon'>个（分销商+非分销商）</span>
-							{/if}
-							{if $leveltype==7}
-									<span class='input-group-addon'>一级下级人数满</span>
-									<input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
-									<span class='input-group-addon'>个（分销商+非分销商）</span>
-							{/if}
-							{if $leveltype==8}
-									<span class='input-group-addon'>团队总人数满</span>
-									<input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
-									<span class='input-group-addon'>个（分销商）</span>
-							{/if}
-							{if $leveltype==9}
-									<span class='input-group-addon'>一级团队人数满</span>
-									<input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
-									<span class='input-group-addon'>个（分销商）</span>
-							{/if}
-							 
-							{if $leveltype==10}
-									<span class='input-group-addon'>已提现佣金总金额满</span>
-									<input type="text" name="commissionmoney" class="form-control" value="{$level['commissionmoney']}" />
-									<span class='input-group-addon'>元</span>
-							{/if}
-							
-							
+                            {if $leveltype==2}
+                                    <span class='input-group-addon'>分销订单数量满</span>
+                                    <input type="text" name="ordercount" class="form-control" value="{$level['ordercount']}" />
+                                    <span class='input-group-addon'>个</span>
+                            {/if}
+                            
+                            {if $leveltype==3}
+                                    <span class='input-group-addon'>一级分销订单数量满</span>
+                                    <input type="text" name="ordercount" class="form-control" value="{$level['ordercount']}" />
+                                    <span class='input-group-addon'>个</span>
+                            {/if}
+                            
+                            {if $leveltype==4}
+                                    <span class='input-group-addon'>自购订单金额满</span>
+                                    <input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
+                                    <span class='input-group-addon'>元</span>
+                            {/if}
+                            
+                            {if $leveltype==5}
+                                    <span class='input-group-addon'>自购订单数量满</span>
+                                    <input type="text" name="ordercount" class="form-control" value="{$level['ordercount']}" />
+                                    <span class='input-group-addon'>个</span>
+                            {/if}
+                            {if $leveltype==6}
+                                    <span class='input-group-addon'>下级总人数满</span>
+                                    <input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
+                                    <span class='input-group-addon'>个（分销商+非分销商）</span>
+                            {/if}
+                            {if $leveltype==7}
+                                    <span class='input-group-addon'>一级下级人数满</span>
+                                    <input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
+                                    <span class='input-group-addon'>个（分销商+非分销商）</span>
+                            {/if}
+                            {if $leveltype==8}
+                                    <span class='input-group-addon'>团队总人数满</span>
+                                    <input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
+                                    <span class='input-group-addon'>个（分销商）</span>
+                            {/if}
+                            {if $leveltype==9}
+                                    <span class='input-group-addon'>一级团队人数满</span>
+                                    <input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
+                                    <span class='input-group-addon'>个（分销商）</span>
+                            {/if}
+                             
+                            {if $leveltype==10}
+                                    <span class='input-group-addon'>已提现佣金总金额满</span>
+                                    <input type="text" name="commissionmoney" class="form-control" value="{$level['commissionmoney']}" />
+                                    <span class='input-group-addon'>元</span>
+                            {/if}
+                            
+                            
                         </div>
                         <span class='help-block'>分销商升级条件，不填写默认为不自动升级</span>
                     </div>
@@ -142,9 +142,9 @@
             </div>
         </div>
         <div class="form-group col-sm-12">
-	<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
-	<input type="hidden" name="token" value="{$_W['token']}" />
-	</div>
+    <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+    <input type="hidden" name="token" value="{$_W['token']}" />
+    </div>
     </form>
 </div>
 <script language='javascript'>
@@ -190,21 +190,21 @@
                           {if $this->set['level']>=3}<td>{$row['commission3']}%</td>{/if}
                           {if $this->set['level']>=3}<td>{$row['commission3_person']}</td>{/if}
                           <td>
-						{if $leveltype==0}{if $row['ordermoney']>0}分销订单金额满 {$row['ordermoney']} 元 {else}不自动升级{/if}{/if}
-						{if $leveltype==1}{if $row['ordermoney']>0}一级分销订单金额满 {$row['ordermoney']} 元 {else}不自动升级{/if}{/if}
-						{if $leveltype==2}{if $row['ordercount']>0}分销订单数量满 {$row['ordercount']} 个 {else}不自动升级{/if}{/if}
-						{if $leveltype==3}{if $row['ordercount']>0}一级分销订单数量满 {$row['ordercount']} 个 {else}不自动升级{/if}{/if}
-						{if $leveltype==4}{if $row['ordermoney']>0}自购订单金额满 {$row['ordermoney']} 元 {else}不自动升级{/if}{/if}
-						{if $leveltype==5}{if $row['ordercount']>0}自购订单数量满 {$row['ordercount']} 个 {else}不自动升级{/if}{/if}
-						
-						{if $leveltype==6}{if $row['downcount']>0}下级总人数满 {$row['downcount']} 个（分销商+非分销商） {else}不自动升级{/if}{/if}
-						{if $leveltype==7}{if $row['downcount']>0}一级下级人数满 {$row['downcount']} 个（分销商+非分销商） {else}不自动升级{/if}{/if}
-						
-						{if $leveltype==8}{if $row['downcount']>0}团队总人数满 {$row['downcount']} 个（分销商） {else}不自动升级{/if}{/if}
-						{if $leveltype==9}{if $row['downcount']>0}一级团队人数满 {$row['downcount']} 个（分销商） {else}不自动升级{/if}{/if}
-						
-						 
-						{if $leveltype==10}{if $row['commissionmoney']>0}已提现佣金总金额满 {$row['commissionmoney']} 元{else}不自动升级{/if}{/if}	 
+                        {if $leveltype==0}{if $row['ordermoney']>0}分销订单金额满 {$row['ordermoney']} 元 {else}不自动升级{/if}{/if}
+                        {if $leveltype==1}{if $row['ordermoney']>0}一级分销订单金额满 {$row['ordermoney']} 元 {else}不自动升级{/if}{/if}
+                        {if $leveltype==2}{if $row['ordercount']>0}分销订单数量满 {$row['ordercount']} 个 {else}不自动升级{/if}{/if}
+                        {if $leveltype==3}{if $row['ordercount']>0}一级分销订单数量满 {$row['ordercount']} 个 {else}不自动升级{/if}{/if}
+                        {if $leveltype==4}{if $row['ordermoney']>0}自购订单金额满 {$row['ordermoney']} 元 {else}不自动升级{/if}{/if}
+                        {if $leveltype==5}{if $row['ordercount']>0}自购订单数量满 {$row['ordercount']} 个 {else}不自动升级{/if}{/if}
+                        
+                        {if $leveltype==6}{if $row['downcount']>0}下级总人数满 {$row['downcount']} 个（分销商+非分销商） {else}不自动升级{/if}{/if}
+                        {if $leveltype==7}{if $row['downcount']>0}一级下级人数满 {$row['downcount']} 个（分销商+非分销商） {else}不自动升级{/if}{/if}
+                        
+                        {if $leveltype==8}{if $row['downcount']>0}团队总人数满 {$row['downcount']} 个（分销商） {else}不自动升级{/if}{/if}
+                        {if $leveltype==9}{if $row['downcount']>0}一级团队人数满 {$row['downcount']} 个（分销商） {else}不自动升级{/if}{/if}
+                        
+                         
+                        {if $leveltype==10}{if $row['commissionmoney']>0}已提现佣金总金额满 {$row['commissionmoney']} 元{else}不自动升级{/if}{/if}     
                           </td>
                         <td>{$row['level_credit']}</td>
                         <td>

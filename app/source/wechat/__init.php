@@ -8,7 +8,7 @@ checkauth();
 load()->model('coupon');
 load()->classs('coupon');
 if(empty($_W['acid'])) {
-	message('acid不存在', referer(), 'error');
+    message('acid不存在', referer(), 'error');
 }
 
 

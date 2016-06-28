@@ -3,8 +3,8 @@
     .topmenu ul li a { color:#000}
     .topmenu .dropdown-menu li a { color:#666}
     .topmenu ul li { content:'|'}
-	.splitter { text-align: center;background:#ccc;color:#039702;padding-top:10px; padding-bottom:10px;font-size:12px;}
-	.splitter{background:#fff;}
+    .splitter { text-align: center;background:#ccc;color:#039702;padding-top:10px; padding-bottom:10px;font-size:12px;}
+    .splitter{background:#fff;}
 </style>
 <div class='topmenu'>
     <ul class="nav navbar-nav">
@@ -76,7 +76,7 @@
                 {ifp 'statistics.view.goods_trans'}<li><a href="{php echo $this->createWebUrl('statistics/goods_trans')}">商品销售转化率</a></li>{/if}
                 {ifp 'statistics.view.member_cost'}<li><a href="{php echo $this->createWebUrl('statistics/member_cost')}">会员消费排行</a></li>{/if}
                 {ifp 'statistics.view.member_increase'}<li><a href="{php echo $this->createWebUrl('statistics/member_increase')}">会员增长趋势</a></li>{/if}
-	       {if p('commission')}{ifp 'commission.increase'}<li><a href="{php echo $this->createPluginWebUrl('commission/increase')}">分销商增长趋势</a></li>{/if}{/if}
+           {if p('commission')}{ifp 'commission.increase'}<li><a href="{php echo $this->createPluginWebUrl('commission/increase')}">分销商增长趋势</a></li>{/if}{/if}
             </ul>
         </li>
         {/if}
@@ -112,7 +112,7 @@
                   <li class='splitter'>---以下超级管理员可见---</li>
                   <li><a href="{php echo $this->createPluginWebUrl('perm/setting')}">插件信息设置</a></li>
                   <li><a href="{php echo $this->createPluginWebUrl('perm/plugins')}">公众号插件权限设置</a></li>
-	      		  <li><a href="{php echo $this->createPluginWebUrl('perm/set')}">插件分权开关设置</a></li>
+                    <li><a href="{php echo $this->createPluginWebUrl('perm/set')}">插件分权开关设置</a></li>
                   {/if}
             </ul>
         </li>

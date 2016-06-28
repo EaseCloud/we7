@@ -15,7 +15,7 @@
             <label class="radio radio-inline" style="float: left;">
                 <input type="radio" value="1" name="diyformtype" {if $item['diyformtype']!= 0}checked="true"{/if}> 开启
             </label>
-		 
+         
             <select id="user_diyform" name="diyformid" class="form-control" style="width:167px; float: left;margin-left:10px;">
                 <option value="{$value['id']}" {if $item['diyformid']==0}selected{/if}>--选择自定义表单--</option>
                 {loop $form_list $key $value}

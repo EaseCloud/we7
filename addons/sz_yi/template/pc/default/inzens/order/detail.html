@@ -101,7 +101,7 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
     <div class="ico"><i class="fa fa-file-text-o"></i></div>
     <div class="tips">
          <%if order.status==0 && order.paytype!=3%>等待付款<%/if%>
-	<%if order.paytype==3 && order.status==0%>货到付款，等待发货<%/if%>
+    <%if order.paytype==3 && order.status==0%>货到付款，等待发货<%/if%>
         <%if order.status==1%>买家已付款<%/if%>
         <%if order.status==2 %>卖家已发货<%/if%>
         <%if order.status==3%>交易完成<%/if%>
@@ -240,10 +240,10 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
     <input type="hidden" id="weight" value="<%weight%>" />
     <div class="price">
         <div class="line">商品小计:<span>￥<span class='goodsprice'><%order.goodsprice%></span></span></div>
-        	
+            
         <div class="line">运费:<span>￥<span class='dispatchprice'><%order.olddispatchprice%></span></span></div>
       
-	
+    
         <%if order.discountprice>0%>
         <div class="line">会员折扣:<span>-￥<span class='discountprice'><%order.discountprice%></span></span></div>
         <%/if%>
@@ -260,7 +260,7 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
         <div class="line">运费改价:<span><%if order.changedispatchprice>0%>+<%/if%>￥<span class='changedispatchprice2'><%order.changedispatchprice%></span></span></div>
         <%/if%>
         
-		
+        
         <div class="line">实付费(含运费):<span><span class='dispatchprice' style='color:#ff6600'>￥<%order.price%></span></span></div>
       </div> 
 </div>
@@ -276,8 +276,8 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
      
 <div class="detail_pay">
       <%if order.status==0%>
-	  <%if order.paytype!=3%>
-		<div class="paysub" onclick="location.href ='{php echo $this->createMobileUrl('order/pay')}&orderid=<%order.id%>&openid={$openid}'">付款</div>
+      <%if order.paytype!=3%>
+        <div class="paysub" onclick="location.href ='{php echo $this->createMobileUrl('order/pay')}&orderid=<%order.id%>&openid={$openid}'">付款</div>
            <%/if%>
            <div class="paysub1 order_cancel" style='position:relative;width:63px;'>
                <span style='position:absolute;display:block;width:70px;top:-10px;color:#5f6e8b'>取消订单</span>
@@ -294,9 +294,9 @@ select { width:100px;height:40px;position:absolute;left:0; -webkit-appearance: n
       
       <%if order.status==2 %>
              <div class="paysub order_complete">确认收货</div>
-			 <%if order.expresssn!=''%>
+             <%if order.expresssn!=''%>
              <div class="paysub1 order_express">查看物流</div>
-			 <%/if%>
+             <%/if%>
       <%/if%>
       <%if order.status==3 && order.iscomment==0%>
              <div class="paysub1 order_comment">评价</div>

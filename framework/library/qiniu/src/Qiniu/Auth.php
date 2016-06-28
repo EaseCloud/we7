@@ -123,7 +123,7 @@ final class Auth
         if ($originPolicy === null) {
             return array();
         }
-	    $originPolicy =  is_array($originPolicy) ? $originPolicy : (array)$originPolicy;
+        $originPolicy =  is_array($originPolicy) ? $originPolicy : (array)$originPolicy;
         foreach ($originPolicy as $key => $value) {
             if (in_array((string) $key, self::$deprecatedPolicyFields, true)) {
                 throw new \InvalidArgumentException("{$key} has deprecated");

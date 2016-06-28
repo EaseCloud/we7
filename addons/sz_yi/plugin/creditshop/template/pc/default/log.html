@@ -31,7 +31,7 @@
         <div class="img"><img src="<%log.thumb%>"></div>
         <div class="go" ><i class='fa fa-angle-right'></i></div>
              <div  class="info">
-        	<div class="desc">
+            <div class="desc">
                      
                 <%if log.type==0%>兑换<%else%>抽取<%/if%><%log.title%></div>
        
@@ -48,13 +48,13 @@
                <%log.money%><i class="fa fa-rmb" style=" padding-left:5px;"></i>
             <%/if%><%if log.goodstype==0%>
                 <span style='font-size:12px;'>
-				<%if log.isverify==1 && log.storeid==0%>请选择门店<%/if%>
-	        <%if log.isverify==0 && log.addressid==0%>请选择地址<%/if%>
-		
-				</span>	<%/if%>
+                <%if log.isverify==1 && log.storeid==0%>请选择门店<%/if%>
+            <%if log.isverify==0 && log.addressid==0%>请选择地址<%/if%>
+        
+                </span>    <%/if%>
             </div>
              <div class="result">
-	   <%if log.goodstype==0%>
+       <%if log.goodstype==0%>
                 <%if log.type==0%>
                     <%if log.status==2%>兑奖码: <%log.eno%><%/if%>
                     <%if log.status==3%>已兑换~<%/if%>
@@ -63,10 +63,10 @@
                     <%if log.status==2%>兑奖码: <%log.eno%><%/if%>
                     <%if log.status==3%>已兑换~<%/if%>
                 <%/if%>
-				<%else%>
-				   <%if log.status==1%>未中奖~<%/if%>
+                <%else%>
+                   <%if log.status==1%>未中奖~<%/if%>
                     <%if log.status==3%>优惠券已发放~<%/if%>
-				<%/if%>
+                <%/if%>
             </div>
         </div>
     </div>

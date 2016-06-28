@@ -39,7 +39,7 @@ a{ text-decoration: none;}
 .info_main .line {margin:0 10px; height:40px; border-bottom:1px solid #e8e8e8; line-height:40px; color:#666;}
 .info_main .line2 { height:30px;line-height:30px;}
 .info_main .line  span { color:#f30;}
-	
+    
 .diyform_main .dline {margin:0 10px;; }
 </style>
 
@@ -60,24 +60,24 @@ a{ text-decoration: none;}
 
 <div id='container'></div>
 <script id='tpl_main' type='text/html'>
-	<div class="top">
+    <div class="top">
         <img src="<%if set.regbg!=''%><%set.regbg%><%else%>../addons/sz_yi/plugin/commission/template/mobile/default/static/images/bg.png<%/if%>" />
         </div>
   <%if status==0%>
-	<div class="info_main" style='margin-bottom: 5px;'>
-	         <div class="line line2"  style='border:none' >
-			 欢迎加入<span><%shop_set.name%></span>，请填写申请信息
-		   </div>
-		 <div class="line  line2" style='border:none' >
-			 邀请人：<span><%if agent%><%agent.nickname%><%else%>总店<%/if%></span> (请核对)
-		   </div>
-	</div>
-	
+    <div class="info_main" style='margin-bottom: 5px;'>
+             <div class="line line2"  style='border:none' >
+             欢迎加入<span><%shop_set.name%></span>，请填写申请信息
+           </div>
+         <div class="line  line2" style='border:none' >
+             邀请人：<span><%if agent%><%agent.nickname%><%else%>总店<%/if%></span> (请核对)
+           </div>
+    </div>
+    
    
   {template 'diyform/formfields'}
-	 
+     
   <div class="main">
-	    <div class="sub" id="submit">申请成为{php echo $this->set['texts']['agent']}</div>
+        <div class="sub" id="submit">申请成为{php echo $this->set['texts']['agent']}</div>
   </div>
   <%/if%>
   
@@ -85,30 +85,30 @@ a{ text-decoration: none;}
 <div class="main">
                    
                    <%if status==1%>
-	      <div class="text1">本店累计消费满 <span><%ordercount%></span> 次，
+          <div class="text1">本店累计消费满 <span><%ordercount%></span> 次，
                        才可成为&lt;<%shop_set.name%>&gt;购物中心{php echo $this->set['texts']['agent']}，您已消费 <span><%order%></span> 次，请继续努力！</div>
                   <div class="sub" onclick="location.href='{php echo $this->createMobileUrl('shop/list')}'"><i class='fa fa-shopping-cart'></i> 继续去购物</div>
                    <%/if%>
-				   
+                   
                    <%if status==2%>
                    <div class="text1">本店累计消费满 <span><%moneycount%></span> 元，
                        才可成为&lt;<%shop_set.name%>&gt;购物中心{php echo $this->set['texts']['agent']}，您已消费 <span><%money%></span> 元，请继续努力！</div>
-	          <div class="sub" onclick="location.href='{php echo $this->createMobileUrl('shop/list')}'"><i class='fa fa-shopping-cart'></i> 继续去购物</div>
+              <div class="sub" onclick="location.href='{php echo $this->createMobileUrl('shop/list')}'"><i class='fa fa-shopping-cart'></i> 继续去购物</div>
                    <%/if%>
           <%if status==3%>
                    <div class="text1">本店需购买商品【<%goods.title%>】才可成为&lt;<%shop_set.name%>&gt;购物中心{php echo $this->set['texts']['agent']}，请现在去购买吧！</div>
-	   <div class="sub" onclick="location.href='{php echo $this->createMobileUrl('shop/detail')}&id=<%goods.id%>'"><i class='fa fa-shopping-cart'></i> 现在就去购买</div>
+       <div class="sub" onclick="location.href='{php echo $this->createMobileUrl('shop/detail')}&id=<%goods.id%>'"><i class='fa fa-shopping-cart'></i> 现在就去购买</div>
                    <%/if%>
-				   
+                   
 
         <div class="title">{php echo $this->set['texts']['agent']}特权</div>
-		<div class="vip_main">
-        	<div class="vip">
-            	<div class="ico1"><i class="fa fa-qrcode"></i></div>
+        <div class="vip_main">
+            <div class="vip">
+                <div class="ico1"><i class="fa fa-qrcode"></i></div>
                 <div class="text"><div class="t1">独立微店</div><div class="t2">拥有自己的微店及推广二维码；</div></div>
             </div>
             <div class="vip">
-            	<div class="ico2"><i class="fa fa-cny"></i></div>
+                <div class="ico2"><i class="fa fa-cny"></i></div>
                 <div class="text"><div class="t1">销售拿{php echo $this->set['texts']['commission']}</div><div class="t2">微店卖出商品，您可以获得{php echo $this->set['texts']['commission']}；</div></div>
             </div>
             <div class="vip" style="border-bottom:0px;">{php echo $this->set['texts']['agent']}的商品销售统一由厂家直接收款、直接发货，并提供产品的售后服务，{php echo $this->set['texts']['commission1']}由厂家统一设置。</div>
@@ -149,8 +149,8 @@ a{ text-decoration: none;}
         core.pjson('commission/register',{mid:"{$mid}"},function(json){
             var result = json.result;
  if(result.status==4){
-	     $('#container').html(  tpl('tpl_ok',result) );    
-		 return;
+         $('#container').html(  tpl('tpl_ok',result) );    
+         return;
    }
   
             if(result.member.isagent=='1'){

@@ -7,11 +7,11 @@ if (!empty($_POST)) {
     require '../../../../addons/sz_yi/defines.php';
     require '../../../../addons/sz_yi/core/inc/functions.php';
     require '../../../../addons/sz_yi/core/inc/plugin/plugin_model.php';
-	
+    
     $body          = $_REQUEST['i2'];
     $total_fee     = $_REQUEST['i1'];
     $strs          = explode(':', $body);
-	$out_trade_no = $strs[0];
+    $out_trade_no = $strs[0];
     $_W['uniacid'] = $_W['weid'] = intval($strs[1]);
     $type          = intval($strs[2]);
     if ($type == 0) {
@@ -29,7 +29,7 @@ if (!empty($_POST)) {
         if (!empty($yunpay)) {
             m('common')->paylog("setting: ok\r\n");
            $prestr = $_REQUEST['i1'] . $_REQUEST['i2'].$yunpay['partner'].$yunpay['secret'];
-			$mysgin = md5($prestr);
+            $mysgin = md5($prestr);
             if ($mysgin  == $_REQUEST['i3']) {
                 m('common')->paylog("sign: ok\r\n");
                 if (empty($type)) {

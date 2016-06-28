@@ -36,7 +36,7 @@
 class PHPExcel_DocumentProperties
 {
     /** constants */
-    const PROPERTY_TYPE_BOOLEAN	= 'b';
+    const PROPERTY_TYPE_BOOLEAN    = 'b';
     const PROPERTY_TYPE_INTEGER = 'i';
     const PROPERTY_TYPE_FLOAT   = 'f';
     const PROPERTY_TYPE_DATE    = 'd';
@@ -430,7 +430,7 @@ class PHPExcel_DocumentProperties
      * @param string $propertyName
      * @param mixed $propertyValue
      * @param string $propertyType
-     * 	 'i'    : Integer
+     *      'i'    : Integer
      *   'f' : Floating Point
      *   's' : String
      *   'd' : Date/Time

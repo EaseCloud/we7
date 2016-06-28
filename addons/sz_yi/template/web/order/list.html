@@ -38,21 +38,21 @@
                     </div>
                 </div>
             </div> 
-			<div class='form-group'>
-				  <div class="col-sm-8 col-lg-9 col-xs-12">
+            <div class='form-group'>
+                  <div class="col-sm-8 col-lg-9 col-xs-12">
                     <div class='input-group'>
-				   <div class='input-group-addon'>核销员</div>
+                   <div class='input-group-addon'>核销员</div>
                         <input class="form-control" name="saler" type="text" value="{$_GPC['saler']}" placeholder="核销员昵称/姓名/手机号">
-						<div class='input-group-addon'>核销门店</div>
+                        <div class='input-group-addon'>核销门店</div>
                         <select name="storeid" class="form-control">
                             <option value="" ></option>
-			 {loop $stores $store}
-			<option value="{$store['id']}" {if $_GPC['storeid'] ==$store['id']} selected="selected" {/if}>{$store['storename']}</option>
-			{/loop}
+             {loop $stores $store}
+            <option value="{$store['id']}" {if $_GPC['storeid'] ==$store['id']} selected="selected" {/if}>{$store['storename']}</option>
+            {/loop}
                         </select>
-			</div>
-				  </div>
-			</div>
+            </div>
+                  </div>
+            </div>
             <div class="form-group">
 
                 <div class="col-sm-6">
@@ -121,25 +121,25 @@
                         <b>订单编号:</b>  {$item['ordersn']}     
                         <b>下单时间:  </b>{php echo date('Y-m-d H:i:s', $item['createtime'])}
                          {if !empty($item['refundid'])}<label class='label label-danger'>退款申请</label>{/if} 
-						 {if !empty($agentid)}
-						 <b>分销订单级别:</b> {$item['level']}级 <b>分销佣金:</b> {$item['commission']} 元
-						
-						 {/if}
-						 {if !empty($level)}
-						    
-						      {if empty($agentid)}
-							  {if $item['commission1']!=-1}<b>1级佣金:</b> {$item['commission1']} 元 {/if}
-							  {if $item['commission2']!=-1}<b>2级佣金:</b> {$item['commission2']} 元 {/if}
-							  {if $item['commission3']!=-1}<b>3级佣金:</b> {$item['commission3']} 元 {/if}
-						      {/if}
-						      {if !empty($item['agentid'])}
-							{ifp 'commission.changecommission'}
-							<a href='javascript:;' class='btn btn-default' onclick="commission_change('{$item['id']}')">修改佣金</a>
-							{/if}
-						      {/if}
-						 
-						 {/if}
-						 
+                         {if !empty($agentid)}
+                         <b>分销订单级别:</b> {$item['level']}级 <b>分销佣金:</b> {$item['commission']} 元
+                        
+                         {/if}
+                         {if !empty($level)}
+                            
+                              {if empty($agentid)}
+                              {if $item['commission1']!=-1}<b>1级佣金:</b> {$item['commission1']} 元 {/if}
+                              {if $item['commission2']!=-1}<b>2级佣金:</b> {$item['commission2']} 元 {/if}
+                              {if $item['commission3']!=-1}<b>3级佣金:</b> {$item['commission3']} 元 {/if}
+                              {/if}
+                              {if !empty($item['agentid'])}
+                            {ifp 'commission.changecommission'}
+                            <a href='javascript:;' class='btn btn-default' onclick="commission_change('{$item['id']}')">修改佣金</a>
+                            {/if}
+                              {/if}
+                         
+                         {/if}
+                         
                     <td style='border-bottom:1px solid #ccc;background:#efefef;text-align: center' >
                           {if empty($item['statusvalue'])}
                            {ifp 'order.op.close'}
@@ -150,106 +150,106 @@
                          
                 </tr>
   </table>
-	  <table class='table' style='float:left;border:1px solid #ccc;border-top:none;table-layout: fixed;'>
+      <table class='table' style='float:left;border:1px solid #ccc;border-top:none;table-layout: fixed;'>
 
 
             {loop $item['goods'] $k $g}
                 <tr class='trbody'>
                     <td class="goods_info">
-						 <img src="{php echo tomedia($g['thumb'])}"> 
-					</td>
+                         <img src="{php echo tomedia($g['thumb'])}"> 
+                    </td>
                     <td valign='top'  style='border-left:none;text-align: left;width:400px;'  >
-						{$g['title']}{if !empty($g['optiontitle'])}<br/><span class="label label-primary">{$g['optiontitle']}</span>{/if}
-						<br/>{$g['goodssn']}
-					</td>
+                        {$g['title']}{if !empty($g['optiontitle'])}<br/><span class="label label-primary">{$g['optiontitle']}</span>{/if}
+                        <br/>{$g['goodssn']}
+                    </td>
                     <td style='border-left:none;text-align:left;width:150px'>原价: {php echo number_format( $g['price']/$g['total'],2)} <br />应付: {php echo number_format($g['realprice']/$g['total'],2)}
-		<br/>数量: {$g['total']}			 
-					</td>
+        <br/>数量: {$g['total']}             
+                    </td>
                     
                     {if $k==0}
                     <td rowspan="{php echo count($item['goods'])}" >
-						 {ifp 'member.member.edit'}
-						 <a href="{php echo $this->createWebUrl('member/list',array('op'=>'detail', 'id'=>$item['mid']))}"> {$item['nickname']}</a>
-						 {else}
-							 {$item['nickname']}
-							 {/if}
-							 
-							 <br/>
-						{$item['addressdata']['realname']}<br/>{$item['addressdata']['mobile']}</td>
+                         {ifp 'member.member.edit'}
+                         <a href="{php echo $this->createWebUrl('member/list',array('op'=>'detail', 'id'=>$item['mid']))}"> {$item['nickname']}</a>
+                         {else}
+                             {$item['nickname']}
+                             {/if}
+                             
+                             <br/>
+                        {$item['addressdata']['realname']}<br/>{$item['addressdata']['mobile']}</td>
                     <td rowspan="{php echo count($item['goods'])}"    >
-						 <label class='label label-{$item['css']}'>{$item['paytype']}</label><br/>
-									   {$item['dispatchname']}
-									   {if $item['addressid']!=0 && $item['statusvalue']>=2}<br/>
-									   <button type='button' class='btn btn-default btn-sm' onclick='express_find(this,"{$item['id']}")' >查看物流</button>
-									   {/if}
-					</td>
+                         <label class='label label-{$item['css']}'>{$item['paytype']}</label><br/>
+                                       {$item['dispatchname']}
+                                       {if $item['addressid']!=0 && $item['statusvalue']>=2}<br/>
+                                       <button type='button' class='btn btn-default btn-sm' onclick='express_find(this,"{$item['id']}")' >查看物流</button>
+                                       {/if}
+                    </td>
                     <td  rowspan="{php echo count($item['goods'])}" style='width:200px;'>
-						<table style='width:100%;'>
-							<tr>
-								<td  style='border:none;text-align:right;'>商品小计：</td>
-								<td  style='border:none;text-align:right;;'>￥{php echo number_format( $item['goodsprice'] ,2)}</td>
-							</tr>
-							<tr>
-								<td  style='border:none;text-align:right;'>运费：</td>
-								<td  style='border:none;text-align:right;;'>￥{php echo number_format( $item['olddispatchprice'],2)}</td>
-							</tr>
-							{if $item['discountprice']>0}
-							<tr>
-								<td  style='border:none;text-align:right;'>会员折扣：</td>
-								<td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['discountprice'],2)}</td>
-							</tr>
-							{/if}
-							{if $item['deductprice']>0}
-							<tr>
-								<td  style='border:none;text-align:right;'>积分抵扣：</td>
-								<td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['deductprice'],2)}</td>
-							</tr>
-							{/if}
-							{if $item['deductcredit2']>0}
-							<tr>
-								<td  style='border:none;text-align:right;'>余额抵扣：</td>
-								<td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['deductcredit2'],2)}</td>
-							</tr> 
-							{/if}
-							{if $item['deductenough']>0}
-							<tr>
-								<td  style='border:none;text-align:right;'>满额立减：</td>
-								<td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['deductenough'],2)}</td>
-							</tr>
-							{/if}
-							{if $item['couponprice']>0}
-							<tr>
-								<td  style='border:none;text-align:right;'>优惠券优惠：</td>
-								<td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['couponprice'],2)}</td>
-							</tr>
-							{/if}
-							{if intval($item['changeprice'])!=0}
-							<tr>
-								<td  style='border:none;text-align:right;'>卖家改价：</td>
-								<td  style='border:none;text-align:right;;'><span style="{if 0<$item['changeprice']}color:green{else}color:red{/if}">{if 0<$item['changeprice']}+{else}-{/if}￥{php echo number_format(abs($item['changeprice']),2)}</span></td>
-							</tr>
-						         {/if}
-							{if intval($item['changedispatchprice'])!=0}
-							<tr>
-								<td  style='border:none;text-align:right;'>卖家改运费：</td>
-								<td  style='border:none;text-align:right;;'><span style="{if 0<$item['changedispatchprice']}color:green{else}color:red{/if}">{if 0<$item['changedispatchprice']}+{else}-{/if}￥{php echo abs($item['changedispatchprice'])}</span></td>
-							</tr>
-						         {/if} 
-						<tr>
-								<td style='border:none;text-align:right;'>应收款：</td>
-								<td  style='border:none;text-align:right;color:green;'>￥{php echo number_format($item['price'],2)}</td>
-							</tr>
-									{ifp 'order.op.changeprice'}
-			{if empty($item['statusvalue'])}
-							<tr>
-								<td style='border:none;text-align:right;'></td>
-								<td  style='border:none;text-align:right;color:green;'><a href="javascript:;" class="btn btn-link " onclick="changePrice('{$item['id']}')">修改价格</a></td>
-							</tr>
-							{/if}  {/if}
-						</table>
- 				 
-				 
-	 
+                        <table style='width:100%;'>
+                            <tr>
+                                <td  style='border:none;text-align:right;'>商品小计：</td>
+                                <td  style='border:none;text-align:right;;'>￥{php echo number_format( $item['goodsprice'] ,2)}</td>
+                            </tr>
+                            <tr>
+                                <td  style='border:none;text-align:right;'>运费：</td>
+                                <td  style='border:none;text-align:right;;'>￥{php echo number_format( $item['olddispatchprice'],2)}</td>
+                            </tr>
+                            {if $item['discountprice']>0}
+                            <tr>
+                                <td  style='border:none;text-align:right;'>会员折扣：</td>
+                                <td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['discountprice'],2)}</td>
+                            </tr>
+                            {/if}
+                            {if $item['deductprice']>0}
+                            <tr>
+                                <td  style='border:none;text-align:right;'>积分抵扣：</td>
+                                <td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['deductprice'],2)}</td>
+                            </tr>
+                            {/if}
+                            {if $item['deductcredit2']>0}
+                            <tr>
+                                <td  style='border:none;text-align:right;'>余额抵扣：</td>
+                                <td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['deductcredit2'],2)}</td>
+                            </tr> 
+                            {/if}
+                            {if $item['deductenough']>0}
+                            <tr>
+                                <td  style='border:none;text-align:right;'>满额立减：</td>
+                                <td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['deductenough'],2)}</td>
+                            </tr>
+                            {/if}
+                            {if $item['couponprice']>0}
+                            <tr>
+                                <td  style='border:none;text-align:right;'>优惠券优惠：</td>
+                                <td  style='border:none;text-align:right;;'>-￥{php echo number_format( $item['couponprice'],2)}</td>
+                            </tr>
+                            {/if}
+                            {if intval($item['changeprice'])!=0}
+                            <tr>
+                                <td  style='border:none;text-align:right;'>卖家改价：</td>
+                                <td  style='border:none;text-align:right;;'><span style="{if 0<$item['changeprice']}color:green{else}color:red{/if}">{if 0<$item['changeprice']}+{else}-{/if}￥{php echo number_format(abs($item['changeprice']),2)}</span></td>
+                            </tr>
+                                 {/if}
+                            {if intval($item['changedispatchprice'])!=0}
+                            <tr>
+                                <td  style='border:none;text-align:right;'>卖家改运费：</td>
+                                <td  style='border:none;text-align:right;;'><span style="{if 0<$item['changedispatchprice']}color:green{else}color:red{/if}">{if 0<$item['changedispatchprice']}+{else}-{/if}￥{php echo abs($item['changedispatchprice'])}</span></td>
+                            </tr>
+                                 {/if} 
+                        <tr>
+                                <td style='border:none;text-align:right;'>应收款：</td>
+                                <td  style='border:none;text-align:right;color:green;'>￥{php echo number_format($item['price'],2)}</td>
+                            </tr>
+                                    {ifp 'order.op.changeprice'}
+            {if empty($item['statusvalue'])}
+                            <tr>
+                                <td style='border:none;text-align:right;'></td>
+                                <td  style='border:none;text-align:right;color:green;'><a href="javascript:;" class="btn btn-link " onclick="changePrice('{$item['id']}')">修改价格</a></td>
+                            </tr>
+                            {/if}  {/if}
+                        </table>
+                  
+                 
+     
                     </td>
                     <td   rowspan="{php echo count($item['goods'])}" ><label class='label label-{$item['statuscss']}'>{$item['status']}</label><br />
                     <a href="{php echo $this->createWebUrl('order', array('op' => 'detail', 'id' => $item['id']))}"   >查看详情</a></td>
@@ -353,20 +353,20 @@
 </div>
 {/if}                                                              
 <script language="javascript">
-	function send(btn){
-		var modal =$('#modal-confirmsend');
-		var itemid = $(btn).parent().find('.itemid').val();
-			modal.find(':input[name=id]').val( itemid );
-			var addressdata  = eval('(' +$(btn).parent().find('.addressdata').val()+')');
-			modal.find('.realname').html(addressdata.realname);
-			modal.find('.mobile').html(addressdata.mobile);
-			modal.find('.address').html(addressdata.address);
-	}
+    function send(btn){
+        var modal =$('#modal-confirmsend');
+        var itemid = $(btn).parent().find('.itemid').val();
+            modal.find(':input[name=id]').val( itemid );
+            var addressdata  = eval('(' +$(btn).parent().find('.addressdata').val()+')');
+            modal.find('.realname').html(addressdata.realname);
+            modal.find('.mobile').html(addressdata.mobile);
+            modal.find('.address').html(addressdata.address);
+    }
 </script> 
                     {$pager}
          {template 'web/order/modals'}
-		  {if  p('commission')}
-		  
-		   {template 'commission/changecommission'}
-		  {/if}
+          {if  p('commission')}
+          
+           {template 'commission/changecommission'}
+          {/if}
         {template 'web/_footer'}

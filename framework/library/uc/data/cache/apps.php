@@ -33,7 +33,7 @@ $_CACHE['apps'] = array (
     'extra' => false,
     'tagtemplates' => '<?xml version="1.0" encoding="ISO-8859-1"?>
 <root>
-	<item id="template"><![CDATA[]]></item>
+    <item id="template"><![CDATA[]]></item>
 </root>',
     'allowips' => '',
   ),

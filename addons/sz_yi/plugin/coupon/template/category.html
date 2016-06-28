@@ -3,15 +3,15 @@
  
      <form action="" method="post">
 <div class="panel panel-default">
-	<div class='panel-heading'>
-		分类管理 <small>排序数字越大越靠前显示</small>
-	</div>
+    <div class='panel-heading'>
+        分类管理 <small>排序数字越大越靠前显示</small>
+    </div>
     <div class="panel-body table-responsive">
         <table class="table table-hover">
             <thead class="navbar-inner">
                 <tr>
                     <th style="width:60px;">ID</th>
-		<th style="width:80px;">排序</th>
+        <th style="width:80px;">排序</th>
                     <th>分类名称</th>
                     <th style="width:80px;">显示</th>
                     <th>操作</th>
@@ -21,15 +21,15 @@
                 {loop $list $row}
                 <tr>
                     <td>{$row['id']}</td>
-		  <td>
-		    <input type="hidden" class="form-control" name="catid[]" value="{$row['id']}">
+          <td>
+            <input type="hidden" class="form-control" name="catid[]" value="{$row['id']}">
                         {ifp 'coupon.category.edit'}
                            <input type="text" class="form-control" name="displayorder[]" value="{$row['displayorder']}">
                         {else}
                            {$row['name']}
                         {/if}
                     </td>
-		
+        
                     <td>
                         {ifp 'coupon.category.edit'}
                            <input type="text" class="form-control" name="catname[]" value="{$row['name']}">
@@ -37,12 +37,12 @@
                            {$row['name']}
                         {/if}
                     </td>
-						<td>
-						<input type="hidden" class="form-control" name="status[]" value="{$row['status']}">
-						<label class='checkbox checkbox-inline' onclick="$(this).prev(':hidden').val( $(this).find(':checkbox').get(0).checked?'1':'0' ); ">
-							<input type='checkbox' {if $row['status']==1}checked{/if} />
-						</label>
-					</td>		
+                        <td>
+                        <input type="hidden" class="form-control" name="status[]" value="{$row['status']}">
+                        <label class='checkbox checkbox-inline' onclick="$(this).prev(':hidden').val( $(this).find(':checkbox').get(0).checked?'1':'0' ); ">
+                            <input type='checkbox' {if $row['status']==1}checked{/if} />
+                        </label>
+                    </td>        
                     <td>
                           {ifp 'coupon.category.delete'}<a href="{php echo $this->createPluginWebUrl('coupon/category', array('op' => 'delete', 'id' => $row['id']))}"class="btn btn-default btn-sm" onclick="return confirm('确认删除此分类?')" title="删除"><i class="fa fa-times"></i></a>{/if}
                     </td>
@@ -74,7 +74,7 @@
          html+='<td>';
          html+='<input type="text" class="form-control" name="catname[]" value="">';
          html+='</td>';
-		 
+         
          html+='<td></td></tr>';;
          $('#tbody-items').append(html);
     }

@@ -83,31 +83,31 @@ if (!class_exists('PosterModel')) {
             }
             return $this->createPoster($poster, $member, $qr, false);
         }
-		public function getFixedTicket($poster, $member, $uniaccount)
-		{
-			global $_W, $_GPC;
-			$scene_str = md5("sz_yi_poster:{$_W['uniacid']}:{$member['openid']}:{$poster['id']}");
-			$data = '{"action_info":{"scene":{"scene_str":"' . $scene_str . '"} },"action_name":"QR_LIMIT_STR_SCENE"}';
-			$access_token = $uniaccount->fetch_token();
-			$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
-			$ch1 = curl_init();
-			curl_setopt($ch1, CURLOPT_URL, $url);
-			curl_setopt($ch1, CURLOPT_POST, 1);
-			curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, FALSE);
-			curl_setopt($ch1, CURLOPT_SSL_VERIFYHOST, false);
-			curl_setopt($ch1, CURLOPT_POSTFIELDS, $data);
-			$res = curl_exec($ch1);
-			$content = @json_decode($res, true);
-			if (!is_array($content)) {
-				return false;
-			}
-			if (!empty($content['errcode'])) {
-				return error(-1, $content['errmsg']);
-			}
-			$ticket = $content['ticket'];
-			return array('barcode' => json_decode($data, true), 'ticket' => $ticket);
-		}
+        public function getFixedTicket($poster, $member, $uniaccount)
+        {
+            global $_W, $_GPC;
+            $scene_str = md5("sz_yi_poster:{$_W['uniacid']}:{$member['openid']}:{$poster['id']}");
+            $data = '{"action_info":{"scene":{"scene_str":"' . $scene_str . '"} },"action_name":"QR_LIMIT_STR_SCENE"}';
+            $access_token = $uniaccount->fetch_token();
+            $url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
+            $ch1 = curl_init();
+            curl_setopt($ch1, CURLOPT_URL, $url);
+            curl_setopt($ch1, CURLOPT_POST, 1);
+            curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch1, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($ch1, CURLOPT_POSTFIELDS, $data);
+            $res = curl_exec($ch1);
+            $content = @json_decode($res, true);
+            if (!is_array($content)) {
+                return false;
+            }
+            if (!empty($content['errcode'])) {
+                return error(-1, $content['errmsg']);
+            }
+            $ticket = $content['ticket'];
+            return array('barcode' => json_decode($data, true), 'ticket' => $ticket);
+        }
         public function getQR($poster, $member, $goodsid = 0)
         {
             global $_W, $_GPC;
@@ -308,7 +308,7 @@ if (!class_exists('PosterModel')) {
             $md5  = md5(json_encode(array(
                 'openid' => $member['openid'],
                 'goodsid' => $qr['goodsid'],
-		'bg' => $poster['bg'], 
+        'bg' => $poster['bg'], 
                 'data' => $poster['data'],
                 'version' => 1
             )));
@@ -376,46 +376,46 @@ if (!class_exists('PosterModel')) {
                 'mediaid' => $qr['mediaid']
             );
         }
-		public function uploadImage($img)
-		{
-			load()->func('communication');
-			$account = m('common')->getAccount();
-			$access_token = $account->fetch_token();
-			$url = "http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token={$access_token}&type=image";
-			$curl = curl_init();
-			$data = array('media' => '@' . $img);
-			if (version_compare(PHP_VERSION, '5.5.0', '>')) {
-				$data = array('media' => curl_file_create($img));
-			}
-			curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_POST, 1);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-			$content = @json_decode(curl_exec($curl), true);
-			if (!is_array($content)) {
-				$content = array('media_id' => '');
-			}
-			curl_close($curl);
-			return $content['media_id'];
-		}
+        public function uploadImage($img)
+        {
+            load()->func('communication');
+            $account = m('common')->getAccount();
+            $access_token = $account->fetch_token();
+            $url = "http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token={$access_token}&type=image";
+            $curl = curl_init();
+            $data = array('media' => '@' . $img);
+            if (version_compare(PHP_VERSION, '5.5.0', '>')) {
+                $data = array('media' => curl_file_create($img));
+            }
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            $content = @json_decode(curl_exec($curl), true);
+            if (!is_array($content)) {
+                $content = array('media_id' => '');
+            }
+            curl_close($curl);
+            return $content['media_id'];
+        }
         public function getQRByTicket($ticket = '')
-		{
-			global $_W;
-			if (empty($ticket)) {
-				return false;
-			}
-			$qrs = pdo_fetchall('select * from ' . tablename('sz_yi_poster_qr') . ' where ticket=:ticket and acid=:acid and type=4 limit 1', array(':ticket' => $ticket, ':acid' => $_W['acid']));
-			$count = count($qrs);
-			if ($count <= 0) {
-				return false;
-			}
-			if ($count == 1) {
-				return $qrs[0];
-			}
-			return false;
-		}
+        {
+            global $_W;
+            if (empty($ticket)) {
+                return false;
+            }
+            $qrs = pdo_fetchall('select * from ' . tablename('sz_yi_poster_qr') . ' where ticket=:ticket and acid=:acid and type=4 limit 1', array(':ticket' => $ticket, ':acid' => $_W['acid']));
+            $count = count($qrs);
+            if ($count <= 0) {
+                return false;
+            }
+            if ($count == 1) {
+                return $qrs[0];
+            }
+            return false;
+        }
      
         public function checkMember($openid = '')
         {

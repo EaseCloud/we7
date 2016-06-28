@@ -14,7 +14,7 @@
 
             {else if $v1['data_type'] == 2}
                 <select id='field_data{php echo $i}' name='field_data{php echo $i}' class="select">
-		<option value=''>请选择{$v1['tp_name']}</option>
+        <option value=''>请选择{$v1['tp_name']}</option>
                     {loop $v1['tp_text'] $k2 $v2}
                     <option value="{php echo $v2}" {if $f_data[$k1] == $v2}selected{/if}>{php echo $v2}</option>
                     {/loop}
@@ -22,9 +22,9 @@
 
             {else if $v1['data_type'] == 3}
                 {loop $v1['tp_text'] $k2 $v2}
-				<label class="checkbox-indline">
+                <label class="checkbox-indline">
                 <input type="checkbox" name='field_data{php echo $i}[]' {if is_array($f_data[$k1]) &&  in_array($v2, $f_data[$k1])}checked{/if} value="{php echo $v2}"/> {php echo $v2}
-				</label>
+                </label>
                 {/loop}
 
             {else if $v1['data_type'] == 5}
@@ -45,9 +45,9 @@
                                 {/loop}
                                 {/if}
                             </div>
-		        <div class="plus" style="position:relative;{if !empty($f_data[$k1])}{if $img_max == count($f_data[$k1])}display:none;{/if}{/if}" ><i class="fa fa-plus" style="position:absolute;"></i>
+                <div class="plus" style="position:relative;{if !empty($f_data[$k1])}{if $img_max == count($f_data[$k1])}display:none;{/if}{/if}" ><i class="fa fa-plus" style="position:absolute;"></i>
                                 <input type="file" name='imgFile{php echo $i}' id='imgFile{php echo $i}'  style="position:absolute;width:30px;height:30px;-webkit-tap-highlight-color: transparent;filter:alpha(Opacity=0); opacity: 0;" />
-		        </div>
+                </div>
                         </div>
                
 

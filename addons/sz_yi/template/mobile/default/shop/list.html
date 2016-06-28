@@ -26,7 +26,7 @@
     .main .page .goods .good img {width:100%; }
     .main .page .goods .good .nostock { position: absolute;bottom:20px;right:0px; width:30%;height:30%;z-index: 999;}
     .main .page .goods .good .nostock img { max-width: 50px}
-	.goods-img {
+    .goods-img {
     width: 100%;
     height: 0;
     padding-bottom: 100%;
@@ -129,7 +129,7 @@ div.addinfo{height:18px;}
                 {if !empty($myshop['selectcategory']) || empty($myshop)}
                 <div class="list1">
                   <i class="fa fa-list-ul"><br><span class="f12" style="position:relative; bottom:5px;">分类</span></i>
-				  
+                  
                 </div>
                 {else}
                 <div class="list2" onclick='history.back()'>
@@ -201,14 +201,14 @@ div.addinfo{height:18px;}
      {php $discount=number_format($g['marketprice']*10/$g['productprice'],1)}
     <div class="good" data-goodsid='{$g['id']}' style="position:relative;">
         {if $g['total']<=0}<div class="nostock"><img src="../addons/sz_yi/template/mobile/default/static/images/salez.png"></div>{/if}
-		<div class="goods-img">
+        <div class="goods-img">
         <img src="{$g['thumb']}">
-		</div>
-		<div class="goods-cont">
+        </div>
+        <div class="goods-cont">
         <div class="name">{$g['title']} </div>
         <div class="price">￥{$g['marketprice']} {if $g['productprice']>0 && $g['marketprice']!=$g['productprice']}<span>￥{$g['productprice']}</span>{/if}</div>
         <div class="addinfo" style=" display:none;">{if $discount&&$discount>0}<span class="label-waring">{$discount}折</span>{/if}  <span class="f12 tint-gray">销量：{$g['sales']}</span></div>
-		</div>
+        </div>
     </div>
     {/loop}
 
@@ -224,13 +224,13 @@ div.addinfo{height:18px;}
         <p class='category_item' data-istime='1'  data-name='限时秒杀'><i class="fa fa-clock-o"></i> 限时秒杀</p>
         <p class='category_item' data-isdiscount='1'  data-name='促销宝贝'><i class="fa fa-thumbs-up"></i> 促销宝贝</p>
         <%each category as parent%>
-		<a href="{php echo $this->createMobileUrl('shop/list')}&pcate=<%parent.id%>">
+        <a href="{php echo $this->createMobileUrl('shop/list')}&pcate=<%parent.id%>">
          <p class='category_item' style=" color:#ffff00;"><i class="fa fa-angle-double-right"></i> <%parent.name%></p>
-		 </a>
+         </a>
          <%each parent.children as child%>
 <a href="{php echo $this->createMobileUrl('shop/list')}&pcate=<%parent.id%>&ccate=<%child.id%>">
               <p class='child category_item' style=" color:#fff;"><i class="fa fa-angle-right"></i> <%child.name%></p>
-			  </a>
+              </a>
               {if intval($set['catlevel'])==3}
                <%each child.children as third%>
                    <p class='third category_item' data-tcate='<%third.id%>' data-name='<%third.name%>'><i class="fa fa-angle-right"></i> <%third.name%></p>

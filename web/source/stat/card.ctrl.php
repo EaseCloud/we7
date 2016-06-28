@@ -11,23 +11,23 @@ $starttime = empty($_GPC['time']['start']) ? $now - 30*86400 : strtotime($_GPC['
 $endtime = empty($_GPC['time']['end']) ? TIMESTAMP : strtotime($_GPC['time']['end']) + 86399;
 $num = ($endtime + 1 - $starttime) / 86400;
 if($_W['isajax']) {
-	$stat = array();
-	for($i = 0; $i < $num; $i++) {
-		$time = $i * 86400 + $starttime;
-		$key = date('m-d', $time);
-		$stat[$key] = 0;
-	}
-	$data = pdo_fetchall('SELECT id,createtime FROM ' . tablename('mc_card_members') . ' WHERE uniacid = :uniacid AND createtime >= :starttime AND createtime <= :endtime', array(':uniacid' => $_W['uniacid'], ':starttime' => $starttime, ':endtime' => $endtime));
-	if(!empty($data)) {
-		foreach($data as $da) {
-			$key = date('m-d', $da['createtime']);
-			$stat[$key] += 1;
-		}
-	}
+    $stat = array();
+    for($i = 0; $i < $num; $i++) {
+        $time = $i * 86400 + $starttime;
+        $key = date('m-d', $time);
+        $stat[$key] = 0;
+    }
+    $data = pdo_fetchall('SELECT id,createtime FROM ' . tablename('mc_card_members') . ' WHERE uniacid = :uniacid AND createtime >= :starttime AND createtime <= :endtime', array(':uniacid' => $_W['uniacid'], ':starttime' => $starttime, ':endtime' => $endtime));
+    if(!empty($data)) {
+        foreach($data as $da) {
+            $key = date('m-d', $da['createtime']);
+            $stat[$key] += 1;
+        }
+    }
 
-	$out['label'] = array_keys($stat);
-	$out['datasets'] = array_values($stat);
-	exit(json_encode($out));
+    $out['label'] = array_keys($stat);
+    $out['datasets'] = array_values($stat);
+    exit(json_encode($out));
 }
 
 $total = floatval(pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('mc_card_members') . ' WHERE uniacid = :uniacid', array(':uniacid' => $_W['uniacid'])));

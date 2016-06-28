@@ -254,7 +254,7 @@
                     <div class="col-sm-9 col-xs-12">
                               {ife 'poster' $item}
                           
-							  <textarea name="waittext" class="form-control"  >{$item['waittext']}</textarea>
+                              <textarea name="waittext" class="form-control"  >{$item['waittext']}</textarea>
                        <span class="help-block">例如：您的专属海报正在拼命生成中，请等待片刻...</span>
                             {else}
                             <div class='form-control-static'>{if empty($item['waittext'])}未填写{$item['waittext']}{/if}</div>
@@ -327,7 +327,7 @@
                     <div class="col-sm-9 col-xs-12">
                              {ife 'poster' $item}
                         <input type="text" name="resptitle" class="form-control" value="{$item['resptitle']}" />
-					<span class="help-block">如果设置为空，则不推送内容</span>
+                    <span class="help-block">如果设置为空，则不推送内容</span>
                             {else}
                             <div class='form-control-static'>{$item['resptitle']}</div>
                         {/if}
@@ -383,14 +383,14 @@
                             <div class="input-group-addon">积分</div>
                             <input type="text" name="recmoney" class="form-control" value="{$item['recmoney']}" />
                             <div class="input-group-addon">元现金{if $plugin_coupon} 送优惠券{/if}</div>
-			   {if $plugin_coupon}
-			<div class='input-group-btn recgroup'>
-				<input type='hidden' name='reccouponid' id='reccouponid' value="{$item['reccouponid']}" />
-				<button type='button' onclick='selectCoupon("rec")'  class='btn btn-default' style='border-radius:0'>
-				{if !empty($reccoupon)}[{$reccoupon['id']}]{$reccoupon['couponname']} {$item['reccouponnum']} 张{else}请选择{/if}
-				</button>
-			</div>
-    		        <input type="text" name="reccouponnum" class="form-control" value="{$item['reccouponnum']}" />
+               {if $plugin_coupon}
+            <div class='input-group-btn recgroup'>
+                <input type='hidden' name='reccouponid' id='reccouponid' value="{$item['reccouponid']}" />
+                <button type='button' onclick='selectCoupon("rec")'  class='btn btn-default' style='border-radius:0'>
+                {if !empty($reccoupon)}[{$reccoupon['id']}]{$reccoupon['couponname']} {$item['reccouponnum']} 张{else}请选择{/if}
+                </button>
+            </div>
+                    <input type="text" name="reccouponnum" class="form-control" value="{$item['reccouponnum']}" />
                             <div class="input-group-addon">张</div>
                               {/if}
                         </div>
@@ -398,7 +398,7 @@
                             <div class='form-control-static'>
                                 {if !empty($item['recredit'])}{$item['reccredit']} 积分; {/if}
                                 {if !empty($item['recmoney'])}{$item['recmoney']} 元现金; {/if}
-			  {if !empty($reccoupon)}[{$reccoupon['id']}]{$reccoupon['couponname']} {$item['reccouponnum']} 张{/if}
+              {if !empty($reccoupon)}[{$reccoupon['id']}]{$reccoupon['couponname']} {$item['reccouponnum']} 张{/if}
                             </div>
                             {/if}
                     </div>
@@ -413,23 +413,23 @@
                             <div class="input-group-addon">积分</div>
                             <input type="text" name="submoney" class="form-control" value="{$item['submoney']}" />
                             <div class="input-group-addon">元现金{if $plugin_coupon} 送优惠券{/if}</div>
-			   {if $plugin_coupon}
-			<div class='input-group-btn subgroup'>
-				<input type='hidden' name='subcouponid' id='subcouponid' value="{$item['subcouponid']}" />
-				<button type='button' onclick='selectCoupon("sub")' class='btn btn-default' style='border-radius:0'>
-				{if !empty($subcoupon)}[{$subcoupon['id']}]{$subcoupon['couponname']} {$item['subcouponnum']} 张{else}请选择{/if}
-				</button>
-			</div>
-    		        <input type="text" name="subcouponnum" class="form-control" value="{$item['subcouponnum']}" />
+               {if $plugin_coupon}
+            <div class='input-group-btn subgroup'>
+                <input type='hidden' name='subcouponid' id='subcouponid' value="{$item['subcouponid']}" />
+                <button type='button' onclick='selectCoupon("sub")' class='btn btn-default' style='border-radius:0'>
+                {if !empty($subcoupon)}[{$subcoupon['id']}]{$subcoupon['couponname']} {$item['subcouponnum']} 张{else}请选择{/if}
+                </button>
+            </div>
+                    <input type="text" name="subcouponnum" class="form-control" value="{$item['subcouponnum']}" />
                             <div class="input-group-addon">张</div>
                               {/if}
-							  
+                              
                         </div>
                               {else}
                             <div class='form-control-static'>
                                 {if !empty($item['subcredit'])}{$item['subcredit']} 积分; {/if}
                                 {if !empty($item['submoney'])}{$item['submoney']} 元现金; {/if}
-			   {if !empty($subcoupon)}[{$subcoupon['id']}]{$subcoupon['couponname']} {$item['subcouponnum']} 张{/if}
+               {if !empty($subcoupon)}[{$subcoupon['id']}]{$subcoupon['couponname']} {$item['subcouponnum']} 张{/if}
                             </div>
                             {/if}
                     </div>
@@ -520,7 +520,7 @@
                     </div>
                 </div> 
             </div>
-			{if p('commission')}
+            {if p('commission')}
             <div class="panel-heading type4" style="{if $item['type']!=4}display:none{/if}">
                 分销设置（只适用于推荐人是分销商的情况，才能发展下线）
             </div>
@@ -562,7 +562,7 @@
                     
                     
             </div>
-			{/if}
+            {/if}
             <div class="panel-body">
                        
             <div class="form-group">
@@ -602,8 +602,8 @@
 
       </div>
 </div>
-				{/if}		  
-				
+                {/if}          
+                
 <script language='javascript'>
     $('form').submit(function(){
         if($(':input[name=title]').isEmpty()){
@@ -833,7 +833,7 @@
             bgtimer = setInterval(function(){
                  var bg = $(':input[name=bg]').val();
                  if(oldbg!=bg){
-                 	  bg = getImgUrl(bg);
+                       bg = getImgUrl(bg);
                        
                       $('#poster .bg').remove();
                       var bgh = $("<img src='" + bg + "' class='bg' />");
@@ -892,13 +892,13 @@
          })
         
     })
-	
-		{if $plugin_coupon}
-		var currentCouponType = null;
-		function selectCoupon(type){
-			currentCouponType = type;
-			$('#modal-module-menus-coupon').modal();
-		}
+    
+        {if $plugin_coupon}
+        var currentCouponType = null;
+        function selectCoupon(type){
+            currentCouponType = type;
+            $('#modal-module-menus-coupon').modal();
+        }
    function search_coupons() {
 
         $("#module-menus-coupon").html("正在搜索....")
@@ -910,14 +910,14 @@
     }
     function select_coupon(o) {
 
-		
+        
          $(":input[name=" + currentCouponType + "couponid]").val(o.id);
          $("."+currentCouponType + "group").find('button').html( "[" + o.id + "]" + o.couponname );
          $("#modal-module-menus-coupon .close").click();
-		 
+         
     }
 {/if}
-	
+    
     </script>
 {elseif $operation == 'display'}
   <div class="panel panel-info">
@@ -1003,13 +1003,13 @@
                         <td>
                         
                                 {ifp 'poster.log'}
-				 {if $row['type']==4}
-				<a class='btn btn-default' href="{php echo $this->createPluginWebUrl('poster/log', array('id' => $row['id']))}"  title='关注记录'><i class='fa fa-qrcode'></i></a>
-				{else}
-				<a class='btn btn-default' href="{php echo $this->createPluginWebUrl('poster/scan', array('id' => $row['id']))}"  title='扫描记录'><i class='fa fa-qrcode'></i></a>
-				{/if}
+                 {if $row['type']==4}
+                <a class='btn btn-default' href="{php echo $this->createPluginWebUrl('poster/log', array('id' => $row['id']))}"  title='关注记录'><i class='fa fa-qrcode'></i></a>
+                {else}
+                <a class='btn btn-default' href="{php echo $this->createPluginWebUrl('poster/scan', array('id' => $row['id']))}"  title='扫描记录'><i class='fa fa-qrcode'></i></a>
+                {/if}
                             {/if}
-							
+                            
                                 {ifp 'poster.edit|poster.view'}<a class='btn btn-default' href="{php echo $this->createPluginWebUrl('poster', array('op' => 'post', 'id' => $row['id']))}" title='编辑'><i class='fa fa-edit'></i></a>{/if}
                                 {ifp 'poster.setdefault'}<a class='btn btn-default' href="{php echo $this->createPluginWebUrl('poster', array('op' => 'setdefault', 'id' => $row['id']))}"  title='设置默认' onclick="return confirm('确认设置此海报为默认海报吗？');return false;"><i class='fa fa-check'></i></a>{/if}
                                 {ifp 'poster.delete'}<a class='btn btn-default'  href="{php echo $this->createPluginWebUrl('poster', array('op' => 'delete', 'id' => $row['id']))}"  title='删除' onclick="return confirm('确认删除此海报吗？');return false;"><i class='fa fa-remove'></i></a></td>{/if}
@@ -1024,7 +1024,7 @@
                             {/if}
                             {ifp 'poster.clear'}
                                  <input type="submit" name="submit" value="清除当前公众号海报缓存" class="btn btn-danger" onclick="return confirm('确认要清除海报缓存?')" />
-	               <input type="hidden" name="token" value="{$_W['token']}" />
+                   <input type="hidden" name="token" value="{$_W['token']}" />
                             {/if}
                         </td>
                     </tr>

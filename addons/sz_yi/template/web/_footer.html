@@ -1,27 +1,27 @@
  <script language='javascript'>
-		require(['bootstrap'], function ($) {
-			$('.btn').each(function(){
-				
-				if( $(this).closest('td').css('position')=='relative'){
-					return true;
-				}
-				$(this).hover(function () {
-					$(this).tooltip('show');
-				}, function () {
-					$(this).tooltip('hide');
-				});
-			})
-			
-		});
+        require(['bootstrap'], function ($) {
+            $('.btn').each(function(){
+                
+                if( $(this).closest('td').css('position')=='relative'){
+                    return true;
+                }
+                $(this).hover(function () {
+                    $(this).tooltip('show');
+                }, function () {
+                    $(this).tooltip('hide');
+                });
+            })
+            
+        });
                    $('.js-clip').each(function(){
-			util.clip(this, $(this).attr('data-url'));
-		});
-	$(function(){
-		$.ajax({
-			url: "{php echo $this->createWebUrl('runtasks')}",
-			cache:false
-		});
-	});
+            util.clip(this, $(this).attr('data-url'));
+        });
+    $(function(){
+        $.ajax({
+            url: "{php echo $this->createWebUrl('runtasks')}",
+            cache:false
+        });
+    });
 </script>
 <script type="text/javascript">
     require(['bootstrap']);

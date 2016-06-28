@@ -32,11 +32,11 @@
                     <input type="text" class="form-control"  name="applysn" value="{$_GPC['applysn']}"/> 
                 </div> 
             </div>
-			<div class="form-group">
+            <div class="form-group">
                 <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
                 <div class="col-sm-8 col-lg-9 col-xs-12">
                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
-					<input type="hidden" name="token" value="{$_W['token']}" />
+                    <input type="hidden" name="token" value="{$_W['token']}" />
                 </div>
             </div>    
         </form>
@@ -61,9 +61,9 @@
             </thead>
             <tbody>
                 {loop $list $row}
-                	{if !empty($row['uid'])}
-		                <tr>
-		                    <td>{$row['uid']}</td>
+                    {if !empty($row['uid'])}
+                        <tr>
+                            <td>{$row['uid']}</td>
                             <td>{$row['applysn']}</td>
                             <td>{$row['accountname']}</td>
                             <td>{$row['mobile']}</td>
@@ -71,15 +71,15 @@
                             <td>{$row['banknumber']}</td>
                             <td>{$row['apply_money']}</td>
                             <td><?php echo date('Y-m-d H:i:s',$row['finish_time']);?></td>
-		                    <td  style="overflow:visible;">
-		                        <div class="form-group">
-				                    <div class="col-sm-9 col-xs-9">
-				                    <span style='color:red'>已完成</span>
-				                    </div>
-            					</div>
-		                    </td>
-		                </tr>
-		            {/if}
+                            <td  style="overflow:visible;">
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-xs-9">
+                                    <span style='color:red'>已完成</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {/if}
                 {/loop}
             </tbody>
         </table>

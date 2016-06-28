@@ -33,7 +33,7 @@
                     </select>
                 </div>
             </div>
-	
+    
              <div class="form-group">
                 <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">会员等级</label>
                 <div class="col-sm-8 col-lg-9 col-xs-12">
@@ -72,7 +72,7 @@
                     </div>
                          
                 </div>
-	      <div class="form-group">
+          <div class="form-group">
                 <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">黑名单</label>
                 <div class="col-sm-8 col-lg-9 col-xs-12">
                        <select name='isblack' class='form-control'>
@@ -108,9 +108,9 @@
             <thead class="navbar-inner">
                 <tr>
                     <th style='width:80px;'>会员ID</th>
-		  {if $opencommission}
-			<th style='width:120px;'>推荐人</th>	
-		  {/if}
+          {if $opencommission}
+            <th style='width:120px;'>推荐人</th>    
+          {/if}
 
                     <th style='width:120px;'>粉丝</th>
                     <th style='width:80px;'>会员姓名</th>
@@ -129,27 +129,27 @@
                 {loop $list $row}
                 <tr>
                     <td>   {$row['id']}</td>
-		  {if $opencommission}
-		    <td  {if !empty($row['agentid'])}title='ID: {$row['agentid']}'{/if}>
-				{if empty($row['agentid'])}
-				  {if $row['isagent']==1}
-				      <label class='label label-primary'>总店</label>
-				      {else}
-				       <label class='label label-default'>暂无</label>
-				      {/if}
-				{else}
-				
-                    	{if !empty($row['agentavatar'])}
+          {if $opencommission}
+            <td  {if !empty($row['agentid'])}title='ID: {$row['agentid']}'{/if}>
+                {if empty($row['agentid'])}
+                  {if $row['isagent']==1}
+                      <label class='label label-primary'>总店</label>
+                      {else}
+                       <label class='label label-default'>暂无</label>
+                      {/if}
+                {else}
+                
+                        {if !empty($row['agentavatar'])}
                          <img src='{$row['agentavatar']}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' />
                        {/if}
                        {if empty($row['agentnickname'])}未更新{else}{$row['agentnickname']}{/if}
-					   {/if}
+                       {/if}
                         
                     </td>
-		  {/if}
-		  
+          {/if}
+          
                     <td>
-                    	{if !empty($row['avatar'])}
+                        {if !empty($row['avatar'])}
                          <img src='{$row['avatar']}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' />
                        {/if}
                        {if empty($row['nickname'])}未更新{else}{$row['nickname']}{/if}
@@ -166,10 +166,10 @@
                     <td>{$row['ordercount']}</td>
                     <td>{php echo floatval($row['ordermoney'])}</td>
                     <td> 
-						   {if $row['isblack']==1}
+                           {if $row['isblack']==1}
                     <span class="label label-default" style='color:#fff;background:black'>黑名单</span>
-					{else}
-						{if empty($row['followed'])}
+                    {else}
+                        {if empty($row['followed'])}
                         {if empty($row['uid'])}
                         <label class='label label-default'>未关注</label>
                         {else}
@@ -178,8 +178,8 @@
                         {else}
                     <label class='label label-success'>已关注</label>    
                     {/if}{/if}
-					
-					</td>
+                    
+                    </td>
              
                             <td  style="overflow:visible;">
                         
@@ -191,7 +191,7 @@
                         {ifp 'order'}<li><a  href="{php echo $this->createWebUrl('order', array('op' => 'display','member'=>$row['nickname']))}" title='会员订单'><i class='fa fa-list'></i> 会员订单</a></li>{/if}
                         {ifp 'finance.recharge.credit1'}<li><a href="{php echo $this->createWebUrl('finance/recharge', array('op'=>'credit1','id'=>$row['id']))}" title='充值积分'><i class='fa fa-credit-card'></i> 充值积分</a></li>{/if}
                         {ifp 'finance.recharge.credit2'}<li><a href="{php echo $this->createWebUrl('finance/recharge', array('op'=>'credit2','id'=>$row['id']))}" title='充值余额'><i class='fa fa-money'></i> 充值余额 </a></li>{/if}
-		    {ifp 'member.member.black'}
+            {ifp 'member.member.black'}
                             {if $row['isblack']==1}
                             <li><a href="{php echo $this->createWebUrl('member/list',array('op'=>'setblack','id' => $row['id'],'black'=>0));}" title='取消黑名单'><i class='fa fa-minus-square'></i> 取消黑名单</a></li>
                             {else}
@@ -410,7 +410,7 @@
             </div>
         </div>
 
-		
+        
         {if $diyform_flag == 1}
         <div class='panel-heading'>
             自定义表单信息
@@ -463,8 +463,8 @@
             {/loop}
         </div>
         {/if}
-	{if $member['isagent']==1 && $member['status']==1}
-	{else}
+    {if $member['isagent']==1 && $member['status']==1}
+    {else}
         {if $hascommission && cv('commission.agent.changeagent')}
         <div class='panel-heading'>
             设置分销商 <small>注意: 分销商设置后，无法再此进行修改，如果要修改，请联系系统管理员</small>
@@ -513,7 +513,7 @@
                     </div>
                 </div>
             
-			     <div class="form-group">
+                 <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否固定上级</label>
                 <div class="col-sm-9 col-xs-12">
                      {ifp 'commission.agent.check'}
@@ -527,7 +527,7 @@
                     
                 </div>
             </div>
-			   
+               
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">分销商等级</label>
                <div class="col-sm-9 col-xs-12">
@@ -561,14 +561,14 @@
                     <div class='form-control-static'> {$member['commission_pay']}</div>
                 </div>
             </div>
-			   {if $member['agenttime']!='1970-01-01 08:00'}
+               {if $member['agenttime']!='1970-01-01 08:00'}
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">成为分销商时间</label>
                 <div class="col-sm-9 col-xs-12">
                     <div class='form-control-static'>{$member['agenttime']}</div> 
                 </div>
             </div>
-			   {/if}
+               {/if}
            <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">分销商权限</label>
                 <div class="col-sm-9 col-xs-12">
@@ -635,14 +635,14 @@
             </div>
         </div>
         {/if}
-		        {/if}
+                {/if}
         <div class='panel-body'>
           <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
                 <div class="col-sm-9 col-xs-12">
                     {ifp 'member.member.edit'}
                   <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
-	<input type="hidden" name="token" value="{$_W['token']}" />
+    <input type="hidden" name="token" value="{$_W['token']}" />
                   {/if}
                 <input type="button" class="btn btn-default" name="submit" onclick="history.go(-1)" value="返回列表" {ifp 'member.member.edit'}style='margin-left:10px;'{/if} />
                 </div>
@@ -650,7 +650,7 @@
          </div>
 
     </div>   
-	
+    
 </form>
 {/if}
 <script language='javascript'>
@@ -660,20 +660,20 @@
                  Tip.focus('#search-kwd-notice','请输入关键词');
                  return;
              }
-		$("#module-menus-notice").html("正在搜索....")
-		$.get('{php echo $this->createPluginWebUrl('commission/agent')}', {
-			keyword: $.trim($('#search-kwd-notice').val()),'op':'query',selfid:"{$id}"
-		}, function(dat){
-			$('#module-menus-notice').html(dat);
-		});
-	}
-	function select_member(o) {
-		$("#agentid").val(o.id);
+        $("#module-menus-notice").html("正在搜索....")
+        $.get('{php echo $this->createPluginWebUrl('commission/agent')}', {
+            keyword: $.trim($('#search-kwd-notice').val()),'op':'query',selfid:"{$id}"
+        }, function(dat){
+            $('#module-menus-notice').html(dat);
+        });
+    }
+    function select_member(o) {
+        $("#agentid").val(o.id);
                   $("#parentagentavatar").show();
                   $("#parentagentavatar").find('img').attr('src',o.avatar);
-		$("#parentagent").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
-		$("#modal-module-menus-notice .close").click();
-	}
+        $("#parentagent").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
+        $("#modal-module-menus-notice .close").click();
+    }
         
     </script>
 {template 'web/_footer'}

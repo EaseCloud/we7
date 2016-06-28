@@ -1,8 +1,8 @@
 {template 'web/_header'}
 {template 'web/statistics/tabs'}
 <style type="text/css">
-	.num { position:absolute; left:10px;color:#000;font-weight:bold;}
-	.progress { position: relative; }
+    .num { position:absolute; left:10px;color:#000;font-weight:bold;}
+    .progress { position: relative; }
 </style>
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -25,7 +25,7 @@
                             <td>{$orderprice}</td>
                             <td>{$member_count}</td>
                                 <td>{php $percent=round( $orderprice/($member_count==0?1:$member_count),2);}
-			{if $percent>1}{php $percent+=100}{else}{php $percent*=100}{/if}
+            {if $percent>1}{php $percent+=100}{else}{php $percent*=100}{/if}
                              <div class="progress">
                                  <div style="width: {$percent}%;" class="progress-bar progress-bar-success"><span class='num'>{php echo empty($percent)?'':$percent.'%'}</span></div>
                               </div>
@@ -50,7 +50,7 @@
                             <td>{$orderprice}</td>
                             <td>{$viewcount}</td>
                            <td>{php $percent=round( $orderprice/($viewcount==0?1:$viewcount),2);}
-			{if $percent>1}{php $percent+=100}{else}{php $percent*=100}{/if}
+            {if $percent>1}{php $percent+=100}{else}{php $percent*=100}{/if}
                                 <div class="progress">
                                     <div style="width: {$percent}%;" class="progress-bar progress-bar-info"><span class='num'>{php echo empty($percent)?'':$percent.'%'}</span></div>
                                 </div>
@@ -76,7 +76,7 @@
                             <td>{$ordercount}</td>
                             <td>{$viewcount}</td>
                            <td>{php $percent=round( $ordercount/($viewcount==0?1:$viewcount),2);}
-			{if $percent>1}{php $percent+=100}{else}{php $percent*=100}{/if}
+            {if $percent>1}{php $percent+=100}{else}{php $percent*=100}{/if}
                                 <div class="progress">
                                     <div style="width: {$percent}%;" class="progress-bar progress-bar-danger"><span class='num'>{php echo empty($percent)?'':$percent.'%'}</span></div>
                                 </div>
@@ -102,7 +102,7 @@
                             <td>{$member_buycount}</td>
                             <td>{$member_count}</td>
                           <td>{php $percent=round( $member_buycount/($member_count==0?1:$member_count),2);}
-			{if $percent>1}{php $percent+=100}{else}{php $percent*=100}{/if}
+            {if $percent>1}{php $percent+=100}{else}{php $percent*=100}{/if}
                                 <div class="progress">
                                     <div style="width: {$percent}%;" class="progress-bar progress-bar-striped"><span class='num'>{php echo empty($percent)?'':$percent.'%'}</span></div>
                                 </div>
@@ -127,7 +127,7 @@
                         <td>{$ordercount}</td>
                         <td>{$member_count}</td>
                         <td>{php $percent=round( $ordercount/($member_count==0?1:$member_count),2);}
-			{if $percent>1}{php $percent+=100}{else}{php $percent*=100}{/if}
+            {if $percent>1}{php $percent+=100}{else}{php $percent*=100}{/if}
                             <div class="progress">
                                 <div style="width: {$percent}%;" class="progress-bar progress-bar-warning"><span class='num'>{php echo empty($percent)?'':$percent.'%'}</span></div>
                             </div>

@@ -37,15 +37,15 @@ if ($operation == 'display') {
     }
     $list  = pdo_fetchall("SELECT * FROM " . tablename('sz_yi_poster') . " WHERE 1 {$condition} ORDER BY isdefault desc,createtime desc LIMIT " . ($pindex - 1) * $psize . ',' . $psize, $params);
     foreach ($list as &$row) {
-    	$row['times'] = pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_poster_scan') . ' where posterid=:posterid and uniacid=:uniacid', array(':posterid' => $row['id'], ':uniacid' => $_W['uniacid']));
-    	$row['follows'] = pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_poster_log') . ' where posterid=:posterid and uniacid=:uniacid', array(':posterid' => $row['id'], ':uniacid' => $_W['uniacid']));
+        $row['times'] = pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_poster_scan') . ' where posterid=:posterid and uniacid=:uniacid', array(':posterid' => $row['id'], ':uniacid' => $_W['uniacid']));
+        $row['follows'] = pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_poster_log') . ' where posterid=:posterid and uniacid=:uniacid', array(':posterid' => $row['id'], ':uniacid' => $_W['uniacid']));
     }
     unset($row);
     $total = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('sz_yi_poster') . " where 1 {$condition} ", $params);
     $pager = pagination($total, $pindex, $psize);
 } elseif ($operation == 'post') {
     $id = intval($_GPC['id']);
-	$plugin_coupon = p('coupon');
+    $plugin_coupon = p('coupon');
     if (empty($id)) {
         ca('poster.add');
     } else {
@@ -94,12 +94,12 @@ if ($operation == 'display') {
             'templateid' => trim($_GPC['templateid']),
             'entrytext' => trim($_GPC['entrytext'])
         );
-		if ($plugin_coupon) {
-			$data['reccouponid'] = intval($_GPC['reccouponid']);
-			$data['reccouponnum'] = intval($_GPC['reccouponnum']);
-			$data['subcouponid'] = intval($_GPC['subcouponid']);
-			$data['subcouponnum'] = intval($_GPC['subcouponnum']);
-		}
+        if ($plugin_coupon) {
+            $data['reccouponid'] = intval($_GPC['reccouponid']);
+            $data['reccouponnum'] = intval($_GPC['reccouponnum']);
+            $data['subcouponid'] = intval($_GPC['subcouponid']);
+            $data['subcouponnum'] = intval($_GPC['subcouponnum']);
+        }
         if ($data['isdefault'] == 1) {
             pdo_update('sz_yi_poster', array(
                 'isdefault' => 0
@@ -190,14 +190,14 @@ if ($operation == 'display') {
     if (!empty($_W['setting']['remote']['type'])) {
         $imgroot = $_W['attachurl_remote'];
     }
-	if ($plugin_coupon) {
-		if (!empty($item['subcouponid'])) {
-			$subcoupon = $plugin_coupon->getCoupon($item['subcouponid']);
-		}
-		if (!empty($item['reccouponid'])) {
-			$reccoupon = $plugin_coupon->getCoupon($item['reccouponid']);
-		}
-	}
+    if ($plugin_coupon) {
+        if (!empty($item['subcouponid'])) {
+            $subcoupon = $plugin_coupon->getCoupon($item['subcouponid']);
+        }
+        if (!empty($item['reccouponid'])) {
+            $reccoupon = $plugin_coupon->getCoupon($item['reccouponid']);
+        }
+    }
 } elseif ($operation == 'delete') {
     ca('poster.delete');
     $id     = intval($_GPC['id']);

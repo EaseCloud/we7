@@ -112,7 +112,7 @@
             }
     }]);
 $(function(){
-	var len =$('.designer-menu .sub').length;
+    var len =$('.designer-menu .sub').length;
  
     $('.designer-menu .sub').each(function(i){
          var h = $(this).height();
@@ -121,29 +121,29 @@ $(function(){
          $(this).css('bottom',  -h-50);
          var left = parseFloat( $(this).offset().left.toString().replace('px',''));
          if(i==0){
-         	if(left<0){
-         		left =Math.abs(left);
-         		$(this).offset({left:5});
-         	 
-         		var corner = $(this).find('.corner');
-         		var cornerleft = ( parseFloat( $(this).css('left').replace('px','')) - left  ) /2 + 5;
-         		corner.css('left',cornerleft);
-         	    $(this).find('.corner2').css('left',cornerleft);
-         	}
+             if(left<0){
+                 left =Math.abs(left);
+                 $(this).offset({left:5});
+              
+                 var corner = $(this).find('.corner');
+                 var cornerleft = ( parseFloat( $(this).css('left').replace('px','')) - left  ) /2 + 5;
+                 corner.css('left',cornerleft);
+                 $(this).find('.corner2').css('left',cornerleft);
+             }
         }else if(i+1==len){
-        	
-        	var right = $(this).width() + left;
-         	if(right>=$(document).width()){
-         		var newoffset = $(document).width() - $(this).width() - 5;
-         	    $(this).offset({left:newoffset});
-         	    
-         	    
-         	    var corner = $(this).find('.corner');
-         	    var cornerleft= ($(this).width() - $(this).closest('li').width()) / 2 + $(this).width()/2 + 5;
-         		corner.css('left',cornerleft);
-         	    $(this).find('.corner2').css('left',cornerleft);
-         	    
-         	}
+            
+            var right = $(this).width() + left;
+             if(right>=$(document).width()){
+                 var newoffset = $(document).width() - $(this).width() - 5;
+                 $(this).offset({left:newoffset});
+                 
+                 
+                 var corner = $(this).find('.corner');
+                 var cornerleft= ($(this).width() - $(this).closest('li').width()) / 2 + $(this).width()/2 + 5;
+                 corner.css('left',cornerleft);
+                 $(this).find('.corner2').css('left',cornerleft);
+                 
+             }
         }
          
     })

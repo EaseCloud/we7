@@ -8,7 +8,7 @@
     {ifp 'commission.apply.view3'}<li {if $_GPC['method']=='apply' && ($_GPC['status']==3 || $apply['status']==3)}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('commission/apply',array('status'=>3))}">已打款提现申请</a></li>{/if}
     {ifp 'commission.apply.view_1'}<li {if $_GPC['method']=='apply' && ($_GPC['status']==-1 || $apply['status']==-1)}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('commission/apply',array('status'=>-1))}">无效提现申请</a></li>{/if}
     {ifp 'commission.increase'}<li  {if $_GPC['method']=='increase'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('commission/increase')}">分销商增长趋势统计</a></li>{/if}
-	{ifp 'commission.notice'}<li  {if $_GPC['method']=='notice'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('commission/notice')}">通知设置</a></li>{/if}
+    {ifp 'commission.notice'}<li  {if $_GPC['method']=='notice'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('commission/notice')}">通知设置</a></li>{/if}
     {ifp 'commission.cover'}<li {if $_GPC['method']=='cover'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('commission/cover')}">分销中心入口设置</a></li>{/if}
     {ifp 'commission.set'}<li {if $_GPC['method']=='set'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('commission/set')}">基础设置</a></li>{/if}
     

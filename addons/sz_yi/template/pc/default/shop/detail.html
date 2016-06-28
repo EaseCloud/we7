@@ -217,15 +217,15 @@ div.flicking_con a.on{background-position:0 -9px}
                 <div class='left'>
                     <span><i class='fa fa-birthday-cake'></i> 单笔订单
                 </div>
-        		<div class='right'>
-        			<div class='inner'> 
-                		<%each saleset.enoughs as e i%><%if i<=1%>满 <span style='color:#ff6600'><%e.enough%></span> 元立减 <span style='color:#ff6600'><%e.money%></span> 元</span>;<br/><%/if%><%/each%>
-                		<%if saleset.enoughs.length>2%><span id='morebtn' onclick='showMoreActivity()'><i class='fa fa-angle-down'></i> 查看更多优惠<br/></span><%/if%>
-            		  <div id='moreactivity' style='display:none'>
-            		      <%each saleset.enoughs as e i%><%if i>1%>满 <span style='color:#ff6600'><%e.enough%></span> 元立减 <span style='color:#ff6600'><%e.money%></span> 元</span>;<br/><%/if%><%/each%>
-        		      </div>
+                <div class='right'>
+                    <div class='inner'> 
+                        <%each saleset.enoughs as e i%><%if i<=1%>满 <span style='color:#ff6600'><%e.enough%></span> 元立减 <span style='color:#ff6600'><%e.money%></span> 元</span>;<br/><%/if%><%/each%>
+                        <%if saleset.enoughs.length>2%><span id='morebtn' onclick='showMoreActivity()'><i class='fa fa-angle-down'></i> 查看更多优惠<br/></span><%/if%>
+                      <div id='moreactivity' style='display:none'>
+                          <%each saleset.enoughs as e i%><%if i>1%>满 <span style='color:#ff6600'><%e.enough%></span> 元立减 <span style='color:#ff6600'><%e.money%></span> 元</span>;<br/><%/if%><%/each%>
+                      </div>
                     </div>
-    	       </div>  
+               </div>  
             </div>
         <%/if%> 
   
@@ -750,7 +750,7 @@ div.flicking_con a.on{background-position:0 -9px}
                     tip.show("您最多可购买 " + stock + " 件");
                     num = stock;
                 }
-	
+    
                 total.val(num);
             });
  
@@ -816,15 +816,15 @@ div.flicking_con a.on{background-position:0 -9px}
                             productprice = o.productprice;
                             break;
                         }
-    			    }
+                    }
                     $("#optionid").val(optionid); 
-    		    
-    				if(stock!="-1"){
-    					$("#stockcontainer").html("库存:<span id='stock'>" + stock + "</span>");
-    				}
-    				else{
-    				  $("#stockcontainer").html("<span id='stock'></span>");
-    				}
+                
+                    if(stock!="-1"){
+                        $("#stockcontainer").html("库存:<span id='stock'>" + stock + "</span>");
+                    }
+                    else{
+                      $("#stockcontainer").html("<span id='stock'></span>");
+                    }
                     if(ret.no==''){
                         if(stock==0){
                             $('.sub').addClass('disabled').html('库存不足,无法购买');
@@ -832,19 +832,19 @@ div.flicking_con a.on{background-position:0 -9px}
                         else{
                             $('.sub').removeClass('disabled').html('确认');
                         }
-    			    } 
-    				$("#marketprice").html(marketprice);
-    				
-    		     	$("#option_price").html(marketprice);	
-    		     	$("#option_stock").html(stock);	
-    				 
-    				$("#productprice").html(productprice);
-    			    if(productprice<=0){
-    			        $('#productpricecontainer').html("");
-    			    }
-    			    else{
+                    } 
+                    $("#marketprice").html(marketprice);
+                    
+                     $("#option_price").html(marketprice);    
+                     $("#option_stock").html(stock);    
+                     
+                    $("#productprice").html(productprice);
+                    if(productprice<=0){
+                        $('#productpricecontainer').html("");
+                    }
+                    else{
                         $('#productpricecontainer').html("市场价￥<span id='productprice'>" + productprice + "</span>");
-    			    }
+                    }
                 }
             });
 
@@ -957,13 +957,13 @@ div.flicking_con a.on{background-position:0 -9px}
     })
 </script>
 <script type="text/javascript">
-	function tab(n){
-		$('#con_'+n).fadeIn();
-		$('#con_'+n).siblings().hide();
-		$('#nav_'+n).addClass('navon');
-		$('#nav_'+n).siblings().removeClass('navon');
+    function tab(n){
+        $('#con_'+n).fadeIn();
+        $('#con_'+n).siblings().hide();
+        $('#nav_'+n).addClass('navon');
+        $('#nav_'+n).siblings().removeClass('navon');
                       
-	}
+    }
     function closechoose(){
         $('.good_choose_layer').fadeOut(100);
         $('.good_choose').fadeOut(100); 
@@ -971,7 +971,7 @@ div.flicking_con a.on{background-position:0 -9px}
 
 
 
-	function choose(act){
+    function choose(act){
  
         if($('#followed').val()=='0'  && $('#needfollow').val()=='1' ){
             require(['core'],function(core){
@@ -983,7 +983,7 @@ div.flicking_con a.on{background-position:0 -9px}
         return;
         }
 
-	    action = act;
+        action = act;
         if(!action){
                                      
             $('.good_choose_layer').fadeIn(200);
@@ -1004,18 +1004,18 @@ div.flicking_con a.on{background-position:0 -9px}
                 closechoose();
             })
             $('.good_choose').fadeIn(200);
-            return;	 
+            return;     
         }else{
 
-			{if !empty($formInfo)}
+            {if !empty($formInfo)}
                 $('.good_choose_layer').fadeIn(200);
                 $('.good_choose_layer').unbind('click').click(function(){
                     closechoose();
                 })
                 $('.good_choose').fadeIn(200);
                 return;
-			{/if}
-			 
+            {/if}
+             
             $('.spec_items').each(function(){
                 var self = $(this);
                 if( $(this).find('.on').length<=0){
@@ -1031,7 +1031,7 @@ div.flicking_con a.on{background-position:0 -9px}
                 $('.good_choose').fadeIn(200);
                 return;
             }
-			
+            
         }
        
         var diymode = {php echo intval($diymode)};
@@ -1095,21 +1095,21 @@ div.flicking_con a.on{background-position:0 -9px}
 
 
 
-	function choose2(direct,close){
-		require(['core'],function(core){
-    			 
+    function choose2(direct,close){
+        require(['core'],function(core){
+                 
             if(close){
                 //closechoose();
                 return;
             }
-	        if(!direct){
+            if(!direct){
                 if($('.sub').hasClass('disabled')){
                     return;
-		        }
-    		    else{
-    		        setoptions();
-    		    }
-	        } else {
+                }
+                else{
+                    setoptions();
+                }
+            } else {
                 action = "";
             }
             var specselected  = '';
@@ -1190,7 +1190,7 @@ div.flicking_con a.on{background-position:0 -9px}
                 //closechoose();
             }
         });
-	}
+    }
 
 
 
@@ -1199,51 +1199,51 @@ div.flicking_con a.on{background-position:0 -9px}
 
 
   function addNum(){
-	var total = $("#total");
-	if(!total.isInt()){
-		total.val("1");
-	}
-	var stock = $("#stock").html()==''?-1:parseInt($("#stock").html());
-	var num = parseInt(total.val() ) + 1;
+    var total = $("#total");
+    if(!total.isInt()){
+        total.val("1");
+    }
+    var stock = $("#stock").html()==''?-1:parseInt($("#stock").html());
+    var num = parseInt(total.val() ) + 1;
                   if(num>maxbuy && maxbuy>0){
-		tip.show("您最多可购买 " + maxbuy + " 件!");
-		num = maxbuy;
-	}
-	else if(num>stock && stock!=-1){
-		tip.show("您最多可购买 " + stock + " 件");
-		num = stock;
-	}
-	total.val(num);
+        tip.show("您最多可购买 " + maxbuy + " 件!");
+        num = maxbuy;
+    }
+    else if(num>stock && stock!=-1){
+        tip.show("您最多可购买 " + stock + " 件");
+        num = stock;
+    }
+    total.val(num);
 }
 function reduceNum(){
-	var total = $("#total");
-	if(!total.isInt()){
-		total.val("1");
-	}
-	var num = parseInt( total.val() );
-	if(num-1<=0){
-		return;
-	}
-	num--;
-	total.val(num);
+    var total = $("#total");
+    if(!total.isInt()){
+        total.val("1");
+    }
+    var num = parseInt( total.val() );
+    if(num-1<=0){
+        return;
+    }
+    num--;
+    total.val(num);
 }
 
-	function option_selected(){
-	var ret= {
-		no: "",
-		all: []
-	};
-	if(!hasoption){
-		return ret;
-	}
-			$(".optionid").each(function(){
-				ret.all.push($(this).val());
-				if($(this).val()==''){
-					ret.no = $(this).attr("title");
-					return false;
-				}
-	})
-	return ret;
+    function option_selected(){
+    var ret= {
+        no: "",
+        all: []
+    };
+    if(!hasoption){
+        return ret;
+    }
+            $(".optionid").each(function(){
+                ret.all.push($(this).val());
+                if($(this).val()==''){
+                    ret.no = $(this).attr("title");
+                    return false;
+                }
+    })
+    return ret;
 }
 </script>
 

@@ -31,7 +31,7 @@
                     <li id="fe-tab-link-nav-4"><a href="javascript:switchtab('fe-tab-link',4);">商品分类</a></li>
                     <li id="fe-tab-link-nav-5"><a href="javascript:switchtab('fe-tab-link',5);">DIY页面</a></li>
                     {if p('article')}<li id="fe-tab-link-nav-6"><a href="javascript:switchtab('fe-tab-link',6);">文章营销页面</a></li>{/if}
-		{if p('coupon')}<li id="fe-tab-link-nav-7"><a href="javascript:switchtab('fe-tab-link',7);">超级券页面</a></li>{/if}
+        {if p('coupon')}<li id="fe-tab-link-nav-7"><a href="javascript:switchtab('fe-tab-link',7);">超级券页面</a></li>{/if}
                 </ul>
                 <div>
                     <div class="fe-tab-link" id="fe-tab-link-1" style="display: block;">
@@ -71,14 +71,14 @@
                         <div id="fe-tab-link-li-39" class="btn btn-default" ng-click="chooseLink(1, 39)" data-href="{php echo $this->createPluginMobileUrl('commission/myshop',array('op'=>'select'))}">自选商品</div>
                         {/if}
                         
-						
-		    {if p('coupon')}
+                        
+            {if p('coupon')}
                         <div class="page-header">
                             <h4><i class="fa fa-folder-open-o"></i> 超级券链接</h4>
                         </div>
                         
                         <div id="fe-tab-link-li-40" class="btn btn-default" ng-click="chooseLink(1, 40)" data-href="{php echo $this->createPluginMobileUrl('coupon')}">优惠券领取中心</div>
-		    <div id="fe-tab-link-li-41" class="btn btn-default" ng-click="chooseLink(1, 41)" data-href="{php echo $this->createPluginMobileUrl('coupon/my')}">我的优惠券</div>
+            <div id="fe-tab-link-li-41" class="btn btn-default" ng-click="chooseLink(1, 41)" data-href="{php echo $this->createPluginMobileUrl('coupon/my')}">我的优惠券</div>
                         {/if}
                         
                         
@@ -94,14 +94,14 @@
                             <div class="fe-tab-link-line" style='height:60px;line-height:60px;float:left;width:100%;'>
                                 <div class="fe-tab-link-sub"><a href="javascript:;" ng-click="chooseLink(2, good.id)">选择</a></div>
                                 <div style="float:left;">
-	                            	<img src="{{good.thumb}}" style='width:50px;height:50px;padding:1px;border:1px solid #ccc' />
-	                            </div>
+                                    <img src="{{good.thumb}}" style='width:50px;height:50px;padding:1px;border:1px solid #ccc' />
+                                </div>
                             
                                 <div class="fe-tab-link-text" style="float:left" id="fe-tab-link-li-{{good.id}}" 
-                                	data-href="{php echo $this->createMobileUrl('shop/detail')}&id={{good.id}}"
-                                	>
-                                	 
-                                	{{good.title}}(现价:{{good.marketprice}}&nbsp;&nbsp;原价:{{good.productprice}})</div>
+                                    data-href="{php echo $this->createMobileUrl('shop/detail')}&id={{good.id}}"
+                                    >
+                                     
+                                    {{good.title}}(现价:{{good.marketprice}}&nbsp;&nbsp;原价:{{good.productprice}})</div>
                                  </div>
                             
                         </div> 
@@ -182,9 +182,9 @@
                         <p ng-show="temp.article == ''" style="padding:0px; margin-top: 120px; font-size: 16px; color: #aaa; text-align: center;">抱歉， 一篇文章也没有找到~换个关键词试试~</p>
                     </div>
                       {/if}
-					  
-					  
-		{if p('coupon')}
+                      
+                      
+        {if p('coupon')}
                     <div class="fe-tab-link" id="fe-tab-link-7">
                         <div class="input-group">
                             <input type="text" class="form-control" name="keyword" value="" id="select-coupon-kw" placeholder="请输入优惠券名称进行搜索">

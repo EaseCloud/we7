@@ -52,8 +52,8 @@
                         {/if}
                     </div>
                 </div>
-				
-				   <div class='panel-body'>
+                
+                   <div class='panel-body'>
                 <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 核销员姓名</label>
                     <div class="col-sm-9 col-xs-12">
@@ -64,7 +64,7 @@
                         {/if}
                     </div>
                 </div>
-					   
+                       
                  <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">所属门店</label>
                     <div class="col-sm-9 col-xs-12">
@@ -138,12 +138,12 @@
 <script language='javascript'>
  
     $('form').submit(function () {
-		
+        
         if ($(':input[name=saler]').isEmpty()) {
             Tip.focus($(':input[name=saler]'), '请选择核销员!');
             return false;
         }
-		  if ($(':input[name=salername]').isEmpty()) {
+          if ($(':input[name=salername]').isEmpty()) {
             Tip.focus($(':input[name=salername]'), '请输入核销员姓名!');
             return false;
         }
@@ -162,7 +162,7 @@
                 <thead>
                     <tr>
                         <th>核销员</th>
-						<th>姓名</th>
+                        <th>姓名</th>
                         <th>所属门店</th>
                         <th>状态</th>
                         <th>操作</th>
@@ -172,9 +172,9 @@
                     {loop $list $row}
                     <tr>
                         <td><img src='{$row['avatar']}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' /> {$row['nickname']}</td>
-						<td>{$row['salername']}</td>
+                        <td>{$row['salername']}</td>
                         <td>{if empty($row['storename'])}全店核销{else}{$row['storename']}{/if}</td>
-						
+                        
                         <td>
                             {if $row['status']==1}
                             <span class='label label-success'>启用</span>
@@ -211,32 +211,32 @@
                  Tip.focus('#search-kwd','请输入关键词');
                  return;
              }
-		$("#module-menus").html("正在搜索....")
-		$.get('{php echo $this->createWebUrl('member/query')}', {
-			keyword: $.trim($('#search-kwd').val())
-		}, function(dat){
-			$('#module-menus').html(dat);
-		});
-	}
-	function select_member(o) {
-		$("#openid").val(o.openid);
-		$("#saler").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
-		$(".close").click();
-	}
+        $("#module-menus").html("正在搜索....")
+        $.get('{php echo $this->createWebUrl('member/query')}', {
+            keyword: $.trim($('#search-kwd').val())
+        }, function(dat){
+            $('#module-menus').html(dat);
+        });
+    }
+    function select_member(o) {
+        $("#openid").val(o.openid);
+        $("#saler").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
+        $(".close").click();
+    }
         
     function search_stores() {
-		$("#module-menus1").html("正在搜索....")
-		$.get('{php echo $this->createPluginWebUrl('verify/store',array('op'=>'query'));}', {
-			keyword: $.trim($('#search-kwd1').val())
-		}, function(dat){
-			$('#module-menus1').html(dat);
-		});
-	}
-	function select_store(o) {
-		$("#storeid").val(o.id);
-		$("#store").val( o.storename );
-		$(".close").click();
-	}
+        $("#module-menus1").html("正在搜索....")
+        $.get('{php echo $this->createPluginWebUrl('verify/store',array('op'=>'query'));}', {
+            keyword: $.trim($('#search-kwd1').val())
+        }, function(dat){
+            $('#module-menus1').html(dat);
+        });
+    }
+    function select_store(o) {
+        $("#storeid").val(o.id);
+        $("#store").val( o.storename );
+        $(".close").click();
+    }
     </script>
 {template 'web/_footer'}
  

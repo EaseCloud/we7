@@ -54,8 +54,8 @@
                         <option value='1' {if $_GPC['getfrom']=='5'}selected{/if}>口令优惠券</option>
                         <option value='1' {if $_GPC['getfrom']=='1'}selected{/if}>领券中心</option>
                         <option value='2' {if $_GPC['getfrom']=='2'}selected{/if}>积分商城</option>
-		       <option value='2' {if $_GPC['getfrom']=='3'}selected{/if}>超级海报</option>
-			<option value='4' {if $_GPC['getfrom']=='4'}selected{/if}>活动海报</option>
+               <option value='2' {if $_GPC['getfrom']=='3'}selected{/if}>超级海报</option>
+            <option value='4' {if $_GPC['getfrom']=='4'}selected{/if}>活动海报</option>
                     </select>
                   </div>
             </div>
@@ -91,7 +91,7 @@
                 <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
                 <div class="col-sm-8 col-lg-9 col-xs-12">
                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
-			<input type="hidden" name="token" value="{$_W['token']}" />
+            <input type="hidden" name="token" value="{$_W['token']}" />
                        {ifp 'coupon.coupon.logexport'}   
                         <button type="submit" name="export" value="1" class="btn btn-primary">导出 Excel</button>
                         {/if}
@@ -112,7 +112,7 @@
                     <th style='width:120px;'></th>
                     <th style='width:80px;'>获得方式</th>
                     <th style='width:120px;'>获得时间</th>
-	  <th style='width:120px;'>使用时间</th>
+      <th style='width:120px;'>使用时间</th>
                     <th style='width:120px;'>使用单号</th>
                 </tr>
             </thead>
@@ -120,12 +120,12 @@
                 {loop $list $row}
                 <tr>
                       <td>{$row['id']}</td>
-		    <td>{if $row['coupontype']==0}
-				  <label class='label label-success'>消费</label>
-						  {else}
-						  <label class='label label-warning'>充值</label>
-					 {/if} {$row['couponname']}
-					  </td>
+            <td>{if $row['coupontype']==0}
+                  <label class='label label-success'>消费</label>
+                          {else}
+                          <label class='label label-warning'>充值</label>
+                     {/if} {$row['couponname']}
+                      </td>
                                           <td>
                                                   {if !empty($row['avatar'])}
                          <img src='{$row['avatar']}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' />
@@ -136,11 +136,11 @@
                                               {$row['realname']}<br/>{$row['mobile']}
                                           </td>
                      <td>{$row['gettypestr']}</td>
-		<td>{$row['gettime']}</td>			 
+        <td>{$row['gettime']}</td>             
                 <td>{$row['usetime']}</td>
-					 
-					<td>{php echo empty($row['ordersn'])?'---':$row['ordersn']}</td>
-					 
+                     
+                    <td>{php echo empty($row['ordersn'])?'---':$row['ordersn']}</td>
+                     
  
                 </tr>
                 {/loop}

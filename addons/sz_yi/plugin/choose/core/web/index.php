@@ -316,9 +316,9 @@ if ($op == 'display') {
                     ':title' => "%{$kw}%"
                 ));
                 echo json_encode($articles);
-	    	} elseif ($type == 'coupon') {
-	    		$articles = pdo_fetchall('select id,couponname,coupontype from ' . tablename('sz_yi_coupon') . ' where couponname LIKE :title and uniacid=:uniacid ', array(':uniacid' => $_W['uniacid'], ':title' => "%{$kw}%"));
-	    		echo json_encode($articles);
+            } elseif ($type == 'coupon') {
+                $articles = pdo_fetchall('select id,couponname,coupontype from ' . tablename('sz_yi_coupon') . ' where couponname LIKE :title and uniacid=:uniacid ', array(':uniacid' => $_W['uniacid'], ':title' => "%{$kw}%"));
+                echo json_encode($articles);
             } else {
                 exit();
             }

@@ -52,7 +52,7 @@
                        </select> 
                      </div>
                 </div>
-		 <div class="form-group">
+         <div class="form-group">
                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">兑换门店</label>
                     <div class="col-xs-12 col-sm-8 col-lg-9">
                         <input class="form-control" name="storename" id="" type="text" value="{$_GPC['storename']}" placeholder="可搜索线下兑换的门店">
@@ -74,17 +74,17 @@
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"> </label>
                       <div class="col-xs-12 col-sm-2 col-lg-2">
                         <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
-						{if $_GPC['type']=='0'}
-						    {ifp 'creditshop.log.export0'}
-							 <input type="hidden" name="token" value="{$_W['token']}" />
+                        {if $_GPC['type']=='0'}
+                            {ifp 'creditshop.log.export0'}
+                             <input type="hidden" name="token" value="{$_W['token']}" />
                                                                 <button type="submit" name="export" value="1" class="btn btn-primary">导出 Excel</button>
                                                           {/if}
-						{else}
-						    {ifp 'creditshop.log.export1'}
-							 <input type="hidden" name="token" value="{$_W['token']}" />
+                        {else}
+                            {ifp 'creditshop.log.export1'}
+                             <input type="hidden" name="token" value="{$_W['token']}" />
                                                                 <button type="submit" name="export" value="1" class="btn btn-primary">导出 Excel</button>
                                                           {/if}
-						{/if}
+                        {/if}
                     </div>
                 </div>
         </div>
@@ -107,7 +107,7 @@
                         <th style='width:200px;' >商品</th>
                         <th style='width:250px;'>活动信息</th>
                         <th style='width:100px;'>粉丝</th>
-		      <th style='width:150px;'>会员</th>
+              <th style='width:150px;'>会员</th>
                         <th style='width:100px;'>消耗</th>
                         <th style='width:200px;' >状态</th>
                       
@@ -120,33 +120,33 @@
                          <td>{$row['logno']}</td>
                           <td><img src='{php echo tomedia($row['thumb'])}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' /> {$row['title']}</td>
                           <td  style='line-height:22px;'>
-							  活动类型: {if $row['goodstype']==1}
+                              活动类型: {if $row['goodstype']==1}
                               <span class='label label-danger'>抽奖</span>
                               {else}
                               <span class='label label-primary'>兑换</span>
                               {/if}
-							  <br/>兑换方式:
-							  {if $row['iscoupon']==0}
+                              <br/>兑换方式:
+                              {if $row['iscoupon']==0}
                              {if $row['isverify']==1}
                               <span class='label label-warning'>线下兑换</span>
                               {else}
                               <span class='label label-success'>快递配送</span>
                               {/if}
-							  {else}
-							  <span class='label label-danger'>优惠券</span>
-							  {/if}
-							  {if !empty($row['storename'])}
-							  <br/>兑换门店: {$row['storename']}
-							  {/if}
+                              {else}
+                              <span class='label label-danger'>优惠券</span>
+                              {/if}
+                              {if !empty($row['storename'])}
+                              <br/>兑换门店: {$row['storename']}
+                              {/if}
                          </td>
                          <td>
-			 <img src='{$row['avatar']}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' /> {$row['nickname']}
-						 </td>
-						 <td>
-							 
-							 {php echo empty($row['realname'])?$row['mrealname']:$row['realname']}<br />
-						 {php echo empty($row['mobile'])?$row['mmobile']:$row['mobile']}
-						 </td>
+             <img src='{$row['avatar']}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' /> {$row['nickname']}
+                         </td>
+                         <td>
+                             
+                             {php echo empty($row['realname'])?$row['mrealname']:$row['realname']}<br />
+                         {php echo empty($row['mobile'])?$row['mmobile']:$row['mobile']}
+                         </td>
                          <td>{if $row['credit']>0}-{$row['credit']}积分<br/>{/if}
                               {if $row['money']>0}
                               -{$row['money']}现金
@@ -315,7 +315,7 @@
                      </div>
                 </div>
             </div>
-			
+            
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">运费支付状态</label>
                 <div class="col-sm-9 col-xs-12">
@@ -363,41 +363,41 @@
  {/if}
  <script language='javascript'>
      function exchange(address){
-		 $('#expressform').hide();
-		 $('#expressform1').hide();
-		 	if(address.isverify==1){
-				if(address.storeid==0){
-					if( !confirm('用户未选择门店，是否继续兑换?') ){
-						return;
-					}
-				}
-			} else{
-				if(address.addressid==0){
-					alert('用户未选择邮寄地址，无法兑换!');
-					return;
-				}
-			}
-		
-			
-			
+         $('#expressform').hide();
+         $('#expressform1').hide();
+             if(address.isverify==1){
+                if(address.storeid==0){
+                    if( !confirm('用户未选择门店，是否继续兑换?') ){
+                        return;
+                    }
+                }
+            } else{
+                if(address.addressid==0){
+                    alert('用户未选择邮寄地址，无法兑换!');
+                    return;
+                }
+            }
+        
+            
+            
          $('#modal-exchange').find(':input[name=id]').val(address.logid);
          $('#express').val('');
          $('#expresscom').val('');
          $(':input[name=expresssn]').val('');
-		 
+         
          if(address.addressid!='0' &&address.addressid!=0){
             $('#expressform').show();
             $('#realname').html(address.realname);
             $('#mobile').html(address.mobile);
             $('#address').html(address.province + address.city + address.area + " " + address.address);
-	}
+    }
          if(address.storeid!='0' && address.storeid!=0){
-	    $('#carrier_realname').html(address.carrier_realname);
+        $('#carrier_realname').html(address.carrier_realname);
              $('#carrier_mobile').html(address.carrier_mobile); 
-	    $('#carrier_storename').html(address.carrier_storename);
-	 
-		$('#carrier_address').html(address.carrier_address);
-		
+        $('#carrier_storename').html(address.carrier_storename);
+     
+        $('#carrier_address').html(address.carrier_address);
+        
              $('#expressform1').show();
          }
          $('#modal-exchange').modal();
@@ -533,7 +533,7 @@
                                 </div>
                             </div>
                         <div id='expressform1' style='display:none'>
-			  <div class="form-group">
+              <div class="form-group">
                                     <label class="col-xs-10 col-sm-3 col-md-3 control-label">联系人信息</label>
                                     <div class="col-xs-12 col-sm-9 col-md-8 col-lg-8">
                                         <div class='form-control-static'>
@@ -541,7 +541,7 @@
                                         </div>
                                     </div>
                                </div>
-			    <div class="form-group">
+                <div class="form-group">
                                     <label class="col-xs-10 col-sm-3 col-md-3 control-label">兑换门店</label>
                                     <div class="col-xs-12 col-sm-9 col-md-8 col-lg-8">
                                         <div class='form-control-static'>
@@ -549,14 +549,14 @@
                                         </div>
                                     </div>
                                </div>
-					 <div class="form-group">
+                     <div class="form-group">
                                     <label class="col-xs-10 col-sm-3 col-md-3 control-label"></label>
                                     <div class="col-xs-12 col-sm-9 col-md-8 col-lg-8">
                                         <div class='form-control-static'>
                                              确认已经领取?
                                         </div>
                                     </div>
-                               </div>		
+                               </div>        
                          
                         </div>
                         <div id="module-menus"></div>
@@ -574,7 +574,7 @@
     $(function (){
       
         $("#express").change(function () {
-		
+        
             var obj = $(this);
             var sel = obj.find("option:selected").attr("data-name");
             $("#expresscom").val(sel);

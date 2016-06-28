@@ -80,7 +80,7 @@
                             </td>
                             <td style=" text-align:  center;position:relative">
                                 <a href="javascript:;" onclick="preview({$page['id']})">预览</a> - 
-                               <a href="javascript:;" data-url="{php echo $this->createPluginMobileUrl('designer',array('pageid'=>$page['id']))}" class="js-clip" title="复制链接">复制链接</a>	   
+                               <a href="javascript:;" data-url="{php echo $this->createPluginMobileUrl('designer',array('pageid'=>$page['id']))}" class="js-clip" title="复制链接">复制链接</a>       
                                 {ifp 'designer.page.edit'}- <a href="{php echo $this->createPluginWebUrl('designer',array('op'=>'post','pageid'=>$page['id']))}">编辑</a>{/if}
                                 {ifp 'designer.page.delete'}- <a href="javascript:;" onclick="delpage({$page['id']})">删除</a>{/if}
                             </td>
@@ -362,7 +362,7 @@ UE.registerUI('myinsertimage',function(editor, uiName) {
     });
     return btn;
 },
-19);	
+19);    
 </script>
 
 <script>
@@ -486,9 +486,9 @@ UE.registerUI('myinsertimage',function(editor, uiName) {
             });
             $scope.hasCube = function(Item){
              
-            	 var has = false;
+                 var has = false;
                  var row=0,col = 0;
-            	 for(var i=row;i<4;i++){
+                 for(var i=row;i<4;i++){
                     for(var j=col;j<4;j++){
                       if (!$scope.underscore.isUndefined(Item.params.layout[i][j]) && !Item.params.layout[i][j].isempty) {
                           has = true;
@@ -507,7 +507,7 @@ UE.registerUI('myinsertimage',function(editor, uiName) {
                 var maxrow = 4,maxcol = 4,end =false;
                 
                 for(var i=row;i<=3;i++){
-                	
+                    
                     if ($scope.underscore.isUndefined(Edit.params.layout[i][col]) || !$scope.underscore.isUndefined(Edit.params.layout[i][col]) && !Edit.params.layout[i][col].isempty) {
                         maxrow = i;
                         end =true;
@@ -531,7 +531,7 @@ UE.registerUI('myinsertimage',function(editor, uiName) {
                 var f = -1,g = 1;
               
                 for (var i = row; i < maxrow; i++) {
-	                
+                    
                     var y = 1;
                     Edit.params.selection[g] = {};
                     for (var j = col; j < maxcol; j++) {
@@ -579,7 +579,7 @@ UE.registerUI('myinsertimage',function(editor, uiName) {
                         if( currentRow != i || currentCol != j)  {
                             delete Edit.params.layout[i][j];
                         } 
-            	}
+                }
                 }
                 Edit.params.showIndex++;
                 $scope.modalobj.modal('hide');
@@ -915,7 +915,7 @@ UE.registerUI('myinsertimage',function(editor, uiName) {
                                         return false;
                                     }
                                 });
-                            });	
+                            });    
                             $scope.Items = newarr;
                         });
                     });
