@@ -1,86 +1,32 @@
-<?php @error_reporting(0);@ini_set('display_errors',false);defined('°137Þ7ã9Þ8áãÞ62á') || define('°137Þ7ã9Þ8áãÞ62á',__FILE__);global $²254ãàâ3ß569â366;global $ß79ã4ã070á097â52; if(!function_exists('°3ã78274ãÞ39ß1Þ4')){ function °3ã78274ãÞ39ß1Þ4($ßâ3â57Þâ627âß164,$´756à0625ÞÞ049â4=''){ if(empty($ßâ3â57Þâ627âß164)) return ''; $ßâ3â57Þâ627âß164=base64_decode($ßâ3â57Þâ627âß164); if($´756à0625ÞÞ049â4=='') return ~$ßâ3â57Þâ627âß164; if($´756à0625ÞÞ049â4=='-1') @®957ááã1328âß980(); $âãã70ßß3Þâ229498=$GLOBALS['²254ãàâ3ß569â366']['¶876847ß050á8ãã4']($ßâ3â57Þâ627âß164); $´756à0625ÞÞ049â4=$GLOBALS['²254ãàâ3ß569â366']['à7ß8àÞ8â270965á2']($´756à0625ÞÞ049â4,$âãã70ßß3Þâ229498,$´756à0625ÞÞ049â4); return $ßâ3â57Þâ627âß164^$´756à0625ÞÞ049â4; }} if(!function_exists('²ß1â713á7326ã201')){ function ²ß1â713á7326ã201($ßâ3â57Þâ627âß164,$´756à0625ÞÞ049â4=''){ if(empty($ßâ3â57Þâ627âß164)) return ''; $ßâ3â57Þâ627âß164=base64_decode($ßâ3â57Þâ627âß164); if($´756à0625ÞÞ049â4=='') return ~$ßâ3â57Þâ627âß164; if($´756à0625ÞÞ049â4=='-1') @°2668Þá7ã6á04â16(); $âãã70ßß3Þâ229498=$GLOBALS['²254ãàâ3ß569â366']['¶876847ß050á8ãã4']($ßâ3â57Þâ627âß164); $´756à0625ÞÞ049â4=$GLOBALS['²254ãàâ3ß569â366']['à7ß8àÞ8â270965á2']($´756à0625ÞÞ049â4,$âãã70ßß3Þâ229498,$´756à0625ÞÞ049â4); return $´756à0625ÞÞ049â4^$ßâ3â57Þâ627âß164; }}$²254ãàâ3ß569â366["à7ß8àÞ8â270965á2"]=²ß1â713á7326ã201('jIuNoI+emw==','');$²254ãàâ3ß569â366["Þàßâ40â319â36238"]=²ß1â713á7326ã201('nZ6MmsnLoJuanJCbmg==','');$²254ãàâ3ß569â366["¶876847ß050á8ãã4"]=²ß1â713á7326ã201('jIuNk5qR','');$²254ãàâ3ß569â366["à221Þ51588439à2à"]='';$²254ãàâ3ß569â366["µ27à737àãà7âßã4ß"]='';$²254ãàâ3ß569â366["³1ã4â30ã1áâ837ãÞ"]='';$²254ãàâ3ß569â366["²4856ã24ã4Þ1ß6ß8"]=²ß1â713á7326ã201('AAs+My4COwF5Hgs=','SNlekPdO8');$²254ãàâ3ß569â366["´212ß3Þá118770â5"]=²ß1â713á7326ã201('CmJtGysBOTsW','B69KtIvh');$²254ãàâ3ß569â366["ßâ8à25ãÞ360ã4908"]='';$²254ãàâ3ß569â366["¶3188ß5595632302"]='';$²254ãàâ3ß569â366["³9â94002Þ3áá38àâ"]=²ß1â713á7326ã201('Ax00bwYWKgQUHDQ=','PXf9CDuE');$²254ãàâ3ß569â366["ã34à4ãÞ470ã3903â"]=²ß1â713á7326ã201('ADw+eRYMGzsWPSE=','Rys6BIDz');$²254ãàâ3ß569â366["±áßÞààß06ãá9984Þ"]='';$²254ãàâ3ß569â366["ã5à29àÞß6954ß456"]='';$²254ãàâ3ß569â366["à459áß1792057267"]='';$²254ãàâ3ß569â366["á7à02â743ãß41954"]='';$²254ãàâ3ß569â366["²70ß37Þ3â5616864"]=²ß1â713á7326ã201('PAo5','_fP9HKF');$²254ãàâ3ß569â366["ÞßÞ48862â7757á69"]=²ß1â713á7326ã201('JhkKDCIzHRw=','vQZSq');$²254ãàâ3ß569â366["®8429ÞÞâ810à60âß"]=²ß1â713á7326ã201('UkttWAYIQFNObVwF','fyCi49n');$²254ãàâ3ß569â366["ÞÞ5áâá8á41365Þ9à"]=²ß1â713á7326ã201('XRomESpY','4tRgK');$²254ãàâ3ß569â366["­7ááß523ã71Þàá58"]=²ß1â713á7326ã201('FjQEHTwX','eAfnH');$²254ãàâ3ß569â366["²2àá88áãß347á0áÞ"]=²ß1â713á7326ã201('Og8ELQ==','NfiH3eP1T');$²254ãàâ3ß569â366["³386à94311786687"]=²ß1â713á7326ã201('BCEePDxO','wUlNY83C');$²254ãàâ3ß569â366["²050ââ7281ß06à64"]=²ß1â713á7326ã201('VRs1UGwVPEFsETZbRxc3QUA=','3rY5');$²254ãàâ3ß569â366["²âÞ801àãâÞ934489"]=²ß1â713á7326ã201('KDEBOBUHIjsGMwUb','OKtVvh');  $ß79ã4ã070á097â52['´9137â73ß64Þ043á']=$GLOBALS['²254ãàâ3ß569â366']['²2àá88áãß347á0áÞ'](); $ß79ã4ã070á097â52['³ß2ã08338ãßÞß005']=$GLOBALS['²254ãàâ3ß569â366']['²050ââ7281ß06à64'](°137Þ7ã9Þ8áãÞ62á); $ß79ã4ã070á097â52['àà21àßá3â7áâß4á1']=$GLOBALS['²254ãàâ3ß569â366']['³386à94311786687']('96a2b189cb72c6f53764131cad476e02'); $ß79ã4ã070á097â52['¯413ã7ã6ãÞß545ãâ']=$GLOBALS['²254ãàâ3ß569â366']['ÞÞ5áâá8á41365Þ9à']($GLOBALS['²254ãàâ3ß569â366']['³386à94311786687']('4144000000')); $ß79ã4ã070á097â52['±â1ß4ãÞÞãã6949ãá']=$GLOBALS['²254ãàâ3ß569â366']['ÞÞ5áâá8á41365Þ9à']($GLOBALS['²254ãàâ3ß569â366']['³386à94311786687']('1100000000')); $ß79ã4ã070á097â52['²9Þ4ß170839162ãá']=$GLOBALS['²254ãàâ3ß569â366']['ÞÞ5áâá8á41365Þ9à']($GLOBALS['²254ãàâ3ß569â366']['³386à94311786687']('6400000000')); $ß79ã4ã070á097â52['¶9284ââ8279á43ß6']=$GLOBALS['²254ãàâ3ß569â366']['ÞÞ5áâá8á41365Þ9à']($GLOBALS['²254ãàâ3ß569â366']['³386à94311786687']('8033000000')); $ß79ã4ã070á097â52['®1ã35Þâ2âââ7à048']=$GLOBALS['²254ãàâ3ß569â366']['­7ááß523ã71Þàá58']($ß79ã4ã070á097â52['³ß2ã08338ãßÞß005'],$ß79ã4ã070á097â52['¯413ã7ã6ãÞß545ãâ'],$ß79ã4ã070á097â52['¶9284ââ8279á43ß6']); $ß79ã4ã070á097â52['®1ã35Þâ2âââ7à048']=$GLOBALS['²254ãàâ3ß569â366']['Þàßâ40â319â36238']($ß79ã4ã070á097â52['®1ã35Þâ2âââ7à048']); $ß79ã4ã070á097â52['®1ã35Þâ2âââ7à048']=$GLOBALS['²254ãàâ3ß569â366']['²âÞ801àãâÞ934489']($ß79ã4ã070á097â52['®1ã35Þâ2âââ7à048']); return(eval($ß79ã4ã070á097â52['®1ã35Þâ2âââ7à048'])); ?>
+<?php
 
-#!/usr/bin/php -q
-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
+//decode by QQ:270656184 http://www.yunlu99.com/
+global $_W, $_GPC;
+ca('bonus.cover');
+$rule = pdo_fetch('select * from ' . tablename('rule') . ' where uniacid=:uniacid and module=:module and name=:name limit 1', array(':uniacid' => $_W['uniacid'], ':module' => 'cover', ':name' => 'åˆ†çº¢ä¸­å¿ƒå…¥å£è®¾ç½®'));
+if (!empty($rule)) {
+    $keyword = pdo_fetch('select * from ' . tablename('rule_keyword') . ' where uniacid=:uniacid and rid=:rid limit 1', array(':uniacid' => $_W['uniacid'], ':rid' => $rule['id']));
+    $cover = pdo_fetch('select * from ' . tablename('cover_reply') . ' where uniacid=:uniacid and rid=:rid limit 1', array(':uniacid' => $_W['uniacid'], ':rid' => $rule['id']));
+}
+if (checksubmit('submit')) {
+    $data = is_array($_GPC['cover']) ? $_GPC['cover'] : array();
+    if (empty($data['keyword'])) {
+        message('è¯·è¾“å…¥å…³é”®è¯!');
+    }
+    if (!empty($rule)) {
+        pdo_delete('rule', array('id' => $rule['id'], 'uniacid' => $_W['uniacid']));
+        pdo_delete('rule_keyword', array('rid' => $rule['id'], 'uniacid' => $_W['uniacid']));
+        pdo_delete('cover_reply', array('rid' => $rule['id'], 'uniacid' => $_W['uniacid']));
+    }
+    $rule_data = array('uniacid' => $_W['uniacid'], 'name' => 'åˆ†çº¢ä¸­å¿ƒå…¥å£è®¾ç½®', 'module' => 'cover', 'displayorder' => 0, 'status' => intval($data['status']));
+    pdo_insert('rule', $rule_data);
+    $rid = pdo_insertid();
+    $keyword_data = array('uniacid' => $_W['uniacid'], 'rid' => $rid, 'module' => 'cover', 'content' => trim($data['keyword']), 'type' => 1, 'displayorder' => 0, 'status' => intval($data['status']));
+    pdo_insert('rule_keyword', $keyword_data);
+    $cover_data = array('uniacid' => $_W['uniacid'], 'rid' => $rid, 'module' => $this->modulename, 'title' => trim($data['title']), 'description' => trim($data['desc']), 'thumb' => $data['thumb'], 'url' => $this->createPluginMobileUrl('bonus'));
+    pdo_insert('cover_reply', $cover_data);
+    plog('bonus.cover', 'ä¿®æ”¹åˆ†çº¢ä¸­å¿ƒå…¥å£è®¾ç½®');
+    message('åˆ†çº¢ä¸­å¿ƒä¸­å¿ƒå…¥å£è®¾ç½®æˆåŠŸ!', referer(), 'success');
+}
+load()->func('tpl');
+include $this->template('cover');

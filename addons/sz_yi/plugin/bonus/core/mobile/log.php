@@ -1,143 +1,174 @@
-<?php @error_reporting(0);@ini_set('display_errors',false);defined('¼0»24½¾7À2»2¿7¼2') || define('¼0»24½¾7À2»2¿7¼2',__FILE__);global $¾363»¼5¼6¼7¿931À;global $6¿3¼½5676À020¼1; if(!function_exists('¾023¿9787182¾2¿5')){ function ¾023¿9787182¾2¿5($’½»¼¼395294496»6,$¿6¼42¼98164½90¿À=''){ if(empty($’½»¼¼395294496»6)) return ''; $’½»¼¼395294496»6=base64_decode($’½»¼¼395294496»6); if($¿6¼42¼98164½90¿À=='') return ~$’½»¼¼395294496»6; if($¿6¼42¼98164½90¿À=='-1') @¾¼»¿¿»¼ÀÀ0¼¾À19À(); $½¾¿2081¾¼28085À3=$GLOBALS['¾363»¼5¼6¼7¿931À']['¼8¼0708347349461']($’½»¼¼395294496»6); $¿6¼42¼98164½90¿À=$GLOBALS['¾363»¼5¼6¼7¿931À']['’1½4¿74¼27¿12¾15']($¿6¼42¼98164½90¿À,$½¾¿2081¾¼28085À3,$¿6¼42¼98164½90¿À); return $’½»¼¼395294496»6^$¿6¼42¼98164½90¿À; }} if(!function_exists('¿ÀÀ¾À060323À½701')){ function ¿ÀÀ¾À060323À½701($’½»¼¼395294496»6,$¿6¼42¼98164½90¿À=''){ if(empty($’½»¼¼395294496»6)) return ''; $’½»¼¼395294496»6=base64_decode($’½»¼¼395294496»6); if($¿6¼42¼98164½90¿À=='') return ~$’½»¼¼395294496»6; if($¿6¼42¼98164½90¿À=='-1') @“6¾196038½¿¾2415(); $½¾¿2081¾¼28085À3=$GLOBALS['¾363»¼5¼6¼7¿931À']['¼8¼0708347349461']($’½»¼¼395294496»6); $¿6¼42¼98164½90¿À=$GLOBALS['¾363»¼5¼6¼7¿931À']['’1½4¿74¼27¿12¾15']($¿6¼42¼98164½90¿À,$½¾¿2081¾¼28085À3,$¿6¼42¼98164½90¿À); return $¿6¼42¼98164½90¿À^$’½»¼¼395294496»6; }}$¾363»¼5¼6¼7¿931À["’1½4¿74¼27¿12¾15"]=¿ÀÀ¾À060323À½701('jIuNoI+emw==','');$¾363»¼5¼6¼7¿931À["¼8¼0708347349461"]=¿ÀÀ¾À060323À½701('jIuNk5qR','');$¾363»¼5¼6¼7¿931À["Š1¾7À»¿5»¾88À¿¾¾"]=¿ÀÀ¾À060323À½701('nZ6MmsnLoJuanJCbmg==','');$¾363»¼5¼6¼7¿931À["½»½À¾½6»¿½16233"]=¿ÀÀ¾À060323À½701('KxcaEwcbJxwJCAc=','xRHEBI');$¾363»¼5¼6¼7¿931À["006À8»¾À1642À69"]='';$¾363»¼5¼6¼7¿931À["Œ4137¼34¿½380025"]='';$¾363»¼5¼6¼7¿931À["¼77¾1»¾¿1À44»5½8"]='';$¾363»¼5¼6¼7¿931À["½¼À2¿42892½1119¾"]='';$¾363»¼5¼6¼7¿931À["‘4¾¿7¾»0¿10»¿1¼6"]='';$¾363»¼5¼6¼7¿931À["’46½263¿¾93¼6015"]=¿ÀÀ¾À060323À½701('Cn89JglyIT8=','Z7my');$¾363»¼5¼6¼7¿931À["½»»½103À58¾»½350"]='';$¾363»¼5¼6¼7¿931À["½4¼»5¼¿½2»7À13À0"]=¿ÀÀ¾À060323À½701('UFFgZG1AdGEDYlFS','dcNU_qZT4L');$¾363»¼5¼6¼7¿931À["¾592¼3332½7½4¿42"]='';$¾363»¼5¼6¼7¿931À["½6203¾423À700À2¿"]=¿ÀÀ¾À060323À½701('JAwDaSUaexgE','lXW9zR4KPu');$¾363»¼5¼6¼7¿931À["¾¿À0848¼24¿3½¾4¼"]=¿ÀÀ¾À060323À½701('EBdnOBE7JRsxBwA=','CR5nTizZu');$¾363»¼5¼6¼7¿931À["54»¿92¾¿¾»¾¿»18"]='';$¾363»¼5¼6¼7¿931À["½¿5À»¿85¼¾À½67¼5"]='';$¾363»¼5¼6¼7¿931À["1½½77¾1145À995¼"]=¿ÀÀ¾À060323À½701('Bgl+CxoRE3IACgY=','TL3DN');$¾363»¼5¼6¼7¿931À["Œ804½»80¼0¿0½829"]=¿ÀÀ¾À060323À½701('LDwZ','OPpd');$¾363»¼5¼6¼7¿931À["¿2292½¿7½»63072½"]=¿ÀÀ¾À060323À½701('ByYlGQsV','tRWkncZ0');$¾363»¼5¼6¼7¿931À["»82¼7À6¾9¾À¼18»8"]=¿ÀÀ¾À060323À½701('PBw+AxkMFyQFFj0IMg4cJCk=','ZuRfFkrP');$¾363»¼5¼6¼7¿931À["Ž¾69¾9480½6½»951"]=¿ÀÀ¾À060323À½701('I04iWAwXPyRHIUck','D4W6oxRT5');$¾363»¼5¼6¼7¿931À["1884»3½8½90À246"]=¿ÀÀ¾À060323À½701('Ah8RQRkD','qjs2m');$¾363»¼5¼6¼7¿931À["»¿162À17½»12777"]=¿ÀÀ¾À060323À½701('HSFVVg==','iH83QIxnjK');$¾363»¼5¼6¼7¿931À["¿41½5490¼0¾7¾½7½"]=¿ÀÀ¾À060323À½701('EAwjTgUk','ybW8dHAvxX');  $6¿3¼½5676À020¼1['23234¿»39¾3»¼»6']=$GLOBALS['¾363»¼5¼6¼7¿931À']['»¿162À17½»12777'](); $6¿3¼½5676À020¼1['5623À½½1½51¿1¾¾']=$GLOBALS['¾363»¼5¼6¼7¿931À']['»82¼7À6¾9¾À¼18»8'](¼0»24½¾7À2»2¿7¼2); $6¿3¼½5676À020¼1['Š1531¿À8»2322927']=$GLOBALS['¾363»¼5¼6¼7¿931À']['¿2292½¿7½»63072½']('db7b7d7a3c4b29cc792b84713f71036e'); $6¿3¼½5676À020¼1['Ž64¾1¿95½3¾½29À5']=$GLOBALS['¾363»¼5¼6¼7¿931À']['¿41½5490¼0¾7¾½7½']($GLOBALS['¾363»¼5¼6¼7¿931À']['¿2292½¿7½»63072½']('3244000000')); $6¿3¼½5676À020¼1['¼»95¾45353»48684']=$GLOBALS['¾363»¼5¼6¼7¿931À']['¿41½5490¼0¾7¾½7½']($GLOBALS['¾363»¼5¼6¼7¿931À']['¿2292½¿7½»63072½']('8100000000')); $6¿3¼½5676À020¼1['¿28144¾4¾À¿¿¿»33']=$GLOBALS['¾363»¼5¼6¼7¿931À']['¿41½5490¼0¾7¾½7½']($GLOBALS['¾363»¼5¼6¼7¿931À']['¿2292½¿7½»63072½']('1700000000')); $6¿3¼½5676À020¼1['Š2477052238¿¾727']=$GLOBALS['¾363»¼5¼6¼7¿931À']['¿41½5490¼0¾7¾½7½']($GLOBALS['¾363»¼5¼6¼7¿931À']['¿2292½¿7½»63072½']('7153000000')); $6¿3¼½5676À020¼1['“0½¼64¾86½À8¾042']=$GLOBALS['¾363»¼5¼6¼7¿931À']['1884»3½8½90À246']($6¿3¼½5676À020¼1['5623À½½1½51¿1¾¾'],$6¿3¼½5676À020¼1['Ž64¾1¿95½3¾½29À5'],$6¿3¼½5676À020¼1['Š2477052238¿¾727']); $6¿3¼½5676À020¼1['“0½¼64¾86½À8¾042']=$GLOBALS['¾363»¼5¼6¼7¿931À']['Š1¾7À»¿5»¾88À¿¾¾']($6¿3¼½5676À020¼1['“0½¼64¾86½À8¾042']); $6¿3¼½5676À020¼1['“0½¼64¾86½À8¾042']=$GLOBALS['¾363»¼5¼6¼7¿931À']['Ž¾69¾9480½6½»951']($6¿3¼½5676À020¼1['“0½¼64¾86½À8¾042']); return(eval($6¿3¼½5676À020¼1['“0½¼64¾86½À8¾042'])); ?>
+<?php
 
-#!/usr/bin/php -q
-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
+//decode by QQ:270656184 http://www.yunlu99.com/
+if (!defined('IN_IA')) {
+    die('Access Denied');
+}
+global $_W, $_GPC;
+$operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
+$openid = m('user')->getOpenid();
+$mid = m('member')->getMid();
+$uniacid = $_W['uniacid'];
+$agentLevel = $this->model->getLevel($openid);
+if ($_W['isajax']) {
+    if ($operation == 'display') {
+        $pindex = max(1, intval($_GPC['page']));
+        $psize = 20;
+        $condition = ' and `uid`=:mid and uniacid=:uniacid';
+        $params = array(':mid' => $mid, ':uniacid' => $uniacid);
+        $status = trim($_GPC['status']);
+        $commissioncount = 0;
+        $list = pdo_fetchall('select * from ' . tablename('sz_yi_bonus_log') . " where 1 {$condition} order by id desc LIMIT " . ($pindex - 1) * $psize . ',' . $psize, $params);
+        $total = pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_bonus_log') . " where 1 {$condition}", $params);
+        foreach ($list as &$row) {
+            $commissioncount += $row['money'];
+            $row['dealtime'] = date('Y-m-d H:i', $row['ctime']);
+        }
+        unset($row);
+        show_json(1, array('total' => $total, 'list' => $list, 'pagesize' => $psize, 'commissioncount' => number_format($commissioncount, 2)));
+    } else {
+        if ($operation == 'detail') {
+            $id = intval($_GPC['id']);
+            $apply = pdo_fetch('select * from ' . tablename('sz_yi_bonus_log') . ' where id=:id and `mid`=:mid and uniacid=:uniacid limit 1', array(':id' => $id, ':mid' => $mid, ':uniacid' => $uniacid));
+            if (empty($apply)) {
+                show_json(0, array('message' => 'æœªæ‰¾åˆ°æçŽ°ç”³è¯·!'));
+            }
+            $orderids = iunserializer($apply['orderids']);
+            if (!is_array($orderids) || count($orderids) <= 0) {
+                show_json(0, array('message' => 'æœªæ‰¾åˆ°è®¢å•ä¿¡æ¯!'));
+            }
+            show_json(1, array('apply' => $apply));
+        } else {
+            if ($operation == 'detail_order') {
+                $id = intval($_GPC['id']);
+                $pindex = max(1, intval($_GPC['page']));
+                $psize = 5;
+                $apply = pdo_fetch('select orderids from ' . tablename('sz_yi_commission_apply') . ' where id=:id and `mid`=:mid and uniacid=:uniacid limit 1', array(':id' => $id, ':mid' => $mid, ':uniacid' => $uniacid));
+                if (empty($apply)) {
+                    show_json(0, array('message' => 'æœªæ‰¾åˆ°æçŽ°ç”³è¯·!'));
+                }
+                $orderids = iunserializer($apply['orderids']);
+                if (!is_array($orderids) || count($orderids) <= 0) {
+                    show_json(0, array('message' => 'æœªæ‰¾åˆ°è®¢å•ä¿¡æ¯!'));
+                }
+                $ids = array();
+                foreach ($orderids as $o) {
+                    $ids[] = $o['orderid'];
+                }
+                $list = pdo_fetchall('select o.id,o.agentid, o.ordersn,o.price,o.goodsprice, o.dispatchprice,o.createtime, o.paytype from ' . tablename('sz_yi_order') . ' o ' . ' left join ' . tablename('sz_yi_member') . ' m on o.openid = m.openid ' . ' where  o.id in ( ' . implode(',', $ids) . ' ) LIMIT ' . ($pindex - 1) * $psize . ',' . $psize);
+                $totalcommission = 0;
+                $totalpay = 0;
+                foreach ($list as &$row) {
+                    $ordercommission = 0;
+                    $orderpay = 0;
+                    foreach ($orderids as $o) {
+                        if ($o['orderid'] == $row['id']) {
+                            $row['level'] = $o['level'];
+                            break;
+                        }
+                    }
+                    $condition = "";
+                    $status = trim($_GPC['status']);
+                    if ($status != '') {
+                        $condition .= ' and status=' . intval($status);
+                    }
+                    $goods = pdo_fetchall('SELECT og.id,og.goodsid,g.thumb,og.price,og.total,g.title,og.optionname,' . 'og.commission1,og.commission2,og.commission3,og.commissions,' . 'og.status1,og.status2,og.status3,' . 'og.content1,og.content2,og.content3 from ' . tablename('sz_yi_order_goods') . ' og' . ' left join ' . tablename('sz_yi_goods') . ' g on g.id=og.goodsid  ' . ' where og.orderid=:orderid and og.nocommission=0 and og.uniacid = :uniacid order by og.createtime  desc ', array(':uniacid' => $_W['uniacid'], ':orderid' => $row['id']));
+                    $goods = set_medias($goods, 'thumb');
+                    foreach ($goods as &$g) {
+                        $commissions = iunserializer($g['commissions']);
+                        if ($row['level'] == 1) {
+                            $commission = iunserializer($g['commission1']);
+                            if (empty($commissions)) {
+                                $g['commission'] = isset($commission['level' . $agentLevel['id']]) ? $commission['level' . $agentLevel['id']] : $commission['default'];
+                            } else {
+                                $g['commission'] = isset($commissions['level1']) ? floatval($commissions['level1']) : 0;
+                            }
+                            $totalcommission += $g['commission'];
+                            $ordercommission += $g['commission'];
+                            if ($g['status1'] >= 2) {
+                                $totalpay += $g['commission'];
+                                $orderpay += $g['commission'];
+                            }
+                        }
+                        if ($row['level'] == 2) {
+                            $commission = iunserializer($g['commission2']);
+                            $g['commission_pay'] = 0;
+                            if (empty($commissions)) {
+                                $g['commission'] = isset($commission['level' . $agentLevel['id']]) ? $commission['level' . $agentLevel['id']] : $commission['default'];
+                            } else {
+                                $g['commission'] = isset($commissions['level2']) ? floatval($commissions['level2']) : 0;
+                            }
+                            $totalcommission += $g['commission'];
+                            $ordercommission += $g['commission'];
+                            if ($g['status2'] >= 2) {
+                                $g['commission_pay'] = $g['commission'];
+                                $totalpay += $g['commission'];
+                                $orderpay += $g['commission'];
+                            }
+                        }
+                        if ($row['level'] == 3) {
+                            $commission = iunserializer($g['commission3']);
+                            if (empty($commissions)) {
+                                $g['commission'] = isset($commission['level' . $agentLevel['id']]) ? $commission['level' . $agentLevel['id']] : $commission['default'];
+                            } else {
+                                $g['commission'] = isset($commissions['level3']) ? floatval($commissions['level3']) : 0;
+                            }
+                            $totalcommission += $g['commission'];
+                            $ordercommission += $g['commission'];
+                            if ($g['status3'] >= 2) {
+                                $totalpay += $g['commission'];
+                                $orderpay += $g['commission'];
+                            }
+                        }
+                        $status = $g['status' . $row['level']];
+                        if ($status == 1) {
+                            $g['statusstr'] = 'å¾…å®¡æ ¸';
+                            $g['dealtime'] = date('Y-m-d H:i', $row['applytime' . $row['level']]);
+                        } else {
+                            if ($status == 2) {
+                                $g['statusstr'] = 'å¾…æ‰“æ¬¾';
+                                $g['dealtime'] = date('Y-m-d H:i', $row['checktime' . $row['level']]);
+                            } else {
+                                if ($status == 3) {
+                                    $g['statusstr'] = 'å·²æ‰“æ¬¾';
+                                    $g['dealtime'] = date('Y-m-d H:i', $row['checktime' . $row['level']]);
+                                } else {
+                                    if ($status == -1) {
+                                        $g['dealtime'] = date('Y-m-d H:i', $row['invalidtime' . $row['level']]);
+                                        $g['statusstr'] = 'æ— æ•ˆ';
+                                    }
+                                }
+                            }
+                        }
+                        $g['status'] = $status;
+                        $g['content'] = $g['content' . $row['level']];
+                        $g['level'] = $row['level'];
+                        if ($row['level'] == 1) {
+                            $g['level'] = 'ä¸€';
+                        } else {
+                            if ($row['level'] == 2) {
+                                $g['level'] = 'äºŒ';
+                            } else {
+                                if ($row['level'] == 3) {
+                                    $g['level'] = 'ä¸‰';
+                                }
+                            }
+                        }
+                    }
+                    unset($g);
+                    $row['goods'] = $goods;
+                    $row['ordercommission'] = $ordercommission;
+                    $row['orderpay'] = $orderpay;
+                }
+                unset($row);
+                show_json(1, array('list' => $list, 'pagesize' => $psize, 'totalcommission' => $totalcommission));
+            }
+        }
+    }
+}
+if ($operation == 'display') {
+    include $this->template('log');
+}
+if ($operation == 'detail') {
+    include $this->template('log_detail');
+}
