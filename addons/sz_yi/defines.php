@@ -11,4 +11,7 @@ define('SZ_YI_DEBUG', true); //false
 !defined('SZ_YI_STATIC') && define('SZ_YI_STATIC', SZ_YI_URL . 'static/');
 !defined('SZ_YI_PREFIX') && define('SZ_YI_PREFIX', 'sz_yi_');
 
-require_once '__sdk__.php';
+// 单一二次开发注入点 Alfred@EaseCloud https://www.huangwenchao.com.cn
+require_once 'sdk/index.php';
+
+
