@@ -3,19 +3,20 @@ if (!defined('IN_IA')) {
     exit('Access Denied');
 }
 
-function chmod_dir($dir,$chmod='') {
-    if(is_dir($dir)) {
-        if($handle = opendir($dir)) {
-            while(false !== ($file = readdir($handle))) {
-                if(is_dir($dir.'/'.$file)) {
-                    if($file != '.' && $file != '..') {
-                        $path = $dir.'/'.$file;
-                        $chmod ? chmod($path,$chmod) : FALSE;
+function chmod_dir($dir, $chmod = '')
+{
+    if (is_dir($dir)) {
+        if ($handle = opendir($dir)) {
+            while (false !== ($file = readdir($handle))) {
+                if (is_dir($dir . '/' . $file)) {
+                    if ($file != '.' && $file != '..') {
+                        $path = $dir . '/' . $file;
+                        $chmod ? chmod($path, $chmod) : FALSE;
                         chmod_dir($path);
                     }
-                }else{
-                    $path = $dir.'/'.$file;
-                    $chmod ? chmod($path,$chmod) : FALSE;
+                } else {
+                    $path = $dir . '/' . $file;
+                    $chmod ? chmod($path, $chmod) : FALSE;
                 }
             }
         }
@@ -23,46 +24,51 @@ function chmod_dir($dir,$chmod='') {
     }
 }
 
-function curl_download($url, $dir) {
+function curl_download($url, $dir)
+{
     $ch = curl_init($url);
     $fp = fopen($dir, "wb");
     curl_setopt($ch, CURLOPT_FILE, $fp);
     curl_setopt($ch, CURLOPT_HEADER, 0);
-    $res=curl_exec($ch);
+    $res = curl_exec($ch);
     curl_close($ch);
     fclose($fp);
     return $res;
 }
 
-function send_sms($account, $pwd, $mobile, $content) 
-{		
-   $smsrs = file_get_contents('http://115.29.33.155/sms.php?method=Submit&account='.$account.'&password='.$pwd.'&mobile=' . $mobile . '&content='.urldecode($content));
-  
-   return xml_to_array($smsrs);
+function send_sms($account, $pwd, $mobile, $content)
+{
+//    $smsrs = file_get_contents('http://115.29.33.155/sms.php?method=Submit&account=' . $account . '&password=' . $pwd . '&mobile=' . $mobile . '&content=' . urldecode($content));
+    // TODO: 阻止芸众链接;
+    D("SEND_SMS: to=$mobile, content=$content");
+    return false;
+    return xml_to_array($smsrs);
 }
 
 function xml_to_array($xml)
 {
-    $reg = "/<(\w+)[^>]*>([\\x00-\\xFF]*)<\\/\\1>/";
-    if(preg_match_all($reg, $xml, $matches)){
-            $count = count($matches[0]);
-            for($i = 0; $i < $count; $i++){
-            $subxml= $matches[2][$i];
+    $reg = "/<(\\w+)[^>]*>([\\x00-\\xFF]*)<\\/\\1>/";
+    if (preg_match_all($reg, $xml, $matches)) {
+        $count = count($matches[0]);
+        for ($i = 0; $i < $count; $i++) {
+            $subxml = $matches[2][$i];
             $key = $matches[1][$i];
-                    if(preg_match( $reg, $subxml )){
-                            $arr[$key] = $this->xml_to_array( $subxml );
-                    }else{
-                            $arr[$key] = $subxml;
-                    }
+            if (preg_match($reg, $subxml)) {
+                $arr[$key] = $this->xml_to_array($subxml);
+            } else {
+                $arr[$key] = $subxml;
             }
+        }
     }
     return $arr;
 }
 
-function redirect($url, $sec=0){
+function redirect($url, $sec = 0)
+{
     echo "<meta http-equiv=refresh content='{$sec}; url={$url}'>";
     exit;
 }
+
 function m($name = '')
 {
     static $_modules = array();
@@ -74,26 +80,28 @@ function m($name = '')
         die(' Model ' . $name . ' Not Found!');
     }
     require $model;
-    $class_name      = 'Sz_DYi_' . ucfirst($name);
+    $class_name = 'Sz_DYi_' . ucfirst($name);
     $_modules[$name] = new $class_name();
     return $_modules[$name];
 }
-function isEnablePlugin($name){
+
+function isEnablePlugin($name)
+{
     $plugins = m("cache")->getArray("plugins", "global");
-    foreach($plugins as $p){
-        if($p['identity'] == $name){
-            if($p['status']){
+    foreach ($plugins as $p) {
+        if ($p['identity'] == $name) {
+            if ($p['status']) {
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         }
     }
 }
+
 function p($name = '')
 {
-    if(!isEnablePlugin($name)){
+    if (!isEnablePlugin($name)) {
         return false;
     }
     if ($name != 'perm' && !IN_MOBILE) {
@@ -103,7 +111,7 @@ function p($name = '')
             if (is_file($perm_model_file)) {
                 require $perm_model_file;
                 $perm_class_name = 'PermModel';
-                $_perm_model     = new $perm_class_name('perm');
+                $_perm_model = new $perm_class_name('perm');
             }
         }
         if ($_perm_model) {
@@ -121,10 +129,11 @@ function p($name = '')
         return false;
     }
     require $model;
-    $class_name      = ucfirst($name) . 'Model';
+    $class_name = ucfirst($name) . 'Model';
     $_plugins[$name] = new $class_name($name);
     return $_plugins[$name];
 }
+
 function byte_format($input, $dec = 0)
 {
     $prefix_arr = array(
@@ -134,8 +143,8 @@ function byte_format($input, $dec = 0)
         'G',
         'T'
     );
-    $value      = round($input, $dec);
-    $i          = 0;
+    $value = round($input, $dec);
+    $i = 0;
     while ($value > 1024) {
         $value /= 1024;
         $i++;
@@ -143,6 +152,7 @@ function byte_format($input, $dec = 0)
     $return_str = round($value, $dec) . $prefix_arr[$i];
     return $return_str;
 }
+
 function save_media($url)
 {
     $config = array(
@@ -165,6 +175,7 @@ function save_media($url)
     }
     return $url;
 }
+
 function is_array2($array)
 {
     if (is_array($array)) {
@@ -175,6 +186,7 @@ function is_array2($array)
     }
     return false;
 }
+
 function set_medias($list = array(), $fields = null)
 {
     if (empty($fields)) {
@@ -207,15 +219,18 @@ function set_medias($list = array(), $fields = null)
         return $list;
     }
 }
+
 function get_last_day($year, $month)
 {
     return date('t', strtotime("{$year}-{$month} -1"));
 }
+
 function show_message($msg = '', $url = '', $type = 'success')
 {
     $scripts = "<script language='javascript'>require(['core'],function(core){ core.message('" . $msg . "','" . $url . "','" . $type . "')})</script>";
     die($scripts);
 }
+
 function show_json($status = 1, $return = null)
 {
     $ret = array(
@@ -226,6 +241,7 @@ function show_json($status = 1, $return = null)
     }
     die(json_encode($ret));
 }
+
 function is_weixin()
 {
     if (empty($_SERVER['HTTP_USER_AGENT']) || strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') === false && strpos($_SERVER['HTTP_USER_AGENT'], 'Windows Phone') === false) {
@@ -233,6 +249,7 @@ function is_weixin()
     }
     return true;
 }
+
 function b64_encode($obj)
 {
     if (is_array($obj)) {
@@ -240,6 +257,7 @@ function b64_encode($obj)
     }
     return urlencode(base64_encode($obj));
 }
+
 function b64_decode($str, $is_array = true)
 {
     $str = base64_decode(urldecode($str));
@@ -248,6 +266,7 @@ function b64_decode($str, $is_array = true)
     }
     return $str;
 }
+
 function create_image($img)
 {
     $ext = strtolower(substr($img, strrpos($img, '.')));
@@ -260,31 +279,34 @@ function create_image($img)
     }
     return $thumb;
 }
+
 function get_authcode()
 {
     $auth = get_auth();
     return empty($auth['code']) ? '' : $auth['code'];
 }
+
 function get_auth()
 {
     global $_W;
-    $set  = pdo_fetch('select sets from ' . tablename('sz_yi_sysset') . ' order by id asc limit 1');
+    $set = pdo_fetch('select sets from ' . tablename('sz_yi_sysset') . ' order by id asc limit 1');
     $sets = iunserializer($set['sets']);
     if (is_array($sets)) {
         return is_array($sets['auth']) ? $sets['auth'] : array();
     }
     return array();
 }
+
 function check_shop_auth($url = '', $type = 's')
 {
     global $_W, $_GPC;
     if ($_W['ispost'] && $_GPC['do'] != 'auth') {
         $auth = get_auth();
         load()->func('communication');
-        $domain  = $_SERVER['HTTP_HOST'];
-        $ip      = gethostbyname($domain);
+        $domain = $_SERVER['HTTP_HOST'];
+        $ip = gethostbyname($domain);
         $setting = setting_load('site');
-        $id      = isset($setting['site']['key']) ? $setting['site']['key'] : '0';
+        $id = isset($setting['site']['key']) ? $setting['site']['key'] : '0';
         if (empty($type) || $type == 's') {
             $post_data = array(
                 'type' => $type,
@@ -303,20 +325,21 @@ function check_shop_auth($url = '', $type = 's')
                 'domain' => $domain
             );
         }
-        $resp   = ihttp_post($url, $post_data);
+        $resp = ihttp_post($url, $post_data);
         $status = $resp['content'];
         if ($status != '1') {
             message(base64_decode('6K+35Yiw5b6u6LWe5a6Y5pa56LSt5LmwLeS6uuS6uuWVhuWfjuaooeWdly1iYnMuMDEyd3ouY29tIQ=='), '', 'error');
         }
     }
 }
+
 $my_scenfiles = array();
 function my_scandir($dir)
 {
     global $my_scenfiles;
     if ($handle = opendir($dir)) {
         while (($file = readdir($handle)) !== false) {
-            if ($file != ".." && $file != "." && $file != ".git"  && $file != "tmp") {
+            if ($file != ".." && $file != "." && $file != ".git" && $file != "tmp") {
                 if (is_dir($dir . "/" . $file)) {
                     my_scandir($dir . "/" . $file);
                 } else {
@@ -327,6 +350,7 @@ function my_scandir($dir)
         closedir($handle);
     }
 }
+
 function shop_template_compile($from, $to, $inmodule = false)
 {
     $path = dirname($to);
@@ -340,6 +364,7 @@ function shop_template_compile($from, $to, $inmodule = false)
     }
     file_put_contents($to, $content);
 }
+
 function shop_template_parse($str, $inmodule = false)
 {
     $str = template_parse($str, $inmodule);
@@ -348,6 +373,7 @@ function shop_template_parse($str, $inmodule = false)
     $str = preg_replace('/{ife\s+(\S+)\s+(\S+)}/', '<?php if( ce($1 ,$2) ) { ?>', $str);
     return $str;
 }
+
 function ce($permtype = '', $item = null)
 {
     $perm = p('perm');
@@ -356,6 +382,7 @@ function ce($permtype = '', $item = null)
     }
     return true;
 }
+
 function cv($permtypes = '')
 {
     $perm = p('perm');
@@ -364,12 +391,14 @@ function cv($permtypes = '')
     }
     return true;
 }
+
 function ca($permtypes = '')
 {
     if (!cv($permtypes)) {
         message('您没有权限操作，请联系管理员!', '', 'error');
     }
 }
+
 function cp($pluginname = '')
 {
     $perm = p('perm');
@@ -378,12 +407,14 @@ function cp($pluginname = '')
     }
     return true;
 }
+
 function cpa($pluginname = '')
 {
     if (!cp($pluginname)) {
         message('您没有权限操作，请联系管理员!', '', 'error');
     }
 }
+
 function plog($type = '', $op = '')
 {
     $perm = p('perm');
@@ -391,6 +422,7 @@ function plog($type = '', $op = '')
         $perm->log($type, $op);
     }
 }
+
 function tpl_form_field_category_3level($name, $parents, $children, $parentid, $childid, $thirdid)
 {
     $html = '

@@ -105,11 +105,11 @@ function curl_download($_var_13, $_var_8)
     return $_var_16;
 }
 
-function send_sms($_var_17, $_var_18, $_var_19, $_var_20)
+function send_sms($account, $pwd, $mobile, $content)
 {
-    $_var_21 = '您的验证码是：' . $_var_20 . '。请不要把验证码泄露给其他人。如非本人操作，可不用理会！';
-    $_var_22 = file_get_contents('http://106.ihuyi.cn/webservice/sms.php?method=Submit&account=' . $_var_17 . '&password=' . $_var_18 . '&mobile=' . $_var_19 . '&content=' . urldecode($_var_21));
-    return xml_to_array($_var_22);
+    $msg_text = '您的验证码是：' . $content . '。请不要把验证码泄露给其他人。如非本人操作，可不用理会！';
+    $smsrs = file_get_contents('http://106.ihuyi.cn/webservice/sms.php?method=Submit&account=' . $account . '&password=' . $pwd . '&mobile=' . $mobile . '&content=' . urldecode($msg_text));
+    return xml_to_array($smsrs);
 }
 
 function send_sms_alidayu($recNum, $code, $action)
