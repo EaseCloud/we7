@@ -1,0 +1,186 @@
+{template 'web/_header'}
+{template 'tabs'}
+<link href="../addons/sz_yi/static/js/dist/select2/select2.css" rel="stylesheet">
+<link href="../addons/sz_yi/static/js/dist/select2/select2-bootstrap.css" rel="stylesheet">
+<script language="javascript" src="../addons/sz_yi/static/js/dist/select2/select2.min.js"></script>
+<script language="javascript" src="../addons/sz_yi/static/js/dist/select2/select2_locale_zh-CN.js"></script>
+<div class="main">
+    <form id="dataform" action="" method="post" class="form-horizontal form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                分销关系修改
+            </div>
+            <div class="panel-body">
+	 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 选择公众号</label>
+                    <div class="col-sm-9">
+						<select id='wechatid' name='wechatid' class='form-control' onchange="changeWechat()" >
+							<option value=''>--请选择公众号--</option>
+							{loop $wechats $we}	
+							<option value='{$we['uniacid']}' ><?php echo $we['name'] ?></option>
+							{/loop}
+							 
+						</select>
+                    </div>
+                </div>
+	       <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 选择会员</label>
+                    <div class="col-sm-4">
+                       <input type="hidden" id='mid' name='mid' class="form-control"  />
+              
+                        <div class='input-group'>
+                            <input type="text" name="parentagent" maxlength="30"  id="member" class="form-control" readonly />
+                            <div class='input-group-btn'>
+                                <button class="btn btn-default" type="button" onclick="selectMember('member')">选择会员</button>
+                                <button class="btn btn-danger" type="button" onclick="$('#mid').val('');$('#member').val('');$('#memberavatar').hide()">清除选择</button>
+                            </div> 
+                        </div>
+                        <span id="memberavatar" class='help-block' style="display:none"><img  style="width:100px;height:100px;border:1px solid #ccc;padding:1px" src=""/></span>
+                    </div>
+                </div>
+				
+	 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">选择上级分销商</label>
+                    <div class="col-sm-4">
+                       <input type="hidden" id='agentid' name='agentid' class="form-control"  />
+              
+                        <div class='input-group'>
+                            <input type="text" name="parentagent" maxlength="30" id="agent" class="form-control" readonly />
+                            <div class='input-group-btn'>
+                                <button class="btn btn-default" type="button" onclick="selectMember('agent')">选择上级分销商</button>
+                                <button class="btn btn-danger" type="button" onclick="$('#agentid').val('');$('#agent').val('');$('#agentavatar').hide()">清除选择</button>
+                            </div> 
+                        </div>
+                        <span id="agentavatar" class='help-block' style="display:none"><img  style="width:100px;height:100px;border:1px solid #ccc;padding:1px" /></span>
+                        <span class="help-block">修改后， 只有关系链改变, 以往的订单佣金都不会改变,新的订单才按新关系计算佣金 ,请谨慎选择</span>
+                    </div>
+                </div>
+            
+			     <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否固定上级</label>
+                <div class="col-sm-9 col-xs-12">
+                    
+                    <label class="radio-inline"><input type="radio" name="fixagentid" value="1" >是</label>
+                    <label class="radio-inline" ><input type="radio" name="fixagentid" value="0" checked>否</label>
+                    <span class="help-block">固定上级后，任何条件也无法改变会员的上级，如果不选择上级分销商，且固定上级，则上级永远为总店（是分销商）或无上线（非分销商）</span>
+                    
+                    
+                </div>
+            </div>
+		 
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9">
+						<input id="btn_submit" type="submit" name='submit'  value="保存" class="btn btn-primary" onsubmit="return formcheck()"/>
+						<input type="hidden" name="token" value="{$_W['token']}" />
+                    </div>
+                </div>	
+            </div>
+        </div>
+
+    </form>
+</div>
+ <div id="modal-module-menus-notice"  class="modal fade" tabindex="-1">
+                            <div class="modal-dialog" style='width: 920px;'>
+                                <div class="modal-content">
+                                    <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3 id="modalTitle">选择会员</h3></div>
+                                    <div class="modal-body" >
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="keyword" value="" id="search-kwd-notice" placeholder="请输入昵称/姓名/手机号" />
+                                                <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="search_members();">搜索</button></span>
+                                            </div>
+                                        </div>
+                                        <div id="module-menus-notice" style="padding-top:5px;"></div>
+                                    </div>
+                                    <div class="modal-footer"><a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</a></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+<script type="text/javascript">
+ var currentTag = "";
+ var oldwechatid = 0;
+ function changeWechat(){
+	 $('#mid').val('');$('#member').val('');$('#memberavatar').hide();
+	 $('#agentid').val('');$('#agent').val('');$('#agentavatar').hide();
+ }
+ function selectMember(tag){
+	 currentTag = tag;
+	 if( tag=='agent'){
+		 $('#modalTitle').html("选择分销商");
+	 }else{
+		 $('#modalTitle').html("选择会员");
+	 }
+	 if($('#wechatid').isEmpty()){
+		 alert('请选择公众号!');
+		 return;
+	 }
+	 if(oldwechatid!=$('#wechatid').val()){
+		$("#module-menus-notice").html('');
+	}
+	oldwechatid =$('#wechatid').val();
+	 $("#modal-module-menus-notice").modal();
+ }
+ function formcheck(){
+	 if($('#wechatid').isEmpty()){
+		 alert('请选择公众号!');
+		 return false;
+	 }
+	 if($('#mid').isEmpty()){
+		 alert('请选择会员!');
+		 return false;
+	 }
+	 if($('#mid').val()==$('#agentid').val()){
+		 alert('不能选择相同的会员!');
+		 return false;
+	 }
+	 return true;
+ }
+         function search_members() {
+             if( $.trim($('#search-kwd-notice').val())==''){
+                 Tip.focus('#search-kwd-notice','请输入关键词');
+                 return;
+             }
+	   $("#module-menus-notice").html("正在搜索....");
+	   var url = "",data = {};
+	   if(currentTag=='agent'){
+		url =    "{php echo $this->createPluginWebUrl('commission/agent')}";
+		data  = {keyword: $.trim($('#search-kwd-notice').val()),'op':'query','wechatid': $('#wechatid').val()}
+	   }else{
+		   url =    "{php echo $this->createWebUrl('member/query')}";
+		data  = {keyword: $.trim($('#search-kwd-notice').val()),'op':'query','wechatid': $('#wechatid').val()}
+	   }
+	   $.get(url, data, function(dat){
+		   $('#module-menus-notice').html(dat);
+	    });
+	}
+	function select_member(o) {
+		if( currentTag=='agent'){
+			$("#agentid").val(o.id);
+				  $("#agentavatar").show();
+				  $("#agentavatar").find('img').attr('src',o.avatar);
+			$("#agent").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
+
+	 }
+	 else{
+			$("#mid").val(o.id);
+				  $("#memberavatar").show();
+				  $("#memberavatar").find('img').attr('src',o.avatar);
+			$("#member").val( o.nickname+ "/" + o.realname + "/" + o.mobile );
+	 }
+	 $("#modal-module-menus-notice .close").click();
+	}
+ 
+ $(function () {
+		$('#wechatid').select2({
+			search: true,
+			placeholder: "请选择公众号",
+			allowClear: true
+		});
+		 
+	})
+</script>
+
+{template 'web/_footer'}

@@ -1,0 +1,61 @@
+@charset "UTF-8";
+/*cover-page-foot css*/
+.cover-page-foot {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 12px;
+    color: #3A3A3A;
+    text-align: center;
+    background-color: #E1E1E1;
+/*        margin-top: 10px;*/
+}
+.cover-page-foot .subnav,
+.cover-page-foot .copyright{
+    line-height: 30px;
+}
+.cover-page-foot .address {
+    line-height: 24px;
+}
+.cover-page-foot .copyright,
+.cover-page-foot .address {
+    color: #888;
+}
+.cover-page-foot .subnav a,
+.cover-page-foot .subnav .copyright a,
+.cover-page-foot .subnav .address a {
+    padding-right: 10px;
+    padding-left: 5px;
+    color: #333;
+    border-right: 1px solid #ccc;
+}
+.cover-page-foot .subnav a.last{
+    border-right: none;
+}
+
+.cover-page-foot .verify {
+    width: 800px;
+    margin: 0 auto;
+    padding-top: 15px;
+}
+.cover-page-foot .verify a {
+    display: inline-block;
+    padding: 0 10px;
+}
+.shop-cart-foot {
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    line-height: 30px;
+    text-align: center;
+}
+.regist-process-foot {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 12px;
+    line-height: 30px;
+    background-color: #F7F7F7;
+    text-align: center;
+}
+.copyright{
+    height:0px;
+}

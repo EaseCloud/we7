@@ -1,0 +1,225 @@
+{template 'web/_header'}
+{template 'web/shop/tabs'}
+{if $operation == 'display'}
+     <form action="" method="post">
+<div class="panel panel-default">
+    <div class="panel-body table-responsive">
+        <table class="table table-hover">
+            <thead class="navbar-inner">
+                <tr>
+                    <th style="width:50px;">ID</th>			
+                    <th style="width:30%;">标题</th>
+                   <!--  <th>状态</th> -->
+                    <th >操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list $row}
+                <tr>
+                    <td>{$row['id']}</td>
+                    
+                    <td>{$row['adsname']}</td>
+                       <!-- <td>
+                                    {if $row['enabled']==1}
+                                    <span class='label label-success'>显示</span>
+                                    {else}
+                                    <span class='label label-danger'>隐藏</span>
+                                    {/if}
+                                </td> -->
+                    <td style="text-align:left;">
+                        {ifp 'shop.ads.view|shop.ads.edit'}<a href="{php echo $this->createWebUrl('shop/ads', array('op' => 'post', 'id' => $row['id']))}" class="btn btn-default btn-sm" 
+                                                               title="{ifp 'shop.ads.edit'}修改{else}查看{/if}"><i class="fa fa-edit"></i></a>{/if}
+                        {ifp 'shop.ads.delete'}<a href="{php echo $this->createWebUrl('shop/ads', array('op' => 'delete', 'id' => $row['id']))}"class="btn btn-default btn-sm" onclick="return confirm('确认删除此幻灯片?')" title="删除"><i class="fa fa-times"></i></a>{/if}
+                    </td>
+                </tr>
+                {/loop} 
+
+            </tbody>
+        </table>
+        {$pager}
+    </div>
+</div>
+</form>
+<script>
+    require(['bootstrap'], function ($) {
+        $('.btn').hover(function () {
+            $(this).tooltip('show');
+        }, function () {
+            $(this).tooltip('hide');
+        });
+    });
+</script>
+
+{elseif $operation == 'post'}
+
+<div class="main">
+    <form {ife 'shop.ads' $item}action="" method="post"{/if} class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+        <input type="hidden" name="id" value="{$item['id']}" />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                幻灯片设置
+            </div>
+            <div class="panel-body">
+                <!-- <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ife 'shop.ads' $item}
+                                <input type="text" name="displayorder" class="form-control" value="{$item['displayorder']}" />
+                                <span class='help-block'>数字越大，排名越靠前</span>
+                        {else}
+                            <div class='form-control-static'>{$item['displayorder']}</div>
+                        {/if}
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>幻灯片标题</label>
+                    <div class="col-sm-9 col-xs-12">
+                         <div class='form-control-static'>{$item['adsname']}</div>
+                         <input type="hidden" name="adsname" class="form-control" value="{$item['adsname']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告1</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {ife 'shop.ads' $item}
+                        {php echo tpl_form_field_image('thumb_1', $item['thumb_1'])}
+                        <span class='help-block'>建议尺寸:640 * 350 , 请将所有幻灯片图片尺寸保持一致</span>
+                        {else}
+                            {if !empty($item['thumb_1'])}
+                                  <a href='{php echo tomedia($item['thumb_1'])}' target='_blank'>
+                            <img src="{php echo tomedia($item['thumb_1'])}" style='width:100px;border:1px solid #ccc;padding:1px' />
+                                  </a>
+                            {/if}
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告1连接</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {ife 'shop.ads' $item}
+                        <input type="text" name="link_1" class="form-control" value="{$item['link_1']}" />
+                        {else}
+                        <div class='form-control-static'>{$item['link_1']}</div>
+                        {/if}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告2</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {ife 'shop.ads' $item}
+                        {php echo tpl_form_field_image('thumb_2', $item['thumb_2'])}
+                        <span class='help-block'>建议尺寸:640 * 350 , 请将所有幻灯片图片尺寸保持一致</span>
+                        {else}
+                            {if !empty($item['thumb_1'])}
+                                  <a href='{php echo tomedia($item['thumb_2'])}' target='_blank'>
+                            <img src="{php echo tomedia($item['thumb_2'])}" style='width:100px;border:1px solid #ccc;padding:1px' />
+                                  </a>
+                            {/if}
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告2连接</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {ife 'shop.ads' $item}
+                        <input type="text" name="link_2" class="form-control" value="{$item['link_2']}" />
+                        {else}
+                        <div class='form-control-static'>{$item['link_2']}</div>
+                        {/if}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告3</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {ife 'shop.ads' $item}
+                        {php echo tpl_form_field_image('thumb_3', $item['thumb_3'])}
+                        <span class='help-block'>建议尺寸:640 * 350 , 请将所有幻灯片图片尺寸保持一致</span>
+                        {else}
+                            {if !empty($item['thumb_3'])}
+                                  <a href='{php echo tomedia($item['thumb_3'])}' target='_blank'>
+                            <img src="{php echo tomedia($item['thumb_3'])}" style='width:100px;border:1px solid #ccc;padding:1px' />
+                                  </a>
+                            {/if}
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告3连接</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {ife 'shop.ads' $item}
+                        <input type="text" name="link_3" class="form-control" value="{$item['link_3']}" />
+                        {else}
+                        <div class='form-control-static'>{$item['link_3']}</div>
+                        {/if}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告4</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {ife 'shop.ads' $item}
+                        {php echo tpl_form_field_image('thumb_4', $item['thumb_4'])}
+                        <span class='help-block'>建议尺寸:640 * 350 , 请将所有幻灯片图片尺寸保持一致</span>
+                        {else}
+                            {if !empty($item['thumb_4'])}
+                                  <a href='{php echo tomedia($item['thumb_4'])}' target='_blank'>
+                            <img src="{php echo tomedia($item['thumb_4'])}" style='width:100px;border:1px solid #ccc;padding:1px' />
+                                  </a>
+                            {/if}
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告4连接</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {ife 'shop.ads' $item}
+                        <input type="text" name="link_4" class="form-control" value="{$item['link_4']}" />
+                        {else}
+                        <div class='form-control-static'>{$item['link_4']}</div>
+                        {/if}
+                    </div>
+                </div>
+
+
+                <!-- <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否显示</label>
+                    <div class="col-sm-9 col-xs-12">
+                            {ife 'shop.ads' $item}
+                        <label class='radio-inline'>
+                            <input type='radio' name='enabled' value=1' {if $item['enabled']==1}checked{/if} /> 是
+                        </label>
+                        <label class='radio-inline'>
+                            <input type='radio' name='enabled' value=0' {if $item['enabled']==0}checked{/if} /> 否
+                        </label>
+                     {else}
+                            <div class='form-control-static'>{if empty($item['enabled'])}否{else}是{/if}</div>
+                        {/if}
+                    </div>
+                </div> -->
+                
+                    <div class="form-group"></div>
+            <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                           {ife 'shop.ads' $item}
+                            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"  />
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                        {/if}
+                       <input type="button" name="back" onclick='history.back()' {ifp 'shop.ads.add|shop.ads.edit'}style='margin-left:10px;'{/if} value="返回列表" class="btn btn-default" />
+                    </div>
+            </div>
+                
+                
+            </div>
+        </div>
+         
+    </form>
+</div>
+
+
+{/if}
+{template 'web/_footer'}

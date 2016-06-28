@@ -1,0 +1,4 @@
+/web/index.php?c=site&a=entry&method=upgrade&p=bonus&do=plugin&m=sz_yi
+
+Çå³ı»º´æÎÄ¼ş
+

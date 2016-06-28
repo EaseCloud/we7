@@ -1,0 +1,437 @@
+{template 'common/header'}
+<title>商品分类</title>
+<style type="text/css">
+body {margin:0;padding:0; width:100%; height:100%;background:#f7f7f7;}
+
+.topbar {position:fixed;top:0;width:100%;height:36px;background-color:#fff; border-bottom:1px solid #f7f7f7; z-index:10}
+.topbar a{ width:10%; height:36px; display:block;text-align:center; line-height:36px}
+.search { width:80%;height:24px; margin-top:6px;color:#6d6d6d; line-height:24px;font-size:13px;background-color:#f1f1f1;border-radius:50px; float:left;}
+.topbar .iconfont{ font-size:18px; color:#6d6d6d}
+.topbar .icon-search{ font-size:12px; margin-left:6px; margin-right:2px;}
+
+.search1{height:100%;width:100%;position:fixed; bottom:-100%;left:0;z-index:999; background-color:#f1f1f1}
+.search1 .topbar1{height:36px;width:100%;background:#fff}
+.search1 .topbar1 .icon-search{ font-size:14px; color:#6d6d6d}
+.search1 .topbar1 .left_wrap{height:36px;width:100%;float:left;margin-left:10px}
+.search1 .topbar1 .left{margin-right:70px;margin-top:6px}
+.search1 .topbar1 .left input{width:100%;height:24px;line-height:24px;border:none;padding:0 0 0 10px;background:0 0;background:#f1f1f1;border-radius:50px;color:#6d6d6d; font-size:13px;}
+.search1 .topbar1 .right{position:relative;float:right;width:70px;margin-left:-70px}
+.search1 .topbar1 .right .sub1{height:24px;width:30px;float:left;background:#f1f1f1;border-radius:0 50px 50px 0;border:0;padding:0;margin-top:6px;}
+.search1 .topbar1 .right .home1{height:36px;width:30px;margin-left:5px;float:left;text-align:right;line-height:36px;color:#6d6d6d;font-size:13px}
+.search1 .result1{height:100%;overflow-y:auto;padding-bottom:20px}
+.search1 .result1 ul{margin:0;padding:0}
+.search1 .result1 ul li{width:92%;border-bottom:1px dashed #dedede;padding:0 4%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-top:8px;padding-bottom:8px; font-size:13px;}
+.search1 .result1 ul li a{color:#999;text-decoration:none}
+
+.main {margin-top:36px; width:100%; height:auto;}
+.main .main_tit{width:96%; min-height:20px; line-height:12px; font-size:13px; color:#2c2c2c; margin-bottom:0;padding:2% 0 0 2%;}
+.brand_warp{ background-color:#fff;}
+.brand_warp .brand1{ width:30%; height:64px; margin:2.5% 0 2.5% 2.5%}
+.brand_warp .brand2{ width:30%; height:64px; margin:2.5% 2.5% 2.5% 0}
+.brand_warp a{ width:100%; height:100%; display:block;}
+.brand_warp img {width:100%; max-height:64px;}
+
+#right_container .inner { background:#fff; height:auto; margin-bottom:10px;}
+#right_container .inner .category_item { width:49%; height:64px;border-right:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1;float:left; background:#fff;}
+.category_item .im{ float:right;width:64px;height:64px; overflow:hidden;}
+.category_item .im img{width:64px; height:64px;}
+.category_item .name{ float:left; height:64px; line-height:64px; position:relative; left:8px; font-size:14px; color:#4d4d4d}
+
+#right_container .title{font-size:16px;color:#333;height:16px;line-height:16px;padding:8px;}
+#right_container .title i{width:4px;height:16px;background-color:#F92D58;display:block; float:left; margin-right:3px;}
+.cate_list {max-width: 800px; padding:0 8px 8px 8px;}
+.cate_list a.cate_goods{ margin:8px 0px 0px; display:block; background-color:#fff;}
+.cate_list img{width: 100%;max-height: 710px;}
+.cate_list .goods_info{padding: 8px; font-size:14px;}
+.cate_list .goods_info .tit{white-space: nowrap;max-width:160px;height:15px; color:#333;line-height:15px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+.cate_list .goods_info .price{color:#FF4965;height:15px;line-height:15px;}
+
+#right_container .adv { color:#999;font-size:13px;margin:5px;float:left;padding:0;} 
+#right_container .adv img {width:100%;}
+
+#category_loading { width:94%;padding:10px;color:#666;text-align: center;float:right;}
+#left_container {display:none;}
+
+.background{ background:#fff;}
+
+.ad-metro{margin-bottom:8px;overflow:hidden}
+.ad-metro img{width:100%;display:block;margin:0 auto}
+.ad-metro .ad-metro-1{width:50%;display:block;text-decoration:none;float:left;-webkit-box-sizing:border-box;box-sizing:border-box;overflow:hidden}
+.ad-metro .ad-metro-right{float:right;width:50%;-webkit-box-sizing:border-box;box-sizing:border-box;padding-left:1px;overflow:hidden}
+.ad-metro .ad-metro-2{width:100%;display:block;text-decoration:none;-webkit-box-sizing:border-box;box-sizing:border-box;margin-bottom:1px}
+.ad-metro .ad-metro-3{width:50%;-webkit-box-sizing:border-box;box-sizing:border-box;text-decoration:none;padding-right:1px;overflow:hidden;display:block;float:left}
+.ad-metro .ad-metro-4{width:50%;-webkit-box-sizing:border-box;box-sizing:border-box;text-decoration:none;overflow:hidden;display:block;float:left}
+.ad-metro .metro-4{width:40%;}
+.ad-metro .metro-6{width:60%;}
+
+.itemlist-ad{position:relative;max-width:800px;margin:0 auto;padding:8px;left:0;right:0;line-height:0;display:-webkit-flex;display:-moz-flex;display:-ms-flex;display:-o-flex;display:flex;-webkit-flex-flow:column;-moz-flex-flow:column;-ms-flex-flow:column;-o-flex-flow:column;flex-flow:column}
+.itemlist-ad div{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box}
+.itemlist-ad .title{font-size:16px;color:#333;height:16px;line-height:16px}
+.itemlist-ad .title i{width:4px;height:16px;background-color:#F92D58;position:absolute}
+.itemlist-ad .title span{margin-left:12px}
+.itemlist-ad .item-box{display:block;position:relative;margin:8px 0 0;background-color:#FFF;text-decoration:none}
+.itemlist-ad .item-box:first-child{margin-top:0}
+.itemlist-ad .item-box img{width:100%}
+.itemlist-ad .item-box-content{position:relative;padding-bottom:2px;background-color:#fff;overflow:hidden;zoom:1}
+.itemlist-ad .item-box-content img{width:100%;}
+.itemlist-ad .item-box-promotion{position:absolute;bottom:10px;left:0;height:20px}
+.itemlist-ad .item-box-promotion p{float:left;padding-left:8px;color:#666;line-height:20px;height:20px;vertical-align:middle;text-align:left;font-size:11px;background-color:rgba(255,255,255,.7);padding-right:1px}
+.itemlist-ad .item-box-promotion .background{float:left;background-size:cover;width:10px;height:20px;margin-left:-1px}
+.itemlist-ad .item-tit{height:26px;padding:4px;background-color:#FFF;font-size:14px; line-height:22px; color:#333; overflow:hidden;}
+.itemlist-ad .item-tit i{float:left;width:15px;height:15px;line-height:22px;margin-right:2px;background-size:contain;color:#ff6700; font-size:16px}
+.itemlist-ad .tit2{ padding:0 6px 4px 4px; line-height:20px;}
+.itemlist-ad .item-box-price{color:#ff6700;font-size:14px}
+.itemlist-ad .item-box-price span {color:#aaa; font-size:12px; text-decoration:line-through; margin-left:5px;}
+.itemlist-ad .item-box-people{color:#666; font-size:14px;}
+.itemlist-ad .item-box{background-color:#eee!important}
+</style>
+
+<div id='container'></div>
+
+{template 'new/index_tm'}
+
+<script id='tpl_main' type='text/html'>
+	<div class="topbar grid">
+		<a href="javascript:history.back()" class="fl"><i class="iconfont icon-back"></i></a>
+		<div class="search fl"><i class="iconfont icon-search"></i>搜索你想吃的..</div>
+		<a href="{php echo $this->createMobileUrl('shop/cart')}" class="fr"><i class="iconfont icon-cart"></i></a>
+	</div>
+
+	<div class="search1">
+		<div class="topbar1">
+			<div class='right'>
+				<button class="sub1"><i class="do do-search1"></i></button>
+				<div class="home1">取消</div>
+			</div>
+			<div class='left_wrap'>
+				<div class='left'>
+					<input type="text" id='keywords' class="input1" placeholder='搜索: 输入商品关键词' value='{$_GPC['keywords']}'/>
+				</div>
+			</div>
+		</div>
+		<div id='search_container' class='result1'></div>
+	</div>
+	
+	<div class="main">
+		<div id="right_container">
+			{template 'new/index_ad'}
+			
+			<div class='adv' style='display:none' ><img src='' /></div>
+			<div class="title"><i></i><span>推荐分类</span></div>
+			<div class="inner clear_in"></div>
+
+		</div>
+		<div id="left_container"></div>
+	</div>
+</script>
+<script id='tpl_search_list' type='text/html'>
+     <ul>
+     <%each list as value%>
+        <li><i class="fa fa-angle-right"></i> <a href="{php echo $this->createMobileUrl('shop/detail')}&id=<%value.id%>"><%value.title%></a></li>
+        <%/each%>
+    </ul> 
+</script>
+<script id='tpl_parent_list' type='text/html'>
+    <div class="parent_item on"  data-cate="rec">推荐分类</div>
+    <%each category as value%>
+    <div class="parent_item" data-cate="<%value.id%>" data-advimg='<%value.advimg%>' data-advurl='<%value.advurl%>'>
+        <%value.name%>
+    </div>
+    <%/each%>
+</script>
+
+<script id='tpl_child_list' type='text/html'>
+  
+    {if intval($shopset['catlevel'])==3}
+    <%if level==2%>
+        <div class="category_item" data-cate='back' data-catid='<%catid%>'>
+           <img src="../addons/sz_yi/template/mobile/default/static/images/catback.png" />
+            <div class="name">返回上级</div>
+    </div>
+    <%/if%>
+    {/if}
+    
+   <%each category as value%>
+    <div class="category_item"  
+         <%if value.level==2%>
+            data-pcate="<%value.parentid%>"   
+            data-ccate="<%value.id%>" 
+            <%else%>
+            data-ccate="<%value.parentid%>"   
+            data-tcate="<%value.id%>" 
+            <%/if%>
+            data-level='<%value.level%>'
+         >
+		<div class="im"><img src="<%value.thumb%>" /></div>
+        <div class="name"><%value.name%></div>
+    </div>
+    <%/each%>
+</script>
+
+<script id='tpl_third_page' type='text/html'>
+	<%each category as value%>
+		 <%if value.level==2  && value.children.length>0%>
+			  <div class="category_title"> 
+					<%value.name%>
+			  </div>
+			 <%each value.children as value1%>
+				   <div class="category_item"  
+						data-ccate="<%value1.parentid%>"   
+						data-tcate="<%value1.id%>" 
+						data-level='<%value1.level%>'
+						data-advimg='<%value.advimg%>' data-advurl='<%value.advurl%>'
+						>
+						<div class="im"><img src="<%value1.thumb%>" /></div>
+					   <div class="name"><%value1.name%></div>
+				   </div>
+			 <%/each%>
+		  <%/if%>
+	   <%/each%>
+</script>
+
+<script id='tpl_third_list' type='text/html'>
+   
+     
+ 
+    <%if level==2%>
+    <div class="category_item" data-cate='back' data-catid='<%catid%>'>
+       <img src="../addons/sz_yi/template/mobile/default/static/images/catback.png" />
+        <div class="name">返回上级</div>
+    </div>
+    <%/if%>
+    <%each category as value%>
+    
+    <div class="category_item"  
+         <%if value.level==2%>
+         data-pcate="<%value.parentid%>"   
+         data-ccate="<%value.id%>" 
+         <%else%>
+         data-ccate="<%value.parentid%>"   
+         data-tcate="<%value.id%>" 
+         <%/if%>
+         data-level='<%value.level%>'>
+        <div class="im"><img src="<%value.thumb%>" /></div>
+        <div class="name"><%value.name%></div>
+    </div>
+    <%/each%>
+  
+</script>
+ 
+ 
+<script language='javascript'>
+    var category = [];
+    var children = [];
+    var recommand = [];
+    var pcate = 'rec';
+    require(['tpl', 'core'], function (tpl, core) {
+     
+     function bindChildEvents(){
+          $('.category_item').unbind('click').click(function(){
+              if($(this).data('cate')=='back'){
+                 if(pcate!='rec')                  { 
+                    setCategory(pcate);
+                }else{
+                    setCategory('rec');
+                }
+                  return;
+             }
+                        var level = $(this).data('level');
+                        var show = {php echo intval($shopset['catshow'])};
+                        {if intval($shopset['catlevel'])==3}
+                              var ccate = $(this).data('ccate');
+                              var tcate = $(this).data('tcate');
+                             
+                                    if(level==2){
+                                         setCategory(ccate,2);
+                                    }
+                                    else {
+                                      
+                                        location.href = core.getUrl('shop/list',{ccate:ccate,tcate:tcate});     
+                                   }
+                             
+                        {else}
+                                var pcate = $(this).data('pcate');
+                                var ccate = $(this).data('ccate');
+                                location.href = core.getUrl('shop/list',{pcate:pcate,ccate:ccate});
+                        {/if}
+                            
+          })
+     }
+        function setCategory(catid,level){
+           
+            var ret = null;
+            if(catid=='rec'){
+                
+                recommand = [];
+                for(i in category){
+              
+                    if(category[i].isrecommand=='1'){
+                     //   recommand.push(category[i]);
+                    }
+                    if(category[i].children.length>0){
+                           for(j in category[i].children){
+                                if(category[i].children[j].isrecommand==1){
+                                         
+                                            recommand.push(category[i].children[j]);
+                                        
+                                         
+                                            for(k in category[i].children[j].children){
+                                                    if(category[i].children[j].children[k].isrecommand==1){
+                                                             recommand.push(category[i].children[j].children[k]);
+                                                    }                
+                                            }
+                                  
+                                 }
+                           }
+                    }
+                }
+                ret = recommand;
+                 
+                  setCategoryList(ret,level,catid);
+            } else {
+            
+               if(level==2){
+                   
+                    for(i in category){
+                         for(j in category[i].children){ //二级
+                                if( category[i].children[j].id == catid){
+                                            ret = category[i].children[j].children;
+                                            setCategoryList(ret,level,catid);
+                                            return;
+                                }
+                         }
+                    }
+               }else{
+                    for(i in category){
+
+                        if( category[i].id==catid){
+                              ret =  category[i].children;
+                              break;
+                        }
+                    } 
+               }
+           }
+           setCategoryList(ret,level,catid);
+        }
+        function setCategoryList(ret,level,catid){
+               showAdv(catid);
+               if(catid=='rec'){ 
+                     $('#right_container  .inner').html(tpl('tpl_child_list',{category:ret,level:level,catid:catid}));
+               }
+               else{
+                   {if intval($shopset['catlevel'])==3}
+
+                            {if intval($shopset['catshow'])==0}
+                              if(level==2){
+                                     $('#right_container  .inner').html(tpl('tpl_child_list',{category:ret,level:level,catid:catid}));
+                                 } else{
+                                     $('#right_container  .inner').html(tpl('tpl_third_page',{category:ret,level:level,catid:catid}));
+                                 }
+                            {else}
+                              $('#right_container  .inner').html(tpl('tpl_third_list',{category:ret,level:level,catid:catid}));
+                            {/if}
+                     {else}
+                              $('#right_container  .inner').html(tpl('tpl_child_list',{category:ret,level:level,catid:catid}));
+                     {/if}
+                    
+               }
+             bindChildEvents(); ;
+           
+        }
+        function showAdv(cate){
+                        
+            var adv = $('#right_container .adv');
+            var img = '',url ='';
+            if(cate=='rec'){
+                img = "{php echo $shopset['catadvimg']}",url = "{php echo $shopset['catadvurl']}";
+            }
+            else{
+        
+            for(i in category){
+                  if(category[i].id==cate) {
+                      img = category[i].advimg,url = category[i].advurl;
+                      break;
+                  }
+                  for(j in category[i].children){ //二级
+                         if(category[i].children[j].id==cate) {
+                            img = category[i].children[j].advimg,url = category[i].children[j].advurl;
+                            break;
+                        }
+                   }
+             }
+         }
+             if(img!=''){
+                          adv.find('img').attr('src',img);
+                         $('#right_container .adv').show();
+                         if(url!=''){
+                             adv.unbind('click').click(function(){
+                                 location.href = url;
+                            });
+                         } 
+                     } else{
+                         adv.hide().unbind('click');
+                     }
+        }
+        core.json('shop/util',{op:'category'}, function (json) {
+                 result = json.result;
+                 category = result.category;
+                 $('#container').append(tpl('tpl_main'));
+           
+           $('.main');
+                 $('#left_container').html(tpl('tpl_parent_list',result));
+             
+              var bw = $(document.body);
+             $('#right_container .inner');
+             $('#right_container .adv');
+                 setCategory('rec');
+                 
+                 $('.parent_item').click(function(){
+                     $('.parent_item').removeClass('on');
+                     $(this).addClass('on');
+                     pcate = $(this).data('cate');
+                     setCategory($(this).data('cate'));
+                  })
+                  
+                 
+                 
+                    $('.search').click(function(){
+
+                       $(".search1").animate({bottom:"0px"},100);
+                       $('#keywords').focus().unbind('keyup').keyup(function(){
+                                var keywords = $.trim( $(this).val());
+                                if(keywords==''){
+                                    $('#search_container').html("");         
+                                    return;
+                                }
+                                core.json('shop/util',{op:'search',keywords:keywords }, function (json) {
+                                     var result = json.result;
+                                     if(result.list.length>0){
+                                        $('#search_container').html(tpl('tpl_search_list',result));    
+                                     }
+                                     else{
+                                        $('#search_container').html("");         
+                                     }
+
+                                  }, true);
+                        });
+                        $('.search1 .home1').unbind('click').click(function(){
+                             $(".search1").animate({bottom:"-100%"},100);
+                        });
+                    });
+        
+        }, true);
+ 
+        $('.sort').click(function () {
+                var display = $(".sort_list").css('display');
+                if (display == 'none') {
+                    $(".sort_list").fadeIn(200);
+                } else {
+                    $(".sort_list").fadeOut(100);
+                }
+
+        });
+     
+    });
+</script>
+{php $show_footer=true;$footer_current ='second'} 
+{template 'common/footer2'}

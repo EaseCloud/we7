@@ -1,0 +1,99 @@
+{template 'web/_header'}
+{template 'tabs'}
+<style type="text/css">
+.input-group{
+    width: 40%;
+    float: left;
+    margin-left: 90px
+}
+.col-md-2 {
+    width: 120px;
+}
+</style>
+{if $operation == "display"}
+<div class="panel panel-default">
+    <div class="panel-heading">奖励详情</div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead class="navbar-inner">
+                <tr>
+                    <th style='width:5%;'>会员id</th>
+                    <th style='width:10%;'>粉丝</th>
+                    <th style='width:10%;'>姓名</th>
+                    <th style='width:10%;'>电话</th>
+                    <th style='width:10%;'>账户余额</th>
+                    <th style='width:10%;'>分红金额</th>
+                    <th style='width:10%;'>账户积分</th>
+                    <th style='width:10%;'>分红积分</th>
+                    <th style='width:10%;'>打款方式</th>
+                    <th style='width:15%;'>时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $logs $row}
+                <tr>
+                    <td>{$row['member_id']}</td>
+                    <td><img style="width:30px;height:30px;padding1px;border:1px solid #ccc" src="{$row['avatar']}">
+{$row['nickname']} </td>
+                    <td>{$row['realname']}</td>
+                    <td>{$row['mobile']}</td>
+                    <td>{$row['credit2']}</td>
+                    <td>{$row['money']}</td>
+                    <td>{$row['credit1']}</td>
+                    <td>{$row['integral']}</td>
+                    <td>{if $row['paystatus']==1}微信钱包{else}账户余额{/if}</td>
+                    <td><?php echo date("Y-m-d H:i:s", $row['ctime'])?></td>
+                </tr>
+                {/loop}
+            </tbody>
+        </table>
+        {$pager}
+    </div>
+</div>
+{else}
+<div class="panel panel-default">
+    <div class="panel-heading">奖励总金额：{if !empty($totalmoney)}{$totalmoney}元{else}0元{/if}</div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead class="navbar-inner">
+                <tr>
+                    <th style='width:10%;'>id</th>
+                    <th style='width:10%;'>分红金额</th>
+                    <th style='width:10%;'>分红人数</th>
+                    <th style='width:10%;'>分红方式</th>
+                    <th style='width:16%;'>打款方式</th>
+                    <th style='width:16%;'>分红时间</th>
+                    <th style='width:24%;'>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list $row}
+                <tr>
+                    <td>{$row['id']}</td>
+                    <td>{$row['money']}</td>
+                    <td>{$row['total']}</td>
+                    <td>{php echo empty($row['type']) ? "手动" : "自动"}</td>
+                    <td>
+                        {php echo empty($row['paystatus']) ? "账户余额" : "微信钱包"}
+                        {if $row['sendpay_error']==1}(打款失败){/if}
+                    </td>
+                    <td><?php echo date("Y-m-d H:i:s", $row['ctime'])?></td>
+                    <td>
+                        <div class="col-sm-3 col-lg-2"><a class="btn btn-default" href="<?php echo $this->createPluginWebUrl('bonus/detail', array('sn' => $row['send_bonus_sn']))?>" data-original-title="" title="">
+                        查看明细
+                        </a></div>
+                        {if $row['sendpay_error']==1}
+                        <div class="col-sm-3 col-lg-2"><a class="btn btn-default" href="<?php echo $this->createPluginWebUrl('bonus/detail', array('sn' => $row['send_bonus_sn'],"op" => "afresh"))?>" data-original-title="" title="">
+                        重新发放
+                        </a></div>
+                        {/if}
+                    </td>
+                </tr>
+                {/loop}
+            </tbody>
+        </table>
+        {$pager}
+    </div>
+</div>
+{/if}
+{template 'common/footer'}

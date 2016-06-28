@@ -1,0 +1,19 @@
+<tr>
+    <td>
+        <a href="javascript:;" class="fa fa-move" title="拖动调整此显示顺序" ><i class="fa fa-arrows"></i></a>&nbsp;
+        <a href="javascript:;" onclick="deleteParam(this)" style="margin-top:10px;"  title="删除"><i class='fa fa-times'></i></a>
+    </td>
+    <td>
+        <div class="input-group form-group">
+        	<span class="input-group-addon" style="border-right: 0px;">名称</span>
+			<input class="form-control" type="text" value="" name="pcset[{$spec['type']}_name][]">
+		</div>
+    </td>
+    <td>
+    	<div class="input-group form-group">
+			<input class="form-control" type="text" data-id="{$spec['id']}" placeholder="请填写阅读原文指向的链接 (请以http://开头, 不填则不显示)" value="" name="pcset[{$spec['type']}_url][]">
+			<input class="form-control" type="hidden" value="{$spec['id']}" name="pcset[{$spec['type']}_id][]">
+			<span class="input-group-addon btn btn-default nav-link" data-id="{$spec['id']}" style="background: #fff;" data-original-title="" title="">选择链接</span>
+		</div>
+    </td>
+</tr>

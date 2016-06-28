@@ -1,0 +1,59 @@
+{template 'web/_header'}
+{template 'web/sysset/tabs'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" >
+        <input type='hidden' name='setid' value="{$set['id']}" />
+        <input type='hidden' name='op' value="contact" />
+        <div class="panel panel-default">
+            <div class='panel-body'>  
+      
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">客服电话</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.contact'}
+                        <input type="text" name="shop[phone]" class="form-control" value="{$set['shop']['phone']}" />
+                        {else}
+                        <input type="hidden" name="shop[phone]" value="{$set['shop']['phone']}" />
+                        <div class='form-control-static'>{$set['shop']['phone']}</div>
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">所在地址</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.contact'}
+                        <input type="text" name="shop[address]" class="form-control" value="{$set['shop']['address']}" />
+                        {else}
+                        <input type="hidden" name="shop[address]" value="{$set['shop']['address']}" />
+                        <div class='form-control-static'>{$set['shop']['address']}</div>
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商城简介</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.contact'}
+                        <textarea name="shop[description]" class="form-control richtext" cols="70">{$set['shop']['description']}</textarea>
+                        {else}
+                        <textarea name="shop[description]" class="form-control richtext" cols="70" style="display:none">{$set['shop']['description']}</textarea>
+                        <div class='form-control-static'>{$set['shop']['description']}</div>
+                        {/if}
+                    </div>
+                </div>
+                
+                       <div class="form-group"></div>
+            <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                           {ifp 'sysset.save.contact'}
+                            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"  />
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                          {/if}
+                     </div>
+            </div>
+
+            </div>
+        </div>     
+    </form>
+</div>
+{template 'web/_footer'}     

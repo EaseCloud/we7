@@ -1,0 +1,12 @@
+<ul class="nav nav-tabs">
+    
+    {ifp 'creditshop.cover'}<li {if $_GPC['method']=='cover'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('creditshop/cover')}">积分商城入口设置</a></li>{/if}
+    {ifp 'creditshop.goods'}<li {if $_GPC['method']=='goods'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('creditshop/goods')}">商品管理</a></li>{/if}
+    {ifp 'creditshop.category'}<li {if $_GPC['method']=='category'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('creditshop/category')}">分类管理</a></li>{/if}
+    {ifp 'creditshop.adv'}<li {if $_GPC['method']=='adv'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('creditshop/adv')}">幻灯片管理</a></li>{/if}
+    {ifp 'creditshop.log.view0'}<li {if $_GPC['method']=='log' && $type==0}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('creditshop/log',array('type'=>0))}">兑换记录</a></li>{/if}
+    {ifp 'creditshop.log.view1'}<li {if $_GPC['method']=='log' && $type==1}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('creditshop/log',array('type'=>1))}">抽奖记录</a></li>{/if}
+    {ifp 'creditshop.notice'}<li  {if $_GPC['method']=='notice'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('creditshop/notice')}">通知设置</a></li>{/if}
+    {ifp 'creditshop.set'}<li {if $_GPC['method']=='set'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('creditshop/set')}">基础设置</a></li>{/if}
+    
+</ul>

@@ -1,0 +1,110 @@
+{template 'web/_header'}
+{template 'tabs'}
+<form id="setform"  action="" method="post" class="form-horizontal form">
+    <div class='panel panel-default'>
+        <div class='panel-heading'>
+            通知设置 
+        </div>
+        <div class='panel-body'>
+ <div class='alert alert-info'>
+     默认为全部开启，用户在会员中心可自行设置是否开启, 模板消息自动替换变量
+ </div>
+               <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">任务处理通知</label>
+        <div class="col-sm-9 col-xs-12">
+            <input type="text" name="tm[templateid]" class="form-control" value="{$set['tm']['templateid']}" />
+            <div class="help-block">公众平台模板消息编号: OPENTM200605630 </div>
+        </div>
+    </div>
+            
+             <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">分红下级付款通知</label>
+                <div class="col-sm-9 col-xs-12">
+                      <input type="text" name="tm[bonus_order_paytitle]" class="form-control" value="{$set['tm']['bonus_order_paytitle']}" />
+                    <div class="help-block">标题，默认"分红下级付款通知"</div>
+                </div>
+            </div>
+            
+             <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    <textarea  name="tm[bonus_order_pay]" class="form-control" >{$set['tm']['bonus_order_pay']}</textarea>
+                    	<div class="help-block">模板变量 [昵称] [订单编号] [订单金额] [商品详情] [分红金额] [时间]</div>
+					<div class="help-block">注意: 此 [分红金额] ，不代表上级用户会立即获得，为可能获得的分红金额</div>
+                </div>
+            </div>
+            
+           <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">分红下级确认收货通知</label>
+                <div class="col-sm-9 col-xs-12">
+                      <input type="text" name="tm[bonus_order_finishtitle]" class="form-control" value="{$set['tm']['bonus_order_finishtitle']}" />
+                    <div class="help-block">标题，默认"分红下级确认收货通知"</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    <textarea  name="tm[bonus_order_finish]" class="form-control" >{$set['tm']['bonus_order_finish']}</textarea>
+					<div class="help-block">模板变量 [昵称] [订单编号] [订单金额] [商品详情] [分红金额] [时间]</div>
+					<div class="help-block">注意: 此 [分红金额] ，不代表上级用户会立即获得，为可能获得的分红金额</div>
+                </div>
+            </div>
+            
+               <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">分红打款通知</label>
+                <div class="col-sm-9 col-xs-12">
+                      <input type="text" name="tm[bonus_paytitle]" class="form-control" value="{$set['tm']['bonus_paytitle']}" />
+                    <div class="help-block">标题，默认"分红打款通知"</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    <textarea  name="tm[bonus_pay]" class="form-control" >{$set['tm']['bonus_pay']}</textarea>
+                    模板变量 [昵称] [打款方式] [金额] [时间] [代理等级]
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">全球分红打款通知</label>
+                <div class="col-sm-9 col-xs-12">
+                      <input type="text" name="tm[bonus_global_paytitle]" class="form-control" value="{$set['tm']['bonus_global_paytitle']}" />
+                    <div class="help-block">标题，默认"全球分红打款通知"</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    <textarea  name="tm[bonus_global_pay]" class="form-control" >{$set['tm']['bonus_global_pay']}</textarea>
+                    模板变量 [昵称] [打款方式] [金额] [时间] [代理等级]
+                </div>
+            </div>
+                
+               
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">代理商等级升级通知</label>
+                <div class="col-sm-9 col-xs-12">
+                      <input type="text" name="tm[bonus_upgradetitle]" class="form-control" value="{$set['tm']['bonus_upgradetitle']}" />
+                     <div class="help-block">标题，默认"代理商商等级升级通知"</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    <textarea  name="tm[bonus_upgrade]" class="form-control" >{$set['tm']['bonus_upgrade']}</textarea>
+                     模板变量: [昵称] [旧等级]  [旧分红比例] [新等级] [新分红比例] [时间]
+                </div>
+            </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9">
+                <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </div>
+        </div>
+</form>
+{template 'web/_footer'}

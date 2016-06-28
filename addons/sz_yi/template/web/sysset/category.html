@@ -1,0 +1,84 @@
+{template 'web/_header'}
+{template 'web/sysset/tabs'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" >
+        <input type='hidden' name='setid' value="{$set['id']}" />
+        <input type='hidden' name='op' value="category" />
+        <div class="panel panel-default">
+            <div class='panel-body'>  
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分类级别</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.category'}
+                        <label class="radio-inline">
+                            <input type="radio" name="shop[catlevel]" value="2" {if $set['shop']['catlevel']==2 || empty($set['shop']['catlevel'])}checked{/if} /> 二级
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="shop[catlevel]" value="3" {if $set['shop']['catlevel']==3}checked{/if}/> 三级
+                        </label>
+                        {else}
+                        <input type="hidden" name="shop[catlevel]" value="{$set['shop']['catlevel']}" />
+                        <div class='form-control-static'>{if $set['shop']['catlevel']==2 || empty($set['shop']['catlevel'])}二级{else}三级{/if}</div>
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">三级分类显示形式</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.category'}
+                        <label class="radio-inline">
+                            <input type="radio" name="shop[catshow]" value="0" {if empty($set['shop']['catshow'])}checked{/if} /> 单页
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="shop[catshow]" value="1" {if $set['shop']['catshow']==1}checked{/if}/> 多页
+                        </label>
+                        {else}
+                        <input type="hidden" name="shop[catshow]" value="{$set['shop']['catshow']}" />
+                        <div class='form-control-static'>{if empty($set['shop']['catshow'])}单页{else}多页{/if}</div>
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐分类广告</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.category'}
+                        {php echo tpl_form_field_image('shop[catadvimg]', $set['shop']['catadvimg'])}
+                        <span class='help-block'>分类页面中，推荐分类的广告图，建议尺寸640*320</span>
+                        {else}
+                        <input type="hidden" name="shop[catadvimg]" value="{$set['shop']['catadvimg']}" />
+                        {if !empty($set['shop']['catadvimg'])}
+                        <a href='{php echo tomedia($set['shop']['catadvimg'])}' target='_blank'>
+                           <img src="{php echo tomedia($set['shop']['catadvimg'])}" style='width:200px;border:1px solid #ccc;padding:1px' />
+                        </a>
+                        {/if}
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐分类广告连接</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {ifp 'sysset.save.category'}
+                        <input type="text" name="shop[catadvurl]" class="form-control" value="{$set['shop']['catadvurl']}" />
+                        {else}
+                        <input type="hidden" name="shop[catadvurl]" value="{$set['shop']['catadvurl']}" />
+                        <div class='form-control-static'>{$set['shop']['catadvurl']}</div>
+                        {/if}
+                    </div>
+                </div>
+                
+                   <div class="form-group"></div>
+            <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                           {ifp 'sysset.save.category'}
+                            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"  />
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                          {/if}
+                     </div>
+            </div>
+                   
+            </div>
+        </div>
+    </form>
+</div>
+{template 'web/_footer'}     

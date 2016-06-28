@@ -1,0 +1,32 @@
+<div class="fe-panel-editor-title">公告设置<span class="tips">Tips:文字不滚动时超出宽度将隐藏</span></div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">公告内容</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1" placeholder="这里填写公告内容，可设置是否滚动显示" ng-model="Edit.params.notice" />
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">公告链接</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input1" placeholder="请以http://开头(可链接至公众平台文章等)" ng-model="Edit.params.noticehref" />
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">滚动显示</div>
+    <div class="fe-panel-editor-con">
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_scroll" value="0" ng-model="Edit.params.scroll"> 不滚动</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_scroll" value="1" ng-model="Edit.params.scroll"> 滚动显示</label>
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">文字颜色</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input2" type="color" ng-model="Edit.params.color" />
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">背景颜色</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input2" type="color" ng-model="Edit.params.bgcolor" />
+    </div>
+</div>

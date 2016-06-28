@@ -1,0 +1,769 @@
+{template 'web/_header'} 
+{template 'tabs'} 
+{template 'exhelpercommon'}
+
+{if $_GPC['op']=='list'}
+<div class="panel panel-default">
+	<div class="panel-heading"><i class="fa fa-copy"></i> {if $cate==1}快递单模版列表{elseif $cate==2}发货单模版列表{/if}</div>
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:60px;">ID</th>
+					<th>{if $cate==1}快递单{elseif $cate==2}发货单{/if}模版名称</th>
+					{if $cate==1}
+						<th>快递类型</th>
+					{/if}
+					<th>是否默认(只能设置一个)</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $row}
+				<tr>
+					<td>{$row['id']}</td>
+					<td>{$row['expressname']}</td>
+					{if $cate==1}
+						<td>{if empty($row['expresscom'])}其他快递{else}{$row['expresscom']}{/if}</td>
+					{/if}
+					<td>
+						{if $row['isdefault']==1}
+						<span class='label label-success'>已设为默认</span> 
+						{else}
+						<span class='label label-default'>未设为默认</span>
+						{/if}
+					</td>
+					<td style="text-align:left;">
+						{if $cate==1}
+							{ifp 'exhelper.exptemp1.view|exhelper.exptemp1.edit'}
+								<a href="{php echo $this->createPluginWebUrl('exhelper/express', array('op'=>'post','cate'=>$cate,'id'=>$row['id']))}" class="btn btn-default btn-sm" title="编辑"><i class="fa fa-edit"></i></a>
+							{/if}
+						{elseif $cate==2}
+							{ifp 'exhelper.exptemp2.view|exhelper.exptemp2.edit'}
+								<a href="{php echo $this->createPluginWebUrl('exhelper/express', array('op'=>'post','cate'=>$cate,'id'=>$row['id']))}" class="btn btn-default btn-sm" title="编辑"><i class="fa fa-edit"></i></a>
+							{/if}
+						{/if}
+						
+						{if $cate==1}
+							{ifp 'exhelper.exptemp1.delete'}
+								<a href="{php echo $this->createPluginWebUrl('exhelper/express', array('op'=>'delete', 'type'=>$cate,'id'=>$row['id']))}" class="btn btn-default btn-sm" onclick="return confirm('确认删除此快递单?')" title="删除"><i class="fa fa-times"></i></a>
+							{/if}
+						{elseif $cate==2}
+							{ifp 'exhelper.exptemp2.delete'}
+								<a href="{php echo $this->createPluginWebUrl('exhelper/express', array('op'=>'delete', 'type'=>$cate,'id'=>$row['id']))}" class="btn btn-default btn-sm" onclick="return confirm('确认删除此快递单?')" title="删除"><i class="fa fa-times"></i></a>
+							{/if}
+						{/if}
+						
+						{if $cate==1}
+							{ifp 'exhelper.exptemp1.setdefault'}
+								{if empty($row['isdefault'])}
+									<a href="{php echo $this->createPluginWebUrl('exhelper/express', array('op'=>'setdefault', 'type'=>$cate,'id' => $row['id']))}" class="btn btn-default btn-sm" onclick="return confirm('确认设置默认?')" title="设置默认"><i class="fa fa-check"></i></a> 
+								{/if} 
+							{/if}
+						{elseif $cate==2}
+							{ifp 'exhelper.exptemp2.setdefault'}
+								{if empty($row['isdefault'])}
+									<a href="{php echo $this->createPluginWebUrl('exhelper/express', array('op'=>'setdefault', 'type'=>$cate,'id' => $row['id']))}" class="btn btn-default btn-sm" onclick="return confirm('确认设置默认?')" title="设置默认"><i class="fa fa-check"></i></a> 
+								{/if} 
+							{/if}
+						{/if}
+
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+		<script>
+			require(['bootstrap'], function($) {
+				$('.btn').hover(function() {
+					$(this).tooltip('show');
+				}, function() {
+					$(this).tooltip('hide'); 
+				});
+			});
+		</script>
+	</div>
+	<div class="panel-footer">
+		{if $cate==1}
+			{ifp 'exhelper.exptemp1.add'}
+				<a class='btn btn-default' href="{php echo $this->createPluginWebUrl('exhelper/express',array('op'=>'post','cate'=>$cate))}"><i class='fa fa-plus'></i>添加快递单</a>
+			{/if}
+		{elseif $cate==2}
+			{ifp 'exhelper.exptemp2.add'}
+				<a class='btn btn-default' href="{php echo $this->createPluginWebUrl('exhelper/express',array('op'=>'post','cate'=>$cate))}"><i class='fa fa-plus'></i>添加发货单</a>
+			{/if}
+		{/if}
+		<input type="hidden" name="token" value="{$_W['token']}" /> 
+	</div>
+</div>
+
+{elseif $_GPC['op']=='post'}
+<script language='javascript' src="../addons/sz_yi/plugin/exhelper/static/js/designer.js"></script>
+<script language='javascript' src="../addons/sz_yi/plugin/exhelper/static/js/jquery.contextMenu.js"></script>
+<link href="../addons/sz_yi/plugin/exhelper/static/js/jquery.contextMenu.css" rel="stylesheet">
+<style type='text/css'>
+#container {border: 1px solid #ccc;position: relative; background: #fff; overflow: hidden;}
+.items label {width: 120px; margin: 0; float: left;}
+#container .bg {position: absolute; width: 100%; z-index: 0;}
+#container .drag {position: absolute; min-width: 120px; min-height: 25px; border: 1px solid #aaa; z-index: 1; top: 10px; left: 100px; background: #fff; cursor: move;}
+#container .rRightDown, .rLeftDown, .rLeftUp, .rRightUp, .rRight, .rLeft, .rUp, .rDown { position: absolute; width: 7px; height: 7px; z-index: 1; font-size: 0;}
+.rRightDown, .rLeftDown, .rLeftUp, .rRightUp, .rRight, .rLeft, .rUp, .rDown {position: absolute; background: #428bca; width: 6px; height: 6px; z-index: 5; font-size: 0;}
+.rLeftDown, .rRightUp {cursor: ne-resize;}
+.rRightDown, .rLeftUp {cursor: nw-resize;}
+.rRight, .rLeft {cursor: e-resize;}
+.rUp, .rDown {cursor: n-resize;}
+.rRightDown {bottom: -3px; right: -3px; background: #2a6496;} 
+.rLeftDown {bottom: -3px; left: -3px;}
+.rRightUp {top: -3px; right: -3px;}
+.rLeftUp {top: -3px; left: -3px;}
+.rRight {right: -3px; top: 50%; margin-top: -3px;}
+.rLeft {left: -3px; top: 50%; margin-top: -3px;}
+.rUp {top: -3px; left: 50%;}
+.rDown {bottom: -3px; left: 50%}
+.context-menu-layer {z-index: 9999;}
+.context-menu-list {z-index: 9999;}
+.items .checkbox-inline, .col-xs-12 .checkbox-inline {margin: 0; float: left; width: 100px;}  
+.edit-left {min-height: 592px; width: 420px; float: left; }
+.edit-right {min-height: 570px; width: auto; margin-left: 440px;}
+</style>
+<div class="main">
+	<form id='dataform' action="" method="post" class="form-horizontal form">
+		<input type="hidden" name="id" value="{$item['id']}" />
+		<input type="hidden" name="cate" value="{$cate}" />
+		<input type="hidden" id="datas" name="datas" value="" />
+		<input type="hidden" id="expresscom" name="expresscom" value="" />
+		<div class="panel panel-default">
+			<div class="panel-heading">{if $cate==1}快递单{elseif $cate==2}发货单{/if}模版编辑</div>
+			<div class="panel-body">
+				<div>
+						<div class="input-group">
+							<div class="input-group-addon" style="border-right:none">{if $cate==1}快递单{elseif $cate==2}发货单{/if}名称</div>
+							<input type="text" name="expressname" class="form-control" value="{$item['expressname']}" />
+							<div class="input-group-addon" style="border-right:none; border-left: none;"> 单据宽度</div>
+							<input type="number" name="width" class="form-control" value="{if !empty($item['width'])}{$item['width']}{else}250{/if}" onchange="pagesize()" />
+							<div class="input-group-addon" style="border-right:none; border-left: none;">mm(毫米) 单据高度</div>
+							<input type="number" name="height" class="form-control" value="{if !empty($item['height'])}{$item['height']}{else}150{/if}" onchange="pagesize()" />
+							<div class="input-group-addon" style="border-right:none; border-left: none;">mm(毫米)</div>
+							<div class="input-group-addon" style="border-right:none;">{if $cate==1}发货单{elseif $cate==2}发货单{/if}底图</div>
+							<input id="bg" type="text" name="bg" class="form-control" value="{$item['bg']}" />
+							<span style="background: #fff;" class="input-group-addon btn btn-default " onclick="changeBG()">选择图片</span>
+							<span style="background: #fff;" class="input-group-addon btn btn-default " onclick="changeBG(1)">清除图片</span>
+						</div>
+						{if $cate==1}
+							<div class="input-group" style="margin-top: 10px; width: 300px;">
+								<div class="input-group-addon" style="border-right:none">快递类型</div>
+								<select id="express" name="express" class="form-control">
+									<option {if $item['express']==''}selected=""{/if} data-name="" value="" >其他快递</option>
+									<option {if $item['express']=='shunfeng'}selected=""{/if} data-name="顺丰" value="shunfeng">顺丰</option>
+									<option {if $item['express']=='shentong'}selected=""{/if} data-name="申通" value="shentong">申通</option>
+									<option {if $item['express']=='yunda'}selected=""{/if} data-name="韵达快运" value="yunda">韵达快运</option>
+									<option {if $item['express']=='tiantian'}selected=""{/if} data-name="天天快递" value="tiantian">天天快递</option>
+									<option {if $item['express']=='yuantong'}selected=""{/if} data-name="圆通速递" value="yuantong">圆通速递</option>
+									<option {if $item['express']=='zhongtong'}selected=""{/if} data-name="中通速递" value="zhongtong">中通速递</option>
+									<option {if $item['express']=='ems'}selected=""{/if} data-name="ems快递" value="ems">ems快递</option>
+									<option {if $item['express']=='huitongkuaidi'}selected=""{/if} data-name="汇通快运" value="huitongkuaidi">汇通快运</option>
+									<option {if $item['express']=='quanfengkuaidi'}selected=""{/if} data-name="全峰快递" value="quanfengkuaidi">全峰快递</option>
+									<option {if $item['express']=='zhaijisong'}selected=""{/if} data-name="宅急送" value="zhaijisong">宅急送</option>
+									<option {if $item['express']=='aae'}selected=""{/if} data-name="aae全球专递" value="aae">aae全球专递</option>
+									<option {if $item['express']=='anjie'}selected=""{/if} data-name="安捷快递" value="anjie">安捷快递</option>
+									<option {if $item['express']=='anxindakuaixi'}selected=""{/if} data-name="安信达快递" value="anxindakuaixi">安信达快递</option>
+									<option {if $item['express']=='biaojikuaidi'}selected=""{/if} data-name="彪记快递" value="biaojikuaidi">彪记快递</option>
+									<option {if $item['express']=='bht'}selected=""{/if} data-name="bht" value="bht">bht</option>
+									<option {if $item['express']=='baifudongfang'}selected=""{/if} data-name="百福东方国际物流" value="baifudongfang">百福东方国际物流</option>
+									<option {if $item['express']=='coe'}selected=""{/if} data-name="中国东方（COE）" value="coe">中国东方（COE）</option>
+									<option {if $item['express']=='changyuwuliu'}selected=""{/if} data-name="长宇物流" value="changyuwuliu">长宇物流</option>
+									<option {if $item['express']=='datianwuliu'}selected=""{/if} data-name="大田物流" value="datianwuliu">大田物流</option>
+									<option {if $item['express']=='debangwuliu'}selected=""{/if} data-name="德邦物流" value="debangwuliu">德邦物流</option>
+									<option {if $item['express']=='dhl'}selected=""{/if} data-name="dhl" value="dhl">dhl</option>
+									<option {if $item['express']=='dpex'}selected=""{/if} data-name="dpex" value="dpex">dpex</option>
+									<option {if $item['express']=='dsukuaidi'}selected=""{/if} data-name="d速快递" value="dsukuaidi">d速快递</option>
+									<option {if $item['express']=='disifang'}selected=""{/if} data-name="递四方" value="disifang">递四方</option>
+									<option {if $item['express']=='fedex'}selected=""{/if} data-name="fedex（国外）" value="fedex">fedex（国外）</option>
+									<option {if $item['express']=='feikangda'}selected=""{/if} data-name="飞康达物流" value="feikangda">飞康达物流</option>
+									<option {if $item['express']=='fenghuangkuaidi'}selected=""{/if} data-name="凤凰快递" value="fenghuangkuaidi">凤凰快递</option>
+									<option {if $item['express']=='feikuaida'}selected=""{/if} data-name="飞快达" value="feikuaida">飞快达</option>
+									<option {if $item['express']=='guotongkuaidi'}selected=""{/if} data-name="国通快递" value="guotongkuaidi">国通快递</option>
+									<option {if $item['express']=='ganzhongnengda'}selected=""{/if} data-name="港中能达物流" value="ganzhongnengda">港中能达物流</option>
+									<option {if $item['express']=='guangdongyouzhengwuliu'}selected=""{/if} data-name="广东邮政物流" value="guangdongyouzhengwuliu">广东邮政物流</option>
+									<option {if $item['express']=='gongsuda'}selected=""{/if} data-name="共速达" value="gongsuda">共速达</option>
+									<option {if $item['express']=='hengluwuliu'}selected=""{/if} data-name="恒路物流" value="hengluwuliu">恒路物流</option>
+									<option {if $item['express']=='huaxialongwuliu'}selected=""{/if} data-name="华夏龙物流" value="huaxialongwuliu">华夏龙物流</option>
+									<option {if $item['express']=='haihongwangsong'}selected=""{/if} data-name="海红" value="haihongwangsong">海红</option>
+									<option {if $item['express']=='haiwaihuanqiu'}selected=""{/if} data-name="海外环球" value="haiwaihuanqiu">海外环球</option>
+									<option {if $item['express']=='jiayiwuliu'}selected=""{/if} data-name="佳怡物流" value="jiayiwuliu">佳怡物流</option>
+									<option {if $item['express']=='jinguangsudikuaijian'}selected=""{/if} data-name="京广速递" value="jinguangsudikuaijian">京广速递</option>
+									<option {if $item['express']=='jixianda'}selected=""{/if} data-name="急先达" value="jixianda">急先达</option>
+									<option {if $item['express']=='jjwl'}selected=""{/if} data-name="佳吉物流" value="jjwl">佳吉物流</option>
+									<option {if $item['express']=='jymwl'}selected=""{/if} data-name="加运美物流" value="jymwl">加运美物流</option>
+									<option {if $item['express']=='jindawuliu'}selected=""{/if} data-name="金大物流" value="jindawuliu">金大物流</option>
+									<option {if $item['express']=='jialidatong'}selected=""{/if} data-name="嘉里大通" value="jialidatong">嘉里大通</option>
+									<option {if $item['express']=='jykd'}selected=""{/if} data-name="晋越快递" value="jykd">晋越快递</option>
+									<option {if $item['express']=='kuaijiesudi'}selected=""{/if} data-name="快捷速递" value="kuaijiesudi">快捷速递</option>
+									<option {if $item['express']=='lianb'}selected=""{/if} data-name="联邦快递（国内）" value="lianb">联邦快递（国内）</option>
+									<option {if $item['express']=='lianhaowuliu'}selected=""{/if} data-name="联昊通物流" value="lianhaowuliu">联昊通物流</option>
+									<option {if $item['express']=='longbanwuliu'}selected=""{/if} data-name="龙邦物流" value="longbanwuliu">龙邦物流</option>
+									<option {if $item['express']=='lijisong'}selected=""{/if} data-name="立即送" value="lijisong">立即送</option>
+									<option {if $item['express']=='lejiedi'}selected=""{/if} data-name="乐捷递" value="lejiedi">乐捷递</option>
+									<option {if $item['express']=='minghangkuaidi'}selected=""{/if} data-name="民航快递" value="minghangkuaidi">民航快递</option>
+									<option {if $item['express']=='meiguokuaidi'}selected=""{/if} data-name="美国快递" value="meiguokuaidi">美国快递</option>
+									<option {if $item['express']=='menduimen'}selected=""{/if} data-name="门对门" value="menduimen">门对门</option>
+									<option {if $item['express']=='ocs'}selected=""{/if} data-name="OCS" value="ocs">OCS</option>
+									<option {if $item['express']=='peisihuoyunkuaidi'}selected=""{/if} data-name="配思货运" value="peisihuoyunkuaidi">配思货运</option>
+									<option {if $item['express']=='quanchenkuaidi'}selected=""{/if} data-name="全晨快递" value="quanchenkuaidi">全晨快递</option>
+									<option {if $item['express']=='quanjitong'}selected=""{/if} data-name="全际通物流" value="quanjitong">全际通物流</option>
+									<option {if $item['express']=='quanritongkuaidi'}selected=""{/if} data-name="全日通快递" value="quanritongkuaidi">全日通快递</option>
+									<option {if $item['express']=='quanyikuaidi'}selected=""{/if} data-name="全一快递" value="quanyikuaidi">全一快递</option>
+									<option {if $item['express']=='rufengda'}selected=""{/if} data-name="如风达" value="rufengda">如风达</option>
+									<option {if $item['express']=='santaisudi'}selected=""{/if} data-name="三态速递" value="santaisudi">三态速递</option>
+									<option {if $item['express']=='shenghuiwuliu'}selected=""{/if} data-name="盛辉物流" value="shenghuiwuliu">盛辉物流</option>
+									<option {if $item['express']=='sue'}selected=""{/if} data-name="速尔物流" value="sue">速尔物流</option>
+									<option {if $item['express']=='shengfeng'}selected=""{/if} data-name="盛丰物流" value="shengfeng">盛丰物流</option>
+									<option {if $item['express']=='saiaodi'}selected=""{/if} data-name="赛澳递" value="saiaodi">赛澳递</option>
+									<option {if $item['express']=='tiandihuayu'}selected=""{/if} data-name="天地华宇" value="tiandihuayu">天地华宇</option>
+									<option {if $item['express']=='tnt'}selected=""{/if} data-name="tnt" value="tnt">tnt</option>
+									<option {if $item['express']=='ups'}selected=""{/if} data-name="ups" value="ups">ups</option>
+									<option {if $item['express']=='wanjiawuliu'}selected=""{/if} data-name="万家物流" value="wanjiawuliu">万家物流</option>
+									<option {if $item['express']=='wenjiesudi'}selected=""{/if} data-name="文捷航空速递" value="wenjiesudi">文捷航空速递</option>
+									<option {if $item['express']=='wuyuan'}selected=""{/if} data-name="伍圆" value="wuyuan">伍圆</option>
+									<option {if $item['express']=='wxwl'}selected=""{/if} data-name="万象物流" value="wxwl">万象物流</option>
+									<option {if $item['express']=='xinbangwuliu'}selected=""{/if} data-name="新邦物流" value="xinbangwuliu">新邦物流</option>
+									<option {if $item['express']=='xinfengwuliu'}selected=""{/if} data-name="信丰物流" value="xinfengwuliu">信丰物流</option>
+									<option {if $item['express']=='yafengsudi'}selected=""{/if} data-name="亚风速递" value="yafengsudi">亚风速递</option>
+									<option {if $item['express']=='yibangwuliu'}selected=""{/if} data-name="一邦速递" value="yibangwuliu">一邦速递</option>
+									<option {if $item['express']=='youshuwuliu'}selected=""{/if} data-name="优速物流" value="youshuwuliu">优速物流</option>
+									<option {if $item['express']=='youzhengguonei'}selected=""{/if} data-name="邮政包裹挂号信" value="youzhengguonei">邮政包裹挂号信</option>
+									<option {if $item['express']=='youzhengguoji'}selected=""{/if} data-name="邮政国际包裹挂号信" value="youzhengguoji">邮政国际包裹挂号信</option>
+									<option {if $item['express']=='yuanchengwuliu'}selected=""{/if} data-name="远成物流" value="yuanchengwuliu">远成物流</option>
+									<option {if $item['express']=='yuanweifeng'}selected=""{/if} data-name="源伟丰快递" value="yuanweifeng">源伟丰快递</option>
+									<option {if $item['express']=='yuanzhijiecheng'}selected=""{/if} data-name="元智捷诚快递" value="yuanzhijiecheng">元智捷诚快递</option>
+									<option {if $item['express']=='yuntongkuaidi'}selected=""{/if} data-name="运通快递" value="yuntongkuaidi">运通快递</option>
+									<option {if $item['express']=='yuefengwuliu'}selected=""{/if} data-name="越丰物流" value="yuefengwuliu">越丰物流</option>
+									<option {if $item['express']=='yad'}selected=""{/if} data-name="源安达" value="yad">源安达</option>
+									<option {if $item['express']=='yinjiesudi'}selected=""{/if} data-name="银捷速递" value="yinjiesudi">银捷速递</option>
+									<option {if $item['express']=='zhongtiekuaiyun'}selected=""{/if} data-name="中铁快运" value="zhongtiekuaiyun">中铁快运</option>
+									<option {if $item['express']=='zhongyouwuliu'}selected=""{/if} data-name="中邮物流" value="zhongyouwuliu">中邮物流</option>
+									<option {if $item['express']=='zhongxinda'}selected=""{/if} data-name="忠信达" value="zhongxinda">忠信达</option>
+									<option {if $item['express']=='zhimakaimen'}selected=""{/if} data-name="芝麻开门" value="zhimakaimen">芝麻开门</option>
+								</select>
+							</div>
+						{/if}
+				</div>
+			</div>
+		</div>
+		
+			<div class="panel" style="height: auto; overflow: hidden; background: none;">
+				{if $cate==1}
+					{ifp 'exhelper.exptemp1.add|exhelper.exptemp1.edit'}
+						{template 'print_tpl_items'}
+					{/if}
+				{elseif $cate==2}
+					{ifp 'exhelper.exptemp2.add|exhelper.exptemp2.edit'}
+						{template 'print_tpl_items'}
+					{/if}
+				{/if}
+				<div class="edit-right">
+					<div id="container" style="width:{if !empty($item['width'])}{$item['width']}{else}250{/if}mm; height: {if !empty($item['height'])}{$item['height']}{else}150{/if}mm;">
+						<img id="bgimg" src="{$item['bg']} " {if empty($item['bg'])} style="display: none;"{/if} /> 
+										{loop $datas $k $d}
+											<div class="drag" cate="{$d['cate']}" index="{$k}" items="{$d['items']}" item-string="{$d['string']}" item-font="{$d['font']}" item-size="{$d['size']}" item-color="{$d['color']}" item-bold="{$d['bold']}" item-pre="{$d['pre']}" item-last="{$d['last']}" item-align="{$d['align']}"
+											style="font-size:{$d['size']}pt; z-index:{$k};left:{$d['left']};top:{$d['top']};width:{$d['width']};height:{$d['height']}; text-align:{if $d['align']=='' || $d['align']==1}left{elseif $d['align']==2}center{elseif $d['align']==3}right{/if}" item-virtual="{$d['virtual']}" cate="$d['cate']">
+												{if $d['cate']==1}
+												<div class="text" style="{if !empty($d['font'])}font-family: {$d['font']};{/if} font-size:{if !empty($d['size'])}{$d['size']}{else}10{/if}pt;{if !empty($d['color'])}color: {$d['color']};{/if}{if !empty($d['bold'])}font-weight:bold;{/if}">
+													{$d['pre']}{$d['string']}{$d['last']}
+												</div>
+												{else if $d['cate']==2}
+													<div class="text-table" style="
+														padding: 10px; {if !empty($d['font'])}font-family: {$d['font']};{/if} 
+														font-size:{if !empty($d['size'])}{$d['size']}{else}10{/if}pt;
+														{if !empty($d['color'])}color: {$d['color']};{/if}"> 
+														<?php 
+															$strings = explode(',',$d['string']); 
+															$virtuals = explode(',',$d['virtual']); 
+															$stringsnum = count($strings);
+														?>
+														<table border="1" style="width:100%">
+															<tr style="font-weight: bold;">
+																{loop $strings $i $s}
+																	<td>{$s}</td>
+																{/loop}
+															</tr>
+															<?php 
+																for ($x=1; $x<5; $x++) {
+															?>
+															<tr>
+																{loop $virtuals $i $v}
+																	<td>{if $v!==''}
+																				{if $v=='number'}
+																					{$x}
+																				{else}
+																					{$v}{$i}
+																				{/if}
+																			{else}
+																				{$v}
+																			{/if}
+																	</td> 
+																{/loop}
+															</tr>
+															<?php } ?>
+															<tr>
+																<td colspan="{$stringsnum}">提示: 以上表格数据为虚拟数据，打印时将替换为订单数据且打印时此行不会出现。</td>
+															</tr>
+														</table>
+													</div>
+												{/if}
+												<div class="rRightDown"> </div>
+												<div class="rLeftDown"> </div>
+												<div class="rRightUp"> </div>
+												<div class="rLeftUp"> </div>
+												<div class="rRight"> </div>
+												<div class="rLeft"> </div>
+												<div class="rUp"> </div>
+												<div class="rDown"></div>
+											</div>
+										{/loop}
+					</div>
+				</div>
+			</div>
+			<div class='panel-body'>
+					<div class="form-group">
+						<div class="col-sm-9 col-xs-12">
+							<a href="#"><span  class="btn btn-default" style="float: left; margin-right: 10px;"><i class="fa fa-reply"></i> 返回列表</span></a>
+							
+							{if $cate==1}
+								{ifp 'exhelper.exptemp1.add|exhelper.exptemp1.edit'}
+									<input type="button" name="btnsave" value="保 存" class="btn btn-primary col-lg-1 btnsave" onclick="save(false)" />
+									<input type="button" name="btnpreview" value="保存并预览" class="btn btn-success col-lg-1 btnsave" onclick="save(true)" style="margin-left:10px;" />
+								{/if}
+								{ifp 'exhelper.exptemp1.setdefault'}
+									<div style="float: left; margin-left: 10px;">
+										<label class="radio-inline">
+											<input type="radio" name='isdefault' value="1" {if $item[ 'isdefault']==1}checked{/if} /> 设为默认打印模版
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name='isdefault' value="0" {if $item[ 'isdefault']==0}checked{/if} /> 不设为默认打印模版
+										</label>
+									</div>
+								{else}
+									 {if $item[ 'isdefault']==1}<span class="help-block">默认模版</span>{/if}
+								{/if}
+							{elseif $cate==2}
+								{ifp 'exhelper.exptemp2.add|exhelper.exptemp2.edit'}
+									<input type="button" name="btnsave" value="保 存" class="btn btn-primary col-lg-1 btnsave" onclick="save(false)" />
+									<input type="button" name="btnpreview" value="保存并预览" class="btn btn-success col-lg-1 btnsave" onclick="save(true)" style="margin-left:10px;" />
+								{/if}
+								{ifp 'exhelper.exptemp2.setdefault'}
+									<div style="float: left; margin-left: 10px;">
+										<label class="radio-inline">
+											<input type="radio" name='isdefault' value="1" {if $item[ 'isdefault']==1}checked{/if} /> 设为默认打印模版
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name='isdefault' value="0" {if $item[ 'isdefault']==0}checked{/if} /> 不设为默认打印模版
+										</label>
+									</div>
+								{else}
+									 {if $item[ 'isdefault']==1}<span class="help-block">默认模版</span>{/if}
+								{/if}
+							{/if}
+							<input type="hidden" name="token" value="{$_W['token']}" /> 
+							
+							
+						</div>
+					</div>
+					
+				</div>
+	</form>
+	</div>
+	<script language='javascript' src="../addons/sz_yi/plugin/exhelper/static/js/LodopFuncs.js"></script>
+	<script src='http://{if empty($printset["ip"])}8000{else}{$printset["ip"]}{/if}:{if empty($printset["port"])}8000{else}{$printset["port"]}{/if}/CLodopfuncs.js'></script>
+	<script language='javascript'>
+		function pagesize(){
+				var _width = $("input[name=width]").val();
+			 	var _height = $("input[name=height]").val();
+			 	if(_width<10){
+			 		alert("最低宽度不小于10");
+			 		$("input[name=width]").val("10");
+			 		return;
+			 	}
+			 	if(_width>400){
+			 		alert("最大宽度不大于400");
+			 		$("input[name=width]").val("400");
+			 		return;
+			 	}
+			 	$("#container").height(_height+"mm").width(_width+"mm");
+		}
+		function delInput(){
+			var _index = currentDrag.attr("index");
+			$(".drag").each(function(){
+				var index = $(this).attr("index");
+				if(index==_index){
+					$(this).remove();
+				}
+			});
+			$(".deleteinput").hide(); 
+		} 
+		function addInput(n) {
+			var index = $('#container .drag').length + 1;
+			if(n==1){
+				var data = '<div class="drag" cate="2" style="width: auto; height: auto; padding: 10px;" index="' + index + '" style="z-index:' + index + '" fields="" item-size="12" item-font="微软雅黑" item-align="1">';
+					  data+='<div class="text-table">';
+					  data+='请在左侧先选择列';
+					  data+='</div>';
+					  data+='<div class="rRightDown"> </div><div class="rLeftDown"> </div><div class="rRightUp"> </div><div class="rLeftUp"> </div><div class="rRight"> </div><div class="rLeft"> </div><div class="rUp"> </div><div class="rDown"></div>';
+					  data+='</div>';
+				var drag = $(data)
+			}else{
+				var drag = $('<div class="drag" cate="1" index="' + index + '" style="z-index:' + index + '" fields="" item-size="12" item-font="微软雅黑" item-align="1"><div class="text" style="font-size:12pt"></div><div class="rRightDown"> </div><div class="rLeftDown"> </div><div class="rRightUp"> </div><div class="rLeftUp"> </div><div class="rRight"> </div><div class="rLeft"> </div><div class="rUp"> </div><div class="rDown"></div></div>');
+			}
+			$('#container').append(drag);
+			bindEvents(drag);
+			setCurrentDrag(drag);
+		}
+		function changeBG(n) {
+			if(n){
+				$("#bgimg").attr("src","").hide(); 
+				$("#bg").val("");
+			}else{
+				util.image('', function(data) {
+					$("#bgimg").attr("src",data.url).show(); 
+					$("#bg").val(data.url);
+				});
+			}
+		}
+		var currentDrag = false;
+
+		function bindEvents(obj) {
+			var index = obj.attr('index');
+			var rs = new Resize(obj, {
+				Max: true,
+				mxContainer: "#container"
+			});
+			rs.Set($(".rRightDown", obj), "right-down");
+			rs.Set($(".rLeftDown", obj), "left-down");
+			rs.Set($(".rRightUp", obj), "right-up");
+			rs.Set($(".rLeftUp", obj), "left-up");
+			rs.Set($(".rRight", obj), "right");
+			rs.Set($(".rLeft", obj), "left");
+			rs.Set($(".rUp", obj), "up");
+			rs.Set($(".rDown", obj), "down");
+			new Drag(obj, {
+				Limit: true,
+				mxContainer: "#container"
+			});
+			$('.drag .remove').unbind('click').click(function() {
+				$(this).parent().remove();
+			});
+			$.contextMenu({
+				selector: '.drag[index=' + index + ']',
+				callback: function(key, options) {
+					var index = $(this).attr('index');
+					if (key == 'next') {
+						var nextdiv = $(this).next('.drag');
+						if (nextdiv.length > 0) {
+							nextdiv.insertBefore($(this));
+						}
+					}
+					else if (key == 'prev') {
+						var prevdiv = $(this).prev('.drag');
+						if (prevdiv.length > 0) {
+							$(this).insertBefore(prevdiv);
+						}
+					}
+					else if (key == 'last') {
+						var len = $('.drag').length;
+						if (index >= len - 1) {
+							return;
+						}
+						var last = $('#container .drag:last');
+						if (last.length > 0) {
+							$(this).insertAfter(last);
+						}
+					}
+					else if (key == 'first') {
+						var index = $(this).index();
+						if (index <= 1) {
+							return;
+						}
+						var first = $('#container .drag:first');
+						if (first.length > 0) {
+							$(this).insertBefore(first);
+						}
+					}
+					else if (key == 'delete') {
+						$(this).remove();
+						$('.items').hide();
+						$(".item-tip").show();
+						$(".deleteinput").hide();
+					}
+					var n = 1;
+					$('.drag').each(function() {
+						$(this).css("z-index", n);
+						n++;
+					})
+				},
+				items: {"next": {name: "调整到上层"},"prev": {name: "调整到下层"},"last": {name: "调整到最顶层"},"first": {name: "调整到最低层"},"delete": {name: "删除元素"}}
+			});
+			obj.unbind('mousedown').mousedown(function() {
+				setCurrentDrag(obj);
+			});
+		}
+		var timer = 0;
+		function setCurrentDrag(obj) {
+			currentDrag = obj;
+			var cate = obj.attr('cate');
+			bindItems();
+			$(".item-tip").hide();
+			$('.items').show();
+			$(".deleteinput").show();
+			if(cate==1){
+				$(".cate1").show();
+				$(".cate2").hide();
+			}
+			if(cate==2){
+				$(".cate2").show();
+				$(".cate1").hide(); 
+			}
+			$('.drag').css('border', '1px solid #aaa');
+			obj.css('border', '1px solid #428bca');
+		}
+		function bindItems() {
+			var items = currentDrag.attr('items') || "";
+			var values = items.split(',');
+			$('.items').find(':checkbox').each(function() {
+				$(this).get(0).checked = false;
+			});
+			$('#item-font').val('');
+			$('#item-size').val('');
+			$('#item-bold').val('');
+			for (var i in values) {
+				if (values[i] != '') {
+					$('.items').find(":checkbox[value='" + values[i] + "']").get(0).checked = true;
+				}
+			}
+			$('#item-font').val(currentDrag.attr('item-font') || '');
+			$('#item-size').val(currentDrag.attr('item-size') || '');
+			$('#item-bold').val(currentDrag.attr('item-bold') || '');
+			$('#item-pre').val(currentDrag.attr('item-pre') || '');
+			$('#item-last').val(currentDrag.attr('item-last') || '');
+			$('#item-align').val(currentDrag.attr('item-align') || '');
+			var itemcolor = $('#item-color');
+			var input = itemcolor.find('input:first');
+			var picker = itemcolor.find('.sp-preview-inner');
+			var color = currentDrag.attr('item-color') || '#000';
+			input.val(color);
+			picker.css({
+				'background-color': color
+			});
+			timer = setInterval(function() {
+				var cate = currentDrag.attr("cate");
+				if(cate==1){
+					currentDrag.attr('item-color', input.val()).find('.text').css('color', input.val());
+				}
+				if(cate==2){
+					currentDrag.attr('item-color', input.val()).find('.text-table').css('color', input.val());
+				}
+				currentDrag.attr('item-pre', $('#item-pre').val());
+				currentDrag.attr('item-last', $('#item-last').val());
+				var pre = currentDrag.attr('item-pre') || "";
+				var last = currentDrag.attr('item-last') || "";
+				var string = currentDrag.attr('item-string') || "";
+				currentDrag.find('.text').html(pre + string + last);
+			}, 10);
+		}
+		$(function() {
+			$('#dataform').ajaxForm();
+			$('.drag').each(function() {
+				bindEvents($(this));
+			})
+			
+			$('.items .checkbox-inline').click(function(e) {
+			    if( $(e.target).find('input').length>0){
+			    	return;
+			    }
+				if (currentDrag) {
+					var cate = currentDrag.attr("cate");
+					var values = [];
+					var titles = [];
+					var datas = [];
+					var vd = [];
+					$('.items').find(':checkbox:checked').each(function() {
+						var _titles = $(this).attr('title');
+						var _values = $(this).val();
+						var _vd = $(this).data('vd');
+						titles.push(_titles);
+						values.push(_values);
+						vd.push(_vd);
+						datas.push({"value":_values,"title":_titles,"vd":_vd});
+					});
+					if(cate==1){
+						currentDrag.attr('items', values.join(',')).attr('item-string', titles.join(',')).find('.text').text(titles.join(','));
+					}
+					if(cate==2){
+						var _table = '';
+						_table += '<table border="1" style="width:100%">';
+						_table+='<tr style="font-weight:bold">';
+						$.each(datas, function(i,data) {
+							_table+='<td>&nbsp;'+data.title+'&nbsp;</td>';
+						});
+						_table+='</tr>';
+						for(i=1;i<5;i++){
+							_table+='<tr>';
+							$.each(datas, function(ii,data) {
+								if(data.vd!=''){
+									if(data.vd=='number'){
+										_table+='<td>'+i+'</td>'; 
+									}else{
+										_table+='<td>'+data.vd+i+'</td>';
+									}
+								}else{
+									_table+='<td>'+data.vd+'</td>';
+								}
+							});
+							_table+='</tr>';
+						}
+						_table += '<tr><td colspan="'+datas.length+'">提示: 以上表格数据为虚拟数据，打印时将替换为订单数据且打印时此行不会出现。</td></tr>';
+						_table += '</table>';
+						currentDrag.attr('items', values.join(',')).attr({'item-string': titles.join(','),'item-virtual': vd.join(',')}).find('.text-table').html(_table);
+					}
+				}
+			});
+			$('#item-font').change(function() {
+				if (currentDrag) {
+					var cate = currentDrag.attr("cate");
+					var data = $(this).val();
+					currentDrag.attr('item-font', data);
+					if (data == '') {
+						data = "微软雅黑";
+					}
+					if(cate==1){
+						currentDrag.attr('item-font', data).find(".text").css('font-family', data);
+					}
+					if(cate==2){
+						currentDrag.attr('item-font', data).find(".text-table").css('font-family', data);
+					}
+				}
+			});
+			$('#item-align').change(function() {
+				if (currentDrag) {
+					var cate = currentDrag.attr("cate");
+					var data = $(this).val();
+					currentDrag.attr('item-align', data);
+					if (data == '') {
+						data = "1";
+					}
+					var str = '';
+					if (data == 1) {
+						str = "left";
+					}
+					if (data == 2) {
+						str = "center";
+					}
+					if (data == 3) {
+						str = "right";
+					}
+					
+					if(cate==1){
+						currentDrag.attr('item-font', data).find(".text").css('text-align', str);
+					}
+					if(cate==2){
+						currentDrag.attr('item-font', data).find(".text-table").css('text-align', str);
+					}
+				}
+			});
+			$('#item-size').change(function() {
+				if (currentDrag) {
+					var cate = currentDrag.attr("cate");
+					var data = $(this).val();
+					currentDrag.attr('item-size', data);
+					if (data == '') {
+						data = 12;
+					}
+					if(cate==1){
+						currentDrag.find(".text").css('font-size', data + "pt");
+					}
+					if(cate==2){
+						currentDrag.find(".text-table").css('font-size', data + "pt");
+					}
+				}
+			});
+			$('#item-bold').change(function() {
+				if (currentDrag) {
+					var cate = currentDrag.attr("cate");
+					var data = $(this).val();
+					currentDrag.attr('item-bold', data);
+					if(cate==1){
+						if (data == 'bold') {
+							currentDrag.css('font-weight', 'bold');
+						} else {
+							currentDrag.find(".text").css('font-weight', 'normal');
+						}
+					}
+					if(cate==2){
+						if (data == 'bold') {
+							currentDrag.css('font-weight', 'bold');
+						} else {
+							currentDrag.find(".text-table").css('font-weight', 'normal');
+						}
+					}
+				}
+			});
+		});
+
+		function save(ispreview) {
+			if ($(':input[name=expressname]').isEmpty()) {
+				Tip.focus($(':input[name=expressname]'), '请填写快递单名称!');
+				return;
+			}
+			var data = [];
+			$('.drag').each(function() {
+				var obj = $(this);
+				var d = {
+					left: obj.css('left'),
+					top: obj.css('top'),
+					width: obj.css('width'),
+					height: obj.css('height'),
+					items: obj.attr('items'),
+					font: obj.attr('item-font'),
+					size: obj.attr('item-size'),
+					color: obj.attr('item-color'),
+					bold: obj.attr('item-bold'),
+					string: obj.attr('item-string'),
+					pre: obj.attr('item-pre'),
+					last: obj.attr('item-last'),
+					align: obj.attr('item-align'),
+					cate: obj.attr('cate'),
+					virtual: obj.attr('item-virtual')
+				};
+				data.push(d);
+			});
+			{if $cate==1}
+				$("#expresscom").val($("#express").find("option:selected").data("name"));
+			{/if}
+			$('#datas').val(JSON.stringify(data));
+			$('.btnsave').button('loading');
+			$('#dataform').ajaxSubmit(function(data) {
+				$('.btnsave').button('reset');
+				data = eval("(" + data + ")");
+				$(':hidden[name=id]').val(data.id);
+				if (ispreview) {
+					previews();
+				} else {
+					location.href = "{php echo $this->createPluginWebUrl('exhelper/express',array('op'=>'list','cate'=>$cate))}";
+				}
+			})
+			return;
+		}
+
+		function previews() {
+			var LODOP=getCLodop();
+			alert("保存成功！正在生成预览。。。");
+			var Width = $("input[name=width]").val()+"pt";
+			var Height = $("input[name=height]").val()+"pt";
+			LODOP.PRINT_INITA(0,0,Width,Height,"快递单预览"); //1188
+			LODOP.ADD_PRINT_HTM(0, 0, 869, 480, $("#container").html());
+			LODOP.PREVIEW();
+		}
+	</script>
+{/if}
+
+{template 'common/footer'}

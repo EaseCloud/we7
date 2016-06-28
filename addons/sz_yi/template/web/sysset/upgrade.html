@@ -1,0 +1,143 @@
+{template 'common/header'}
+<style>
+#upgradebtn{width:20%}
+</style>
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" >
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                系统升级
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">当前版本</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="form-control-static">{$version}<br/> 最后更新日期: {$updatedate} <a href="{php echo $this->createWebUrl('upgrade',array('op'=>'checkversion'))}">降低版本重新检测</a></div>
+                    </div>
+                </div>
+                 <div class="form-group" >
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">最新版本</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="form-control-static"  id="check">等待检测...</div>
+                    </div>
+                </div>
+           
+                <div class="form-group" id="upgrade" style="display:none">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class='form-control-static'>
+                            <input type="button" id="upgradebtn" value="立即更新" class="btn btn-primary col-lg-1" />
+                            
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                        </div>
+                    </div>
+        
+                    
+            </div>  
+        </div>
+    </form>
+</div>
+<script language='javascript'>
+  
+    function upgrade(){
+        var $check_boxes = $('input[name="files"]:checked');  
+        var fileIds = new Array();  
+
+        $check_boxes.each(function(){  
+            fileIds.push($(this).val());  
+        }); 
+
+        $.ajax({
+            url: "{php $this->createWebUrl('upgrade')}",
+            data:{op:'download', 'nofiles': fileIds},
+            //traditional :true, 
+            type:'post',
+            dataType:'json',
+            success:function(ret){
+             if(ret.result==1)      {
+                 $('#process').html("已更新 " + ret.success + "个文件 / 共 " + ret.total +  " 个文件！");
+                 //循环更新
+                 upgrade();
+             }
+             else if(ret.result==2){
+                  $('#process').html("更新完成!");
+                  alert('更新完成!');
+                  location.reload();
+             }
+             else if(ret.result==3){
+                 //跳过计数，3是不更新的
+                 upgrade();
+             }
+            }
+        });
+    }
+ 
+    $(function(){
+         $.ajax({
+            url: "{php $this->createWebUrl('upgrade')}",
+            data:{op:'check'}, 
+            type:'post',
+            dataType:'json',
+            success:function(ret){
+                if(ret.result==1){
+                    var html = "";
+                    html+="最新版本: <span style='color:red'>" + ret.version + "</span><br/>";
+                    if(ret.filecount<=0 && !ret.upgrade){
+                        html+="恭喜您，您现在是最新版本！"
+                    }
+                    else{
+                       if(ret.filecount>0)    {
+                           html+="共检测到有 <span style='color:red'>" + ret.filecount + "</span> 个文件需要更新.<br/>";
+                       }
+                       if(ret.upgrade){
+                            html+="此次有数据变动.<br/>";    
+                       }
+                       if(ret.log!=''){
+                            html+="<br/><b>更新日志:</b><br/>";    
+                            html+= ret.log + "<br/>";
+                       }
+                       if(ret.filecount > 0){
+                           html += "更新文件(选中则不更新文件):<br>";
+                           var data = ret.files;
+                           /*
+                           for(i=0;i<ret.files.length;i++){
+                            html += "<br>"+ret.files[i].path;
+                           }
+                           */
+                           for(var o in data){
+                              html += '<input type="checkbox" value="'+data[o].path+'" name="files"> ' + data[o].path+"<br>";
+                           }
+                           //console.log(ret.files);
+                       }
+                       html+="<br/><b style='color:red'>更新之前请注意数据备份!</b><br/><br/>";    
+                    }
+                    
+                    
+                
+                    html+="<div id='process'></div>";
+                    $("#check").html( html);
+                    if(ret.filecount>0 || ret.upgrade){
+                        $('#upgrade').show();
+                            $("#upgradebtn").unbind('click').click(function(){
+                                  if($(this).attr('updating')=='1'){
+                                      return;
+                                  }
+                             if(confirm('确认已备份，并进行更新吗?')){
+                                 $(this).attr('updating',1).val('正在更新中...');
+                                 upgrade();
+                             }
+                         });
+                    }
+                    
+                }
+                else{
+                    $("#check").html( ret.message);
+                }
+            }
+        })
+   
+
+    })
+</script>
+{template 'common/footer'}
+

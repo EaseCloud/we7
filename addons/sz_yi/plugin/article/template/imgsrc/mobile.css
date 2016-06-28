@@ -1,0 +1,89 @@
+* {margin:0px; -webkit-overflow-scrolling:touch;}
+body {font-family:"Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif; background: #f3f3f3;}
+.rich_primary {height:auto; margin: auto; padding:20px 15px 15px; background:#fff;}
+.rich_title {margin-bottom:10px; line-height:1.4; font-weight:400; font-size:24px;}
+.rich_mate {margin-bottom:18px; line-height:20px; overflow:hidden;}
+.rich_mate .href {color:#607fa6;}
+.rich_mate_text {margin-right:8px; margin-bottom:10px; font-size:16px; color:#8c8c8c; float:left;}
+.rich_content {height:auto; font-size:16px; overflow-x: hidden; word-break: break-all;}
+.rich_content img { width:100%; display:block;}
+.rich_content section a {color: inherit;}
+.rich_tool {height:auto; padding-top:15px; line-height:32px; overflow:hidden;}
+.rich_tool .link {color:#607fa6;}
+.rich_tool .right {float:right;}
+.rich_tool_like {height:13px; width:13px; margin-left:8px; background:url('./like.png') 0 0 no-repeat; background-size:100% auto; display:inline-block;}
+.rich_tool_likeon {background-position:0 -18px;}
+.rich_tool_text {margin-right:10px; font-size:16px; color:#8c8c8c; text-decoration:none; float:left;}
+.rich_sift {background:#eee; padding:30px 15px 0px; border-top:1px solid #e4e4e4;  max-width: 700px; margin: auto; }
+.rich_sift fieldset {height:0px; border:0px; border-top:1px dotted #ccc; text-align:center;}
+.rich_sift legend {padding:0px 10px; color:#999;}
+.rich_sift_goods {min-height:10px; background:#fff; margin-top:12px; padding:6px; position: relative;}
+.rich_sift_goods img {width:100%; display:block;}
+.rich_sift_goods .dots {height: 12px; width: 100%; position: absolute; bottom: 14px; left: 0; text-align: center;}
+.rich_sift_goods .dots a {height: 12px; width: 12px; background: rgba(0,0,0,0.3); display: inline-block; border-radius: 12px;}
+.rich_sift_goods .dots .on {background: rgba(0,0,0,0.5);}
+.rich_sift_text {height: 60px; line-height:50px; font-size:16px; color:#607fa6; text-align:center;}
+.rich_sift_text a {color:#607fa6; text-decoration: none;} 
+
+/* Swipe 2 styles */
+.swipe {overflow: hidden; visibility: hidden; position: relative;}
+.swipe-wrap {overflow: hidden;position: relative;}
+.swipe-wrap img {float:left; width:100%; position: relative;}
+
+/* 以下是文章列表样式1 */
+.t1 {padding: 10px;}
+.t1 .main {min-height: 600px; background: #fff;}
+.t1 .main .banner {padding:5px;}
+.t1 .main .banner img {width:100%; display: block;}
+.t1 .main .list {height: auto; }
+.t1 .main .list a {color:#444; text-decoration: none;}
+.t1 .main .list .line-main {height:50px; border-top: 1px solid #eee;}
+.t1 .main .list .line-main .line {height:40px; padding: 5px;}
+.t1 .main .list .line-main .line .img {height: 40px; width: 40px; background: #ddd; float: left;}
+.t1 .main .list .line-main .line .img img {height:40px; width: 40px;}
+.t1 .main .list .line-main .line .info {height: 40px; padding-left: 45px; line-height: 20px; font-size: 14px; position: relative;}
+.t1 .main .list .line-main .line .info .title {overflow: hidden; height: 40px; width: 100%;}
+.t1 .main .list .line-main .line .info .ico-main {height:20px; width: auto; position: absolute; bottom: 0px; right: 0px; background: #fff; font-size: 8px; line-height: 14px; color:#fff;}
+.t1 .main .list .line-main .line .info .ico-main .ico {background: #f90; height: 14px; width: auto; margin-top: 6px; border-radius: 40px 0 0 0 ; padding: 0 4px 0 8px;}
+
+/* 以下是文章列表样式2 */
+.t2 {height: auto; background: #f4f4f4; padding: 10px 5px;}
+.t2 a {color: inherit; text-decoration: none;}
+.t2 .list {height: auto; background: #fff; padding: 10px 15px; margin-top: 5px; border: 1px solid #d8d8d8; }
+.t2 .list .date {height: 20px; color: #aaa; font-size: 14px; line-height: 20px; font-family: "Helvetica";}
+.t2 .list .title {height:auto; font-size: 18px; font-weight: bold;}
+.t2 .list .img {height: 150px; background: #0cc; position: relative;}
+.t2 .list .img .img-title {height: auto; width: 100%; background: rgba(0,0,0,0.7); position: absolute; bottom: 0; font-size: 18px; color: #fff;}
+.t2 .list .img .img-title p {padding: 4px;}
+.t2 .list .img img {height: 100%; width: 100%; display: bolck;}
+.t2 .list .desc {height: auto; padding: 10px 0; font-size: 14px; color: #a1a1a1;}
+.t2 .list .line {height: auto; border-top: 1px solid #eaeaea; overflow: hidden; padding: 10px 0; margin-top: 10px;}
+.t2 .list .line .title {height: auto; padding-right: 60px; word-break:break-all; font-size: 18px;;}
+.t2 .list .line .icon {height: 48px; width: 48px; border: 1px solid #ededed; float: right;}
+.t2 .list .line .icon img {height: 100%; width: 100%; display: block;}
+.t2 .list .read {height: 30px; border-top: 1px solid #ddd; font-size: 14px; line-height: 34px;}
+.t2 .list .read .left {float: left;}
+.t2 .list .read .right {width:50px; text-align: center; float: right; position: relative;}
+.t2 .list .read .right .ico {content: ""; position: absolute; top: 10px; right: 0px; width: 16px; height: 10px; overflow: hidden; z-index: 10;}
+.t2 .list .read .right .ico:after{content: ""; position: absolute; top: -1.5px; left: -5px; width: 10px; height: 10px; -webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); -o-transform: rotate(-45deg); -ms-transform: rotate(-45deg); transform: rotate(-45deg); border: 1.5px solid #a8a8a8; background: #fff;}
+
+/* 以下是文章列表样式3 */
+.t3 {background: #fff;}
+.t3 a {color: inherit; text-decoration: none;}
+.t3 .topbar {height: 48px; width: 100%; background: #f90; padding-top: 0px; position: fixed; top: 0;}
+.t3 .topbar .menu-main {height: 48px; background: #fff; padding: 0; overflow-x: auto; white-space:nowrap; -webkit-overflow-scrolling:touch;}
+.t3 .topbar .menu-main nav {height:48px; width:auto; padding:0px 10px; background:none; display:inline-block; line-height:44px; color:#666;}
+.t3 .topbar .menu-main .on {height: 40px; border-bottom: 2px solid #0cc; color: #0cc;}
+.t3 .topbar .block {height: 5px; width: 100%; position: absolute; bottom: 0; left: 0; background: #fff; border-top: 1px solid #eee; z-index: 999;}
+.t3 .list {height: auto; padding: 0 8px; margin-top: 42px;}
+.t3 .list .line {height: 80px; border-bottom: 1px solid #f0f0f0; padding: 8px 0;}
+.t3 .list .line .img {height: 80px; width: 80px; background: #eee; float: left;}
+.t3 .list .line .img img {height: 100%; width: 100%; display: block;}
+.t3 .list .line .info {height: 100px; padding-left: 85px;}
+.t3 .list .line .info .title {height: 36px; font-size: 16px; color: #666; line-height: 18px; text-overflow: -o-ellipsis-lastline; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+.t3 .list .line .info .desc {height: 26px; font-size: 13px; color: #999; line-height: 13px; padding-top: 2px; text-overflow: -o-ellipsis-lastline; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+.t3 .list .line .info .date {height: 13px; font-size: 11px; color: #999; line-height: 13px; padding-top: 2px;}
+
+/* 加载更多按钮样式 */ 
+.add-more {height:30px; line-height: 40px; font-size: 14px; text-align: center; color: #428bca;}
+.add-more a {color: inherit; text-decoration: none;}

@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{if empty($article_sys['article_title'])}全部文章{else}{$article_sys['article_title']}{/if}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport" name="viewport">
+<meta name="format-detection" content="telephone=no" />
+<link href="../addons/sz_yi/plugin/article/template/imgsrc/mobile.css" rel="stylesheet">
+<script type="text/javascript" src="../addons/sz_yi/static/js/dist/jquery-1.11.1.min.js"></script>
+<script>
+    $(function(){
+        var page = 2;
+        var temp ="{$article_sys['article_temp']}";
+        var lock = 0;
+        $("#add-more").click(function(){
+            if(lock==0){
+                if(temp==2){
+                    cate = $(".add-more").attr("cid");
+                }
+                $(this).text("加载中...");
+                lock = 1;
+                $.post("{php echo $this->createPluginMobileUrl('article',array('method'=>'api','apido'=>'addmore'))}", {page:page{if $article_sys['article_temp']==2},cate:cate{/if}} ,function(result){
+                    if(result){
+                        page++;
+                        if(temp==0 || temp==2){
+                            $(".list").append(result);
+                        }
+                        else if (temp==1){
+                            $(".append").append(result);
+                        }
+                        $("#add-more").text('加载更多');
+                    }else{
+                        $("#add-more").text('没有更多了...');
+                    }
+                    lock = 0;
+                });
+            }
+        });
+        
+{if $article_sys['article_temp']==2}
+        var _height = $(window).height();
+        var _height = parseInt(_height)-100;
+        add(0,_height);
+        $("nav").click(function(){
+            var thiscid = $(this).attr("cid");
+            if(temp==2){
+                $(".add-more").attr("cid",thiscid);
+                page = 2;
+                $("#add-more").text('加载更多');
+            }
+            add(thiscid,_height);
+        });
+ {/if}
+        
+    });
+{if $article_sys['article_temp']==2}
+    function add(thiscid,_height){
+            $(".add-more").attr("cid",thiscid)
+            $("nav[cid="+thiscid+"]").addClass("on").siblings().removeClass("on");
+            $(".list").html("<p style='line-height:"+_height+"px; text-align:center;'>正在载入...</p>");
+            $(".add-more").hide();
+            $.post("{php echo $this->createPluginMobileUrl('article',array('method'=>'api','apido'=>'selectarticle'))}", {cid:thiscid} ,function(result){
+                if(result){
+                    $(".list").html(result);
+                    $(".add-more").show();
+                }else{
+                     $(".list").html("<p style='line-height:"+_height+"px; text-align:center;'>该分类还没有添加文章...</p>");
+                }
+            });
+    }
+ {/if}
+</script>
+
+</head>
+
+<body class="{if $article_sys['article_temp']==0}t1{elseif $article_sys['article_temp']==1}t2{elseif $article_sys['article_temp']==2}t3{/if}">
+{if $article_sys['article_temp']==0}
+    <div class="main">
+        {if !empty($article_sys['article_image'])}
+            <div class="banner">
+                <img src="{$article_sys['article_image']}"/>
+            </div>
+        {/if}
+        <div class="list">
+            {loop $articles $article}
+                <a href="{php echo $this->createPluginMobileUrl('article',array('aid'=>$article['id']))}">
+                    <div class="line-main">
+                        <div class="line"> 
+                            <div class="img">
+                                {if !empty($article['resp_img'])}
+                                    <img src="{$article['resp_img']}"/>
+                                {else}
+                                    <p style='line-height: 12px; font-size: 12px; padding: 6px; text-align: center; color: #999;'>no img</p>
+                                {/if}
+                            </div>
+                            <div class="info" >
+                                <div class="title">{$article['article_title']}</div>
+                                {if $article['article_rule_money']>0 || !empty($article['article_rule_credit'])}
+                                    <div class="ico-main">
+                                        <div class="ico">
+                                            {if $article['article_rule_money']>0}
+                                                {$article['article_rule_money']}元余额
+                                            {/if}
+                                            {if !empty($article['article_rule_credit'])}
+                                                {$article['article_rule_credit']}个积分
+                                            {/if}
+                                        </div>
+                                    </div>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {/loop}
+        </div>
+    </div>
+{elseif $article_sys['article_temp']==1} 
+        {loop $articles $k  $v}
+            <div class="list">
+                <div class="date">{$k}</div>
+                    {if count($v['articles'])==1}
+                        <a href="{php echo $this->createPluginMobileUrl('article',array('aid'=>$v['articles'][0]['id']))}">
+                            <div class="title">{$v['articles'][0]['article_title']}</div>
+                            <div class="img"><img src="{$v['articles'][0]['resp_img']}" /></div>
+                            <div class="desc">{$v['articles'][0]['resp_desc']}</div>
+                            <div class="read">
+                                <span class="left">阅读原文</span>
+                                <span class="right"><span class="ico"></span></span>
+                            </div>
+                        </a>
+                    {else}
+                        {loop $v['articles'] $index $vv}
+                            {if $index==0}
+                                <a href="{php echo $this->createPluginMobileUrl('article',array('aid'=>$vv['id']))}">
+                                    <div class="img">
+                                        <img src="{$vv['resp_img']}" />
+                                        <div class="img-title"><p>{$vv['article_title']}</p></div>
+                                    </div>
+                                </a>
+                            {else}
+                                <a href="{php echo $this->createPluginMobileUrl('article',array('aid'=>$vv['id']))}">
+                                    <div class="line">
+                                        <div class="icon"><img src="{$vv['resp_img']}" /></div>
+                                        <div class="title">{$vv['article_title']}</div>
+                                    </div>
+                                </a>
+                            {/if}
+                        {/loop}
+                    {/if}
+            </div>
+        {/loop}	 
+        <div class="append"></div>
+{elseif $article_sys['article_temp']==2} 
+    <div class="topbar">
+        <div class="block"></div>
+        <div class="menu-main">
+            <nav cid="0" class="on">全部分类</nav>
+            {loop $categorys $i $category}
+                <nav cid="{$category['id']}">{$category['category_name']}</nav>
+            {/loop}
+        </div>
+    </div>
+    <div class="list"></div>
+{/if}
+    <div class="add-more" {if $article_sys['article_temp']==2} style="height: 40px"{/if}><a id="add-more" href="javascript:;">加载更多</a></div>
+</body>
+</html>

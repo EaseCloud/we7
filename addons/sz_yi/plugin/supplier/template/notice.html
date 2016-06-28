@@ -1,0 +1,37 @@
+{template 'web/_header'}
+{template 'tabs'}
+<form id="setform"  action="" method="post" class="form-horizontal form">
+    <div class='panel panel-default'>
+        <div class='panel-heading'>
+            通知设置 
+        </div>
+        <div class='panel-body'>
+ <div class='alert alert-info'>
+     默认为全部开启，用户在会员中心可自行设置是否开启, 模板消息自动替换变量
+ </div>
+             <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员申请供应商通知</label>
+                <div class="col-sm-9 col-xs-12">
+                      <input type="text" name="tm[commission_becometitle]" class="form-control" value="{$set['tm']['commission_becometitle']}" />
+                    <div class="help-block">标题，默认"会员申请供应商通知"</div>
+                </div>
+            </div>
+            
+           <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    <textarea  name="tm[commission_become]" class="form-control" >{$set['tm']['commission_become']}</textarea>
+                     模板变量: [状态] (驳回、通过) [时间]
+                </div>
+            </div>
+            
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9">
+                <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </div>
+        </div>
+</form>
+{template 'web/_footer'}

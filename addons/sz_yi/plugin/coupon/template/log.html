@@ -1,0 +1,155 @@
+{template 'web/_header'}
+{template 'tabs'}
+ 
+<div class="panel panel-info">
+    <div class="panel-heading">筛选</div>
+    <div class="panel-body">
+        <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+            <input type="hidden" name="c" value="site" />
+            <input type="hidden" name="a" value="entry" />
+            <input type="hidden" name="m" value="sz_yi" />
+            <input type="hidden" name="do" value="plugin" />
+            <input type="hidden" name="p" value="coupon" />
+            <input type="hidden" name="method" value="log" />
+            <div class="form-group">
+              
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">优惠券</label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                    <input type="text" class="form-control"  name="coupon" value="{$_GPC['coupon']}" placeholder='可搜索优惠券ID/名称'/> 
+                </div>
+            </div>
+             <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">会员信息</label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                    <input type="text" class="form-control"  name="realname" value="{$_GPC['realname']}" placeholder='可搜索会员昵称/会员姓名/会员手机号'/> 
+                </div>
+            </div>
+              <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">类型</label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                    <select name='type' class='form-control'>
+                        <option value=''></option>
+                        <option value='0' {if $_GPC['type']=='0'}selected{/if}>消费</option>
+                        <option value='1' {if $_GPC['type']=='1'}selected{/if}>充值</option>
+                    </select>
+                  </div>
+            </div>
+                 <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">是否使用</label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                    <select name='used' class='form-control'>
+                        <option value=''></option>
+                        <option value='0' {if $_GPC['used']=='0'}selected{/if}>未使用</option>
+                        <option value='1' {if $_GPC['used']=='1'}selected{/if}>已使用</option>
+                    </select>
+                  </div>
+            </div>
+                  <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">获得方式</label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                    <select name='getfrom' class='form-control'>
+                        <option value=''></option>
+                        <option value='0' {if $_GPC['getfrom']=='0'}selected{/if}>后台发放</option>
+                        <option value='1' {if $_GPC['getfrom']=='5'}selected{/if}>口令优惠券</option>
+                        <option value='1' {if $_GPC['getfrom']=='1'}selected{/if}>领券中心</option>
+                        <option value='2' {if $_GPC['getfrom']=='2'}selected{/if}>积分商城</option>
+		       <option value='2' {if $_GPC['getfrom']=='3'}selected{/if}>超级海报</option>
+			<option value='4' {if $_GPC['getfrom']=='4'}selected{/if}>活动海报</option>
+                    </select>
+                  </div>
+            </div>
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">获得时间</label>
+                    <div class="col-sm-7 col-lg-9 col-xs-12">
+                        <div class="col-sm-2">
+                            <label class='radio-inline'>
+                                <input type='radio' value='0' name='searchtime' {if $_GPC['searchtime']=='0'}checked{/if}>不搜索
+                            </label> 
+                             <label class='radio-inline'>
+                                <input type='radio' value='1' name='searchtime' {if $_GPC['searchtime']=='1'}checked{/if}>搜索
+                            </label>
+                     </div>
+                        {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i', $starttime),'endtime'=>date('Y-m-d  H:i', $endtime)),true);}
+                    </div>
+                </div>
+       <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">使用时间</label>
+                    <div class="col-sm-7 col-lg-9 col-xs-12">
+                        <div class="col-sm-2">
+                            <label class='radio-inline'>
+                                <input type='radio' value='0' name='searchtime1' {if $_GPC['searchtime1']=='0'}checked{/if}>不搜索
+                            </label> 
+                             <label class='radio-inline'>
+                                <input type='radio' value='1' name='searchtime1' {if $_GPC['searchtime1']=='1'}checked{/if}>搜索
+                            </label>
+                     </div>
+                        {php echo tpl_form_field_daterange('time1', array('starttime'=>date('Y-m-d H:i', $starttime1),'endtime'=>date('Y-m-d  H:i', $endtime1)),true);}
+                    </div>
+                </div>
+<div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                       <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+			<input type="hidden" name="token" value="{$_W['token']}" />
+                       {ifp 'coupon.coupon.logexport'}   
+                        <button type="submit" name="export" value="1" class="btn btn-primary">导出 Excel</button>
+                        {/if}
+                </div>
+            </div>    
+        </form>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">总数：{$total}</div>
+    <div class="panel-body">
+        <table class="table table-hover table-responsive">
+            <thead class="navbar-inner" >
+                <tr>
+                    <th style='width:80px;'>ID</th>
+                    <th style='width:150px;'>优惠券名称</th>
+                    <th style='width:150px;'>会员信息</th>
+                    <th style='width:120px;'></th>
+                    <th style='width:80px;'>获得方式</th>
+                    <th style='width:120px;'>获得时间</th>
+	  <th style='width:120px;'>使用时间</th>
+                    <th style='width:120px;'>使用单号</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list $row}
+                <tr>
+                      <td>{$row['id']}</td>
+		    <td>{if $row['coupontype']==0}
+				  <label class='label label-success'>消费</label>
+						  {else}
+						  <label class='label label-warning'>充值</label>
+					 {/if} {$row['couponname']}
+					  </td>
+                                          <td>
+                                                  {if !empty($row['avatar'])}
+                         <img src='{$row['avatar']}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' />
+                       {/if}
+                       {if empty($row['nickname'])}未更新{else}{$row['nickname']}{/if}
+                                          </td>
+                                          <td>
+                                              {$row['realname']}<br/>{$row['mobile']}
+                                          </td>
+                     <td>{$row['gettypestr']}</td>
+		<td>{$row['gettime']}</td>			 
+                <td>{$row['usetime']}</td>
+					 
+					<td>{php echo empty($row['ordersn'])?'---':$row['ordersn']}</td>
+					 
+ 
+                </tr>
+                {/loop}
+            </tbody>
+        </table>
+        {$pager}
+    </div>
+    <div class='panel-footer'>
+     
+    </div>
+</div>
+{template 'web/_footer'}

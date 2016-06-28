@@ -1,0 +1,11 @@
+<ul class="nav nav-tabs">
+    {ifp 'statistics.view.sale'}<li {if $_GPC['p'] == 'sale' || empty($_GPC['p'])}class="active"{/if}><a href="{php echo $this->createWebUrl('statistics/sale')}">销售统计</a></li>{/if}
+    {ifp 'statistics.view.sale_analysis'}<li {if $_GPC['p'] == 'sale_analysis'}class="active"{/if}><a href="{php echo $this->createWebUrl('statistics/sale_analysis')}">销售指标</a></li>{/if}
+    {ifp 'statistics.view.order'}<li {if $_GPC['p'] == 'order'}class="active"{/if}><a href="{php echo $this->createWebUrl('statistics/order')}">订单统计</a></li>{/if}
+    {ifp 'statistics.view.goods'}<li {if $_GPC['p'] == 'goods'}class="active"{/if}><a href="{php echo $this->createWebUrl('statistics/goods')}">商品销售明细</a></li>{/if}
+    {ifp 'statistics.view.goods_rank'}<li {if $_GPC['p'] == 'goods_rank'}class="active"{/if}><a href="{php echo $this->createWebUrl('statistics/goods_rank')}">商品销售排行</a></li>{/if}
+    {ifp 'statistics.view.goods_trans'}<li {if $_GPC['p'] == 'goods_trans'}class="active"{/if}><a href="{php echo $this->createWebUrl('statistics/goods_trans')}">商品销售转化率</a></li>{/if}
+    {ifp 'statistics.view.member_cost'}<li {if $_GPC['p'] == 'member_cost'}class="active"{/if}><a href="{php echo $this->createWebUrl('statistics/member_cost')}"> 会员消费排行</a></li>{/if}
+    {ifp 'statistics.view.member_increase'}<li {if $_GPC['p'] == 'member_increase'}class="active"{/if}><a href="{php echo $this->createWebUrl('statistics/member_increase')}">会员增长趋势</a></li>{/if}
+    
+</ul>  

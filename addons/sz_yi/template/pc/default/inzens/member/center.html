@@ -1,0 +1,184 @@
+{template 'common/header'}
+<title>个人中心</title>
+<style type="text/css">
+body {margin:0; background:#efefef;}
+ul,li {padding:0; margin:0;}
+a{ text-decoration:none;}
+i.i20{ width:22px; height:22px; font-size:24px; margin-bottom:2px; color:#575757;}
+i.i22{ width:22px; height:22px; border-radius:3px; margin-right:6px; color:#fff; line-height:22px;}
+.icon-mark{font-size:22px; left:-2px}
+.icon-shezhi {font-size:22px; }
+.icon-right{ color:#c7c7cc}
+.icon-form{background-color:#ffba64;}
+.icon-licaishouyi{background-color:#ff6666;}
+.icon-collect{background-color:#ff7daf;}
+.icon-cart{background-color:#ff7086;}
+.icon-footprint{background-color:#adee72;}
+.icon-location{background-color:#7fddff;}
+.icon-question{background-color:#71c1ff;}
+.icon-notice{background-color:#ffa366;}
+.icon-present{background-color:#F00;}
+.icon-redpacket{background-color:#ff4965;}
+.icon-fuwuchuanga{background-color:#ffa366;}
+.icon-sponsor{background-color:#F00;}
+
+.user{width:92%; height:95px; background:#fd7c59; padding:50px 3% 0 5%;}
+.user .user_face{width:70px; height:70px; overflow:hidden; border-radius:50px; margin:0 auto; background-color:#fff; margin-right:10px;}
+.user .user_face img {width:100%; height:100%;}
+.user .user_info{color:#fff;}
+.user .user_name{ max-width:120px; height:18px; line-height:18px; overflow:hidden;font-size:16px; margin-top:20px; margin-bottom:6px; float:left;color:#fff;}
+.user .user_level{width:60px; height:16px; overflow:hidden; background:url(../addons/sz_yi/template/mobile/inzens/new/images/icons.svg) no-repeat -200px -182px; font-size:12px; line-height:16px; padding-left:20px; color:#fd7c59; display:inline-block; position:relative; top:21px; margin-left:8px;}
+.user_infos{ width:150px; font-size:12px; height:18px; overflow:hidden;color:#fff;}
+
+.user_bar{width:92%; padding:12px 4% 0 4%; position: absolute;}
+.user_bar .top_nav{width:20px; height:20px;color:#fff;}
+
+.user_warp{width:92%;padding:0 3% 0 5%; background:#fff;}
+.user_warp .user_tit{width:100%; height:43px; line-height:43px; border-bottom:1px solid #e4e4e4; overflow:hidden;}
+.user_warp .user_tit1{width:100%; height:43px; line-height:43px; overflow:hidden;}
+.user_warp .user_tit1 a{font-size:16px;color:#333;}
+.user_warp .user_tit a{ width:100%; height:100%; display:block; color:#333;font-size:16px;}
+.user_warp .user_titr{font-size:12px; line-height:43px; color:#f00;}
+
+.order_list{ width:94%;padding:0 3% 0 3%; background:#fff; border-bottom:1px solid #e4e4e4;}
+.order_list ul li{float:left; list-style:none; margin:0;text-align: center; padding:10px 0;box-sizing:border-box; width:25%; height:60px;flex: 1;display: list-item;}
+.order_list ul li a{ color:#666; font-size:13px; display:inline-block; position:relative;}
+.order_list ul li span{position:absolute;right:-5px; top:0;text-align:center;background-color:#fd7c59;width:14px;height:14px;border-radius:20px;font-size:12px;line-height:14px;color: #fff;overflow: hidden; display:inline-block; font-style:normal;}
+.order_list ul li p{ color:#676767;display: block;-webkit-margin-before: 4px;-webkit-margin-after: 4px;-webkit-margin-start: 0px;-webkit-margin-end: 0px;}
+
+.money_list{width:92%;padding:0 3% 0 5%; background:#fff;}
+.money_list ul{width:100%;border-bottom:1px solid #e4e4e4; overflow:hidden;}
+.money_list ul li{float:left; list-style:none; margin:0;box-sizing:border-box; width:42%; height:50px; line-height:50px; padding-left:3%;}
+.money_list ul li.money_cz{width:12%; padding-left:0;}
+.money_list ul li.money_cz a{ width:36px; height:20px; display:block; background:#fd7c59; color:fff; line-height:20px;border-radius:3px; margin-top:15px; text-align:center;}
+#btnwithdraw{ color:#fff;}
+.money_list ul li a{ color:#666; font-size:13px; display: inline-block; width:100%;position: relative;}
+.money_list ul li .txt{ margin-left:3px;}
+.money_list ul li .num{ color:#fd7c59; margin-left:2px;}
+.topbar{height: 60px!important}
+</style>
+
+<div id="container" style="width: 1200px;margin: 120px auto 0;padding-left:400px"></div>
+<script id="member_center" type="text/html">
+    <div class="user_bar">
+		<a class="top_nav fl" href="{php echo $this->createMobileUrl('member/notice')}"><i class="iconfont icon-mark"></i></a>
+		<a class="top_nav fr" href="{php echo $this->createMobileUrl('member/info')}"><i class="iconfont icon-shezhi"></i></a>
+	</div>
+	
+	<div class="user clear_in">
+		<div class="user_face fl"><img src="<%member.avatar%>" /></div>
+		<div class="user_info fl">
+			<div class="clear_in"><div class="user_name"><%member.nickname%></div><span class="user_level"><%level.levelname%></span></div>
+			<div class="user_infos">当前账户余额：<%member.credit2%>元</div>
+		</div>
+		<div class="more fr"><a href="{php echo $this->createMobileUrl('member/info')}"><i class="icon-right iconfont" style="color:#ffcabb; font-size:40px; top:15px;"></i></a></div>
+	</div>
+	
+	<div class="user_warp">
+		<div class="user_tit"><a href="{php echo $this->createMobileUrl('order')}"><i class="icon-form iconfont i22"></i>我的订单<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	<div class="order_list clear_in">
+		<ul>
+			<li>
+				<a href="{php echo $this->createMobileUrl('order',array('status'=>0))}">
+				<i class="icon-pay iconfont i20"><%if order.status0>0%><span><%order.status0%></span><%/if%></i><p class="">待付款</p></a>
+			</li>
+			<li>
+				<a href="{php echo $this->createMobileUrl('order',array('status'=>1))}">
+				<i class="icon-send iconfont i20"><%if order.status1>0%><span><%order.status1%></span><%/if%></i><p class="">待发货</p></a>
+			</li>
+			<li>
+				<a href="{php echo $this->createMobileUrl('order',array('status'=>2))}">
+				<i class="icon-deliver iconfont i20"><%if order.status2>0%><span><%order.status2%></span><%/if%></i><p class="">待收货</p></a>
+			</li>
+			<li>
+				<a href="{php echo $this->createMobileUrl('order',array('status'=>4))}">
+				<i class="icon-refund iconfont i20"><%if order.status4>0%><span><%order.status4%></span><%/if%></i><p class="">退款/售后</p></a>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="user_warp">
+		<div class="user_tit" style="margin-top:12px;"><a href="{php echo $this->createMobileUrl('member/log')}"><i class="icon-licaishouyi iconfont i22"></i>我的钱包<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	<div class="money_list clear_in">
+		<ul>
+			<li>
+				<a href="javascript:;">
+					<i class="icon-recharge iconfont"></i><span class="txt">余额</span><span class="num"><%member.credit2%></span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<i class="icon-brand iconfont"></i><span class="txt">积分</span><span class="num"><%member.credit1%></span>
+				</a>
+			</li>
+			<li class="money_cz">
+				{if isset($set['trade']) && $set['trade']['withdraw']==1}<a href="javascript:;" id="btnwithdraw">提现</a>{/if}
+			</li>
+		</ul>
+	</div>
+	{if $hascoupon}
+	{if $hascouponcenter}
+	<div class="user_warp">
+		<div class="user_tit"><a href="{php echo $this->createPluginMobileUrl('coupon')}"><i class="icon-fuwuchuanga iconfont i22"></i>领取优惠券<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	{/if}
+	<div class="user_warp" style="border-bottom:1px solid #e4e4e4;">
+		<div class="user_tit" style="border:none;"><a href="{php echo $this->createPluginMobileUrl('coupon/my')}"><i class="icon-sponsor iconfont i22"></i>我的优惠券<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	{/if}
+	
+	<div class="user_warp">
+		<div class="user_tit" style="margin-top:12px;"><a href="{php echo $this->createMobileUrl('shop/favorite')}"><i class="icon-collect iconfont i22"></i>我的喜欢<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	<div class="user_warp">
+		<div class="user_tit"><a href="{php echo $this->createMobileUrl('shop/address')}"><i class="icon-location iconfont i22"></i>收货地址<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	<div class="user_warp">
+		<div class="user_tit"><a href="{php echo $this->createMobileUrl('shop/cart')}"><i class="iconfont icon-cart i22"></i>我的购物车<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	<div class="user_warp">
+		<div class="user_tit1"><a href="{php echo $this->createMobileUrl('shop/history')}"><i class="iconfont icon-footprint i22"></i>浏览足迹<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	
+	<div class="user_warp">
+		<div class="user_tit" style="margin-top:12px;"><a href="{php echo $this->createMobileUrl('new/help')}"><i class="iconfont icon-question i22"></i>客服与帮助<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	<div class="user_warp">
+		<div class="user_tit"><a href="{php echo $this->createMobileUrl('member/notice')}"><i class="iconfont icon-notice i22"></i>消息提醒设置<div class="fr"><i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	<div class="user_warp">
+		<div class="user_tit"><a href="new/joof"><i class="iconfont icon-present i22"></i>积分抽奖<div class="fr user_titr">签到得海量积分噢！<i class="icon-right iconfont"></i></div></a></div>
+	</div>
+	<!--<div class="user_warp">
+		<div class="user_tit1"><a href="new/honb"><i class="iconfont icon-redpacket i22"></i>现金红包天天送<div class="fr user_titr">好友合体一起抢！<i class="icon-right iconfont"></i></div></a></div>
+	</div>-->
+</script>
+<script language="javascript">
+    require(['tpl', 'core'], function(tpl, core) {
+        
+        core.json('member/center',{},function(json){
+            
+           $('#container').html(  tpl('member_center',json.result) );
+           var withdrawmoney = {php echo empty($set['trade']['withdrawmoney'])?0:floatval($set['trade']['withdrawmoney'])};
+           $('#btnwithdraw').click(function(){
+ 
+               if(json.result.member.credit2<=0){
+                   core.tip.show('无余额可提!');
+                   return;
+               }
+               if(withdrawmoney>0 && json.result.member.credit2<withdrawmoney){
+                   core.tip.show('满' +withdrawmoney + "元才能提现!" ); 
+                   return;
+               }
+               location.href = core.getUrl('member/withdraw');
+           })
+            
+        },true);
+        
+    })
+</script>
+{php $show_footer=true}
+{php $footer_current='member'}
+{template 'common/footer4'}

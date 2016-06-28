@@ -1,0 +1,17 @@
+{template 'common/header'}
+<title>商家兑换</title>
+{template 'common/navigation'}
+<script type="text/javascript">
+    require(['tpl', 'core'], function(tpl, core) {
+        core.pjson('creditshop/exchange',{'op':'exchange',id:"{$_GPC['id']}"},function(json){
+              
+                 if(json.status==0){
+                     core.message(json.result,'' ,'error',"WeixinJSBridge.call('closeWindow');");
+                 }
+                 else{
+                     core.message('兑换成功!','' ,'success',"WeixinJSBridge.call('closeWindow');");
+                 }
+         },true,true);
+   });
+</script>
+{template 'common/footer'}

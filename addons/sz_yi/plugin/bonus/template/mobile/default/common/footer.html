@@ -1,0 +1,13 @@
+{if $show_footer}
+<div style='height:80px;width:100%'></div>
+<footer id="footer-nav">
+                <ul class="menu-list">
+                    <li {if $footer_current=='first'}class='active'{/if}><a href="{php echo $this->createPluginMobileUrl('commission/myshop')}"><i class="fa fa-home"></i><span>小店</span></a></li>
+                    <li {if $footer_current=='second'}class='active'{/if}><a href="{php echo $this->createMobileUrl('shop/category')}"><i class="fa fa fa-list"></i><span>分类</span></a></li>
+                    <li {if $footer_current=='commission'}class='active'{/if}><a href="{php echo $this->createPluginMobileUrl('commission')}"><i class="fa fa-sitemap"></i><span>分销中心</span></a></li>
+                    <li {if $footer_current=='cart'}class='active'{/if}><a href="{php echo $this->createMobileUrl('shop/cart')}"><i class="fa fa-shopping-cart"></i><span>购物车</span></a></li>
+                    <li {if $footer_current=='member'}class='active'{/if}><a href="{php echo $this->createMobileUrl('member')}"><i class="fa fa-user"></i><span>会员中心</span></a></li>
+                </ul>
+</footer>
+{/if}
+{template 'common/footer_base'}

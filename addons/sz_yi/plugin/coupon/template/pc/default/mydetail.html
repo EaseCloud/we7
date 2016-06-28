@@ -1,0 +1,138 @@
+{template 'common/header'}
+<title>优惠券详情</title>
+<link rel="stylesheet" type="text/css" href="../addons/sz_yi/plugin/coupon/template/mobile/default/images/style.css">
+<style type="text/css">
+    body {margin:0px; background:#eee; font-family:'微软雅黑'; -moz-appearance:none;overflow-x: hidden;}
+    a {text-decoration:none;}
+   .coupon_num { margin:10px; background:#fff;border:1px solid #eaeaea;padding:10px; text-align:right; font-size:13px; color:#666;}
+	.coupon_detail { background:#fff;border:1px solid #eaeaea;padding:5px;margin:5px 10px;}
+	.coupon_detail .dtitle { color:#333; font-size:14px; padding:5px; font-weight:bold; border-bottom:1px solid #eaeaea;}
+	.coupon_detail .dtitle span { float:right;font-weight:normal}
+	.coupon_detail .ddetail img { width:100%;outline-width:0px;  vertical-align:top; display:block}
+	.coupon_detail .ddetail p { line-height:100%;}
+	.coupon_use {position: fixed;  bottom:0; width:100%; height:40px; line-height: 40px; color:#fff;font-size:14px; text-align: center;z-index:1000}    
+	.coupon_detail .dgoods { overflow:hidden; padding:5px 0;}
+    .coupon_detail .dgoods .good {height:auto; width:46%; padding:0px 2% 10px; float:left;}
+    .coupon_detail .dgoods .good img {height:120px; width:100%;}
+    .coupon_detail .dgoods .good .name {height:20px; width:100%; font-size:15px; line-height:20px; color:#666; overflow:hidden;}
+    .coupon_detail .dgoods .good .price {height:20px; width:100%; color:#f03; font-size:14px;}
+    .coupon_detail .dgoods .good .price span {color:#aaa; font-size:12px; text-decoration:line-through;}
+	
+</style>
+<div class="page_topbar"  class="rightlist"> 
+	<a href="javascript:;" class="back" onclick="history.back()"><i class="fa fa-angle-left"></i></a>
+	<div class="title">优惠券详情</div>
+</div>
+<div class="coupon_content ">
+	<div class="bd bd-{$coupon['css']}"></div>
+	
+	<div class="body {$coupon['css']}">
+		<div class="bg png png-{$coupon['css']}"></div>
+		<div class='top'>
+			{if !empty($coupon['thumb'])}
+			<div class='left'><img src='{php echo tomedia($coupon['thumb'])}'/></div>
+			{/if}
+			<div class='right' {if empty($coupon['thumb'])} style="margin-left:0"{/if}>
+				<div class='inner'  {if empty($coupon['thumb'])} style="margin-left:0"{/if}>
+					<div class="name">{$coupon['couponname']}</div>		
+					<div class="time">{if empty($coupon['timestr'])}
+						永久有效
+						{else}
+						{if $coupon['past']}
+						已过期
+						{else}
+						到期时间: {$coupon['timestr']}
+						{/if}
+						{/if}</div>		
+				</div>
+			</div>
+		</div>
+
+		<div class='enough' >{if $coupon['coupontype']==1}充值{else}消费{/if}{if $coupon['enough']>0}满 ￥{$coupon['enough']}{else}任意金额{/if}</div>
+
+		<div class='act' >
+
+			{if $coupon['backtype']==0} 
+			   立减 ￥{$coupon['deduct']} 
+			{elseif $coupon['backtype']==1} 
+			   {$coupon['discount']} 折
+			{elseif $coupon['backtype']==2} 
+				返 {if !empty($coupon['backcredit'])} {$coupon['backcredit']} 积分 {/if}
+				{if !empty($coupon['backmoney'])} {$coupon['backmoney']} 余额 {/if}
+				{if !empty($coupon['backredpack'])} {$coupon['backredpack']} 现金 {/if}
+			{/if}
+
+		</div>
+	</div>
+	<div class="bd1 bd-{$coupon['css']} "></div>
+		
+</div>
+<div class='coupon_detail'>
+	<div class='dtitle'>使用说明 {if $num>0}<span>共 {$num} 张</span>{/if}</div>
+	<div class='ddetail'>
+		{if empty($coupon['descnoset'])}
+			{if empty($coupon['coupontype'])}
+				{php echo htmlspecialchars_decode($set['consumedesc'])}
+			{else}
+				{php echo htmlspecialchars_decode($set['rechargedesc'])}
+			{/if}
+		{/if}
+		{$coupon['desc']}
+	</div>
+</div>
+{if $coupon['coupontype']==0}
+<div class='coupon_detail'>
+	<div class='dtitle'>推荐商品 <span onclick='getRecommands()'>换一批</span></div>
+	<div class='dgoods' id='dgoods'>
+		
+	</div>
+</div>
+<script language='javascript'>
+	$(function(){
+		getRecommands();
+	})
+</script>
+{/if}
+<script type='text/html' id='tpl_recommand'>
+	<%each list as g%>
+	<div class="good" data-goodsid="<%g.id%>">
+		     <img src='<%g.thumb%>'/>
+		     <div class="name"><%g.title%></div>
+		     <div class="price">￥<%g.marketprice%> <%if g.productprice>0 && g.marketprice!=g.productprice%><span>￥<%g.productprice%></span><%/if%></div>
+	 </div>
+	 <%/each%>
+</script>
+{if $canuse}
+<div style='height:50px'>&nbsp;</div>
+<div class='coupon_use  {$coupon['css']}' onclick="location.href='{$useurl}'">
+{if empty($coupon['coupontype'])}	 
+	 立即去选商品使用
+	 {else}
+	 立即去充值
+	 {/if}
+</div>
+{/if}
+
+<script language='javascript'>
+	function getRecommands(){
+		require(['core','tpl'],function(core,tpl){
+		     
+		core.json('shop/util',{op:'recommand'},function(json){
+                         if(json.result.list.length<=0){
+                             $('#dgoods').html('暂时没有同店推荐');
+                             return;
+                         }
+                         $('#dgoods').html( tpl('tpl_recommand',json.result));
+                         $('#dgoods .good').click(function(){
+                            location.href = core.getUrl('shop/detail',{id:$(this).data('goodsid') });
+                         }).find('img').each(function(){
+                             $(this).height($(this).width());
+                         });
+                         
+                     });
+				 });
+	}
+</script>
+
+{php $show_footer = false}
+{template 'common/footer'}

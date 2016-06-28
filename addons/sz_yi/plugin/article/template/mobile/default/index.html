@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$article['article_title']}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport" name="viewport">
+<meta name="format-detection" content="telephone=no" />
+<link href="../addons/sz_yi/plugin/article/template/imgsrc/mobile.css" rel="stylesheet">
+<script type="text/javascript" src="../addons/sz_yi/static/js/dist/jquery-1.11.1.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    $(function(){
+        jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || { jsApiList:[] };
+        jssdkconfig.jsApiList = ['onMenuShareTimeline','onMenuShareAppMessage','hideOptionMenu','hideMenuItems','showMenuItems']
+        wx.config(jssdkconfig);
+        sharedata = {php echo json_encode($_W['shopshare'])};
+        wx.ready(function () {
+            //wx.hideOptionMenu();
+            wx.hideMenuItems({
+                menuList: [
+                    {if $article['page_set_option_nocopy']==1}
+                        'menuItem:copyUrl',
+                    {/if}
+                    {if $article['page_set_option_noshare_msg']==1}
+                        'menuItem:share:appMessage',
+                    {/if}
+                    {if $article['page_set_option_noshare_tl']==1}
+                        'menuItem:share:timeline',
+                    {/if}
+                        'menuItem:share:qq',
+                        'menuItem:share:QZone',
+                        'menuItem:share:email',
+                        'menuItem:openWithSafari',
+                        'menuItem:openWithQQBrowser',
+                ] 
+            });
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+        });
+        // 微信jssdk 结束
+        
+        var state = true;
+        $("#likebtn").click(function(){
+            var num = parseInt($(this).find("span").text());
+            if(state){
+                state = false;
+                $.ajax({
+                    type: 'POST',
+                    url: "{php echo $this->createPluginMobileUrl('article',array('method'=>'api','apido'=>'selectlike'))}",
+                    data: {aid:"{$aid}"},
+                    dataType:'json',
+                    success: function(d){
+                        if(d.result=='success-like'){
+                            $("#likebtn").attr("state","1");
+                            $("#likebtn span").text(num+1);
+                            $("#likebtn div").addClass("rich_tool_likeon");
+                            state = true;
+                        }
+                        if(d.result=='success-nolike'){
+                            $("#likebtn").attr("state","0");
+                            $("#likebtn span").text(num-1);
+                            $("#likebtn div").removeClass("rich_tool_likeon");
+                            state = true;
+                        }
+                   }
+                });
+            }
+        });
+    });
+</script>
+
+</head>
+
+<body> 
+    <div class="rich_primary">
+        <div class="rich_title">{$article['article_title']}</div>
+        <div class="rich_mate">
+            <div class="rich_mate_text">{$article['article_date_v']}</div>
+            <div class="rich_mate_text">{$article['article_author']}</div>
+            <a href="{if !empty($shop['share']['followurl'])}{$shop['share']['followurl']}{else}javascript:;{/if}"><div class="rich_mate_text href">{$article['article_mp']}</div></a>
+        </div>
+        <div class="rich_content">
+            {php echo htmlspecialchars_decode($article['article_content'])}
+        </div>
+        <div class="rich_tool">
+            {if !empty($article['article_linkurl'])}<a href="{$article['article_linkurl']}"><div class="rich_tool_text link">阅读原文</div></a>{/if}
+            {if !empty($_W['openid'])}
+                <div class="rich_tool_text">阅读 {$readnum}</div>
+                <div class="rich_tool_text" id="likebtn">
+                    <div class="rich_tool_like {if !empty($state['like'])}rich_tool_likeon{/if}"></div>
+                    <span>{$likenum}</span>
+                </div>
+            {/if}
+            {if $article['article_report']==1}
+                <a href="{php echo $this->createPluginMobileUrl('article',array('method'=>'report','aid'=>$article['id']))}"><div class="rich_tool_text right" style="margin-right: 0;">举报</div></a>
+            {/if}
+        </div>
+		<!--如果设定的任务总金额显示@phpdb.net-->
+		{if $article['article_rule_money_total']>0}
+		<div class="rich_tool">
+			<p>任务总金额：{$article['article_rule_money_total']}元</p>
+			<p>截至目前累计奖励金额：{$total_money}元</p>
+		</div>
+		{/if}
+    </div>
+    {if $article['product_advs_type']!=0 && !empty($advs)}
+        <div class="rich_sift">
+            {if !empty($article['product_advs_title'])}
+                <fieldset><legend>{$article['product_advs_title']}</legend></fieldset>
+            {/if}
+            <div class="rich_sift_goods">
+                {if $advrand<0}
+                    <div id='mySwipe' class='swipe'>
+                        <div class='swipe-wrap'>
+                            {loop $advs $adv}
+                                <img src="{$adv['img']}" {if !empty($adv['link'])}onclick="location.href='{$adv['link']}'"{/if}/>
+                            {/loop}
+                        </div>
+                    </div>
+                    <div class="dots" id="dots">
+                        {loop $advs $i $adv}
+                            <a href="javascript:;" {if $i==0}class="on"{/if}></a>
+                        {/loop}
+                    </div>
+                {else}
+                    <a href="{if empty($advs[$advrand]['link'])}javascript:;{else}{$advs[$advrand]['link']}{/if}"><img src="{$advs[$advrand]['img']}"/></a>
+                {/if}
+            </div>
+            <div class="rich_sift_text">
+                {if !empty($article['product_advs_more'])}
+                    <a href="{if !empty($article['product_advs_link'])}{$article['product_advs_link']}{else}javascript:;{/if}">{$article['product_advs_more']}</a>
+                {/if}
+            </div>
+        </div>
+    {/if}
+<script type="text/javascript" src="../addons/sz_yi/plugin/article/template/imgsrc/swipe.js"></script>
+<script type="text/javascript" src="../addons/sz_yi/plugin/article/template/imgsrc/swipe.config.js"></script>
+</body>
+</html>

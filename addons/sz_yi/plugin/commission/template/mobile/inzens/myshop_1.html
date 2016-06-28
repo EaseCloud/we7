@@ -1,0 +1,341 @@
+{template 'common/header'}
+<title>{$shop['name']}</title>
+
+<style type="text/css">
+body {background:#f7f7f7;}
+.icon-31paixingbang{ background-color:#e4000f;}
+.icon-check{ background-color:#85be33;}
+.icon-present{ background-color:#3ea3ff;}
+.icon-gongzi{ background-color:#ff4e49;}
+.icon-favor{ background-color:#eeb10e;}
+
+.top {overflow:hidden; background:#fff; border-bottom:1px solid #ddd;}
+.top .bgimg {height:auto; position:relative;}
+.top .bgimg img {width:100%; position: relative; }
+.top .bgimg .shopimg {height:66px; width:66px; background:#ccc; position:absolute; left:10px; bottom:-35px; border:1px solid #fff; box-shadow:0px 0px 2px rgba(0,0,0,0.1); }
+.top .bgimg .shopimg img {height:66px; width:66px;}
+.top .bgimg .shopname {height:40px; width:auto; position:absolute; left:90px; bottom:0px; font-size:16px; line-height:40px; font-size:18px; color:#fff; text-shadow:2px 2px 2px rgba(0,0,0,0.2);}
+.top .bgimg .set {height:24px; width:24px; position:absolute; top:10px; right:10px; font-size:24px; color:#fff; text-align:center; line-height:24px;}
+.top .nav {height:40px; padding:0px 0px 5px 100px; text-align:center;}
+.top .nav .sub {height:40px; {if $shop['selectcategory']==1}width:23%;{else}width:30%;{/if}border-left:1px solid #ddd; float:right;}
+.top .nav .sub span {font-size:18px; color:#000; line-height:22px;}
+.top .nav .sub nav {font-size:12px; color:#999;}
+
+.search {height:40px; width:97%; margin:5px; background:#fff; color:#ccc; line-height:40px; font-size:14px; text-align:center;}
+.search1{height:100%;width:100%;position:fixed; bottom:-100%;left:0;z-index:999; background-color:#f1f1f1}
+.search1 .topbar1{height:36px;width:100%;background:#fff}
+.search1 .topbar1 .icon-search{ font-size:14px; color:#6d6d6d}
+.search1 .topbar1 .left_wrap{height:36px;width:100%;float:left;margin-left:10px}
+.search1 .topbar1 .left{margin-right:70px;margin-top:6px}
+.search1 .topbar1 .left input{width:100%;height:24px;line-height:24px;border:none;padding:0 0 0 10px;background:0 0;background:#f1f1f1;border-radius:50px;color:#6d6d6d; font-size:13px;}
+.search1 .topbar1 .right{position:relative;float:right;width:70px;margin-left:-70px}
+.search1 .topbar1 .right .sub1{height:24px;width:30px;float:left;background:#f1f1f1;border-radius:0 50px 50px 0;border:0;padding:0;margin-top:6px;}
+.search1 .topbar1 .right .home1{height:36px;width:30px;margin-left:5px;float:left;text-align:right;line-height:36px;color:#6d6d6d;font-size:13px}
+.search1 .result1{height:100%;overflow-y:auto;padding-bottom:20px}
+.search1 .result1 ul{margin:0;padding:0}
+.search1 .result1 ul li{width:92%;border-bottom:1px dashed #dedede;padding:0 4%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-top:8px;padding-bottom:8px; font-size:13px;}
+.search1 .result1 ul li a{color:#999;text-decoration:none}
+
+div.flicking_con{position:absolute;bottom:10px;z-index:1;width:100%;height:12px;}
+div.flicking_con .inner { width:100%;height:9px;text-align:center; display:none;}
+div.flicking_con a{position:relative; width:10px;height:9px;background:url('../addons/sz_yi/template/mobile/inzens/static/images/dot.png') 0 0 no-repeat;display:inline-block;text-indent:-1000px}
+div.flicking_con a.on{background-position:0 -9px}
+
+.banner {overflow:hidden;position:relative;height:auto;}
+.banner .main_image{width:100%;position:relative;top:0;left:0;}
+.banner .main_image ul{}
+.banner .main_image li{float:left;}
+.banner .main_image li img{display:block;width:100%;}
+.banner .main_image li a{display:block;width:100%;}
+
+.grid{box-sizing:content-box;padding-left:2%;padding-right:2%;margin-left:-4px}
+.grid:after,.grid:before{content:" ";display:table}
+.grid:after{clear:both}
+.grid [class^=col-]{margin-left:4px;float:left}
+
+.catebox{margin-bottom:8px;background:#fff; padding-bottom:6px;}
+.catebox .grid .col-4{ width:23.7%;height:60px;text-align:center;}
+.catebox .grid .col-5{ width:18.7%;height:72px;text-align:center;}
+.catebox .grid .col-5 .cate{width:34px;height:34px;border-radius:50%; color:#fff; text-align:center; line-height:34px; font-size:22px; margin-top:10px}
+.catebox .grid .col-4 .cate{ width:34px;height:34px;border-radius:50%; color:#fff; text-align:center; line-height:34px; font-size:22px; margin-top:6px}
+.catebox h4{color:#333; font-size:12px; font-weight:normal; margin-top:4px}
+
+.grid-thin{box-sizing:content-box;padding-left:0;padding-right:0;}
+.grid-thin:after,.grid-thin:before{content:" ";display:table}
+.grid-thin:after{clear:both}
+.grid-thin [class^=col-]{float:left}
+
+.ad-metro{margin-bottom:8px;overflow:hidden}
+.ad-metro img{width:100%;display:block;margin:0 auto}
+.ad-metro .ad-metro-1{width:50%;display:block;text-decoration:none;float:left;-webkit-box-sizing:border-box;box-sizing:border-box;overflow:hidden}
+.ad-metro .ad-metro-right{float:right;width:50%;-webkit-box-sizing:border-box;box-sizing:border-box;padding-left:1px;overflow:hidden}
+.ad-metro .ad-metro-2{width:100%;display:block;text-decoration:none;-webkit-box-sizing:border-box;box-sizing:border-box;margin-bottom:1px}
+.ad-metro .ad-metro-3{width:50%;-webkit-box-sizing:border-box;box-sizing:border-box;text-decoration:none;padding-right:1px;overflow:hidden;display:block;float:left}
+.ad-metro .ad-metro-4{width:50%;-webkit-box-sizing:border-box;box-sizing:border-box;text-decoration:none;overflow:hidden;display:block;float:left}
+.ad-metro .metro-4{width:40%;}
+.ad-metro .metro-6{width:60%;}
+
+.background{ background:#fff;}
+.itemlist-ad{position:relative;max-width:800px;margin:0 auto;padding:8px;left:0;right:0;line-height:0;display:-webkit-flex;display:-moz-flex;display:-ms-flex;display:-o-flex;display:flex;-webkit-flex-flow:column;-moz-flex-flow:column;-ms-flex-flow:column;-o-flex-flow:column;flex-flow:column}
+.itemlist-ad div{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box}
+.itemlist-ad .title{font-size:16px;color:#333;height:16px;line-height:16px}
+.itemlist-ad .title i{width:4px;height:16px;background-color:#F92D58;position:absolute}
+.itemlist-ad .title span{margin-left:12px}
+.itemlist-ad .item-box{display:block;position:relative;margin:8px 0 0;background-color:#FFF;text-decoration:none}
+.itemlist-ad .item-box:first-child{margin-top:0}
+.itemlist-ad .item-box img{width:100%}
+.itemlist-ad .item-box-content{position:relative;padding-bottom:2px;background-color:#fff;overflow:hidden;zoom:1}
+.itemlist-ad .item-box-content img{width:100%;}
+.itemlist-ad .item-box-promotion{position:absolute;bottom:10px;left:0;height:20px}
+.itemlist-ad .item-box-promotion p{float:left;padding-left:8px;color:#666;line-height:20px;height:20px;vertical-align:middle;text-align:left;font-size:11px;background-color:rgba(255,255,255,.7);padding-right:8px}
+.itemlist-ad .item-tit{height:26px;padding:4px;background-color:#FFF;font-size:14px; line-height:22px; color:#333;}
+.itemlist-ad .item-tit i{float:left;width:15px;height:15px;line-height:22px;margin-right:2px;background-size:contain;color:#ff6700; font-size:16px}
+.itemlist-ad .tit2{ padding:0 6px 4px 4px; line-height:20px;}
+.itemlist-ad .item-box-price{color:#ff6700;font-size:14px}
+.itemlist-ad .item-box-price span {color:#aaa; font-size:12px; text-decoration:line-through; margin-left:5px;}
+.itemlist-ad .item-box-people{color:#666; font-size:14px;}
+.itemlist-ad .org{color:#ff6700;}
+.itemlist-ad .item-box{background-color:#eee!important}
+
+.goods {height:auto; min-height:100px; width:100%; background:#fff; overflow:hidden;float:left;padding-bottom:10px;} 
+.goods .good {overflow:hidden; width:46%; padding:5px 2%; float:left;}
+.goods .good .img {width:100%;overflow:hidden;}
+.goods .good .img img {width:100%;}
+.goods .good .name {height:20px; width:100%; font-size:15px; line-height:20px; color:#666; overflow:hidden;}
+.goods .good .price {height:20px; width:100%; color:#ff6700; font-size:14px;}
+.goods .good .price span {color:#aaa; font-size:12px; margin-left:.15rem;}
+.goods .good .price .sale{text-decoration:line-through;}
+
+#index_loading { width:94%;padding:10px;color:#666;text-align: center;float:left; font-size:12px}
+.search {height:40px; width:97%; margin:5px; background:#fff; color:#ccc; line-height:40px; font-size:14px; text-align:center;}
+.copyright {height:40px; width:100%; text-align:center; line-height:40px; font-size:12px; color:#999; margin:10px 0 54px;}
+
+.service{position:fixed;bottom:56px;right:10px;width:40px;height:40px;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;z-index:100;}
+.service a{display:block;background-color:#ff356a;opacity:1;z-index:999;position:absolute;width:40px;height:40px;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%; color:#fff; text-align:center; line-height:40px;}
+.service .icon-comment{font-size:24px;}
+</style>
+<div id="container"></div>
+
+{template 'new/index_tm'}
+
+<div class="itemlist-ad background"><div class="title"><i></i><span>猜你喜欢</span></div></div>
+<div class="goods">
+	<div id='goods_container'></div>
+</div>
+
+<script id="tpl_main" type="text/html">
+<div class="top">
+   <div class="bgimg">
+        <img src="<%<%if shop.img%><%shop.img%><%else%>../addons/sz_yi/template/mobile/default/static/images/bg.jpg<%/if%>">
+        <div class="shopimg"><img src="<%shop.logo%>"></div>
+        <div class="shopname"><%shop.name%></div>
+        <%if isme%><div class="set" onclick="location.href='{php echo $this->createPluginMobileUrl('commission/myshop',array('op'=>'set'))}'"><i class="fa fa-cog fa-spin"></i></div><%/if%>
+    </div>
+    <div class="nav">
+        <div class="sub" onclick="location.href='{php echo $this->createPluginMobileUrl('commission/shares')}'">
+              <span><i class="fa fa-qrcode"></i></span>
+            <nav >二维码</nav>
+        </div>
+        <div class="sub" id='fav'>
+            <span><i class="fa fa-star-o"></i></span>
+            <nav>收藏本店</nav>
+        </div>
+        {if $shop['selectcategory']==1}
+        <div class="sub" onclick="location.href='{php echo $this->createMobileUrl('shop/category',array('shopid'=>$shop['mid']))}'">
+            <span><i class="fa fa-list-ul"></i></span>
+            <nav>全部分类</nav>
+        </div>
+        {/if}
+        
+        <div class="sub" onclick="location.href='{php echo $this->createMobileUrl('shop/list',array('shopid'=>$shop['mid']))}'">
+            <span><%goodscount%></span>
+            <nav>全部商品</nav>
+        </div>
+    </div>
+</div>
+
+<!--搜索
+<div class='search'><i class="fa fa-search"></i> 在店铺内搜索</div>
+<div class="search1">
+	<div class="topbar1">
+		<div class='right'>
+			<button class="sub1"><i class="iconfont icon-search"></i></button>
+			<div class="home1">取消</div>
+		</div>
+		<div class="left_wrap">
+			<div class="left">
+				<input type="text" id='keywords' class="input1" placeholder="搜索: 输入商品关键词" value='{$_GPC['keywords']}'/>
+			</div>
+		</div>
+	</div>
+	<div id='search_container' class='result1'></div>
+</div>
+-->
+
+<%if advs.length>0%>
+<div class="banner">
+
+	<%if advs.length>1%>
+	<div class="flicking_con"><div class="inner">
+		<%each advs as value index %>
+		<a class="<%if index==0%>on<%/if%>" href="#@"><%index%></a>
+		<%/each%>
+		</div>
+	</div>
+	<%/if%>
+	<div class="main_image">
+		<ul>
+			<%each advs as adv %>
+			<li <%if adv.link%>onclick="location.href='<%adv.link%>'"<%/if%>> <img src="<%adv.thumb%>"></li>
+			<%/each%>
+		</ul>
+	</div>
+</div>
+<%/if%>
+
+	{template 'new/index_menu'}
+	
+	{template 'new/index_ad'}
+	
+	{template 'new/index_ms'}
+
+<!--右悬浮客服
+<div class="service"><a href="0000000000000"><i class="iconfont icon-comment"></i></a></div>
+-->
+</script>
+ 
+<script id='tpl_goods_list' type='text/html'>
+
+    <%each goods as g%>
+    <div class="good" data-goodsid='<%g.id%>'>
+        <div class='img'><img src="<%g.thumb%>"></div>
+        <div class="name"><%g.title%></div>
+        <div class="price">￥<%g.marketprice%> <%if g.productprice>0 && g.marketprice!=g.productprice%><span><%g.sales%>人已抢</span><%/if%></div>
+    </div>
+    <%/each%>
+
+</script>
+ <script id='tpl_search_list' type='text/html'>
+     <ul>
+     <%each list as value%>
+        <li><i class="fa fa-angle-right"></i> <a href="{php echo $this->createMobileUrl('shop/detail')}&id=<%value.id%>"><%value.title%></a></li>
+        <%/each%>
+    </ul> 
+</script>
+<div id='cover'><img src='../addons/sz_yi/plugin/commission/images/favorite.png' style='width:100%;' /></div>
+<script language="javascript">
+    var page = 1;  var loaded = false;
+    var stop = true;
+    require(['tpl', 'core','jquery.touchslider','swipe'], function(tpl, core) {
+		
+         function getGoods(type) {
+
+                core.pjson('commission/myshop', {'op': 'goods', page: page,mid:"{$_GPC['mid']}"}, function (gjson) {
+                    var result = gjson.result;
+                    if (result.status == 0) {
+                        core.message('服务器内部错误', core.getUrl('commission/myshop'), 'error');
+                        return;
+                    }
+            
+                       $('#fav').click(function(){
+                            $('#cover').fadeIn(200).unbind('click').click(function(){
+                                $(this).fadeOut(100);
+                            })
+                        });
+
+                    stop = true;
+                    $('#index_loading').remove();
+                    $('#goods_container').append(tpl('tpl_goods_list', result));
+                           
+           
+                    $('.good img').each(function(){
+                            $(this);
+                    })
+
+                        $('.good').unbind('click').click(function(){
+                            location.href = core.getUrl('shop/detail',{id:$(this).data('goodsid') });
+                        })
+                    if (result.goods.length < result.pagesize) {
+
+                        $('#goods_container').append('<div id="index_loading">已经加载全部商品</div>');
+                        loaded = true;
+                        $(window).scroll = null;
+                        return;
+                    }
+
+                    //自动加载
+
+                    $(window).scroll(function () {
+
+                        if (loaded) {
+                            return;
+                        }
+                        totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+                        if ($(document).height() <= totalheight) {
+                            if (stop == true) {
+                                stop = false;
+                                $('#goods_container').append('<div id="index_loading"><i class="fa fa-spinner fa-spin"></i> 正在加载更多商品</div>');
+                                page++;
+                                getGoods('display');
+                            }
+                        }
+                    });
+                });
+            }
+
+        core.pjson('commission/myshop',{mid:"{$_GPC['mid']}"},function(json){
+            var result = json.result;   
+        
+                    $('#container').html(  tpl('tpl_main',result) );
+            
+             if( result.advs.length>0) {
+                    //$('.banner').height($('.main_image').find('img').height());
+                    new Swipe($('.main_image')[0], {
+			speed:300,
+			auto:4000,
+			callback: function(){
+			  
+                                 $(".flicking_con  .inner  a").removeClass("on").eq(this.index).addClass("on");
+		}
+	  });
+               }
+                $('.search').click(function(){
+ 
+                          $(".search1").animate({bottom:"0px"},100);
+                          $('#keywords').unbind('keyup').keyup(function(){
+                                   var keywords = $.trim( $(this).val());
+                                   if(keywords==''){
+                                       $('#search_container').html("");         
+                                       return;
+                                   }
+                                   core.json('shop/util',{op:'search',keywords:keywords }, function (json) {
+                                        var result = json.result;
+                                        if(result.list.length>0){
+                                           $('#search_container').html(tpl('tpl_search_list',result));    
+                                        }
+                                        else{
+                                           $('#search_container').html("");         
+                                        }
+
+                                     }, true);
+                           });
+                           $('.search1 .sub1').unbind('click').click(function(){
+                                   var keywords = $.trim( $('#keywords').val());
+                                   var url = core.getUrl('shop/list',{keywords:keywords});
+                                   location.href=  url;
+                            });
+                           $('.search1 .home1').unbind('click').click(function(){
+                                $(".search1").animate({bottom:"-100%"},100);
+                           });
+                       });
+
+        
+            //获取首页商品
+            getGoods();
+            
+        },true);
+   
+    })
+</script>
+{php $show_footer=true;$footer_current ='first'} 
+{template 'common/footer1'}

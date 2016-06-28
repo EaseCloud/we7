@@ -1,0 +1,43 @@
+<div class="fe-panel-editor-title">轮播设置<span class="tips">Tips:轮播图片的大小必须一样哦~</span></div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">按钮形状</div>
+    <div class="fe-panel-editor-con">
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_style" value="" ng-model="Edit.params.shape"> 长方形</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_style" value="shape2" ng-model="Edit.params.shape"> 正方形</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_style" value="shape3" ng-model="Edit.params.shape"> 圆形</label>
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">按钮位置</div>
+    <div class="fe-panel-editor-con">
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_align" value="left" ng-model="Edit.params.align"> 按钮居左</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_align" value="center" ng-model="Edit.params.align"> 按钮居中</label>
+        <label style="cursor:pointer; margin-right: 10px;"><input type="radio" name="{{Edit.id}}_align" value="right" ng-model="Edit.params.align"> 按钮居右</label>
+    </div>
+</div>
+<div class="fe-panel-editor-line">
+    <div class="fe-panel-editor-name">按钮颜色</div>
+    <div class="fe-panel-editor-con">
+        <input class="fe-panel-editor-input2" type="color" ng-model="Edit.params.bgcolor" />
+    </div>
+</div>
+<div ng-repeat="banner in Edit.data" class="fe-panel-editor-relative">
+    <div class="fe-panel-editor-del" title="移除" ng-click="delItemChild(Edit.id, banner.id)">×</div>
+    <div class="fe-panel-editor-line2">
+        <div class="fe-panel-editor-goodimg" ng-click="uploadImgChild(Edit.id, banner.id)">
+            <img ng-src="{{banner.imgurl}}" width="100%" ng-show="banner.imgurl" />
+            <div class="fe-panel-editor-goodimg-t1" ng-show="!banner.imgurl"><i class="fa fa-plus-circle"></i> 选择图片</div>
+            <div class="fe-panel-editor-goodimg-t2" ng-show="banner.imgurl">重新选择图片</div>
+        </div>
+        <div class="fe-panel-editor-line2-right">
+            <div class="fe-panel-editor-line">
+                <div class="fe-panel-editor-name">选择链接</div>
+                <div class="fe-panel-editor-con">
+                    <input class="fe-panel-editor-input3"  value="" ng-model="banner.hrefurl" placeholder="请手动输入链接(请以http://开头)或选择系统链接" />
+                    <div class="fe-panel-editor-input4" ng-click="chooseUrl(Edit.id, banner.id)">系统连接</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fe-panel-editor-sub1" ng-click="addItemChild('banner', Edit.id)"><i class="fa fa-plus-circle"></i> 添加一个轮播</div>

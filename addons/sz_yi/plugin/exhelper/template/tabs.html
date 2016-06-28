@@ -1,0 +1,9 @@
+<ul class="nav nav-tabs">
+    {ifp 'exhelper.print.single'}<li {if $_GPC['method']=='doprint' && $_GPC['type']==1}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('exhelper/doprint',array('type'=>1))}"><i class="fa fa-print"></i> 单个打印</a></li>{/if}
+    {ifp 'exhelper.print.more'}<li {if $_GPC['method']=='doprint' && $_GPC['type']==2}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('exhelper/doprint',array('type'=>2))}"><i class="fa fa-print"></i> 批量打印</a></li>{/if}
+    {ifp 'exhelper.exptemp1'}<li {if $_GPC['method']=='express' && $_GPC['op']=='list' && $_GPC['cate']==1}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('exhelper/express',array('op'=>'list','cate'=>1))}"><i class="fa fa-copy"></i> 快递单模版管理</a></li>{/if}
+    {ifp 'exhelper.exptemp2'}<li {if $_GPC['method']=='express' && $_GPC['op']=='list' && $_GPC['cate']==2}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('exhelper/express',array('op'=>'list','cate'=>2))}"><i class="fa fa-copy"></i> 发货单模版管理</a></li>{/if}
+    {ifp 'exhelper.senduser'}<li {if $_GPC['method']=='senduser'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('exhelper/senduser')}"><i class="fa fa-file"></i> 发货人信息管理</a></li>{/if}
+    {ifp 'exhelper.short'}<li {if $_GPC['method']=='short'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('exhelper/short')}"><i class="fa fa-tasks"></i> 商品简称</a></li>{/if}
+    {ifp 'exhelper.printset'}<li {if $_GPC['method']=='printset'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('exhelper/printset')}"><i class="fa fa-cogs"></i> 打印设置</a></li>{/if}
+</ul>

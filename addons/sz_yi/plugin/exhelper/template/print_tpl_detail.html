@@ -1,0 +1,1413 @@
+<style>.btn-disabled, .btn-disabled:hover {background: #ddd; border: 1px solid #bbb; color: #999; cursor: not-allowed;}</style>
+{if $type==1}
+<style>.trbody td {border-left: 1px solid #ccc;}.tac { text-align: center;}</style>
+<div class="panel-heading">订单信息</div>
+<div class="panel-body">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<div class="col-sm-4">
+				<div class="input-group">
+					<span class="input-group-addon">姓名</span>
+					<input type="hidden" name="nickname" value="{$address['nickname']}"/>
+					<input type="text" class="form-control" name="realname" value="{$address['realname']}" style="border-right: none;" />
+					<span class="input-group-addon" style="border-right: none;">电话</span>
+					<input type="text" class="form-control" name="mobile" value="{$address['mobile']}" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-9 col-xs-12">
+				<div class="input-group">
+					<span class="input-group-addon">地址</span>
+					<input type="text" class="form-control" name="province" value="{$address['province']}" style="width:100px; border-right: none;" />
+					<input type="text" class="form-control" name="city" value="{$address['city']}" style="width:100px; border-right: none;" />
+					<input type="text" class="form-control" name="area" value="{$address['area']}" style="width:100px; border-right: none;" />
+					<input type="text" class="form-control" name="address" value="{$address['address']}" style="width:400px;" /> 
+				</div>
+			</div>
+		</div>
+		<table class='table' style='float:left;border:1px solid #ccc;margin-bottom:5px;table-layout: fixed'>
+			<tr class='trhead'>
+				<td style='width:30px;'><input type="checkbox" checked="" class="cBoxOrderAll"></td>
+				<td colspan='2' style='text-align:left;'>订单总数: {$total} 订单金额: {$totalmoney}</td>
+				<td class="tac" style="border: 1px solid #ccc;">规格及编码</td>
+				<td class="tac" style="border: 1px solid #ccc;">单价(元)</td>
+				<td class="tac" style="border: 1px solid #ccc;">数量</td>
+				<td class="tac" style="border: 1px solid #ccc;">支付方式</td>
+				<td class="tac" style="border: 1px solid #ccc;">配送方式</td>
+				<td class="tac" style="border: 1px solid #ccc;">价格</td>
+				<td class="tac" style="border: 1px solid #ccc;">订单状态</td>
+				<td class="tac" style="border: 1px solid #ccc;">打印状态/次数</td>
+			</tr>
+		</table>
+		<div class="allorder">
+	    	{loop $list $item}
+				<table class='table' style='float:left;border:1px solid #ccc;margin-top:5px;margin-bottom:5px;table-layout: fixed' data-ordersn="{$item['ordersn']}">
+					<tr>
+						<td style='border-bottom:1px solid #ccc;background:#efefef;width:30px;'>
+							<input type="checkbox" class="cBoxOrderOne" checked="">
+						</td>
+						<td class colspan='9' style='border-bottom:1px solid #ccc;background:#efefef;'>
+							<b>订单编号: </b><span class="ordersn">{$item['ordersn']}</span> 
+							<b>下单时间: </b>
+							{php echo date('Y-m-d H:i:s', $item['createtime'])} 
+							{if !empty($item['refundid'])}
+								<label class='label label-danger'>退款申请</label>
+							{/if}
+							<b>打印状态: </b>
+							<span class="orderprintstate">{if $item['printstate']==0}快递单未打印{elseif $item['printstate']==1}快递单部分打印{elseif $item['printstate']==2}快递单打印完成{/if}</span> 
+							<span class="orderprintstate2">{if $item['printstate2']==0}发货单未打印{elseif $item['printstate2']==1}发货单部分打印{elseif $item['printstate2']==2}发货单打印完成{/if}</span> 
+						</td>
+						<td style='border-bottom:1px solid #ccc;background:#efefef;text-align: center'></td> 
+					</tr>
+		        	{loop $item['goods'] $k $g}
+					<tr class='trbody'>
+						<td style='width:80px;'>
+							<input type="checkbox" class="cBoxGood" checked="">
+						</td>
+				
+						<td valign='top' colspan='2' style='text-align: left; width: 400px; position: relative; ' 
+							data-ordersn="{$item['ordersn']}" data-orderid="{$item['id']}" data-ordergoodid="{$g['ordergoodid']}" data-goodid="{$g['id']}" data-goodtitle="{$g['title']}" 
+							data-shorttitle = "{if empty($g['shorttitle'])}-{else}{$g['shorttitle']}{/if}" data-goodnum="{$g['total']}" data-goodssn="{$g['goodssn']}" data-productsn="{$g['productsn']}" data-marketprice="{php echo $g['realprice']/$g['total']}"
+							data-productprice="{php echo $g['price']/$g['total']}" data-total="{$g['total']}" data-goodoption="{if empty($g['optiontitle'])}-{else}{$g['optiontitle']}{/if}" data-goodunit="{if empty($g['unit'])}-{else}{$g['unit']}{/if}"
+							data-realprice="{php echo $g['realprice']/$g['total']}" data-goodweight="{if empty($g['weight'])}-{else}{$g['weight']}{/if}"
+							>
+							<img src="{php echo tomedia($g['thumb'])}" style="width: 50px; height: 50px;border:1px solid #ccc;padding:1px;" > 
+							<span class='goodtitle' >{if empty($g['shorttitle'])}{$g['title']}{else}{$g['shorttitle']}{/if}</span>
+							<span class="editShort" style="position: absolute; bottom: 0; right: 0; background: rgba(0,0,0,0.5); font-size: 12px; color: #FFF; padding-left: 11px; border-radius: 20px 0px 0px 0px; width: 40px; cursor: pointer;" data-do="e">编辑</span>
+						</td>
+			
+						<td class="tac">
+							{if !empty($g['optiontitle'])}<span class="label label-primary">{$g['optiontitle']}</span>{/if}
+							<br/>{$g['goodssn']}
+						</td>
+						<td class="tac">原价: {php echo $g['price']/$g['total']}<br/>折后: {php echo $g['realprice']/$g['total']}</td>
+						<td class="tac">x{$g['total']}</td>
+			            	{if $k==0}
+				            	<td rowspan="{php echo count($item['goods'])}"  class="tac"><label class='label label-{$item['css']}'>{$item['paytype']}</label></td>
+								<td  rowspan="{php echo count($item['goods'])}" class="tac">{$item['dispatchname']}</td>
+								<td style='text-align:center;'  rowspan="{php echo count($item['goods'])}">{$item['price']} 元<br/>运费: {$item['dispatchprice']} 元
+									{if $item['deductprice']>0}
+										<br/>积分抵扣: {$item['deductprice']} 元
+									{/if}
+									{if $item['deductcredit2']>0}
+										<br/>余额抵扣: {$item['deductcredit2']} 元
+									{/if}
+									{if $item['deductenough']>0}
+										<br/>满额立减: {$item['deductenough']} 元
+									{/if}
+								</td>
+								<td   rowspan="{php echo count($item['goods'])}"  class="tac">
+									<label class='label label-{$item['statuscss']} label-oss'>{$item['status']}</label><br />
+									<a href="{php echo $this->createWebUrl('order', array('op' => 'detail', 'id' => $item['id']))}" >查看详情</a>
+								</td>
+			           		{/if} 
+			           		<td class="tac" style="border: 1px solid #ccc;">
+								<label class="icon-ps1 label label-{if $g['printstate']>0}primary{else}default{/if}" data-printstate="{$g['printstate']}">{if $g['printstate']>0}快递单 x {$g['printstate']}{else}快递单未打印{/if}</label><br>
+				               	<label class="icon-ps2 label label-{if $g['printstate2']>0}success{else}default{/if}" data-printstate="{$g['printstate2']}">{if $g['printstate2']>0}发货单 x {$g['printstate2']}{else}发货单未打印{/if}</label>
+			           		</td>
+					</tr>
+					{/loop}
+				</table>
+			{/loop} 
+		</div>
+		<div class="form-group" style="margin-bottom: 0;">
+			<div class="col-sm-12">
+				<div class='form-control-static'>发货信息</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-12">
+					<textarea class='form-control sendinfo' style="min-height: 100px; height: auto;">{$address['sendinfo']}</textarea>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="panel-footer" style="height: auto; overflow: hidden;">
+	<div class="form-group">
+		<div class="col-sm-12">
+			<span class="btn btn-primary doprint" id="doprint1" data-state="0" data-cate="1">打印快递单</span>
+			<span class="btn btn-warning doprint" id="doprint2" data-state="0" data-cate="2">打印发货单</span>
+			{ifp 'exhelper.dosend'}
+				<span class="btn btn-success" id="dosend" data-state="0">一键发货</span>
+			{/if}
+		</div>
+	</div>
+</div>
+<!-- 一键发货浮层 -->
+<div id="modal-send" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" style="width:700px;margin:0px auto;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+				<div style="height: 50px;">
+					<div style="height: 50px; width: 90px; font-size: 22px; line-height: 60px; float: left;">一键发货</div>
+					<div style="height: 50px; width: 150px; float: right; font-size: 14px; margin-right: 10px; line-height: 70px;">快递类型: [<span id="expresscom" data-expresscom="" data-express="">loading</span>]</div>
+					<div style="height: 50px; 300px; float: right; font-size: 14px; margin-right: 10px; line-height: 70px; overflow: hidden; text-align: right;">快递模版: <span id="printtempname">loading</span></div>
+				</div>
+			</div>
+			<div class="modal-body" style=" text-align: center; max-height: 700px; overflow-y: auto;">
+				<table class="table sendtable" style="margin-bottom: 0;"></table>
+				<div id="module-menus"></div>
+			</div>
+			<div class="modal-footer">
+				<span style="float: left; line-height: 30px; color: #999;">提示: 快递类型请在快递单默认模版更改。</span>
+				<a class="btn btn-primary" onclick="cleardata()">清除数据</a>
+				<a class="btn btn-success dosend" onclick="dosend()" data-state="0">执行发货</a>
+				<a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		$(".panel-body").find("input[type=checkbox]").change(function(){
+			changeSendInfo();
+		});
+		$(".doprint").click(function(){
+			// 执行保存收件人信息
+			savesender();
+			var thisState = $(this).data("state");
+			var thisCate = $(this).data("cate");
+			if(thisState>0){
+				return;
+			} 
+			// 执行ajax获取打印模版
+			$.ajax({
+				type: 'POST', 
+				url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'getPrintTemp'))}",
+				data: {type:thisCate},
+				dataType:'json',
+				async:false,
+				success: function(d){                        	
+					if(d.result=="success"){
+						printDatas = d.respDatas;
+						printUser = d.respUser;
+						printTemp = d.respTemp;
+					}else{
+						alert(d.resp);
+						return;
+					}
+				}
+			});
+            var rep_sendInfo = $(".sendinfo").val();
+			var rep_realName =$(":input[name=realname]").val();
+			var rep_nickName =$(":input[name=nickname]").val();
+			var rep_mobile =$(":input[name=mobile]").val();
+			var rep_province =$(":input[name=province]").val();
+			var rep_city =$(":input[name=city]").val();
+			var rep_area =$(":input[name=area]").val();
+			var rep_address =$(":input[name=address]").val();	
+			var rep_ordersn = '';
+			$(".ordersn").each(function(){
+				if(rep_ordersn){
+					rep_ordersn += ", ";
+				}
+				rep_ordersn += $(this).text();
+			});
+			$.each(printDatas,function(){
+				this.items = this.items.replace("sendinfo",rep_sendInfo);
+				this.items = this.items.replace("realname",rep_realName);
+				this.items = this.items.replace("nickname",rep_nickName);
+				this.items = this.items.replace("mobile",rep_mobile);
+				this.items = this.items.replace("province",rep_province);
+				this.items = this.items.replace("city",rep_city);
+				this.items = this.items.replace("area",rep_area);
+				this.items = this.items.replace("address",rep_address);
+				this.items = this.items.replace("ordersn",rep_ordersn);
+				this.items = this.items.replace("shopname",printTemp.shopname);
+			});
+		 	// 定义打印模版信息
+		 	LODOP.PRINT_INITA(0,0,printTemp.width+"mm",printTemp.height+"mm","单据打印");
+			if(printTemp.bg){
+				LODOP.ADD_PRINT_SETUP_BKIMG("<img border='0' src='"+printTemp.bg+"'>");
+				LODOP.SET_SHOW_MODE("BKIMG_IN_PREVIEW",1); 
+			}
+			LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",true);
+			$.each(printDatas,function(i,d){
+				if(d.cate==1){
+					LODOP.ADD_PRINT_TEXTA('"t_'+i+'"',d.top+"px",d.left+"px",d.width+"px",d.height+"px",d.pre+d.items+d.last);
+					if(d.color){
+						LODOP.SET_PRINT_STYLEA('"t_'+i+'"',"FontColor",d.color);	// 文字颜色
+					}
+					if(d.bold){
+						LODOP.SET_PRINT_STYLEA('"t_'+i+'"',"Bold",1);	// 文字加粗
+					}
+					if(d.align){
+						LODOP.SET_PRINT_STYLEA('"t_'+i+'"',"Alignment",d.align);	// 对齐方式
+					}
+					var FontSize = !d.size?"12":d.size;
+					LODOP.SET_PRINT_STYLEA('"t_'+i+'"',"FontSize",FontSize);	//文字大小
+					var FontName = !d.font?"微软雅黑":d.font;
+					LODOP.SET_PRINT_STYLEA('"t_'+i+'"',"FontName",FontName);	// 文字字体
+				}
+				if(d.cate==2){
+					var strings = d.string.split(',');
+					var values = d.items.split(',');
+					var _html = '<table style="width: '+d.width+'; display:table-fixed; border-collapse:collapse;border-spacing:0;border-left:1px solid '+d.color+';border-top:1px solid '+d.color+'; corlor:'+d.color+'; ';
+							if(d.align==1){
+								_html += "text-align:left;"
+							}
+							if(d.align==2){
+								_html += "text-align:center;"
+							}
+							if(d.align==3){
+								_html += "text-align:right;"
+							}
+							_html += '">';
+							
+						  _html += '<tr>';
+						  $.each(strings, function(ii,s) {
+						  	_html += '<td style="border-right:1px solid '+d.color+'; border-bottom:1px solid '+d.color+'; font-size:'+d.size+'pt; font-family:'+d.font+'; color:'+d.color+';">'+s;
+						  	_html += '</td>';
+						  });
+						  _html += '</tr>';
+						  var info = [];
+						  $(".allorder").find("input:checkbox:checked").not(".cBoxOrderOne").each(function(index){
+						  	var _this = $(this).parent().next();
+						  	var _ordersn = _this.data("ordersn")	// 订单编号
+						  	var _goodname = _this.data("goodtitle");	// 商品名称
+						  	var _goodshortname = _this.data("shorttitle");	// 商品简称
+						  	var _goodssn = _this.data("goodssn");	// 商品编码
+						  	var _productsn = _this.data("productsn");	//商品条码
+						  	var _marketprice = _this.data("marketprice");	//商品原价
+						  	var _productprice = _this.data("productprice");	//商品现价
+						  	var _allprice = _this.data("productprice") * _this.data("total");	// 商品总价			
+						  	var _total = _this.data("total");	// 商品数量
+						  	var _note = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';	//备注栏
+						  	var _goodoption = _this.data("goodoption");	// 商品规格 
+						  	var _goodunit = _this.data("goodunit");	// 商品单位
+						  	var _goodweight = _this.data("goodweight");	// 商品重量
+						  	var _realprice = _this.data("realprice");	// 商品折后价格
+						  	
+						  	info.push({'odsn':_ordersn,'goodname':_goodname,'goodshortname':_goodshortname,'goodssn':_goodssn,'productsn':_productsn,
+						  					'marketprice':_marketprice,'productprice':_productprice,'allprice':_allprice,'total':_total,'note':_note,'goodoption':_goodoption,'goodunit':_goodunit,
+						  					'goodweight':_goodweight,'realprice':_realprice});
+						  				console.log(info);	
+						  	_html += '<tr>';
+						  	$.each(values, function(iii,val) {
+						  		_html += '<td style="border-right:1px solid '+d.color+'; border-bottom:1px solid '+d.color+'; font-size:'+d.size+'pt; font-family:'+d.font+'; color:'+d.color+';">';
+						  		if(val=="printsn"){
+						  			_html += index+1;
+						  		}else{
+						  			_html += info[index][val];
+						  		}
+						  		_html += '</td>';
+						  	});
+						  	_html += '</tr>';
+						  });
+						  _html += '</table>';
+						LODOP.ADD_PRINT_HTM(d.top+"px", d.left+"px", "100%", "100%", _html);
+				}
+			});
+			
+			// 获取打印状态
+			if (LODOP.CVERSION) {
+			        LODOP.On_Return=function(TaskID,Value){
+			             if (Value==1){
+			             	alert("已提交至打印机");
+			             	// 执行修改订单表数据
+			             	if(thisCate==1){
+			             		changeOrderPrintInfo("print1");
+			             	}
+			             	if(thisCate==2){
+			             		changeOrderPrintInfo("print2");
+			             	}
+			             }else{
+			             	alert("打印已取消");
+			             }
+			        };
+			        LODOP.PREVIEW();
+			        return;
+			};
+   
+		});
+		
+		$("#dosend").click(function(){
+			var thisState = $(this).data("state");
+			if(thisState>0){
+				return;
+			}
+			// 遍历已选中订单
+			var ordersns = [];
+			$(".allorder").find("input:checkbox:checked").not(".cBoxOrderOne").each(function() {
+				var _this = $(this).parent().next();
+				var ordersn = _this.data("ordersn");
+				var inarray = $.inArray(ordersn,ordersns);
+				if(inarray<0){
+					ordersns.push(ordersn);
+				}
+			});
+			// 初始化信息
+			$(".dosend").text("执行发货").data("state",0);
+			// 执行ajax
+			$.ajax({
+				type: 'POST', 
+				url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'getOrderState','type'=>$type))}",
+				data: {ordersns:ordersns},
+				dataType:'json',
+				async:false,
+				success: function(result){           
+					result.printTemp.expresscom = result.printTemp.expresscom==''?'其他快递':result.printTemp.expresscom;
+					$("#modal-send").find("#expresscom").text(result.printTemp.expresscom).data({'expresscom':result.printTemp.expresscom,'express':result.printTemp.express});
+					$("#modal-send").find("#printtempname").text(result.printTemp.expressname);
+					$(".sendtable").html("");
+					var _table = '<tr style="font-weight: bold;">';
+						  _table+='<td style="width:60px;">序号</td>';
+						  _table+='<td style="width: 200px;">订单号</td>';
+						  _table+='<td style="width: 80px;">订单状态</td>';
+						  _table+='<td style="width: 100px;">快递公司</td>';
+						  _table+='<td>';
+						  _table+='<span style="float: left; margin-left: 30px;">快递单号</span>';
+						  _table+='<a href="javascript:;" style="float: right;" onclick="autonum()"><i class="fa fa-angle-double-down"></i> 自动填充</a>';
+						  _table+='</td></tr>';
+					$(".sendtable").html(_table);
+					$.each(result.datas, function(i,arr) {
+						var sn = i+1;
+						var _html = '<tr data-state="'+arr.status+'" data-ordersn="'+arr.ordersn+'">';
+							  _html+='<td>'+sn+'</td>';
+							  _html+='<td>'+arr.ordersn+'</td>';
+							  _html+='<td>';
+									  if(arr.status==0){_html+='<label class="label label-danger">待付款</label>';}
+									  if(arr.status==1){_html+='<label class="label label-info">待发货</label>';}
+									  if(arr.status==2){_html+='<label class="label label-warning">待收货</label>';}
+									  if(arr.status==3){_html+='<label class="label label-success">已完成</label>';}
+							  _html+='</td>';
+							  _html+='<td>'
+							  		  if(arr.status==0){_html+=' - ';}
+									  if(arr.status==1){_html+=result.printTemp.expresscom;}
+									  if(arr.status>1){_html+=arr.expresscom;}
+							  _html+='</td>';
+							  _html+='<td>';
+									  if(arr.status==0){_html+='<input class="form-control" type="tel" data-state="'+arr.status+'" value="" placeholder="订单状态为“待付款”无法发货" disabled="">';}
+									  if(arr.status==1){_html+='<input class="form-control" type="tel" data-state="'+arr.status+'" value="" placeholder="请输入单号">';}
+									  if(arr.status>1){_html+='<input class="form-control" type="tel" data-state="'+arr.status+'" value="'+arr.expresssn+'" disabled="">';}
+							  _html+='</td>';
+							  _html+='</tr>';
+						// 获取订单状态 并且 赋给 #modal-send
+						$(".sendtable").append(_html);
+						// 显示 #modal-send
+						$("#modal-send").modal();
+					});
+				}
+			});
+		});
+	});
+
+	// 执行保存收件人信息
+	function savesender(){
+			var realname = $(":input[name=realname]").val();
+			var mobile = $(":input[name=mobile]").val();
+			var province = $(":input[name=province]").val();
+			var city = $(":input[name=city]").val();
+			var area = $(":input[name=area]").val();
+			var address = $(":input[name=address]").val();
+			// 遍历获取 订单号
+			var ordersns = [];
+			$(".allorder").find("input:checkbox:checked").not(".cBoxOrderOne").each(function() {
+				var _this = $(this).parent().next();
+				var ordersn = _this.data("ordersn");
+				var inarray = $.inArray(ordersn,ordersns);
+				if(inarray<0){
+					ordersns.push(ordersn);
+				}
+			});
+			// ajax 执行写入数据库
+			$.ajax({
+				type: 'POST', 
+				url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'saveaddress','type'=>1))}",
+				data: {
+					realname:realname,
+					mobile:mobile,
+					province:province,
+					city:city,
+					area:area,
+					address:address,
+					ordersns:ordersns
+				},
+				dataType:'json',
+				success: function(result){                        	
+					if(result.result=='error'){
+						alert(result.resp);
+					}
+				}
+			});
+	}
+	// 清除数据
+	function cleardata(){
+		$(".sendtable").find("input").each(function(){
+			var _state = $(this).data("state");
+			if(_state!=1){
+				$(this).parent().parent().remove();
+			}
+		});    
+	}
+	// 执行一键发货
+	function dosend(){
+		var _thisState = $(".dosend").data("state");
+		if(_thisState==1){
+			alert("正在执行...请稍候...");
+			return;
+		}
+		if(_thisState==2){
+			return;
+		}
+		var state = 0;
+		$(".sendtable").find("input[data-state=1]").each(function(){
+			if($(this).val()==''){
+				alert("您还有未填写快递单号的订单哦~");
+				Tip.focus($(this),'不能为空!');
+				state = 1;
+				return false;
+			}
+		});
+		// 遍历输入框内容
+		if(state==0){
+			if(confirm('确定执行发货？')){
+				$(".dosend").data("state",1);
+				var total =$(".sendtable").find("input[data-state=1]").length;
+				if(total<1){
+					alert("当前可发货订单为空");
+					return;
+				}
+				var expresscom = $("#modal-send").find("#expresscom").data("expresscom");
+				var express = $("#modal-send").find("#expresscom").data("express");
+				
+				$(".sendtable").find("input[data-state=1]").each(function(i){
+					var expresssn = $(this).val();
+					var ordersn = $(this).parent().parent().data("ordersn");
+						$.ajax({
+							type: 'POST', 
+							url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'dosend','type'=>$type))}",
+							data: {ordersn:ordersn,expresssn:expresssn,expresscom:expresscom,express:express},
+							dataType:'json',
+							//async:false,
+							success: function(result){     
+								if(result.result=='error'){
+									alert(result.resp);
+								}
+								if(result.result=='success'){
+									$(".dosend").text("正在执行...("+i+"/"+total+")");
+									$(".sendtable").find("tr[data-ordersn="+ordersn+"]").find("input").attr("disabled","disabled").data("state",2);  
+									$(".sendtable").find("tr[data-ordersn="+ordersn+"]").find("label").removeClass("label-info").addClass("label-warning").text("待收货");
+									$(".sendtable").find("tr[data-ordersn="+ordersn+"]").data("state",2);
+									$(".allorder").find("table[data-ordersn="+ordersn+"]").find(".label-oss").removeClass("label-info").addClass("label-warning").text("待收货");
+								}
+							}
+						});
+						if(i+1==total){
+							alert("发货完成");
+							$(".dosend").text("发货完成");
+							$(".dosend").data("state",2);
+						}
+				});
+			}
+		}
+	}
+	// 自动填充
+	function autonum(){
+		var indexval = $(".sendtable").find("input:first");
+		var val = $.trim(indexval.val());
+		if(val==''){
+			Tip.focus(indexval,'不能为空!');
+			return;
+		}
+		$(".sendtable").find("input[data-state=1]").each(function(){
+			$(this).val(val);
+		});
+	}
+	// 执行遍历发货信息并重组
+	function changeSendInfo(){
+		var arr = [];
+		var sendInfo = '';
+		$(".allorder").find("input:checkbox:checked").not(".cBoxOrderOne").each(function(){
+			var goodId = $(this).parent().next().data("goodid")
+			var goodNum = $(this).parent().next().data("goodnum");
+			var shortTitle = $(this).parent().next().data("shorttitle");
+			var goodTitle = $(this).parent().next().data("goodtitle");
+			var gTitle = !shortTitle?goodTitle:shortTitle;
+			var state = -1;
+			$.each(arr,function(i,d){
+				if(d.id===goodId){
+					state = i;
+					return false;
+				}
+			});
+			if(state>-1){
+				arr[state].num += goodNum;
+			}else{
+				arr.push({'id':goodId,'title':gTitle,'num':goodNum});
+			} 
+		});
+		$.each(arr, function(i,v) {
+			sendInfo += v.title + " x "+ v.num + "; ";
+		});
+		$(".sendinfo").val(sendInfo);
+	}
+</script>
+{elseif $type==2}
+<style>.trbody {display: none;} .trbody td { border-left: 1px solid #ccc;} .tac { text-align: center;} .userinfo input {border: 1px solid #ccc; height: 22px; font-size: 12px;}</style>
+<div id="orderresult" class="panel panel-default">
+	<div class="panel-heading">订单信息 
+		<span style="float: right; margin-left: 5px; cursor: pointer;" title="help"><i class="fa fa-question-circle"></i> </span>
+		<span style="float: right; font-size: 12px; line-height: 22px;" title="全局修改/单订单修改">
+			<label class="checkbox-inline" for="gset"><input type="checkbox" id="gset" value="1" name="gset">全局修改</label>
+		</span>
+		
+	</div>
+	<div class="panel-body">
+		{if count($orders)>0}
+		<form class="form-horizontal">
+			<table style="float:left;border:1px solid #ccc;margin-bottom:5px;table-layout: fixed" class="table">
+				<tbody>
+					<tr class="trhead">
+						<td style="width:30px;">
+							<input type="checkbox" class="cBoxOrderAll" checked>
+						</td>
+						<td style="text-align:left;" colspan="2">订单总数: {php echo count($orders)}  订单总金额: {$totalmoney} 元</td>
+						<td class="tac" style="border: 1px solid #ccc;">规格及编码</td>
+						<td class="tac" style="border: 1px solid #ccc;">单价(元)</td>
+						<td class="tac" style="border: 1px solid #ccc;">数量</td>
+						<td class="tac" style="border: 1px solid #ccc;">支付方式</td>
+						<td class="tac" style="border: 1px solid #ccc;">配送方式</td>
+						<td class="tac" style="border: 1px solid #ccc;">价格</td>
+						<td class="tac" style="border: 1px solid #ccc;">订单状态</td>
+						<td class="tac" style="border: 1px solid #ccc;">打印状态/次数</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="allorder">
+				{loop $orders $i $order}
+						<table style="float:left;border:1px solid #ccc;margin-top:5px;margin-bottom:5px;table-layout: fixed" class="table oneorder" data-ordersn="{$order['ordersn']}">
+							<tbody>
+								<tr>
+									<td style="border-bottom:1px solid #ccc;background:#efefef;width:30px;">
+										<input type="checkbox" checked="" class="cBoxOrderOne">
+									</td>
+									<td style="border-bottom:1px solid #ccc;background:#efefef;" colspan="9" class="userinfo">
+										<b>订单编号: </b><span>{$order['ordersn']}</span>
+										<b>下单时间: </b><span>{php echo date("Y-m-d H:i:s",$order['createtime'])}</span>
+										<b>订单状态: </b><span>{$order['status']}</span>
+										<b>打印状态: </b>
+										<span class="orderprintstate">{if $order['printstate']==0}快递单未打印{else if $order['printstate']==1}快递单部分打印{else if $order['printstate']==2}快递单打印完成{/if}</span>
+										<span class="orderprintstate2">{if $order['printstate2']==0}发货单未打印{else if $order['printstate2']==1}发货单部分打印{else if $order['printstate2']==2}发货单打印完成{/if}</span>
+
+										<b>收货人: </b><span class="e-realname" data-value="{$order['address']['realname']}">{$order['address']['realname']}</span>
+										(<span class="e-nickname" data-value="{$order['address']['nickname']}">{$order['address']['nickname']}</span>)
+										<b>电话: </b><span class="e-mobile" data-value="{$order['address']['mobile']}">{$order['address']['mobile']}</span>
+										<b>地址: </b><span class="e-province" data-value="{$order['address']['province']}">{$order['address']['province']}</span><span class="e-city" data-value="{$order['address']['city']}">{$order['address']['city']}</span><span class="e-area" data-value="{$order['address']['area']}">{$order['address']['area']}</span><span class="e-address" data-value="{$order['address']['address']}">{$order['address']['address']}</span>
+										<a href="javascript:;" class="eubtn" data-state="e">编辑</a>
+									</td>
+									<td style="border-bottom:1px solid #ccc;background:#efefef;text-align: right">
+										<span style="color: #666; padding-right: 10px; cursor: pointer;" class="ocbtn noselect" data-state="c" title="展开订单商品"><i class="fa fa-arrow-circle-down"></i> 展开订单</span>
+									</td>
+								</tr>
+								{loop $order['goods'] $ii $good}
+									<tr class="trbody">
+										<td style="width:80px;">
+											<input type="checkbox" checked="" class="cBoxGood">
+										</td>
+										<td valign="top" style="text-align: left; width: 400px; position: relative; " colspan="2" 
+											data-ordersn = "{$order['ordersn']}" data-orderid="{$order['id']}" data-ordergoodid="{$good['ordergoodid']}" data-goodid="{$good['id']}"  data-goodtitle="{$good['title']}" 
+											data-shorttitle = "{if empty($good['shorttitle'])}-{else}{$good['shorttitle']}{/if}" data-goodnum="{$good['total']}" data-goodssn="{$good['goodssn']}" data-productsn="{$good['productsn']}" data-marketprice="{php echo $good['realprice']/$good['total']}"
+											data-productprice="{php echo $good['price']/$good['total']}" data-total="{$good['total']}"
+											data-goodoption="{if empty($good['optiontitle'])}-{else}{$good['optiontitle']}{/if}" data-goodunit="{if empty($good['unit'])}-{else}{$good['unit']}{/if}"
+											data-realprice="{php echo $good['realprice']/$good['total']}" data-goodweight="{if empty($good['weight'])}-{else}{$good['weight']}{/if}"
+										>
+							
+											<img style="width: 50px; height: 50px;border:1px solid #ccc;padding:1px;" src="{$good['thumb']}">
+											<span class='goodtitle'>{if empty($good['shorttitle'])}{$good['title']}{else}{$good['shorttitle']}{/if}</span>
+											<span data-do="e" style="position: absolute; bottom: 0; right: 0; background: rgba(0,0,0,0.5); font-size: 12px; color: #FFF; padding-left: 11px; border-radius: 20px 0px 0px 0px; width: 40px; cursor: pointer;" class="editShort">编辑</span>
+										</td>
+								
+										<td class="tac">
+											{if !empty($good['optiontitle'])}<span class="label label-primary">{$good['optiontitle']}</span><br>}{/if}
+											编码: {$good['goodssn']}
+										</td>
+										<td class="tac">
+											原价: {php echo $good['price']/$good['total']}<br>折后: {php echo $good['realprice']/$good['total']}
+										</td>
+										<td class="tac">x{$good['total']}</td>
+											{if $ii==0}
+					            				<td class="tac" rowspan="{php echo count($order['goods'])}"><label class='label label-{$order['css']}'>{$order['paytypename']}</label></td>
+					                         	<td class="tac" rowspan="{php echo count($order['goods'])}">{$order['dispatchname']}</td>
+						                        <td class="tac" rowspan="{php echo count($order['goods'])}">{$order['price']} 元<br/>运费: {$order['dispatchprice']} 元
+						                             {if $item['deductprice']>0}
+						                             <br/>积分抵扣: {$item['deductprice']} 元
+						                             {/if}
+						                             {if $item['deductcredit2']>0}
+						                             <br/>余额抵扣: {$item['deductcredit2']} 元
+						                             {/if}
+						                             {if $item['deductenough']>0}
+						                             <br/>满额立减: {$item['deductenough']} 元
+						                             {/if}
+						                        </td>
+						                        <td class="tac" rowspan="{php echo count($order['goods'])}">
+						                        	<label class='label label-{$order['statuscss']} label-oss'>{$order['status']}</label><br />
+						                         	<a href="{php echo $this->createWebUrl('order', array('op' => 'detail', 'id' => $good['id']))}" >查看详情</a>
+						                        </td>
+		                        			{/if} 
+		                        			<td  class="tac">
+			                                   	<label class="icon-ps1 label label-{if $good['printstate']>0}primary{else}default{/if}" data-printstate="{$good['printstate']}">{if $good['printstate']>0}快递单 x {$good['printstate']}{else}快递单未打印{/if}</label><br>
+			                                   	<label class="icon-ps2 label label-{if $good['printstate2']>0}success{else}default{/if}" data-printstate="{$good['printstate2']}">{if $good['printstate2']>0}发货单 x {$good['printstate2']}{else}发货单未打印{/if}</label>
+				                         	</td>
+									</tr>
+								{/loop}
+								<tr class="trsend" style="display: none;">
+									<td colspan="11">
+										<textarea style="min-height: 100px; height: auto;" class="form-control sendinfo">{loop $order['goods'] $ii $good}{if empty($good['shorttitle'])}{$good['title']}{else}{$good['shorttitle']}{/if} x {$good['total']}; {/loop}</textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					
+				{/loop}
+			</div>
+		</form>
+	{else}
+	抱歉！未查到相关数据。 
+	{/if}
+	</div>
+	{if count($orders)>0}
+	<div class="panel-footer" style="height: auto; overflow: hidden;">
+		<div class="form-group">
+			<div class="col-sm-12">
+				<span class="btn btn-primary doprint" id="doprint1" data-state="0" data-cate="1">打印快递单</span>
+				<span class="btn btn-warning doprint" id="doprint2" data-state="0" data-cate="2">打印发货单</span>
+				<span class="btn btn-success" id="dosend" data-state="0">一键发货</span>
+			</div>
+		</div>
+	</div>
+	{/if}
+	<!-- 一键发货浮层 -->
+	<div id="modal-send" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" style="width:700px;margin:0px auto;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+					<div style="height: 50px;">
+						<div style="height: 50px; width: 90px; font-size: 22px; line-height: 60px; float: left;">一键发货</div>
+						<div style="height: 50px; width: 150px; float: right; font-size: 14px; margin-right: 10px; line-height: 70px;">快递类型: [<span id="expresscom" data-expresscom="" data-express="">loading</span>]</div>
+						<div style="height: 50px; 300px; float: right; font-size: 14px; margin-right: 10px; line-height: 70px; overflow: hidden; text-align: right;">快递模版: <span id="printtempname">loading</span></div>
+					</div>
+				</div>
+				<div class="modal-body" style=" text-align: center; max-height: 700px; overflow-y: auto;">
+					<table class="table sendtable" style="margin-bottom: 0;"></table>
+					<div id="module-menus"></div>
+				</div>
+				<div class="modal-footer">
+					<span style="float: left; line-height: 30px; color: #999;">提示: 快递类型请在快递单默认模版更改。</span>
+					<a class="btn btn-primary" onclick="cleardata()">清除数据</a>
+					<a class="btn btn-success dosend" onclick="dosend()" data-state="0">执行发货</a>
+					<a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		var gSet = 0;
+		// 全局设置
+		$("#gset").click(function(){
+			var _thisval = $(this).is(":checked");
+			if(_thisval){
+				gSet = 1;
+			}else{
+				gSet = 0;
+			}
+		});
+		// 弹出 介绍
+		$(".fa-question-circle").click(function(){
+			alert("help: \n 全局修改: 修改全部订单收货人信息 \n 单订单修改: 只修改单订单收货人信息 \n (所有收货人信息仅在打印页面修改,不会对数据库进行修改)");
+		});
+		// 执行 订单商品折叠
+		$(".ocbtn").click(function(){
+			var state = $(this).data('state');
+			var trbody = $(this).parent().parent().parent().find(".trbody");
+			if(state=='c'){
+				trbody.show();
+				$(this).data('state','o')
+				$(this).html("<i class='fa fa-arrow-circle-up'></i> 收起订单");
+				$(this).parent().parent().parent().find(".trsend").show();
+			}else{
+				trbody.hide();
+				$(this).data('state','c')
+				$(this).find('i').addClass("fa fa-arrow-circle-up");
+				$(this).html("<i class='fa fa-arrow-circle-down'></i> 展开订单");
+				$(this).parent().parent().parent().find(".trsend").hide();
+			}
+		});
+		
+		$(".eubtn").click(function(){
+			var state = $(this).data("state");
+			var _this = $(this).parent();
+			var e_realname = _this.find(".e-realname");
+			var e_nickname = _this.find(".e-nickname");
+			var e_mobile = _this.find(".e-mobile");
+			var e_province = _this.find(".e-province");
+			var e_city = _this.find(".e-city");
+			var e_area = _this.find(".e-area");
+			var e_address = _this.find(".e-address");
+			
+			var old_realname = e_realname.data("value");
+			var old_mobile = e_mobile.data("value");
+			var old_province = e_province.data("value");
+			var old_city = e_city.data("value");
+			var old_area = e_area.data("value");
+			var old_address = e_address.data("value");
+			
+			if(state=='e'){
+				$(this).data("state","s").text("保存");
+				e_realname.html("<input type='text' value='"+e_realname.text()+"' style='width:90px;'>");
+				e_mobile.html("<input type='text' value='"+e_mobile.text()+"' style='width:95px;'>");
+				e_province.html("<input type='text' value='"+e_province.text()+"' style='width:60px; border-right:0px;'>");
+				e_city.html("<input type='text' value='"+e_city.text()+"' style='width:60px; border-right:0px;'>");
+				e_area.html("<input type='text' value='"+e_area.text()+"' style='width:60px; border-right:0px;'>");
+				e_address.html("<input type='text' value='"+e_address.text()+"' style='width:160px;'>");
+			}
+			else if (state=='s'){
+				$(this).data("state","e").text("编辑");
+				var val_realname = e_realname.children().val();
+				var val_nickname = e_nickname.val()
+				var val_mobile = e_mobile.children().val();
+				var val_province = e_province.children().val();
+				var val_city = e_city.children().val();
+				var val_area = e_area.children().val();
+				var val_address = e_address.children().val();
+				
+				var ordersns = [];
+				
+				if(gSet==0){
+					// 全局修改=0 : 只修改单订单收货人信息
+					e_realname.html(val_realname).data("value",val_realname);
+					e_mobile.html(val_mobile).data("value",val_mobile);
+					e_province.html(val_province).data("value",val_province);
+					e_city.html(val_city).data("value",val_city);
+					e_area.html(val_area).data("value",val_area);
+					e_address.html(val_address).data("value",val_address);
+					ordersn = $(this).closest("table").data("ordersn");
+					ordersns.push(ordersn);
+					
+				}else{
+					var __this = $(".allorder").find("input:checkbox:checked").not(".cBoxOrderOne").parent().parent().prev();
+					// 全局修改=1 : 遍历 匹配并修改本页全部订单收货人信息
+					__this.find(".e-realname").each(function(){
+						var t_realname = $(this).data("value");
+						if(t_realname == old_realname){
+							$(this).data("value",val_realname).html(val_realname);
+						}
+					}); 
+					__this.find(".e-mobile").each(function(){
+						var t_mobile = $(this).data("value");
+						if(t_mobile == old_mobile){
+							$(this).data("value",val_mobile).html(val_mobile);
+						}
+					});
+					__this.find(".e-province").each(function(){
+						var t_province = $(this).data("value");
+						if(t_province == old_province){
+							$(this).data("value",val_province).html(val_province);
+						}
+					});
+					__this.find(".e-city").each(function(){
+						var t_city = $(this).data("value");
+						if(t_city == old_city){
+							$(this).data("value",val_city).html(val_city);
+						}
+					});
+					__this.find(".e-area").each(function(){
+						var t_area = $(this).data("value");
+						if(t_area == old_area){
+							$(this).data("value",val_area).html(val_area);
+						}
+					});
+					__this.find(".e-address").each(function(){
+						var t_address = $(this).data("value");
+						if(t_address == old_address){
+							$(this).data("value",val_address).html(val_address);
+						}
+					});
+					
+					
+					$(".allorder").find("input:checkbox:checked").not(".cBoxOrderOne").each(function() {
+						var _this = $(this).parent().next();
+						var ordersn = _this.data("ordersn");
+						var inarray = $.inArray(ordersn,ordersns);
+						if(inarray<0){
+							ordersns.push(ordersn);
+						}
+					});
+				}
+				// ajax 执行写入数据库
+				$.ajax({
+						type: 'POST', 
+						url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'saveaddress','type'=>2))}",
+						data: {
+							realname:val_realname,
+							mobile:val_mobile,
+							province:val_province,
+							city:val_city,
+							area:val_area,
+							address:val_address,
+							ordersns:ordersns
+						},
+						dataType:'json',
+						success: function(result){                        	
+							if(result.result=='error'){
+								alert(result.resp);
+							}
+						}
+				});
+			}
+		});
+		$(".panel-body").find("input[type=checkbox]").change(function(){
+			changeSendInfo();
+		});
+		$(".doprint").click(function(){
+			var thisState = $(this).data("state");
+			var thisCate = $(this).data("cate");
+			if(thisState>0){
+				return;
+			}
+			// 执行ajax获取打印模版
+			$.ajax({
+				type: 'POST', 
+				url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'getPrintTemp'))}",
+				data: {type:thisCate},
+				dataType:'json',
+				async:false,
+				success: function(d){                        	
+					if(d.result=="success"){
+						printDatas = d.respDatas;
+						printUser = d.respUser;
+						printTemp = d.respTemp;
+					}else{
+						alert(d.resp);
+						return;
+					}
+				}
+			});
+			// 定义打印订单信息
+			var printArr = [];
+			$(".allorder").find("table").each(function(){
+				var _this = $(this).find("input[type=checkbox]:checked").not(".cBoxOrderOne");
+				if(_this.length>0){
+					printArr.push({
+						'ordersn':$(this).data("ordersn"), 
+						'sendInfo':$(this).find(".sendinfo").text(),
+						'realName':$(this).find(".e-realname").data("value"),
+						'nickName':$(this).find(".e-nickname").data("value"),
+						'mobile':$(this).find(".e-mobile").data("value"),
+						'province':$(this).find(".e-province").data("value"),
+						'city':$(this).find(".e-city").data("value"),
+						'area':$(this).find(".e-area").data("value"),
+						'address':$(this).find(".e-address").data("value")
+					});
+				}
+			});
+			// 定义打印模版信息
+		 	LODOP.PRINT_INITA(0,0,printTemp.width+"mm",printTemp.height+"mm","单据打印");
+			if(printTemp.bg){
+				LODOP.ADD_PRINT_SETUP_BKIMG("<img border='0' src='"+printTemp.bg+"'>");
+				LODOP.SET_SHOW_MODE("BKIMG_IN_PREVIEW",1); 
+			}
+			LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",true);
+			// 执行遍历并替换数据
+			$.each(printArr,function(ii,dd){
+				printDatasT = jQuery.extend(true, {}, printDatas); 
+				$.each(printDatasT,function(){
+					this.items = this.items.replace("ordersn",dd.ordersn);
+					this.items = this.items.replace("sendinfo",dd.sendInfo);
+					this.items = this.items.replace("realname",dd.realName);
+					this.items = this.items.replace("nickname",dd.nickName);
+					this.items = this.items.replace("mobile",dd.mobile);
+					this.items = this.items.replace("province",dd.province);
+					this.items = this.items.replace("city",dd.city);
+					this.items = this.items.replace("area",dd.area);
+					this.items = this.items.replace("address",dd.address);
+					this.items = this.items.replace("shopname",printTemp.shopname);
+				});
+				// 遍历
+				$.each(printDatasT,function(i,d){
+					if(d.cate==1){
+						LODOP.ADD_PRINT_TEXTA('"t_'+i+'"',d.top+"px",d.left+"px",d.width+"px",d.height+"px",d.pre+d.items+d.last);
+						if(d.color){
+							LODOP.SET_PRINT_STYLEA('"t_'+i+'"',"FontColor",d.color);	// 文字颜色
+						}
+						if(d.bold){
+							LODOP.SET_PRINT_STYLEA('"t_'+i+'"',"Bold",1);	// 文字加粗
+						}
+						if(d.align){
+							LODOP.SET_PRINT_STYLEA('"t_'+i+'"',"Alignment",d.align);	// 对齐方式
+						}
+						var FontSize = !d.size?"12":d.size;
+						LODOP.SET_PRINT_STYLEA('"t_'+i+'"',"FontSize",FontSize);	//文字大小
+						var FontName = !d.font?"微软雅黑":d.font;
+						LODOP.SET_PRINT_STYLEA('"t_'+i+'"',"FontName",FontName);	// 文字字体
+					}
+					if(d.cate==2){
+					var strings = d.string.split(',');
+					var values = d.items.split(',');
+					var _html = '<table style="width: '+d.width+'; display:table-fixed; border-collapse:collapse;border-spacing:0;border-left:1px solid '+d.color+';border-top:1px solid '+d.color+'; corlor:'+d.color+'; ';
+							if(d.align==1){
+								_html += "text-align:left;"
+							}
+							if(d.align==2){
+								_html += "text-align:center;"
+							}
+							if(d.align==3){
+								_html += "text-align:right;"
+							}
+							_html += '">';
+							
+						  _html += '<tr>';
+						  $.each(strings, function(ii,s) {
+						  	_html += '<td style="border-right:1px solid '+d.color+'; border-bottom:1px solid '+d.color+'; font-size:'+d.size+'pt; font-family:'+d.font+'; color:'+d.color+';">'+s;
+						  	_html += '</td>';
+						  });
+						  _html += '</tr>';
+						  var info = [];
+						  $("table[data-ordersn='"+dd.ordersn+"']").find("input:checkbox:checked").not(".cBoxOrderOne").each(function(index){ 
+						  	var _this = $(this).parent().next();
+						  	var _ordersn = _this.data("ordersn")	// 订单编号
+						  	var _goodname = _this.data("goodtitle");	// 商品名称						  	
+						  	var _goodshortname = _this.data("shorttitle");	// 商品简称
+						  	var _goodssn = _this.data("goodssn");	// 商品编码
+						  	var _productsn = _this.data("productsn");	//商品条码
+						  	var _marketprice = _this.data("marketprice");	//商品原价
+						  	var _productprice = _this.data("productprice");	//商品现价
+						  	var _allprice = _this.data("productprice") * _this.data("total");	// 商品总价			
+						  	var _total = _this.data("total");	// 商品数量
+						  	var _note = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';	//备注栏
+						  	var _goodoption = _this.data("goodoption");	// 商品规格 
+						  	var _goodunit = _this.data("goodunit");	// 商品单位
+						  	var _goodweight = _this.data("goodweight");	// 商品重量
+						  	var _realprice = _this.data("realprice");	// 商品折后价格
+						  	
+						  	info.push({'odsn':_ordersn,'goodname':_goodname,'goodshortname':_goodshortname,'goodssn':_goodssn,'productsn':_productsn,
+						  					'marketprice':_marketprice,'productprice':_productprice,'allprice':_allprice,'total':_total,'note':_note,'goodoption':_goodoption,'goodunit':_goodunit,
+						  					'goodweight':_goodweight,'realprice':_realprice});
+						  	_html += '<tr>';
+						  	$.each(values, function(iii,val) {
+						  		_html += '<td style="border-right:1px solid '+d.color+'; border-bottom:1px solid '+d.color+'; font-size:'+d.size+'pt; font-family:'+d.font+'; color:'+d.color+';">';
+						  		if(val=="printsn"){
+						  			_html += index+1;
+						  		}else{
+						  			_html += info[index][val];
+						  		}
+						  		_html += '</td>';
+						  	});
+						  	_html += '</tr>';
+						  });
+						  console.log(info);
+						  _html += '</table>';
+						LODOP.ADD_PRINT_HTM(d.top+"px", d.left+"px", "100%", "100%", _html);
+				}
+				});
+				LODOP.NewPage();
+	        });
+			// 获取打印状态
+			if (LODOP.CVERSION) {
+			        LODOP.On_Return=function(TaskID,Value){
+			             if (Value==1){
+			             	alert("已提交至打印机");
+			             	// 执行修改订单表数据
+			             	if(thisCate==1){
+			             		changeOrderPrintInfo("print1");
+			             	}
+			             	if(thisCate==2){
+			             		changeOrderPrintInfo("print2");
+			             	}
+			             }else{
+			             	alert("打印已取消");
+			             }
+			        };
+			        LODOP.PREVIEW();
+			        return;
+			};
+		});
+		$("#dosend").click(function(){
+			var thisState = $(this).data("state");
+			if(thisState>0){
+				return;
+			}
+			// 遍历已选中订单
+			var ordersns = [];
+			$(".allorder").find("input:checkbox:checked").not(".cBoxOrderOne").each(function() {
+				var _this = $(this).parent().next();
+				var ordersn = _this.data("ordersn");
+				var inarray = $.inArray(ordersn,ordersns);
+				if(inarray<0){
+					ordersns.push(ordersn);
+				}
+			});
+			// 初始化信息
+			$(".dosend").text("执行发货").data("state",0);
+			// 执行ajax
+			$.ajax({
+				type: 'POST', 
+				url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'getOrderState','type'=>$type))}",
+				data: {ordersns:ordersns},
+				dataType:'json',
+				async:false,
+				success: function(result){
+					$("#modal-send").find("#expresscom").text(result.printTemp.expresscom).data({'expresscom':result.printTemp.expresscom,'express':result.printTemp.express});
+					$("#modal-send").find("#printtempname").text(result.printTemp.expressname);
+					$(".sendtable").html("");
+					var _table = '<tr style="font-weight: bold;">';
+						  _table+='<td style="width:60px;">序号</td>';
+						  _table+='<td style="width: 200px;">订单号</td>';
+						  _table+='<td style="width: 80px;">订单状态</td>';
+						  _table+='<td style="width: 100px;">快递公司</td>';
+						  _table+='<td>';
+						  _table+='<span style="float: left; margin-left: 30px;">快递单号</span>';
+						  _table+='<a href="javascript:;" style="float: right;" onclick="autonum()"><i class="fa fa-angle-double-down"></i> 自动填充</a>';
+						  _table+='</td></tr>';
+					$(".sendtable").html(_table);
+					$.each(result.datas, function(i,arr) {
+						var sn = i+1;
+						var _html = '<tr data-state="'+arr.status+'" data-ordersn="'+arr.ordersn+'">';
+							  _html+='<td>'+sn+'</td>';
+							  _html+='<td>'+arr.ordersn+'</td>';
+							  _html+='<td>';
+									  if(arr.status==0){_html+='<label class="label label-danger">待付款</label>';}
+									  if(arr.status==1){_html+='<label class="label label-info">待发货</label>';}
+									  if(arr.status==2){_html+='<label class="label label-warning">待收货</label>';}
+									  if(arr.status==3){_html+='<label class="label label-success">已完成</label>';}
+							  _html+='</td>';
+							  _html+='<td>'
+							  		  if(arr.status==0){_html+=' - ';}
+									  if(arr.status==1){_html+=result.printTemp.expresscom;}
+									  if(arr.status>1){_html+=arr.expresscom;}
+							  _html+='</td>';
+							  _html+='<td>';
+									  if(arr.status==0){_html+='<input class="form-control" type="tel" data-state="'+arr.status+'" value="" placeholder="订单状态为“待付款”无法发货" disabled="">';}
+									  if(arr.status==1){_html+='<input class="form-control" type="tel" data-state="'+arr.status+'" value="" placeholder="请输入单号">';}
+									  if(arr.status>1){_html+='<input class="form-control" type="tel" data-state="'+arr.status+'" value="'+arr.expresssn+'" disabled="">';}
+							  _html+='</td>';
+							  _html+='</tr>';
+						// 获取订单状态 并且 赋给 #modal-send
+						$(".sendtable").append(_html);
+						// 显示 #modal-send
+						$("#modal-send").modal();
+					});
+				}
+			});
+		});
+	});
+	// 清除数据
+	function cleardata(){
+		$(".sendtable").find("input").each(function(){
+			var _state = $(this).data("state");
+			if(_state!=1){
+				$(this).parent().parent().remove();
+			}
+		});    
+	}
+	function dosend(){
+		var _thisState = $(".dosend").data("state");
+		if(_thisState==1){
+			alert("正在执行...请稍候...");
+			return;
+		}
+		if(_thisState==2){
+			return;
+		}
+		// 遍历输入框不为空
+		var state = 0;
+		$(".sendtable").find("input[data-state=1]").each(function(){
+			if($(this).val()==''){
+				alert("您还有未填写快递单号的订单哦~");
+				Tip.focus($(this),'不能为空!');
+				state = 1;
+				return false;
+			}
+		});
+		// 遍历输入框内容
+		if(state==0){
+			if(confirm('确定执行发货？')){
+				$(".dosend").data("state",1);
+				var total =$(".sendtable").find("input[data-state=1]").length;
+				if(total<1){
+					alert("当前可发货订单为空");
+					return;
+				}
+				var expresscom = $("#modal-send").find("#expresscom").data("expresscom");
+				var express = $("#modal-send").find("#expresscom").data("express");
+				
+				$(".sendtable").find("input[data-state=1]").each(function(i){
+					var expresssn = $(this).val();
+					var ordersn = $(this).parent().parent().data("ordersn");
+						$.ajax({
+							type: 'POST', 
+							url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'dosend','type'=>$type))}",
+							data: {ordersn:ordersn,expresssn:expresssn,expresscom:expresscom,express:express},
+							dataType:'json',
+							//async:false,
+							success: function(result){     
+								$(".dosend").text("正在执行...("+i+"/"+total+")");
+								if(result.result=='error'){
+									alert(result.resp);
+								}
+								if(result.result=='success'){
+									$(".sendtable").find("tr[data-ordersn="+ordersn+"]").find("input").attr("disabled","disabled").data("state",2);  
+									$(".sendtable").find("tr[data-ordersn="+ordersn+"]").find("label").removeClass("label-info").addClass("label-warning").text("待收货");
+									$(".sendtable").find("tr[data-ordersn="+ordersn+"]").data("state",2);
+									$(".allorder").find("table[data-ordersn="+ordersn+"]").find(".label-oss").removeClass("label-info").addClass("label-warning").text("待收货");
+								}
+							}
+						});
+						if(i+1==total){
+							alert("发货完成");
+							$(".dosend").text("发货完成");
+							$(".dosend").data("state",2);
+						}
+				});
+			}
+		}
+	}
+	function autonum(){
+		var indexval = $(".sendtable").find("input:first");
+        var val = $.trim(indexval.val());
+        if(val==''){
+            Tip.focus(indexval,'请先录入一个值!');
+            return;
+        }
+        var num =val.replace(/[^0-9]/,'') ;
+        var eng = val.replace(num,''); 
+        $.ajax({
+             url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'autonum','type'=>$type))}",
+             data: {op:'autonum', num: num ,len: $(".sendtable").find(":input[data-state=1]").length -1},
+             type: "POST",
+             dataType:"json",
+             success: function(arr){
+                 for(var i in arr){
+                     $(".sendtable").find(":input[data-state=1]:eq(" + i + ")").val(eng+ arr[i] );
+                 }
+             }
+         })
+    }
+
+	function changeSendInfo(){
+		var _table = $(".allorder").find(".table")
+		_table.each(function(){
+		_this = $(this);
+		_this.find(".sendinfo").val("");
+			$(this).find("input[type=checkbox]:checked").not(".cBoxOrderOne").each(function(){
+				var _tr = $(this).parent().next();
+				var goodLongTitle = _tr.data("goodtitle");
+				var goodShortTitle = _tr.data("shorttitle");
+				var goodTitle = !goodShortTitle?goodLongTitle:goodShortTitle;
+				var goodTotal = _tr.data("goodnum");
+				var _oldval = _this.find(".sendinfo").val();
+				var _val = goodTitle + " x "+goodTotal + "; ";
+				_this.find(".sendinfo").val(_oldval+_val);
+			});
+		});
+	}
+</script>
+
+{/if}
+
+
+<script> 
+	// 公共JS脚本
+	$(function(){
+		// 全选当前页面所有订单
+		$(".cBoxOrderAll").click(function(){
+			//$("#gset").attr("checked","checked"); 
+			var _thisState = $(this).is(":checked");
+			if(_thisState){
+				$(".allorder").find("input[type=checkbox]").each(function(){
+					this.checked = true;
+				});
+				setPrintBtnState(0);
+			}else{
+				$(".allorder").find("input[type=checkbox]").each(function(){
+					this.checked = false;
+				});
+				setPrintBtnState(1);
+			}
+		});
+		$(".cBoxOrderOne").click(function(){
+			var _thisState = $(this).is(":checked");
+			if(_thisState){
+				$(this).parent().parent().parent().parent().find("input[type=checkbox]").each(function(){
+					this.checked = true;
+				});
+			}else{
+				$(this).parent().parent().parent().parent().find("input[type=checkbox]").each(function(){
+					this.checked = false;
+				});
+			}
+		});
+		
+		$(".cBoxGood").click(function(){
+			var _thisState = $(this).is(":checked");
+			var _table = $(this).closest(".table");
+			if(_thisState){
+				_table.find(".cBoxGood").each(function(){
+					_tS = $(this).is(":checked");
+					if(!_tS){
+						return;
+					} 
+					_table.find(".cBoxOrderOne").each(function(){
+						this.checked = true;
+					});
+				});
+			}else{
+				_table.find(".cBoxOrderOne").each(function(){
+					this.checked = false;
+				});
+			}
+		});
+		
+		$(".allorder").find("input[type=checkbox]").change(function(){
+			// 设置 打印按钮状态
+			var gBtn = $(".allorder").find("input[type=checkbox]:checked").not(".cBoxOrderOne").length;
+			if(gBtn<=0){
+				setPrintBtnState(1);
+			}else{
+				setPrintBtnState(0);
+			}
+			// 遍历选择框
+			$(".allorder").find(".cBoxGood").each(function(){
+				var _thisState = $(this).is(":checked");
+				if(!_thisState){
+					$(".cBoxOrderAll").each(function(){
+						this.checked = false;
+					});
+					return false;
+				}
+				$(".cBoxOrderAll").each(function(){
+					this.checked = true;
+				});
+			});
+		});
+		
+		// 修改商品短标题
+		$(".editShort").click(function(){
+			var _this = $(this);
+			var _td = _this.parent();
+			var clickDo = _this.data("do");
+			var goodId = _td.data("goodid");
+			var goodTitle = _td.data("goodtitle");
+			var shortTitle = _td.data("shorttitle");
+			if(clickDo=='e'){
+				var gTitle = !shortTitle?goodTitle:shortTitle;
+				_this.text("保存");
+				_td.find(".goodtitle").html("<input type='text' value='"+gTitle+"' style='width:220px; padding-left:0; margin-left:0;'>");
+				_this.data("do","s");
+			}
+			else if(clickDo=='s'){
+				var gTitle = _td.find(".goodtitle").find("input").val();
+				if(!goodId){
+					return;
+				}
+				// 执行ajax
+				$.ajax({
+					type: 'POST',
+                        url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'shorttitle','type'=>$type))}",
+                        data: {goodid:goodId,shorttitle:gTitle},
+                        dataType:'json',
+                        success: function(d){
+                        	// 成功 后执行
+							var pTitle = !gTitle?goodTitle:gTitle;
+							_td.data("shorttitle",pTitle).find(".goodtitle").html(pTitle);
+							_this.text("编辑").data("do","e");
+							$("td[data-goodid="+goodId+"]").each(function(){
+								$(this).data("shorttitle",pTitle);
+								$(this).find(".goodtitle").text(pTitle);
+								$(this).find(".editShort").text("编辑").data("do","e");
+								// 执行遍历重组发货信息
+								changeSendInfo();
+							});
+                        }
+                });
+			}
+		});
+		
+	});
+	
+	function setPrintBtnState(d){
+		if(d==0){
+			// 正常
+			$("#doprint1").data("state",0).removeClass("btn-disabled").addClass("btn-primary");
+			$("#doprint2").data("state",0).removeClass("btn-disabled").addClass("btn-warning");
+			$("#dosend").data("state",0).removeClass("btn-disabled").addClass("btn-success");
+		}else{
+			
+			$("#doprint1").data("state",1).removeClass("btn-primary").addClass("btn-disabled"); 
+			$("#doprint2").data("state",1).removeClass("btn-warning").addClass("btn-disabled");
+			$("#dosend").data("state",1).removeClass("btn-success").addClass("btn-disabled");
+		}
+	}
+	// 执行修改订单打印数据，修改样式
+	function changeOrderPrintInfo(pt) {
+		// 遍历已选中的商品
+		var arr = [];
+		$(".allorder").find("input:checkbox:checked").not(".cBoxOrderOne").each(function() {
+			var _this = $(this).parent().next();
+			var orderid = _this.data("orderid");
+			var ordergoodid = _this.data("ordergoodid");
+			arr.push({
+				orderid: orderid,
+				ordergoodid: ordergoodid
+			});
+		});
+		// 修改订单信息
+		$.ajax({
+			type: 'POST',
+			url: "{php echo $this->createPluginWebUrl('exhelper/doprint',array('op'=>'pushdata','type'=>$type))}",
+			data: {
+				arr: arr,
+				pt:pt
+			},
+			dataType: 'json',
+			success: function(d) {
+				if (d.result == 'success') {
+					$(".allorder").find("input:checkbox:checked").not(".cBoxOrderOne").each(function() {
+						var _this = $(this).parent().parent();
+						if(pt=="print1"){
+							var _order = $(this).closest("tbody").find(".orderprintstate");
+							var iconps1 = _this.find(".icon-ps1").data("printstate");
+							// 判断如果是未打印 则更改样式，如果是已经打印则更新打印次数
+							if (iconps1 < 1) {
+								_this.find(".icon-ps1").removeClass("label-default").addClass("label-primary").text("快递单 x 1").data("printstate", 1);
+							} else {
+								var num = iconps1 + 1;
+								_this.find(".icon-ps1").text("快递单 x " + num).data("printstate", num);
+							}
+							// 判断订单打印状态
+							if (d.orderprintstate == 1) {
+								_order.text("快递单部分打印");
+							} else if (d.orderprintstate == 2) {
+								_order.text("快递单打印完成");
+							}
+						}
+						else if(pt="print2"){
+							var _order = $(this).closest("tbody").find(".orderprintstate2");
+							var iconps2 = _this.find(".icon-ps2").data("printstate");
+							// 判断如果是未打印 则更改样式，如果是已经打印则更新打印次数
+							if (iconps2 < 1) {
+								_this.find(".icon-ps2").removeClass("label-default").addClass("label-success").text("发货单 x 1").data("printstate", 1);
+							} else {
+								var num = iconps2 + 1;
+								_this.find(".icon-ps2").text("发货单 x " + num).data("printstate", num);
+							}
+							// 判断订单打印状态
+							if (d.orderprintstate == 1) {
+								_order.text("发货单部分打印");
+							} else if (d.orderprintstate == 2) {
+								_order.text("发货单打印完成");
+							}
+						}
+					});
+				}
+			}
+		});
+		// 写入打印记录	
+	}
+</script>

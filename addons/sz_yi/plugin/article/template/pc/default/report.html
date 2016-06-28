@@ -1,0 +1,196 @@
+{template 'common/header'}
+{template 'common/navigation'}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>举报</title>
+<link href="../addons/sz_yi/plugin/article/template/imgsrc/report.css" rel="stylesheet">
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+$(function(){
+    jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || { jsApiList:[] };
+    jssdkconfig.jsApiList = ['hideOptionMenu']
+    wx.config(jssdkconfig);
+    wx.ready(function () {
+        wx.hideOptionMenu();
+    });
+    $("body").on("touchmove", function (event) {
+        event.preventDefault();
+    });
+    $("input[name=complaintype]").change(function(){
+        var val = $(this).val();
+        if(!val){
+            $("#nextBtn").css('color','rgba(255,255,255,0.6)');
+        }else{
+            $("#nextBtn").css('color','rgba(255,255,255,1)');
+        }
+    });
+    $("#nextBtn").click(function(){
+        var c = $("input[name=complaintype]:checked").val();
+        if(!c){
+            $("#tips").text('请选择举报原因').show();
+              setTimeout(function(){
+                  $("#tips").hide().text("");
+              },5000)
+        }else{
+            $("#step1").hide();
+            $("#step2").show();
+        }
+    });
+    $("#reasonText").bind('input propertychange',function(){
+        var val = $(this).val();
+        var len = val.length;
+        $("#textLen").text(len);
+        if(len>50){
+            $("#textareaLenSpan").css("color","#f76160");
+            $("#reasonText").css("color","#f76160");
+            $("#submitBtn").css("color","rgba(255,255,255,0.6)");
+			$("#reasonTextTips").show();
+            $("#tips").text('举报描述不能超过50个字符').show();
+            setTimeout(function(){
+                $("#tips").hide().text("");
+            },5000)
+        }else{
+            $("#textareaLenSpan").css("color","#8d8d8d");
+            $("#reasonText").css("color","#8d8d8d");
+            $("#tips").hide().text("");
+            $("#submitBtn").css("color","#fff");
+			$("#reasonTextTips").hide();
+        }
+    });
+    $("#submitBtn").click(function(){
+        var val = $("#reasonText").val();
+        var len = val.length;
+        if(!val){
+            $("#tips").text('请输入举报描述').show();
+            $("#reasonTextTips").show();
+            setTimeout(function(){
+                $("#tips").hide().text("");
+            },5000)
+            return;
+        }
+        if(len<=50){
+            var cate = $("input[name=complaintype]:checked").val();
+            var cons = $("#reasonText").val();
+            var aid = "{$_GPC['aid']}";
+            $.ajax({
+                    type: 'POST',
+                    url: "{php echo $this->createPluginMobileUrl('article',array('method'=>'api','apido'=>'sendreport'))}",
+                    data: {aid:aid,cate:cate,cons:cons},
+                    dataType:'json',
+                    success: function(d){
+                        $("#step2").hide();
+                        $("#step3").show();
+                   },error:function(){
+                       alert('error');
+                   }
+            });
+        }
+    });
+    $("#successBtn_1").click(function(){
+        WeixinJSBridge.call('closeWindow');
+    });
+});
+</script>
+</head>
+    
+<body class="zh_CN " ontouchstart="">        
+<div class="page_bd">
+    <div id="tips" style="display:none;" class="top_tips warning"></div>
+    <div id="step1" class="category_item">
+        <h3 class="category_title">请选择举报原因</h3>
+        <form id="form1">
+            <ul class="checkbox_list">
+                <li data-type="1" class="checkbox">
+                    <input id="radio_1" name="complaintype" value="欺诈" class="frm_checkbox" type="radio">
+                    <label for="radio_1" class="frm_checkbox_label checkbox_title">
+                        <div class="checkbox_label_inner">欺诈</div>
+                    </label>
+                </li>
+                <li data-type="2" class="checkbox">
+                    <input id="radio_2" name="complaintype" value="色情" class="frm_checkbox" type="radio">
+                    <label for="radio_2" class="frm_checkbox_label checkbox_title">
+                        <div class="checkbox_label_inner">色情</div>
+                    </label>
+                </li>
+                <li data-type="3" class="checkbox">
+                    <input id="radio_3" name="complaintype" value="政治谣言" class="frm_checkbox" type="radio">
+                    <label for="radio_3" class="frm_checkbox_label checkbox_title">
+                        <div class="checkbox_label_inner">政治谣言</div>
+                    </label>
+                </li>
+                <li data-type="4" class="checkbox">
+                    <input id="radio_4" name="complaintype" value="常识性谣言" class="frm_checkbox" type="radio">
+                    <label for="radio_4" class="frm_checkbox_label checkbox_title">
+                        <div class="checkbox_label_inner">常识性谣言</div>
+                    </label>
+                </li>
+                <li data-type="5" class="checkbox">
+                    <input id="radio_5" name="complaintype" value="诱导分享" class="frm_checkbox" type="radio">
+                    <label for="radio_5" class="frm_checkbox_label checkbox_title">
+                        <div class="checkbox_label_inner">诱导分享</div>
+                    </label>
+                </li>
+                <li data-type="6" class="checkbox">
+                    <input id="radio_6" name="complaintype" value="营销" class="frm_checkbox" type="radio">
+                    <label for="radio_6" class="frm_checkbox_label checkbox_title">
+                        <div class="checkbox_label_inner">恶意营销</div>
+                    </label>
+                </li>
+                <li data-type="7" class="checkbox">
+                    <input id="radio_7" name="complaintype" value="隐私信息收集" class="frm_checkbox" type="radio">
+                    <label for="radio_7" class="frm_checkbox_label checkbox_title">
+                        <div class="checkbox_label_inner">隐私信息收集</div>
+                    </label>
+                </li>
+                <li style="display:none;" data-type="8" data-article="抄袭公众号文章" class="checkbox">
+                    <input id="radio_8" name="complaintype" value="reportpage" class="frm_checkbox" type="radio">
+                    <label for="radio_8" class="frm_checkbox_label checkbox_title">
+                        <div class="checkbox_label_inner">抄袭公众号文章</div>
+                    </label>
+                </li>
+                <li data-type="9" class="checkbox">
+                    <input id="radio_9" name="complaintype" value="其他侵权类" class="frm_checkbox" type="radio">
+                    <label for="radio_9" class="frm_checkbox_label checkbox_title">
+                        <div class="checkbox_label_inner">其他侵权类（冒名、诽谤、抄袭）</div>
+                    </label>
+                </li>
+            </ul>
+        </form>
+        <div class="opr_area">
+            <a id="nextBtn" href="javascript:" class="btn btn_primary js_btn_submit" style="color: rgba(255,255,255,0.6);">下一步</a>
+        </div>
+    </div>
+    
+    <div id="step2" class="category_item" style="display: none;">   
+        <h3 class="category_title">举报描述</h3>
+        <form>
+            <div id="textareaDiv" class="textarea_panel">
+                <textarea id="reasonText"></textarea>
+                <i id="reasonTextTips" class="ic ic_warning ic_small"></i>
+                <span id="textareaLenSpan" class="frm_hint"><span id="textLen">0</span>/50</span>
+            </div>
+        </form>
+        <div class="opr_area">
+            <a id="submitBtn" href="javascript:" class="btn btn_primary btn_disabled js_btn_submit">提交</a>
+        </div>
+    </div>
+    <div id="step3" class="page_msg" style="display:none;">
+        <div class="icon_area"><i class="icon_msg success"></i></div>
+        <div class="text_area">
+            <h2 id="" class="title">举报成功</h2>
+            <p id="suc_desc" class="desc">感谢你的参与，微信坚决反对色情、暴力、欺诈等违规信息，我们会认真处理你的举报，维护绿色、健康的网络环境。</p>
+        </div>
+        <div class="opr_area">
+            <a id="successBtn_1" class="btn btn_primary" href="javascript:;">确定</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

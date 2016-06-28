@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[芸众商城]]></name>
+		<identifie><![CDATA[sz_yi]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[biz]]></type>
+		<ability><![CDATA[芸众商城]]></ability>
+		<description><![CDATA[芸众商城]]></description>
+		<author><![CDATA[YunZhong]]></author>
+		<url><![CDATA[http://bbs.we7.cc/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="商城入口" do="shop" />
+			<entry title="订单入口" do="order" />
+			<entry title="购物车入口" do="cart" />
+			<entry title="我的收藏入口" do="favorite" />
+			<entry title="会员中心入口" do="member" />
+		</cover>
+		<menu>
+			<entry title="商城管理" do="shop" state="" direct="false" />
+			<entry title="会员管理" do="member" state="" direct="false" />
+			<entry title="订单管理" do="order" state="" direct="false" />
+			<entry title="数据统计" do="statistics" state="" direct="false" />
+			<entry title="插件中心" do="plugins" state="" direct="false" />
+			<entry title="系统设置" do="sysset" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

@@ -1,0 +1,10 @@
+<ul class="nav nav-tabs">
+	{ifp 'bonus.agent'}<li {if $_GPC['method']=='agent'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('bonus/agent')}">代理商管理</a></li>{/if}
+	{ifp 'bonus.level'}<li {if $_GPC['method']=='level'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('bonus/level')}">代理商等级</a></li>{/if}
+	{ifp 'bonus.send'}<li {if $_GPC['method']=='send'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('bonus/send')}">发放分红</a></li>{/if}
+	{ifp 'bonus.sendall'}<li {if $_GPC['method']=='sendall'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('bonus/sendall')}">全球分红</a></li>{/if}
+	{ifp 'bonus.detail'}<li {if $_GPC['method']=='detail'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('bonus/detail/list')}">分红明细</a></li>{/if}
+    {ifp 'bonus.notice'}<li  {if $_GPC['method']=='notice'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('bonus/notice')}">通知设置</a></li>{/if}
+    {ifp 'bonus.cover'}<li {if $_GPC['method']=='cover'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('bonus/cover')}">分红中心入口设置</a></li>{/if}
+    {ifp 'bonus.set'}<li {if $_GPC['method']=='set'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('bonus/set')}">基础设置</a></li>{/if}
+</ul>

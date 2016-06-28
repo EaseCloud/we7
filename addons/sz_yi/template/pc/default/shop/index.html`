@@ -1,0 +1,526 @@
+﻿{template 'common/header'}
+
+<title>{$set['name']}</title>
+
+<!--navigation-->
+{template 'common/navigation'}
+
+<div class="cover-page-index-slide j-index-slide fl wfs">
+<div class="border">
+<div class="center">
+<div class="relative">
+<!--幻灯片-->
+	<div class="location">
+		<div id="wrap" class="wrap">
+			<div class="slide"  id='banner'>
+				<ul class="slide_ul">
+				{if $advs_pc}
+				{loop $advs_pc $row}
+					<li><a target="_blank" href="{$row['link']}"><img src="{$row['thumb_pc']}" alt="{$row['advname']}"></a></li>
+				{/loop}
+				{/if}
+				</ul>
+			</div>
+		</div>
+	</div>
+<!-- <a href="javascript:void(0);" class="show_pre j-slide-btn">左边</a>
+<a href="javascript:void(0);" class="show_next j-slide-btn">右边</a> -->
+</div>
+</div>
+</div>
+<!-- <div class="icons fl wfs">
+	<ul id="tips">
+		{if $advs}
+		{loop $advs $row}
+		<li><span class= "{$row['advname']}"></span></li>
+		{/loop}
+		{else}
+		<li><span class= "{$row['advname']}"></span></li>
+		<li><span class= "{$row['advname']}"></span></li>
+		{/if}
+	</ul>
+</div> -->
+<!-- 删除原JS -->
+</div>
+
+<div class="cover-page-index fl wfs pt50 bcf2">
+<div class="cover-page-wrapper">
+<div class="cover-page-plug-in j-cover-page-plug-in">
+<div class="fl w484 mr1">
+<a href="{php echo $adss[0][link_1]}" target="_blank"><img src="{php echo $adss[0]['thumb_1']}" width="484" height="260" ></a>
+<p class="btn">
+<a class="click-more" href="{php echo $adss[0][link_1]}" target="_blank">点击了解详情</a>
+<i></i>
+</p>
+</div>
+<div class="fl w241 mr1">
+<a href="{php echo $adss[0][link_2]}" target="_blank"><img src="{php echo $adss[0]['thumb_2']}" width="241" height="260" ></a>
+<p class="btn">
+<a class="click-more" href="{php echo $adss[0][link_2]}" target="_blank">点击了解详情</a>
+<i></i>
+</p>
+</div>
+<div class="fl w241 mr1">
+<a href="{php echo $adss[0][link_3]}" target="_blank"><img src="{php echo $adss[0]['thumb_3']}" width="241" height="260" ></a>
+<p class="btn">
+<a class="click-more" href="{php echo $adss[0][link_3]}" target="_blank">点击了解详情</a>
+<i></i>
+</p>
+</div>
+<div class="fl w241">
+<a href="{php echo $adss[0][link_4]}" target="_blank"><img src="{php echo $adss[0]['thumb_4']}" width="241" height="260" ></a>
+<p class="btn">
+<a class="click-more" href="{php echo $adss[0][link_4]}" target="_blank">点击了解详情</a>
+<i></i>
+</p>
+</div>
+</div>
+<div class="boutique boutique-index mt50 fl wfs">
+	<h3>{$index_name1}</h3>
+<div class="canvas">
+	<ul class="items" style="width: 1222px;">
+{if $goods_one}
+	{loop $goods_one $row}
+
+		<li class="items-li j-items-li">
+			<a target="_blank" href="{php echo $this->createMobileUrl('shop/detail')}&id={$row['id']}" style="position:relative;"><img src="{$row['thumb']}" title=""></a>
+			<div class="wrap_div">
+				<div>
+					<b class="title"><a target="_blank" href="{php echo $this->createMobileUrl('shop/detail')}&id={$row['id']}" title="{$row['title']}">{$row['title']}</a></b>
+
+					<span class="description">
+						<a href="category-44-b0.html" target="_blank">{loop $category $ros}{if $row['pcate'] == $ros['id']}{$ros['name']}{/if}{/loop}</a>&nbsp-&nbsp
+						<a href="category-51-b0.html" title="">{loop $category $ros}{if $ros['id'] == $row['ccate']}{$ros['name']}{/if}{/loop}</a>
+					</span>
+
+					<p class="price-attente">芸众商城系统</p>
+				</div>
+			</div>
+			<p class="price-attente">
+				<span class="price">￥{$row['marketprice']}元</span>
+				<span class="attente" title="库存">库存:{$row['total']}{$row['unit']}</span>
+			</p>
+		</li>
+
+	{/loop}
+{else}
+		<li class="items-li j-items-li">
+			<a target="_blank" href="{php echo $this->createMobileUrl('shop/detail')}" style="position:relative;">
+				<img src="../addons/sz_yi/template/pc/default/static/images/default.jpg" title="" alt="休闲外衣">
+			</a>
+			<div class="wrap_div">
+				<div>
+					<b class="title"><a target="_blank" href="" title="休闲外衣+团购">默认商品效果</a></b>
+					<span class="description">
+						<a href="{php echo $this->createMobileUrl('shop/detail')}" target="_blank">默认效果</a>-
+						<a href="{php echo $this->createMobileUrl('shop/detail')}" title="">效果展示</a>
+					</span>
+					<p class="price-attente">芸众商城</p>
+				</div>
+			</div>
+			<p class="price-attente">
+				<span class="price">￥188.00元</span>
+				<span class="attente" title="浏览量">153</span>
+			</p>
+		</li>
+		<li class="items-li j-items-li">
+			<a target="_blank" href="{php echo $this->createMobileUrl('shop/detail')}" style="position:relative;">
+				<img src="../addons/sz_yi/template/pc/default/static/images/default.jpg" title="" alt="休闲外衣">
+			</a>
+			<div class="wrap_div">
+				<div>
+					<b class="title"><a target="_blank" href="" title="休闲外衣+团购">默认商品效果</a></b>
+					<span class="description">
+						<a href="{php echo $this->createMobileUrl('shop/detail')}" target="_blank">默认效果</a>-
+						<a href="{php echo $this->createMobileUrl('shop/detail')}" title="">效果展示</a>
+					</span>
+					<p class="price-attente">芸众商城</p>
+				</div>
+			</div>
+			<p class="price-attente">
+				<span class="price">￥188.00元</span>
+				<span class="attente" title="浏览量">153</span>
+			</p>
+		</li>
+		<li class="items-li j-items-li">
+			<a target="_blank" href="{php echo $this->createMobileUrl('shop/detail')}" style="position:relative;">
+				<img src="../addons/sz_yi/template/pc/default/static/images/default.jpg" title="" alt="休闲外衣">
+			</a>
+			<div class="wrap_div">
+				<div>
+					<b class="title"><a target="_blank" href="" title="休闲外衣+团购">默认商品效果</a></b>
+					<span class="description">
+						<a href="{php echo $this->createMobileUrl('shop/detail')}" target="_blank">默认效果</a>-
+						<a href="{php echo $this->createMobileUrl('shop/detail')}" title="">效果展示</a>
+					</span>
+					<p class="price-attente">芸众商城</p>
+				</div>
+			</div>
+			<p class="price-attente">
+				<span class="price">￥188.00元</span>
+				<span class="attente" title="浏览量">153</span>
+			</p>
+		</li>
+		<li class="items-li j-items-li">
+			<a target="_blank" href="{php echo $this->createMobileUrl('shop/detail')}" style="position:relative;">
+				<img src="../addons/sz_yi/template/pc/default/static/images/default.jpg" title="" alt="休闲外衣">
+			</a>
+			<div class="wrap_div">
+				<div>
+					<b class="title"><a target="_blank" href="" title="休闲外衣+团购">默认商品效果</a></b>
+					<span class="description">
+						<a href="{php echo $this->createMobileUrl('shop/detail')}" target="_blank">默认效果</a>-
+						<a href="{php echo $this->createMobileUrl('shop/detail')}" title="">效果展示</a>
+					</span>
+					<p class="price-attente">芸众商城</p>
+				</div>
+			</div>
+			<p class="price-attente">
+				<span class="price">￥188.00元</span>
+				<span class="attente" title="浏览量">153</span>
+			</p>
+		</li>
+{/if}
+	</ul>
+
+</div>
+</div>
+<div class="boutique boutique-index mt50 fl wfs">
+<h3>{$index_name2}</h3>
+<div class="canvas">
+	<ul class="items" style="width: 1222px;">
+{if $goods_two}
+	{loop $goods_two $row}
+
+		<li class="items-li j-items-li">
+			<a target="_blank" href="{php echo $this->createMobileUrl('shop/detail')}&id={$row['id']}" style="position:relative;"><img src="{$row['thumb']}" title=""></a>
+			<div class="wrap_div">
+				<div>
+					<b class="title"><a target="_blank" href="{php echo $this->createMobileUrl('shop/detail')}&id={$row['id']}" title="">{$row['title']}</a></b>
+					<span class="description">
+						<a href="category-44-b0.html" target="_blank">{loop $category $ros}{if $row['pcate'] == $ros['id']}{$ros['name']}{/if}{/loop}</a>&nbsp-&nbsp
+						<a href="category-51-b0.html" title="">{loop $category $ros}{if $row['ccate'] == $ros['id']}{$ros['name']}{/if}{/loop}</a>
+					</span>
+					<p class="price-attente">芸众商城系统</p>
+				</div>
+			</div>
+			<p class="price-attente">
+				<span class="price">￥{$row['marketprice']}元</span>
+				<span class="attente" title="库存">库存:{$row['total']}{$row['unit']}</span>
+			</p>
+		</li>
+
+	{/loop}
+{else}
+		<li class="items-li j-items-li">
+			<a target="_blank" href="#" style="position:relative;">
+				<img src="../addons/sz_yi/template/pc/default/static/images/default.jpg" title="" alt="休闲外衣">
+			</a>
+			<div class="wrap_div">
+				<div>
+					<b class="title"><a target="_blank" href="" title="休闲外衣+团购">默认商品效果</a></b>
+					<span class="description">
+						<a href="category-9-b0.html" target="_blank">默认效果</a>-
+						<a href="category-4-b0.html" title="">效果展示</a>
+					</span>
+					<p class="price-attente">芸众商城</p>
+				</div>
+			</div>
+			<p class="price-attente">
+				<span class="price">￥188.00元</span>
+				<span class="attente" title="浏览量">153</span>
+			</p>
+		</li>
+		<li class="items-li j-items-li">
+			<a target="_blank" href="#" style="position:relative;">
+				<img src="../addons/sz_yi/template/pc/default/static/images/default.jpg" title="" alt="休闲外衣">
+			</a>
+			<div class="wrap_div">
+				<div>
+					<b class="title"><a target="_blank" href="" title="休闲外衣+团购">默认商品效果</a></b>
+					<span class="description">
+						<a href="category-9-b0.html" target="_blank">默认效果</a>-
+						<a href="category-4-b0.html" title="">效果展示</a>
+					</span>
+					<p class="price-attente">芸众商城</p>
+				</div>
+			</div>
+			<p class="price-attente">
+				<span class="price">￥188.00元</span>
+				<span class="attente" title="浏览量">153</span>
+			</p>
+		</li>
+		<li class="items-li j-items-li">
+			<a target="_blank" href="#" style="position:relative;">
+				<img src="../addons/sz_yi/template/pc/default/static/images/default.jpg" title="" alt="休闲外衣">
+			</a>
+			<div class="wrap_div">
+				<div>
+					<b class="title"><a target="_blank" href="" title="休闲外衣+团购">默认商品效果</a></b>
+					<span class="description">
+						<a href="category-9-b0.html" target="_blank">默认效果</a>-
+						<a href="category-4-b0.html" title="">效果展示</a>
+					</span>
+					<p class="price-attente">芸众商城</p>
+				</div>
+			</div>
+			<p class="price-attente">
+				<span class="price">￥188.00元</span>
+				<span class="attente" title="浏览量">153</span>
+			</p>
+		</li>
+		<li class="items-li j-items-li">
+			<a target="_blank" href="#" style="position:relative;">
+				<img src="../addons/sz_yi/template/pc/default/static/images/default.jpg" title="" alt="休闲外衣">
+			</a>
+			<div class="wrap_div">
+				<div>
+					<b class="title"><a target="_blank" href="" title="休闲外衣+团购">默认商品效果</a></b>
+					<span class="description">
+						<a href="category-9-b0.html" target="_blank">默认效果</a>-
+						<a href="category-4-b0.html" title="">效果展示</a>
+					</span>
+					<p class="price-attente">芸众商城</p>
+				</div>
+			</div>
+			<p class="price-attente">
+				<span class="price">￥188.00元</span>
+				<span class="attente" title="浏览量">153</span>
+			</p>
+		</li>
+{/if}
+	</ul>
+
+</div>
+</div>
+<!-- 新品上线 End -->
+<!-- <div class="classical-case fl wfs mt50">
+	<div class="header fl wfs">
+		<h3 class="fl">经典案例</h3>
+		<a class="more fr" target="_blank" href="#"><span>more</span></a>
+	</div>
+	<div class="body">
+		<ul class="list-case j-list-case">
+			<li class="items">
+				<img src="http://www.ecmoban.com/content/themes/ecmoban2014/images/cover-page-case-1.png" alt="">
+				<a class="txt" href="#" target="_blank">
+					<span>站酷网 | 中国最具人气的设计师互动平台<br>国内最活跃的原创设计交流平台</span>
+				</a>
+			</li>
+			<li class="items">
+				<img src="http://www.ecmoban.com/content/themes/ecmoban2014/images/cover-page-case-2.png" alt="">
+				<a class="txt" href="#" target="_blank">
+					<span>植美村 | 中国最受消费者欢迎的二十大品牌<br>中国著名品牌之一</span>
+				</a>
+			</li>
+			<li class="items">
+				<img src="http://www.ecmoban.com/content/themes/ecmoban2014/images/cover-page-case-3.png" alt="">
+				<a class="txt" href="#" target="_blank">
+					<span>上海添香 | 拥有国内顶尖整合营销团队<br>防辐射服装行业的第一品牌</span>
+				</a>
+			</li>
+			<li class="items">
+				<img src="http://www.ecmoban.com/content/themes/ecmoban2014/images/cover-page-case-4.png" alt="">
+				<a class="txt" href="#" target="_blank">
+					<span>零食够 | 各类进口食品、健康零食<br>全球采购，吃出健康国际范</span>
+				</a>
+			</li>
+			<li class="items">
+				<img src="http://www.ecmoban.com/content/themes/ecmoban2014/images/cover-page-case-5.png" alt="">
+				<a class="txt" href="#" target="_blank">
+					<span>澳优乳业 | 中国高端奶粉市场五强中唯一的奶源<br>来自澳洲的中国品牌</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div> -->
+<div class="cover-page-wrapper">
+<div class="cover-page-plug-in j-cover-page-plug-in">
+<div class="fl w484 mr1">
+<a href="{php echo $adss[1][link_1]}" target="_blank"><img src="{php echo $adss[1]['thumb_1']}" width="484" height="260" ></a>
+<p class="btn">
+<a class="click-more" href="{php echo $adss[1][link_1]}" target="_blank">点击了解详情</a>
+<i></i>
+</p>
+</div>
+<div class="fl w241 mr1">
+<a href="{php echo $adss[1][link_2]}" target="_blank"><img src="{php echo $adss[1]['thumb_2']}" width="241" height="260" ></a>
+<p class="btn">
+<a class="click-more" href="{php echo $adss[1][link_2]}" target="_blank">点击了解详情</a>
+<i></i>
+</p>
+</div>
+<div class="fl w241 mr1">
+<a href="{php echo $adss[1][link_3]}" target="_blank"><img src="{php echo $adss[1]['thumb_3']}" width="241" height="260" ></a>
+<p class="btn">
+<a class="click-more" href="{php echo $adss[1][link_3]}" target="_blank">点击了解详情</a>
+<i></i>
+</p>
+</div>
+<div class="fl w241">
+<a href="{php echo $adss[1][link_4]}" target="_blank"><img src="{php echo $adss[1]['thumb_4']}" width="241" height="260" ></a>
+<p class="btn">
+<a class="click-more" href="{php echo $adss[1][link_4]}" target="_blank">点击了解详情</a>
+<i></i>
+</p>
+</div>
+</div>
+</div>
+<!-- <div class="church fl wfs mt50">
+	<dl class="reputation fl">
+		<dt class="title"><span class="h3"><a class="title-a" href="#" target="_blank">口碑堂</a></span><i></i></dt>
+		<dd class="fl wfs">
+			<a class="template-community fl" target="_blank" href="#">电商资讯</a>
+			<p class="items fl">
+				<a class="fl wfs" target="_blank" href="#">百度口碑</a>
+				<a class="fl wfs" target="_blank" href="#">百度百科</a>
+				<a class="fl wfs" target="_blank" href="#">问卷调查</a>
+				<a class="fl wfs" target="_blank" href="#">我要提问</a>
+			</p>
+		</dd>
+	</dl>
+	<dl class="knowledge fl">
+		<dt class="title">
+			<span class="h3"><a class="title-a" target='_blank' href="#">知识堂</a></span><i></i>
+			<a class="more fr" target="_blank" href="#"><span>more</span></a>
+		</dt>
+		<dd class="fl wfs">
+			<b><a target="_blank" href="#" title="芸众商城">芸众商城合集版下 最新...</a></b>
+			<b><a target="_blank" href="#" title="【芸众商城】解决1.3版本首页轮播图下广告问题">【芸众商城】解决1.3版本首页轮播图下广告问题</a></b>
+			<b><a target="_blank" href="#" title="【芸众商城】广告位模型结构设置">【芸众商城】广告位模型结构设置</a></b>
+			<b><a target="_blank" href="#" title="【芸众商城】大商创1.3升级说明">【芸众商城】大商创1.3升级说明</a></b>
+			<b><a target="_blank" href="#" title="【芸众商城】大商创windows server 2008配置环境教程">【芸众商城】芸众商城windows server ...</a></b>
+		</dd>
+	</dl>
+	<dl class="letters fl">
+		<dt class="title">
+			<span class="h3"><a class="title-a" target='_blank' href="#">快报堂</a></span><i></i>
+			<a class="more fr" target="_blank" href="#"><span>more</span></a>
+		</dt>
+		<dd class="fl wfs">
+		<b><a target="_blank" href="#" title="芸众商城多用户商城系统版本升级 1.3版正式发布">芸众商城多用户商城系统版本升级 1.3版正式发布</a></b>
+		<b><a target="_blank" href="#" title="堂主的一封信：芸众商城被同行抄袭 证明我们已获得初步成功！">堂主的一封信：芸众商城被同行抄袭 证明我们已获得初步成功！</a></b>
+		</dd>
+	</dl>
+</div>
+<div class="demos fl wfs">
+	<dl class="fl" style="margin-left:-1px;">
+		<dt><a href='#' target="_blank" title="新手上路">新手上路</a></dt>
+		<dd>
+			<a href="#" target="_blank" title="测试后台">测试后台</a>
+			<a href="#" target="_blank" title="芸众程序下载">芸众程序下载</a>
+			<a href="#" target="_blank" title="芸众补丁下载">芸众补丁下载</a>
+		</dd>
+	</dl>
+	<dl class="fl">
+		<dt><a href='#' target="_blank" title="会员中心">会员中心</a></dt>
+		<dd>
+			<a href="#" target="_blank" title="在线充值">在线充值</a>
+			<a href="#" target="_blank" title="我的订单">我的订单</a>
+			<a href="#" target="_blank" title="我的关注">我的关注</a>
+			<a href="#" target="_blank" title="我的红包">我的红包</a>
+		</dd>
+	</dl>
+	<dl class="fl">
+		<dt><a href='#' target="_blank" title="帮助中心">帮助中心</a></dt>
+		<dd>
+			<a href="#" title="在线手册">在线手册</a>
+			<a href="#" target="_blank" title="安装使用">安装使用</a>
+			<a href="#" target="_blank" title="模板说明">模板说明</a>
+			<a href="#" target="_blank" title="视频教程">视频教程</a>
+		</dd>
+	</dl>
+	<dl class="fl">
+		<dt><a href='' title="客户端">客户端</a></dt>
+		<dd>
+			<a class="iphone" href="#" target="_blank" title="iPhone版"><img src="http://www.ecmoban.com/content/themes/ecmoban2014/images/icon_iphone.png" class="icon" />&nbsp;&nbsp;iPhone版</a>
+			<a class="android" href="#" target="_blank" title="Android版"><img src="http://www.ecmoban.com/content/themes/ecmoban2014/images/icon_android.png" class="icon" />&nbsp;&nbsp;Android版</a>
+			<a href="#" class="ipad" target="_blank" title="iPad版" style="cursor:pointer;"><img src="http://www.ecmoban.com/content/themes/ecmoban2014/images/icon_ipad.png" class="icon" />&nbsp;&nbsp;iPad版</a>
+		</dd>
+	</dl>
+	<div class="service fr">
+		<b>服务热线</b>
+		<strong>0451-86630395</strong>
+		<a class="service_kefu" href="tencent://message/?uin=1910622112&Site=sc.chinaz.com&Menu=yes" target="_blank">在线客服</a>
+	</div>
+</div>
+</div>
+</div>
+ -->
+
+
+
+<!-- 删除原模板口碑堂~~~至~~~~在线客服  后续想添加可到模板取值-->
+
+
+
+<!-- 删除原JS -->
+</div>
+<!-- <script src="http://www.ecmoban.com/content/themes/ecmoban2014/js/suspension.js"></script> -->
+<!--[if IE 6]>
+<script src="http://www.ecmoban.com/content/themes/ecmoban2014/js/ie6-tips.js"></script>
+<![endif]-->
+<script src="http://www.ecmoban.com/content/themes/ecmoban2014/js/jquery.easing.1.3.js"></script>
+<script src="http://www.ecmoban.com/content/themes/ecmoban2014/js/Animation.js"></script>
+<script>
+        //插件点击隐藏或者展示按钮
+        $(".j-cover-page-plug-in div").bind("mouseenter mouseleave",function(e){
+            if(e.type == "mouseenter"){
+                $(this).find(".btn").show();
+            }else{
+                $(this).find(".btn").hide();
+            }
+
+        });
+    // 商品动画
+      var move=function(wrap,cname){
+
+            $("."+wrap).each(function(){
+                var obj=$(this).find("."+cname);
+                var p=obj.find("p");
+                $(this).hover(function(){
+                    p.stop().animate({height:20},200);
+                    $(this).addClass("active");
+                },function(){
+                    p.stop().animate({height:0},200);
+                    $(this).removeClass("active");
+                });
+            });
+        }
+        move("j-items-li","wrap_div");
+        // 插件动画
+        var run = function() {
+            var obj = $(".j-cover-page-plug-in");
+            obj.addClass("clearfix");
+            obj.find(".fl").css("height", 260);
+            obj.find("img").css({
+                position: "absolute",
+                left: 0,
+                top: 0
+            });
+            obj.find("img").hover(function() {
+                // $(this).stop().animate({
+                //     left: '-10px'
+                // },200);
+            }, function() {
+                $(this).stop().animate({
+                    left: 0
+                },200);
+            });
+        }
+        run();
+
+
+        require(['jquery','jquery.touchslider','swipe'], function ($) {
+            new Swipe($('#banner')[0], {
+				speed:300,
+				auto:4000,
+				callback: function(){
+					$(".flicking_con  .inner  a").removeClass("on").eq(this.index).addClass("on");
+				}
+	  		});
+        })
+    </script>
+
+<!-- foot -->
+{template 'common/bottom'}

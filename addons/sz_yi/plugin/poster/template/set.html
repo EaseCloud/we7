@@ -1,0 +1,67 @@
+{template 'web/_header'}
+{template 'tabs'}
+<form id="setform"  action="" method="post" class="form-horizontal form">
+    <div class='panel panel-default'>
+           <div class='panel-heading'>
+            海报设置
+        </div>
+        <div class='panel-body'>
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    <select  class="form-control" name="setdata[level]">
+                        <option value="0" {if empty($set['level'])}selected{/if}>不开启分销机制</option>
+                        <option value="1" {if $set['level']==1}selected{/if}>一级分销</option>
+                        <option value="2" {if $set['level']==2}selected{/if} >二级分销</option>
+                        <option value="3" {if $set['level']==3}selected{/if} >三级分销</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    <div class="input-group">
+                        <div class="input-group-addon">一级分销</div>
+                        <input type="text" name="setdata[commission1]" class="form-control" value="{$set['commission1']}"  />
+                        <div class="input-group-addon">%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    <div class="input-group">
+                        <div class="input-group-addon">二级分销</div>
+                        <input type="text" name="setdata[commission2]" class="form-control" value="{$set['commission2']}"  />
+                        <div class="input-group-addon">%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9 col-xs-12">
+                    <div class="input-group">
+                        <div class="input-group-addon">三级分销</div>
+                        <input type="text" name="setdata[commission3]" class="form-control" value="{$set['commission3']}"  />
+                        <div class="input-group-addon">%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script language='javascript'>
+    function formcheck(){
+        var become_child =$(":radio[name='setdata[become_child]']:checked").val();
+        if( become_child=='1'  || become_child=='2' ){
+            if( $(":radio[name='setdata[become]']:checked").val() =='0'){
+              alert('成为下线条件选择了首次下单/首次付款，成为分销商条件不能选择无条件!')   ;
+              return false;
+            }
+        }
+        return true;
+    }
+    </script>
+{template 'web/_footer'}

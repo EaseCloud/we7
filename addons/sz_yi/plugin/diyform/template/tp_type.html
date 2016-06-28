@@ -1,0 +1,96 @@
+<div id="tp_item{php echo $kw}" class="panel panel-default spec_item">
+    <div class="panel-body">
+        <input type="hidden" value="{php echo $data_type}" class="form-control" name="tp_type[{php echo $kw}]">
+
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>{php echo $data_type_config[$data_type]}名称</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" placeholder="" value="{if $flag=1 && $data_type==6}身份证{else}{php echo $v1['tp_name']}{/if}" class="form-control spec_title tp_name" name="tp_name[{php echo $kw}]" maxlength="5" style="width:100px;display:inline;">&nbsp;&nbsp;
+                <input type="checkbox" name="tp_must[{php echo $kw}]" value="1" {if $v1['tp_must']==1}checked{/if}> 必填&nbsp;&nbsp;&nbsp;
+
+                {if $data_type==0}
+                设置默认值&nbsp;
+                <select id="tp_is_default{php echo $kw}" name="tp_is_default[{php echo $kw}]" onchange="tp_change_default('{php echo $kw}')" class="form-control tp_is_default" style="width:90px;display:inline;">
+                    {loop $default_data_config $key $value}
+                    <option value="{$key}" {if $v1['tp_is_default']==$key}selected{/if}>{$value}</option>
+                    {/loop}
+                </select>
+
+                <input type="text" id="tp_default{php echo $kw}" placeholder="请输入自定义默认值" value="{php echo $v1['tp_default']}"
+                       class="form-control spec_title tp_default" name="tp_default[{php echo $kw}]"
+                       style="width:200px;display:{if $v1['tp_is_default']==1}inline{else}none{/if};">
+
+                {else if $data_type==5}
+
+                最大数量
+	      <select name="tp_max[{php echo $kw}]" class="form-control" style="width:167px;display:inline;">
+	 
+                         <option value="1" {if $v1['tp_max']==1 || !$v1['tp_max']}selected{/if}>1</option>
+						 <option value="2" {if $v1['tp_max']==1}selected{/if}>2</option>
+						 <option value="3" {if $v1['tp_max']==1}selected{/if}>3</option>
+						 <option value="4" {if $v1['tp_max']==1}selected{/if}>4</option>
+						 <option value="5" {if $v1['tp_max']==1}selected{/if}>5</option>
+                
+                </select>
+             
+                {else if $data_type==7}
+
+                设置默认日期
+                <select id="default_time_type{php echo $kw}" name="default_time_type[{php echo $kw}]" onchange="tp_change_default_time(this,'default_time{php echo $kw}')" class="form-control" style="width:167px;display:inline;">
+                    {loop $default_date_config $key $value}
+                    <option value="{$key}" {if $v1['default_time_type']==$key}selected{/if}>{$value}</option>
+                    {/loop}
+                </select>
+                <input type="text" id="default_time{php echo $kw}" name="default_time[{php echo $kw}]" placeholder="" value="{if !empty($v1['default_time'])}{php echo $v1['default_time']}{/if}" class="datetimepicker form-control spec_title" style="width:120px;display: {if $v1['default_time_type']==2}inline{else}none{/if};">
+
+                {/if}
+
+                <a onclick="removeType(this)" class="btn btn-danger" href="javascript:void(0);" style="margin-left: 40px;"><i class="fa fa-plus"></i> 删除字段</a>
+
+            </div>
+        </div>
+
+        {if ($data_type==2) || ($data_type==3)}
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">选项</label>
+
+            <div class="col-sm-9 col-xs-12">
+                <textarea class="form-control" name="tp_text[{php echo $kw}]" placeholder="一行一个选项" style="width: 400px;height: 120px;">{if !empty($v1['tp_text'])}{loop $v1['tp_text'] $k2 $v2}{php echo $v2."\n";}{/loop}{/if}</textarea>
+            </div>
+        </div>
+        {else if $data_type==8}
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-xs-12">
+                &nbsp;设置默认起始日期&nbsp;
+                <select id="default_btime_type{php echo $kw}" name="default_btime_type[{php echo $kw}]" onchange="tp_change_default_time(this,'default_btime{php echo $kw}')" class="form-control" style="width:167px;display:inline;">
+                    {loop $default_date_config $key $value}
+                    <option value="{$key}" {if $v1['default_btime_type']==$key}selected{/if}>{$value}</option>
+                    {/loop}
+                </select>
+                <input type="text" id="default_btime{php echo $kw}" name="default_btime[{php echo $kw}]" placeholder="" value="{if !empty($v1['default_etime'])}{php echo $v1['default_btime']}{/if}" class="datetimepicker form-control spec_title" style="width:120px;display:{if $v1['default_btime_type']==2}inline{else}none{/if};margin-right: 25px;">
+
+
+                &nbsp;&nbsp;&nbsp;设置默认结束日期&nbsp;
+                <select id="default_etime_type{php echo $kw}" name="default_etime_type[{php echo $kw}]" onchange="tp_change_default_time(this,'default_etime{php echo $kw}')" class="form-control" style="width:167px;display:inline;">
+                    {loop $default_date_config $key $value}
+                    <option value="{$key}" {if $v1['default_etime_type']==$key}selected{/if}>{$value}</option>
+                    {/loop}
+                </select>
+                <input type="text" id="default_etime{php echo $kw}" name="default_etime[{php echo $kw}]" placeholder="" value="{if !empty($v1['default_etime'])}{php echo $v1['default_etime']}{/if}" class="datetimepicker form-control spec_title" style="width:120px;display:{if $v1['default_etime_type']==2}inline{else}none{/if};">
+
+            </div>
+        </div>
+
+        {/if}
+
+    </div>
+</div>
+
+
+
+
+    

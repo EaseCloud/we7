@@ -1,0 +1,6 @@
+<ul class="nav nav-tabs">
+    {ifp 'sale.deduct'}<li {if $_GPC['method']=='deduct'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('sale/deduct')}">抵扣设置</a></li>{/if}
+    {ifp 'sale.enough'}<li {if $_GPC['method']=='enough'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('sale/enough')}">满额优惠设置</a></li>{/if}
+   {ifp 'sale.recharge'}<li {if $_GPC['method']=='recharge'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('sale/recharge')}">充值优惠设置</a></li>{/if}
+</ul>
+  

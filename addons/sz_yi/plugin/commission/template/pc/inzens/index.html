@@ -1,0 +1,96 @@
+{template 'common/header'}
+<title>{php echo $this->set['texts']['center']}</title>
+<style type="text/css">
+body {background:#efefef;}
+
+.cate{width:40px; height:40px; line-height:38px;margin-bottom:10px;border-radius:50%; font-size:26px; color:#fff;}
+.icon-calendar{background-color:#9e85de;}
+.icon-gongzi{background-color:#fc6f65;}
+.icon-shezhi{background-color:#03a9f4;}
+.icon-group{background-color:#5cd1e3;}
+.icon-shequ{background-color:#fa8857;}
+.icon-licai{background-color:#ff5770;}
+.icon-goods{background-color:#35c87a;}
+.icon-shop{background-color:#608de6;}
+.icon-qrcode{background-color:#4fb3f3;}
+.icon-notification{background-color:#fd7c59;}
+
+.fxbar{ 
+	width:100%; height:124px; text-align:center; padding:20px 0; color:#fff; overflow:hidden;
+	background-image: -moz-linear-gradient(top, #ff7e27, #ff6700); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff7e27), color-stop(1, #ff6700)); /* Saf4+, Chrome */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff7e27', endColorstr='#ff6700', GradientType='0');
+}
+.fxbar .fx_face{ width:56px; height:56px; overflow:hidden; border:3px solid #ffa05f; border-radius:50%; margin:0 auto; margin-bottom:2px; background-color:#fff;}
+.fxbar .fx_face img { width:100%;height:100%;}
+.fxbar .fx_name{ font-size:14px; height:24px; line-height:24px; margin-bottom:2px;}
+.fxbar .fx_level{ width:30%; margin:0 auto; padding:3px 8px; background-color:#b84a00; border-radius:50px; font-size:12px; margin-bottom:3px;}
+.fxbar .fx_date{ font-size:12px; color:#ffaf8e; height:20px; line-height:20px;}
+
+.counts { width:90%; background-color:#fff; padding:0 5%;}
+.counts .count{ width:33.33333%; height:43px; font-size:14px; text-align:center; padding:16px 0; line-height:24px;}
+.counts .count a{ width:100%; height:100%; display:block; color:#999;}
+.counts .count span{ color:#333; font-size:20px;}
+
+.fx_menu{ width:100%; margin-top:10px; background-color:#fff;}
+.fx_menu a.menu{ width:33%; border-bottom:1px solid #eee; border-left:1px solid #eee; float:left; background-color:#fff; display:block; padding:20px 0; text-align: center; color:#666; font-size:14px;}
+</style>
+<div id='container'></div>
+<script id='tpl_main' type='text/html'>
+    <div class="fxbar">
+		<div class="fx_face"><img src="<%member.avatar%>" /></div>
+		<div class="fx_name" <%if set.levelurl!=''%>onclick='location.href="<%set.levelurl%>"'<%/if%>><%member.nickname%></div>
+		<div class="fx_level">
+		<%if level%><%level.levelname%><%else%>
+			<%if set.levelname!=''%><%set.levelname%><%else%>普通等级<%/if%>
+		<%/if%>
+		</div>
+		<div class="fx_date">加入时间：<%member.agenttime%></div>
+	</div>
+	
+	<div class="counts clear_in">
+		<div class="count fl"><a href="{php echo $this->createPluginMobileUrl('commission/withdraw')}"><span style="color:#ff6700;"><%member.commission_total%></span><br />{php echo $this->set['texts']['commission_total']}</a></div>
+		<div class="count fl"><a href="{php echo $this->createPluginMobileUrl('commission/order')}"><span><%member.ordercount0%></span><br />{php echo $this->set['texts']['order']}</a></div>
+		<div class="count fr"><a href="{php echo $this->createPluginMobileUrl('commission/team')}"><span><%member.agentcount%></span><br />{php echo $this->set['texts']['myteam']}</a></div>
+	</div>
+	
+	<div class="fx_menu clear_in">
+		<a href="{php echo $this->createPluginMobileUrl('commission/order')}" class="menu"><i class="iconfont icon-calendar cate"></i><br />{php echo $this->set['texts']['order']}</a>
+		<a href="{php echo $this->createPluginMobileUrl('commission/withdraw')}" class="menu"><i class="iconfont icon-gongzi cate"></i><br />{php echo $this->set['texts']['commission1']}</a>
+		<a href="{php echo $this->createPluginMobileUrl('commission/myshop/set')}" class="menu"><i class="iconfont icon-shezhi cate"></i><br />店铺设置</a>
+		<a href="{php echo $this->createPluginMobileUrl('commission/customer')}" class="menu"><i class="iconfont icon-group cate"></i><br />{php echo $this->set['texts']['mycustomer']}</a>
+		<a href="{php echo $this->createPluginMobileUrl('commission/team')}" class="menu"><i class="iconfont icon-shequ cate"></i><br />{php echo $this->set['texts']['myteam']}</a>
+		<%if set.openselect%>
+		<a href="{php echo $this->createPluginMobileUrl('commission/myshop/select')}" class="menu"><i class="iconfont icon-goods cate"></i><br />商品管理</a>
+		<%/if%>
+		<a href="{php echo $this->createPluginMobileUrl('commission/log')}" class="menu"><i class="iconfont icon-licai cate"></i><br />{php echo $this->set['texts']['commission']}明细</a>
+		<a href="{php echo $this->createPluginMobileUrl('commission/shares')}" class="menu"><i class="iconfont icon-qrcode cate"></i><br />二维码</a>
+		<!--<a href="{php echo $this->createPluginMobileUrl('commission/myshop')}" class="menu"><i class="do do-my"></i><br />我的店铺</a>-->
+		<a href="{php echo $this->createMobileUrl('shop/notice')}" class="menu"><i class="iconfont icon-notification cate"></i><br />系统通知</a>
+	</div>
+</script>
+ 
+<script language="javascript">
+    require(['tpl', 'core'], function(tpl, core) {
+        
+        
+        core.pjson('commission',{},function(json){
+            var result = json.result;   
+            $('#container').html(  tpl('tpl_main',result) );
+            $('#withdraw').click(function(){
+                if(!json.result.cansettle){
+                     if(json.result.settlemoney>0){
+                     core.tip.show('需到'+json.result.settlemoney+'元才能申请{php echo $this->set['texts']['withdraw']}!');    
+                     }else{
+                        core.tip.show('无可提{php echo $this->set['texts']['commission']}!');        
+                     }
+                }
+            });
+        },true);
+        
+        
+        
+    })
+</script>
+{php $show_footer=true;$footer_current ='commission'}
+{template 'common/footer'}

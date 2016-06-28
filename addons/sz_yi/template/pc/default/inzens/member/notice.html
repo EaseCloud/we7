@@ -1,0 +1,87 @@
+{template 'common/header'}
+<title>消息提醒设置</title>
+<style type="text/css">
+body {margin:0px; background:#f0f0f0;}
+.title {height:40px; padding:0px 10px; line-height:40px; font-size:14px; color:#666;}
+.main {height:auto; padding:0px 10px; background:#fff; border-bottom:1px solid #e7e7e7; border-top:1px solid #e7e7e7;}
+.main .line {height:40px; border-bottom:1px solid #efefef;}
+.main .line .text {height:40px; float:left; line-height:40px; font-size:14px;}
+.main .line .nav {height:22px; width:40px; background:#ccc; margin:9px 0px; float:right; border-radius:40px;}
+.main .line .on {background:#4ad966;}
+.main .line .nav nav {height:20px; width:20px; background:#fff; margin:1px; border-radius:20px;}
+.main .line .nav .on {margin-left:19px;}
+</style>
+<div id='container'></div>
+
+<script id='tpl_main' type='text/html'>
+ <div class="page_topbar">
+    <a href="javascript:;" class="back" onclick="history.back()"><i class="fa fa-angle-left"></i></a>
+    <div class="title">消息提醒设置</div>
+</div>
+    
+    <div class="title">商城信息 提醒</div> 
+    <div class="main">
+        <div class="line"><div class="text">订单提交通知</div><div class="nav"   notice="submit" on="<%notice.submit%>"><nav></nav></div></div>
+        <div class="line"><div class="text">自提订单通知</div><div class="nav"   notice="carrier"  on="<%notice.carrier%>"><nav></nav></div></div>
+        <div class="line"><div class="text">订单取消通知</div><div class="nav"   notice="cancel"  on="<%notice.cancel%>"><nav></nav></div></div>
+        <div class="line"><div class="text">购买成功通知</div><div  class="nav"  notice="pay"  on="<%notice.pay%>"><nav></nav></div></div>
+        <div class="line"><div class="text">订单发货通知</div><div  class="nav"  notice="send"  on="<%notice.send%>"><nav></nav></div></div>
+        <div class="line"><div class="text">订单收货通知</div><div  class="nav"  notice="finish"  on="<%notice.finish%>"><nav></nav></div></div>
+        <div class="line"><div class="text">退款申请通知</div><div  class="nav"  notice="refund"  on="<%notice.refund%>"><nav></nav></div></div>
+        <div class="line"><div class="text">退款结果通知</div><div  class="nav"  notice="refund1"  on="<%notice.refund1%>"><nav></nav></div></div>
+        <div class="line"><div class="text">会员升级通知</div><div  class="nav"  notice="upgrade" on="<%notice.upgrade%>"><nav></nav></div></div>
+        <div class="line"><div class="text">充值成功通知</div><div  class="nav"  notice="recharge_ok" on="<%notice.recharge_ok%>"><nav></nav></div></div>
+        <div class="line"><div class="text">充值退款通知</div><div  class="nav"  notice="recharge_refund" on="<%notice.recharge_refund%>"><nav></nav></div></div>
+        <div class="line"><div class="text">提现申请通知</div><div  class="nav"  notice="withdraw" on="<%notice.withdraw%>"><nav></nav></div></div>
+        <div class="line"><div class="text">提现成功通知</div><div  class="nav"  notice="withdraw_ok" on="<%notice.withdraw_ok%>"><nav></nav></div></div>
+        <div class="line"><div class="text">提现失败通知</div><div  class="nav"  notice="withdraw_fail" on="<%notice.withdraw_fail%>"><nav></nav></div></div>
+    </div> 
+       
+    <%if hascommission%>
+        <div class="title">分销信息提醒</div>
+        <div class="main">
+             <div class="line"><div class="text">成为分销商通知</div><div  class="nav"  notice="commission_become"  on="<%notice.commission_become%>"><nav></nav></div></div>
+             <div class="line"><div class="text">等级提升通知</div><div  class="nav"  notice="commission_upgrade"  on="<%notice.commission_upgrade%>"><nav></nav></div></div>
+             <div class="line"><div class="text">新增下线通知</div><div  class="nav"  notice="commission_agent_new"  on="<%notice.commission_agent_new%>"><nav></nav></div></div>
+             <div class="line"><div class="text">下线付款通知</div><div  class="nav"  notice="commission_order_pay"  on="<%notice.commission_order_pay%>"><nav></nav></div></div>
+             <div class="line"><div class="text">下线收货通知</div><div  class="nav"  notice="commission_order_finish"  on="<%notice.commission_order_finish%>"><nav></nav></div></div>
+             <div class="line"><div class="text">提现申请通知</div><div  class="nav"  notice="commission_apply"  on="<%notice.commission_apply%>"><nav></nav></div></div>
+             <div class="line"><div class="text">提现处理通知</div><div  class="nav"  notice="commission_check"  on="<%notice.commission_check%>"><nav></nav></div></div>
+             <div class="line"><div class="text">商家打款通知</div><div  class="nav"  notice="commission_pay"  on="<%notice.commission_pay%>"><nav></nav></div></div>
+             
+        </div>
+    <%/if%>
+</script>
+
+<script language="javascript">
+    require(['tpl', 'core'], function(tpl, core) {
+        
+        core.json('member/notice',{},function(json){
+           $('#container').html(  tpl('tpl_main',json.result) );
+           $('div.nav').each(function(){
+               var on = $(this).attr('on');
+               if(on==''){
+                   $(this).addClass('on').find('nav').addClass('on');
+               }
+           }).click(function(){
+               var notice = $(this).attr('notice');
+               var on = $(this).attr('on')==''?'-1':'';
+               $(this).attr('on',on);
+               if(on==''){
+                     $(this).addClass('on').find('nav').addClass('on');
+               }
+               else{
+                     $(this).removeClass('on').find('nav').removeClass('on');
+               } 
+               core.json('member/notice',{op:'set',notice:notice,on:on},function(pjson){
+                   
+                    
+               },false,true);
+               
+           })
+        },true); 
+        
+    })
+</script> 
+{php $show_footer = true}
+{template 'common/footer4'}

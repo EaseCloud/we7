@@ -1,0 +1,87 @@
+.coupon_item { margin:8px; height:65px; position: relative}
+.coupon_selected { border:1px solid #f60;margin:10px;height:66px;}
+.coupon_item .cside  {  float:left; width:4px; height:65px;border-bottom: 1px solid #d6d6d6;  }
+.coupon_item .cthumb { float:left; width:50px;height:65px; background:#fff; text-align: center;  line-height: 60px; border-bottom: 1px solid #d6d6d6; }
+.coupon_item .cthumb img { width:40px;height:40px; vertical-align:middle;}
+
+.coupon_item .cinfo {float:left; width:100%; margin-left:-55px;;height:65px; }
+.coupon_item .cinfo .inner { margin-left:55px;height:65px; background:#fff; border-bottom: 1px solid #d6d6d6;}
+.coupon_item .cinfo .inner .name { font-size:14px; color:#222; height:36px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; line-height: 40px}
+.coupon_item .cinfo .inner .time { font-size:12px; color:#666; height:22px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+
+.coupon_item .cright { float:right;width:30%;height:65px; margin-left:-40%; color:#fff; position: relative; }
+.coupon_item .cright .sideleft { float:left;width:4px;height:65px;}
+.coupon_item .cright .rinfo { float:left;width:100%;height:65px; margin-left:-4px;margin-right:-4px;}
+.coupon_item .cright .rinfo .rinner { margin-left:4px;margin-right:4px;height:65px;}
+.coupon_item .cright .rinfo .rinner .price { font-size:13px; text-align: right;padding-right:10px;padding-top:8px;}
+.coupon_item .cright .rinfo .rinner .price span { font-size:22px;}
+.coupon_item .cright .rinfo .rinner .type { font-size:12px; text-align: right;padding-right:10px; }
+.coupon_item .cright .sideright { float:right;width:4px;height:65px; 
+
+								  -moz-transform: rotate(180deg); 
+								  -webkit-transform: rotate(180deg); 
+								  -o-transform: rotate(180deg);  
+								  -ms-transform: rotate(180deg); 
+								  transform: rotate(180deg); 
+}
+.coupon_item .cright .png { position: absolute;bottom:0;left:5%; width:80%;height:80%; opacity:0.8 }
+
+.coupon_content { margin:5px 10px ; height:150px;   position: relative;}
+.coupon_content .png { position: absolute;bottom:0;left:10%;height:80px; opacity:0.8; width:50%; }
+.coupon_content .bd { height:5px;  font-size:1px;} 
+.coupon_content .bd1 { height:5px;  -moz-transform: rotate(180deg); 
+					   -webkit-transform: rotate(180deg); 
+					   -o-transform: rotate(180deg);  
+					   -ms-transform: rotate(180deg); 
+					   transform: rotate(180deg); font-size:1px; } 
+.coupon_content .body { height:120px; padding:10px; position:relative;} 
+.coupon_content .body .topna{ height:60px;}
+.coupon_content .body .topna .left { width: 60px; float:left}
+.coupon_content .body .topna .left img { width:50px; height:50px;}
+.coupon_content .body .topna .right {float:right; width:100%; margin-left:-60px;}
+.coupon_content .body .topna .right .inner { margin-left:60px; padding-left:5px; }
+.coupon_content .body .topna .right .inner .name { font-size:18px; color:#fff; height:28px; line-height:28px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.coupon_content .body .topna .right .inner .time { font-size:13px; color:#fff; height:22px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.coupon_content .body .enough { font-size:14px; height:22px;color:#fff; padding-top:5px; text-align: right;}
+.coupon_content .body .act { font-size:20px; color:#fff;  text-align: right; }
+
+.bg { background:url(bg.png) no-repeat}
+
+.redpack { background:red;}
+.deduct { background:#fe7e00;}
+.discount { background:#5b9dfd;} 
+.money { background:#d83ef4;}
+.credit { background:#54caba;}
+.past { background:#c0c0c0;}
+
+.side {}
+.side-redpack { background-position: 0 0;}
+.side-deduct { background-position: -10px 0;}
+.side-discount { background-position: -20px 0;}
+.side-money { background-position: -30px 0;}
+.side-credit { background-position: -40px 0;}
+.side-left { background-position: -50px 0;}
+.side-past { background-position: -60px 0;}
+
+.bd {background-repeat:repeat-x;}
+.bd-redpack {background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAFCAMAAACQASd4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACdQTFRF/wAA/wIC/yMj/8vL/8zM/+np/7Ky/1lZ/1pa//n5/+bm/+Xl////cKTKtQAAAA10Uk5T////////////////AD3oIoYAAAAySURBVHjaYmBgYGTmQQBmRgYwYGKFC7EyMUABEwtUiAUuBNTOzsbNycXGwciACwAEGABsoAGiG/p9XQAAAABJRU5ErkJggg==") repeat-x scroll;}
+.bd-deduct { background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAFCAMAAACQASd4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACdQTFRF/n4A/pAj/n8C/9iy/+XL//Tp/+XM/qtZ//z5//Ll//Lm/qxa////lFmFXQAAAA10Uk5T////////////////AD3oIoYAAAAySURBVHjaYmBgYGLhQQAWJgYwYGSFC7EyMkABIxtUiA0uBNTOzszJwcXMzcSACwAEGABtXQGiOuoS6QAAAABJRU5ErkJggg==") repeat-x scroll;}
+.bd-discount {background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAFCAYAAACn39dKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGpJREFUeNpijJ779z8DBPwDYvMlSUxnGIgEMfP+mQCpk0DMxAAjoADEXgFUIEakQSB1K5DNYEJTowzEx4AKjQkYBJI/BlUPB4xI3kQGIC+vBOLlQHwWiN8AsTAQg7wVAcXoDsFpGFkAIMAAxzQffOqsAjAAAAAASUVORK5CYII=") repeat-x scroll;}
+.bd-money { background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAFCAYAAACn39dKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGpJREFUeNpivGH35T8DBPwDYnP1g9xnGIgEN+2/mgCpk0DMxAAjoADEXgFUIEakQSB1K5DNYEJTowzEx4AKjQkYBJI/BlUPB4xI3kQGIC+vBOLlQHwWiN8AsTAQg7wVAcXoDsFpGFkAIMAARVEgD2Y0pPcAAAAASUVORK5CYII=") repeat-x scroll;}
+.bd-credit { background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAFCAYAAACn39dKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGhJREFUeNpiDDm16z8DBPwDYnMgPsNAPDAB4pNAzMQAI6AAxF4BxGJEGiQGVc+EbAAyUAbiY0BsTMAgY6g6ZQY01zBgMfAUEC8DYl8glgJiNiCWhPKXQuWV0TWy4LAZZEkkFBMNAAIMAIfMDkfZ8iDPAAAAAElFTkSuQmCC") repeat-x scroll;}
+.bd-past { background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAFCAYAAACn39dKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGhJREFUeNpiPHDgwH8GCPgHxOZAfIaBeGACxCeBmIkBRkABiL0CiMWINEgMqp4J2QBkoAzEx4DYmIBBxlB1ygxormHAYuApIF4GxL5ALAXEbEAsCeUvhcoro2tkwWEzyJJIKCYaAAQYACPZDq/h2k1VAAAAAElFTkSuQmCC') repeat-x scroll;}
+
+.png {}
+.png-redpack { background-position: 0 -90px;}
+.png-money { background-position: 0 -165px;} 
+.png-credit { background-position: 0 -255px;} 
+.png-discount { background-position: 0 -345px}  
+.png-deduct { background-position: 0 -435px}
+.png-past { background-position: 0 -535px}
+
+.cfree { color:#ff6801;}
+.ccredit {color:#31b6e7; }
+.cmoney {  color:#c00; }
+.ccreditmoney {color:#B94A48; }
+
+

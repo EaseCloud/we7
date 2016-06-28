@@ -1,0 +1,304 @@
+{template 'web/_header'}
+{template 'web/sysset/tabs'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" >
+        <input type='hidden' name='setid' value="{$set['id']}" />
+        <input type='hidden' name='op' value="custom" />
+        <div class="panel panel-default">
+            <div class='panel-body'>  
+                <div class="form-group">
+
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启自定义</label>
+                    <div class="col-sm-9 col-xs-12">
+
+                        <label class='radio-inline'><input type='radio' name='custom[iscustom]' value='1' {if $set['custom']['iscustom']==1}checked{/if}/> 开启</label>
+                        <label class='radio-inline'><input type='radio' name='custom[iscustom]' value='0' {if $set['custom']['iscustom']==0}checked{/if} /> 关闭</label>
+  
+                    </div>
+                </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">头部导航</label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称1</div>
+                        <input type="text" name="custom[header][name1]" class="form-control" value="{$set['custom']['header']['name1']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接1</div>
+                        <input type="text" name="custom[header][link1]" class="form-control" value="{$set['custom']['header']['link1']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group" style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称2</div>
+                        <input type="text" name="custom[header][name2]" class="form-control" value="{$set['custom']['header']['name2']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接2</div>
+                        <input type="text" name="custom[header][link2]" class="form-control" value="{$set['custom']['header']['link2']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group" style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称3</div>
+                        <input type="text" name="custom[header][name3]" class="form-control" value="{$set['custom']['header']['name3']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接3</div>
+                        <input type="text" name="custom[header][link3]" class="form-control" value="{$set['custom']['header']['link3']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group" style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称4</div>
+                        <input type="text" name="custom[header][name4]" class="form-control" value="{$set['custom']['header']['name4']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接4</div>
+                        <input type="text" name="custom[header][link4]" class="form-control" value="{$set['custom']['header']['link4']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group" style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称5</div>
+                        <input type="text" name="custom[header][name5]" class="form-control" value="{$set['custom']['header']['name5']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接5</div>
+                        <input type="text" name="custom[header][link5]" class="form-control" value="{$set['custom']['header']['link5']}"  />
+                    </div>
+                </div>
+            </div>
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页模块1</label>
+    <div class="col-sm-9 col-xs-12" >
+          
+        <label for="isrecommand" class="checkbox-inline">
+            <input type="checkbox" name="custom[index1][isrecommand]" value="isrecommand" id="isrecommand" {if $set['custom']['index1']['isrecommand'] == 'isrecommand'}checked="true"{/if} /> 推荐
+        </label>
+        <label for="isnew" class="checkbox-inline">
+            <input type="checkbox" name="custom[index1][isnew]" value="isnew" id="isnew" {if $set['custom']['index1']['isnew'] == 'isnew'}checked="true"{/if} /> 新上
+        </label>
+        <label for="ishot" class="checkbox-inline">
+            <input type="checkbox" name="custom[index1][ishot]" value="ishot" id="ishot" {if $set['custom']['index1']['ishot'] == 'ishot'}checked="true"{/if} /> 热卖
+        </label>
+        <label for="isdiscount" class="checkbox-inline">
+            <input type="checkbox" name="custom[index1][isdiscount]" value="isdiscount" id="isdiscount" {if $set['custom']['index1']['isdiscount'] == 'isdiscount'}checked="true"{/if} /> 促销
+        </label>
+        <label for="issendfree" class="checkbox-inline">
+            <input type="checkbox" name="custom[index1][issendfree]" value="issendfree" id="issendfree" {if $set['custom']['index1']['issendfree'] == 'issendfree'}checked="true"{/if} /> 包邮
+        </label>
+        <label for="istime" class="checkbox-inline">
+            <input type="checkbox" name="custom[index1][istime]" value="istime" id="istime" {if $set['custom']['index1']['istime'] == 'istime'}checked="true"{/if} /> 限时卖
+        </label>
+
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页模块2</label>
+    <div class="col-sm-9 col-xs-12" >
+          
+        <label for="isrecommand2" class="checkbox-inline">
+            <input type="checkbox" name="custom[index2][isrecommand]" value="isrecommand" id="isrecommand2" {if $set['custom']['index2']['isrecommand'] == 'isrecommand'}checked="true"{/if} /> 推荐
+        </label>
+        <label for="isnew2" class="checkbox-inline">
+            <input type="checkbox" name="custom[index2][isnew]" value="isnew" id="isnew2" {if $set['custom']['index2']['isnew'] == 'isnew'}checked="true"{/if} /> 新上
+        </label>
+        <label for="ishot2" class="checkbox-inline">
+            <input type="checkbox" name="custom[index2][ishot]" value="ishot" id="ishot2" {if $set['custom']['index2']['ishot'] == 'ishot'}checked="true"{/if} /> 热卖
+        </label>
+        <label for="isdiscount2" class="checkbox-inline">
+            <input type="checkbox" name="custom[index2][isdiscount]" value="isdiscount" id="isdiscount2" {if $set['custom']['index2']['isdiscount'] == 'isdiscount'}checked="true"{/if} /> 促销
+        </label>
+        <label for="issendfree2" class="checkbox-inline">
+            <input type="checkbox" name="custom[index2][issendfree]" value="issendfree" id="issendfree2" {if $set['custom']['index2']['issendfree'] == 'issendfree'}checked="true"{/if} /> 包邮
+        </label>
+        <label for="istime2" class="checkbox-inline">
+            <input type="checkbox" name="custom[index2][istime]" value="istime" id="istime2" {if $set['custom']['index2']['istime'] == 'istime'}checked="true"{/if} /> 限时卖
+        </label>
+
+    </div>
+</div>
+<!-- 
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页模块1</label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称</div>
+                        <input type="text" name="custom[index][name1]" class="form-control" value="{$set['custom']['index']['name1']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接</div>
+                        <input type="text" name="custom[index][link1]" class="form-control" value="{$set['custom']['index']['link1']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页模块2</label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称</div>
+                        <input type="text" name="custom[index][name2]" class="form-control" value="{$set['custom']['index']['name2']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接</div>
+                        <input type="text" name="custom[index][link2]" class="form-control" value="{$set['custom']['index']['link2']}"  />
+                    </div>
+                </div>
+            </div> -->
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">底部菜单</label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称</div>
+                        <input type="text" name="custom[footer][name1]" class="form-control" value="{$set['custom']['footer']['name1']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接</div>
+                        <input type="text" name="custom[footer][link1]" class="form-control" value="{$set['custom']['footer']['link1']}"  />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称</div>
+                        <input type="text" name="custom[footer][name2]" class="form-control" value="{$set['custom']['footer']['name2']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接</div>
+                        <input type="text" name="custom[footer][link2]" class="form-control" value="{$set['custom']['footer']['link2']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称</div>
+                        <input type="text" name="custom[footer][name3]" class="form-control" value="{$set['custom']['footer']['name3']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接</div>
+                        <input type="text" name="custom[footer][link3]" class="form-control" value="{$set['custom']['footer']['link3']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称</div>
+                        <input type="text" name="custom[footer][name4]" class="form-control" value="{$set['custom']['footer']['name4']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接</div>
+                        <input type="text" name="custom[footer][link4]" class="form-control" value="{$set['custom']['footer']['link4']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称</div>
+                        <input type="text" name="custom[footer][name5]" class="form-control" value="{$set['custom']['footer']['name5']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接</div>
+                        <input type="text" name="custom[footer][link5]" class="form-control" value="{$set['custom']['footer']['link5']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称</div>
+                        <input type="text" name="custom[footer][name6]" class="form-control" value="{$set['custom']['footer']['name6']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接</div>
+                        <input type="text" name="custom[footer][link6]" class="form-control" value="{$set['custom']['footer']['link6']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称</div>
+                        <input type="text" name="custom[footer][name7]" class="form-control" value="{$set['custom']['footer']['name7']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接</div>
+                        <input type="text" name="custom[footer][link7]" class="form-control" value="{$set['custom']['footer']['link7']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 30%;float:left;margin-right:1%">
+                        <div class="input-group-addon">名称</div>
+                        <input type="text" name="custom[footer][name8]" class="form-control" value="{$set['custom']['footer']['name8']}"  />
+                    </div>
+                   <div class="input-group" style="width: 68%;float:left;margin-right:1%">
+                        <div class="input-group-addon">链接</div>
+                        <input type="text" name="custom[footer][link8]" class="form-control" value="{$set['custom']['footer']['link8']}"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">底部自定义</label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 99%;float:left;margin-right:1%">
+                        <div class="input-group-addon">自定义1</div>
+                        <input type="text" name="custom[footer][custom1]" class="form-control" value="{$set['custom']['footer']['custom1']}"  />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="input-group"  style="width: 99%;float:left;margin-right:1%">
+                        <div class="input-group-addon">自定义2</div>
+                        <input type="text" name="custom[footer][custom2]" class="form-control" value="{$set['custom']['footer']['custom2']}"  />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group"></div>
+            <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                           {ifp 'sysset.save.shop'}
+                            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"  />
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                          {/if}
+                     </div>
+            </div>
+                       
+            </div>
+        </div>     
+    </form>
+</div>
+{template 'web/_footer'}     

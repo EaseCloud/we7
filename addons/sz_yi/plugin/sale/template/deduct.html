@@ -1,0 +1,91 @@
+{template 'web/_header'}
+{template 'tabs'}
+<div class="main">
+    <form id="dataform"    {ifp 'sale.deduct.save'}action="" method="post"{/if} class="form-horizontal form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                抵扣设置
+            </div>
+            <div class="panel-body">
+                    <div class="form-group">
+                       <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分抵扣</label>
+                       <div class="col-sm-9 col-xs-12">
+                           {ifp 'sale.deduct.save'}
+                           <label class="radio-inline">
+                               <input type="radio" name="data[creditdeduct]" value='1' {if $set['creditdeduct']==1}checked{/if} /> 开启
+                           </label>
+                           <label class="radio-inline">
+                               <input type="radio" name="data[creditdeduct]" value='0' {if empty($set['creditdeduct'])}checked{/if} /> 关闭
+                            </label>
+                           <span class='help-block'>开启积分抵扣, 商品最多抵扣的数目需要在商品【营销设置】中单独设置</span>
+                           {else}
+                           <div class='form-control-static'>{if $set['creditdeduct']==1}开启{else}关闭{/if}</div>
+                           {/if}
+                       </div>
+                   </div> 
+                   <div class="form-group">
+                       <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分抵扣比例</label>
+                       <div class="col-sm-5">
+                                {ifp 'sale.deduct.save'} 
+                           <div class='input-group'>
+                                   <input type="hidden" name="data[credit]" value="1" class="form-control" />
+                                   <span class='input-group-addon'>1个积分 抵扣</span>
+                                   <input type="text" name="data[money]"  value="{$set['money']}" class="form-control" />
+                                   <span class='input-group-addon'>元</span>
+                           </div>
+                           <span class='help-block'>积分抵扣比例设置</span>
+                             {else}
+                           <div class='form-control-static'>{$set['credit']}积分 抵扣 {$set['money']} 元</div>
+                           {/if}
+                       </div>
+                   </div>
+                 <div class="form-group">
+                       <label class="col-xs-12 col-sm-3 col-md-2 control-label">余额抵扣</label>
+                       <div class="col-sm-9 col-xs-12">
+                             {ifp 'sale.deduct.save'}
+                           <label class="radio-inline">
+                               <input type="radio" name="data[moneydeduct]" value='1' {if $set['moneydeduct']==1}checked{/if} /> 开启
+                           </label>
+                           <label class="radio-inline">
+                               <input type="radio" name="data[moneydeduct]" value='0' {if empty($set['moneydeduct'])}checked{/if} /> 关闭
+                           </label>
+                           <span class='help-block'>会员可以用余额+在线支付方式支付订单,商品最多抵扣的数目需要在商品【营销设置】中单独设置</span>
+                            {else}
+                           <div class='form-control-static'>{if $set['moneydeduct']==1}开启{else}关闭{/if}</div>
+                           {/if}
+                       </div>
+                   </div>
+				
+				       <div class="form-group">
+                       <label class="col-xs-12 col-sm-3 col-md-2 control-label">余额是否可以抵扣运费</label>
+                       <div class="col-sm-9 col-xs-12">
+                             {ifp 'sale.deduct.save'}
+                           <label class="radio-inline">
+                               <input type="radio" name="data[dispatchnodeduct]" value='0' {if $set['dispatchnodeduct']==0}checked{/if} /> 可以
+                           </label>
+                           <label class="radio-inline">
+                               <input type="radio" name="data[dispatchnodeduct]" value='1' {if $set['dispatchnodeduct']==1}checked{/if} /> 不可以
+                           </label>
+                           <span class='help-block'>会员使用余额抵扣时，能不能抵扣运费</span>
+                            {else}
+                           <div class='form-control-static'>{if $set['dispatchnodeduct']==1}不可以{else}可以{/if}</div>
+                           {/if}
+                       </div>
+                   </div>
+				
+				
+                   {ifp 'sale.deduct.save'}
+                <div class="form-group"></div>
+                   <div class="form-group">
+                           <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                           <div class="col-sm-9 col-xs-12">
+                                 <input type="submit" name="submit"  value="保存设置" class="btn btn-primary"/>
+                                 <input type="hidden" name="token" value="{$_W['token']}" />
+                           </div>
+                    </div>
+                {/if}
+            </div>
+        </div>
+    </form>
+</div>
+{template 'web/_footer'}

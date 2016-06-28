@@ -1,0 +1,26 @@
+{template 'web/_header'}
+<div class='panel panel-default' style='margin-top:10px;'>
+
+    {loop $category $ck $cv}
+	 {if count($cv['plugins'])<=0}{php continue;}{/if}
+    <div class="panel-heading">
+        {$cv['name']}
+    </div>
+    <div class='panel-body'>
+        {loop $cv['plugins'] $plugin}
+        {ifpp $plugin['identity']}
+        <a class='btn btn-default' href="{php echo $this->createPluginWebUrl($plugin['identity'])}" title="{$plugin['name']}">
+            <i class="fa fa-external-link-square fa-2x"></i>
+            <br/>
+            <span>{$plugin['name']}</span>
+        </a>
+		{else}
+		 
+        {/if}
+        {/loop}
+    </div>
+	{/loop}
+</div>
+
+
+{template 'web/_footer'}

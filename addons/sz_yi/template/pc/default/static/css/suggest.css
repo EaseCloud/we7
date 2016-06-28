@@ -1,0 +1,15 @@
+.suggestions_box{width:302px; background-color:#fff; border: 1px solid #cdcdcd; border-top:none; position: absolute; top:40px; right:0px; z-index: 10;}
+/*.suggestions_box .suggestions_list ul li:hover{background:#6ACCE5; cursor: pointer;}*/
+/*.suggestions_class_name{background-color:#6ACCE5; cursor: pointer;}*/
+.suggestions_box .suggestions_list ul li{height:32px; line-height: 32px;font-size:12px; color:#888;font-style:normal; padding:0 8px;}
+.suggestions_box .suggestions_list ul li .suggest_span{float: right;font-size:12px; color:#888;font-style:normal;}
+#keyword{ padding:6px 8px}
+.suggest_l {    
+	width: 210px;
+    height: 32px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    /* word-wrap: initial; */
+    float: left;
+    white-space: nowrap;
+	}

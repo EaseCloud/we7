@@ -1,0 +1,386 @@
+{template 'common/header'}
+<title>{if empty($current_category)}全部商品{else}{$current_category['name']}{/if}</title>
+<style type="text/css">
+body {margin:0px; width:100%; height:100%; }
+.main {height:100%; width:100%; background:#fff; }
+
+i.do{background:url("../addons/sz_yi/template/mobile/inzens/new/images/icons.svg") no-repeat left top;display:inline-block; position:relative;float:none; margin:0; padding:0;}
+i.do-back{ width:8px; height:16px; background-position:0 -148px; top:10px; display:block;}
+i.do-search{width:16px; height:16px; background-position:-65px -148px; top:9px;}
+i.do-desc{ width:16px; height:16px; background-position:-97px -148px; top:11px;}
+
+.main .category {height:100%; width:60%; background:rgba(0,0,0,0.8);  position:fixed; left:-60%; top:0; z-index:9999;overflow-y: auto;}
+.main .category .title {height:44px; width:100%; background:rgba(0,0,0,0.2); line-height:44px; font-size:16px; color:#fff; text-align:center;}
+.main .category .all {height:auto; width:80%; padding:10px 10%; color:#fff;}
+.main .category .all p {height:auto; width:100%; font-size:16px; line-height:20px; padding:0px; margin:0px;}
+.main .category .all p.category_item { padding-top:10px;}
+.main .category .all p.child {height:auto; width:100%; font-size:16px; line-height:20px;  padding-left:10px;padding-top:10px;}
+.main .category .all p.third {height:auto; width:100%; font-size:16px; line-height:20px;  padding-left:20px;padding-top:10px;}
+.main .category .all span {height:auto; width:95%; margin-left:5%; margin-bottom:10px; font-size:16px; line-height:20px; padding:0px;}
+
+.main .page {width:100%; background:#fff; }
+.main .page .sort_list {height:100px; width:90px; background:rgba(51,51,51,0.8); position:absolute; top:50px; right:5%; display:none;z-index:999}
+.main .page .sort_list .nav {height:25px; width:90px; line-height:25px; font-size:13px; color:#fff; text-align:center;}
+.main .page .sort_list .navon {color:#ff6600;}
+
+.main .page .topbar {position:fixed;top:0;width:100%;height:36px;background-color:#fff; border-bottom:1px solid #f7f7f7; z-index:10}
+.main .page .topbar a{height:36px; width:10%; float:left; margin-left:3%; line-height:36px; font-size:18px; text-align:left; color:#999;}
+.main .page .topbar .name {height:36px; width:54%; padding-left:10%; margin:auto; text-align:center; float:left; font-size:16px; line-height:36px; color:#666;}
+.main .page .topbar .sort {height:36px; width:10%; float:right; font-size:18px; line-height:36px; text-align:right; color:#999;}
+.main .page .topbar .search {height:36px; width:10%; float:right; margin-right:3%; font-size:18px; line-height:25px; text-align:right; color:#999;}
+
+.main .page .goods {height:auto; width:98%; padding:0 1%; margin-top:36px; float:left; background:#fff;}
+.main .page .goods .good {height:auto; width:46%; background:#fff; padding:1%; margin:5px 1%; float:left; position:relative;}
+.main .page .goods .good img {width:100%;}
+.main .page .goods .good .nostock { position: absolute;bottom:20px;right:0px; width:30%;height:30%;}
+.main .page .goods .good .nostock img { max-width: 50px}
+
+.main .page .goods .good .name {height:40px; width:100%; font-size:13px; color:#666; margin-top:8px; line-height:20px;overflow:hidden}
+.main .page .goods .good .price {height:25px; width:100%; font-size:14px; color:#ff6700;}
+.main .page .goods .good .price span {height:23px; width:auto; padding:2px 6px; background:#999; color:#fff; font-size:12px; border-radius:5px; text-decoration: line-through}
+.main .page .copyright {height:40px; width:100%; text-align:center; line-height:40px; font-size:12px; color:#999; margin:10px 0 54px;float:left;}
+
+#list_loading { width:94%;padding:10px;color:#666;text-align: center;float:right;}
+.list_no {height:100px; width:100%; margin:50px 0px 60px; color:#ccc; font-size:12px; text-align:center;}
+.list_no_menu {height:40px; width:50%; text-align:center;margin:auto;}
+.list_no_nav {height:38px; padding:5px;background:#eee; border:1px solid #d4d4d4; border-radius:5px; text-align:center; line-height:38px; color:#666;}
+
+.category_group {background:#fff; border-bottom:1px solid #efefef;border-top:1px solid #efefef; height:37px;overflow: auto;  overflow-y: hidden;   list-style-type:none; ;white-space:nowrap;-webkit-overflow-scrolling:touch ; }
+.category_group .container{ height:45px;overflow: auto; list-style-type:none;white-space:nowrap;-webkit-overflow-scrolling:touch ; }
+.category_group  a {color:#f90;   height:45px; line-height:35px; text-decoration: none; color:#333; text-align: center; padding:10px;; }
+.category_group  a.on  { color:#f90;font-weight:bold;background:#efefef;}
+
+
+
+</style>
+
+ 
+<div id='container'></div>
+
+<script id='tpl_main' type='text/html'>
+     <!--搜索-->
+    <div class="search1">
+		<div class="topbar1">
+			<div class='right'>
+				<button class="sub1"><i class="do do-search1"></i></button>
+				<div class="home1">取消</div>
+			</div>
+			<div class='left_wrap'>
+				<div class='left'>
+					<input type="text" id='keywords' class="input1" placeholder='搜索: 输入商品关键词' value='{$_GPC['keywords']}'/>
+				</div>
+			</div>
+		</div>
+		<div id='search_container' class='result1'></div>
+	</div>
+
+    <div class="main">
+        <div id='category_container'></div>
+        <div class='page'>
+            <!--排序div-->
+            <div class="sort_list">
+                <div class="nav navon"  data-order='sales' data-by='desc'>销量从高到低</div>
+                <div class="nav" data-order='marketprice' data-by='asc'>价格从低到高</div>
+                <div class="nav "  data-order='marketprice' data-by='desc'>价格从高到低</div>
+                <div class="nav"  data-order='score' data-by='asc'>评价从高到低</div>
+            </div>
+            <!--topbar-->
+            <div class="topbar">
+				<a href="javascript:history.back()" class="fl"><i class="do do-back"></i></a>
+				<div class="name">{if empty($current_category)}全部商品{else}{$current_category['name']}{/if}</div>
+				<div class="search"><i class="do do-search"></i></div>
+				<div class="sort"><i class="do do-desc" style="float:right;"></i></div>
+            </div>
+            <div id="category_group"></div>
+            <!--商品列表-->
+            <div class="goods">
+                <div id='goods_container'></div>
+            </div>
+            <div class="copyright">版权所有 © {if !empty($set['copyright'])}{$set['copyright']}{else}{$_W['account']['name']}{/if}</div>
+        </div>
+        
+    </div>
+</script>
+ 
+<script id='tpl_search_list' type='text/html'>
+     <ul>
+     <%each list as value%>
+        <li><i class="fa fa-angle-right"></i> <a href="{php echo $this->createMobileUrl('shop/detail')}&id=<%value.id%>"><%value.title%></a></li>
+        <%/each%>
+    </ul> 
+</script>
+
+<script id='tpl_goods_list' type='text/html'>
+    <%each goods as g%>
+    <div class="good" data-goodsid='<%g.id%>'>
+        <%if g.total<=0%><div class="nostock"><img src="../addons/sz_yi/template/mobile/default/static/images/salez.png"></div><%/if%>
+        <img src="<%g.thumb%>">
+        <div class="name"><%g.title%> </div>
+        <div class="price">￥<%g.marketprice%> <%if g.productprice>0 && g.marketprice!=g.productprice%><span>￥<%g.productprice%></span><%/if%></div>
+    </div>
+    <%/each%>
+</script>
+
+<script id='tpl_empty' type='text/html'>
+ <div class="list_no"><i class="fa fa-shopping-cart" style="font-size:100px;"></i><br><span style="line-height:18px; font-size:16px;">暂时没有相关商品</span><br>主人快去给我找点其他东西吧</div>
+<div class="list_no_menu">
+        <div class="list_no_nav" onclick="location.href='{php echo $this->createMobileUrl('shop/list')}'">看看其他的</div>
+ </div>
+</script>
+<script language='javascript'>
+    var loaded = false;
+    var stop = true;
+    var category = null;
+    var def_args = args  = {
+           page:"{$_GPC['page']}",
+           isnew: "{$_GPC['isnew']}",
+           ishot: "{$_GPC['ishot']}",
+           isrecommand:"{$_GPC['isrecommand']}",
+           isdiscount:"{$_GPC['isdiscount']}",
+           keywords:"{$_GPC['keywords']}",
+           istime:"{$_GPC['istime']}",
+           pcate:"{$_GPC['pcate']}",
+           ccate:"{$_GPC['ccate']}",
+           tcate:"{$_GPC['tcate']}",
+           order:"{$_GPC['order']}",
+           by:"{$_GPC['by']}",
+           shopid:"{$_GPC['shopid']}"
+    };
+
+    require(['tpl', 'core'], function (tpl, core) {
+    
+        function getGoods() {
+             
+            core.json('shop/list', args, function (json) {
+           
+             
+                 
+                $('#goods_container').html(tpl('tpl_goods_list',json.result));
+                $('#category_group').html("");
+                if(json.result.category && json.result.category.length>0){
+                    var category = {category:json.result.category,parent:json.result.parent_category};
+                    $('#category_group');    
+                    $('#category_group a').unbind('click').click(function(){
+                        args.page = 1;
+                        args.pcate = $(this).attr('pcate') || 0;
+                        args.ccate = $(this).attr('ccate') || 0;
+                        args.tcate = $(this).attr('tcate') || 0;
+                        loaded =false;
+                        getGoods();
+                    })
+                }  
+               
+                if(json.result.current_category){
+                     $('.topbar .name').html( json.result.current_category.name);
+                     document.title = json.result.current_category.name;
+                }
+                
+                if (json.result.goods.length <= 0) {
+                    loaded = true;
+                    $(window).scroll = null;
+                    $('#goods_container').html(tpl('tpl_empty'));
+                    return;
+                }
+                bindEvents();
+                stop =true;
+                bindMore();
+                
+            }, true);
+        }
+        function getGoodsMore() {
+     
+            core.json('shop/list', args, function (json) {
+                var result = json.result;
+                $('#goods_container').append(tpl('tpl_goods_list',result));
+                bindEvents();
+                $('#list_loading').remove();
+                if (result.goods.length < result.pagesize) {
+                        $('#goods_container').append('<div id="list_loading">已经加载全部商品</div>');
+                        loaded = true;
+                        $(window).scroll = null;
+                        return;
+                }
+                stop=true;
+                bindMore(); 
+                
+            });
+        }
+
+        function bindEvents() {
+            $('.good img').each(function(){
+               $(this).height($(this).width()); 
+            });
+            $('.good').unbind('click').click(function () {
+                        location.href = core.getUrl('shop/detail', {id: $(this).data('goodsid'),my:'{$_GPC['my']}'});
+            });
+        }
+        
+        function bindMore() {
+     
+            $(window).scroll(function () {
+  
+                if (loaded) {
+                    return;
+                }
+                totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+                if ($(document).height() <= totalheight) {
+                
+                    if (stop == true) {
+                        stop = false;
+                        $('#goods_container').append('<div id="list_loading"><i class="fa fa-spinner fa-spin"></i> 正在加载更多商品</div>');
+                  
+                        if(args.page=='' || args.page=='undefined'){
+                            args.page = 1;
+                        }
+                        args.page++;
+                        getGoodsMore();
+                    }
+                }
+            });
+        }
+ 
+        function reset() {
+            $('#form')[0].reset();
+        }
+        function bindCategoryEvents(){
+            
+             $(".category .close").unbind('click').click(function(){
+                        $(".category").animate({left:"-60%"},200);
+             });
+             $(".category .category_item").unbind('click').click(function(){
+                 var item = $(this);
+                      $('#keywords').val(""); $('#search_container').html('');
+                     $(".category").animate({left:"-60%"},200);
+                      args  = {
+                            page:1,
+                            isnew: item.data('isnew'),
+                            ishot:item.data('ishot'),
+                            isrecommand:item.data('isrecommand'),
+                            isdiscount:item.data('isdiscount'),
+                            keywords:"",
+                            istime: item.data('istime:'),
+                            pcate: item.data('pcate'),
+                            ccate: item.data('ccate'),
+                            tcate: item.data('tcate'),
+                            order:"",
+                            by:"",
+                            shopid:"{$_GPC['shopid']}"
+                     };
+                     $('.topbar .name').html( item.data('name'));
+                     document.title = item.data('name');
+                     getGoods();
+             });
+             
+        }
+        
+        $('#container').html(tpl('tpl_main'));
+        $('.sort').click(function () {
+                var display = $(".sort_list").css('display');
+                if (display == 'none') {
+                    $(".sort_list").fadeIn(200);
+                } else {
+                    $(".sort_list").fadeOut(100);
+                }
+
+        });
+        $('.nav').click(function () {
+
+              
+                
+                if ($(this).data('order') ==args.order && $(this).data('by') == args.by) {
+                    return;
+                }
+                $('.nav').removeClass('navon');
+                
+                $(this).addClass('navon');
+                   args  = {
+                            page:1,
+                            isnew: args.isnew,
+                            ishot: args.ishot,
+                            isrecommand:args.isrecommand,
+                            isdiscount:args.isdiscount,
+                            keywords:args.keywords,
+                            istime: args.istime,
+                            pcate:args.pcate,
+                            ccate: args.ccate,
+                            tcate: args.tcate,
+                            order:$(this).data('order'),
+                            by:$(this).data('by'),
+                            shopid:args.shopid
+                     };
+               
+                $(".sort_list").fadeOut(200);
+                getGoods();
+        });
+        $('.list1').click(function(){
+             $(".sort_list").fadeOut(100);
+             if(category!=null){
+                  $(".category").animate({left:"0px"},200);
+                  bindCategoryEvents();
+                  return;
+             }
+             
+             core.json('shop/util',{op:'category'}, function (json) {
+                 category = json.result;
+                 $('#category_container').append(tpl('tpl_category_list',category));
+                 $(".category").animate({left:"0px"},200);
+                 bindCategoryEvents();
+              }, true);
+        });
+        $('.search').click(function(){
+            
+           $(".search1").animate({bottom:"0px"},100);
+           $('#keywords').unbind('keyup').keyup(function(){
+                    var keywords = $.trim( $(this).val());
+                    if(keywords==''){
+                        $('#search_container').html("");         
+                        return;
+                    }
+                    core.json('shop/util',{op:'search',keywords:keywords }, function (json) {
+                         var result = json.result;
+                         if(result.list.length>0){
+                            $('#search_container').html(tpl('tpl_search_list',result));    
+                         }
+                         else{
+                            $('#search_container').html("");         
+                         }
+
+                      }, true);
+            });
+            $('.search1 .sub1').unbind('click').click(function(){
+                    var keywords = $.trim( $('#keywords').val());
+                  
+                   args  = {
+                            page:1,
+                            isnew: args.isnew,
+                            ishot: args.ishot,
+                            isrecommand:args.isrecommand,
+                            isdiscount:args.isdiscount,
+                            keywords:keywords,
+                            istime: args.istime,
+                            pcate:args.pcate,
+                            ccate: args.ccate,
+                            tcate: args.tcate,
+                            order:args.order,
+                            by:args.by,
+                            shopid:args.shopid
+                     };
+               
+                $(".sort_list").fadeOut(200);
+                 $(".search1").animate({bottom:"-100%"},100);
+                 getGoods();
+            });
+            $('.search1 .home1').unbind('click').click(function(){
+                 $(".search1").animate({bottom:"-100%"},100);
+            });
+        });
+        
+      
+   
+     getGoods();
+        
+
+    });
+</script>
+{php $show_footer = true;}
+{template 'common/footer2'}

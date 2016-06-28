@@ -1,0 +1,10 @@
+<ul class="nav nav-tabs">
+
+    {ifp 'diyform.temp'}<li {if $_GPC['method']=='temp'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('diyform/temp')}" style="cursor: pointer;">模板管理</a></li>{/if}
+    {ifp 'diyform.category'}<li {if $_GPC['method']=='category'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('diyform/category')}" style="cursor: pointer;">分类管理</a></li>{/if}
+     {ifp 'diyform.data'}
+    {if $_GPC['method']=='data' && $operation=='post'}<li class="active"><a href="javascript:;" style="cursor: pointer;">添加数据</a></li>{/if}
+    {if $_GPC['method']=='data' && $operation=='display'}<li class="active"><a href="javascript:;" style="cursor: pointer;">数据列表</a></li>{/if}
+    {/if}
+     {ifp 'diyform.set'}<li {if $_GPC['method']=='set'}class="active"{/if}><a href="{php echo $this->createPluginWebUrl('diyform/set')}" style="cursor: pointer;">基础设置</a></li>{/if}
+</ul>

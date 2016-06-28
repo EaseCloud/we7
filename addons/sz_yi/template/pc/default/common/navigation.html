@@ -1,0 +1,111 @@
+<body>
+<div class="wfs head_top">
+    <div class="cover-page-wrapper">
+        <ul class="fl top_l">
+            <li class="fore"><a href="{php echo $this->createMobileUrl('shop/index')}">欢迎来到{php echo $this->yzShopSet['name']}！</a></li>
+        </ul>
+        <ul class="fr top_r">
+            {if $this->yzShopSet['phone']}
+            <li class="fore">客服电话：{php echo $this->yzShopSet['phone']}</li>
+            {/if}
+        {if $_COOKIE[__cookie_sz_yi_userid_.$_W['uniacid']]}
+            <li class="fore"><a href="{php echo $this->createMobileUrl('member/info')}">个人中心</a></li>
+        {else}
+            <li class="fore"><a href="{php echo $this->createMobileUrl('member')}">登陆</a></li>
+            <li class="spacer"></li>
+            <li class="fore"><a href="{php echo $this->createMobileUrl('member/register')}">注册</a></li>
+        {/if}
+
+            <li class="fore cart" id="ECS_CARTINFO">
+                <a href="{php echo $this->createMobileUrl('shop/cart')}" title="查看购物车"><i class="fontello-icon-basket"></i><span>购物车</span><strong><b>0</b></strong></a>
+             </li>
+        </ul>
+    </div>
+</div>
+
+<div id="head-fix" class="head fl wfs nav-wrap">
+<div class="cover-page-wrapper head_logo_nav">
+<!-- logo -->
+    <div class="logo fl">
+        <a href="{php echo $this->createMobileUrl('shop/index')}">
+        {if $this->yzShopSet['pclogo']}
+            <img src="{php echo $_W['siteroot'] . "attachment/" . $this->yzShopSet['pclogo']}" style="width:270px;height:60px;" title="{php echo $this->yzShopSet['pctitle']}">
+        {else}
+            <img src="../addons/sz_yi/template/pc/default/static/images/logo.png" title="" alt="我是默认logo">
+        {/if}
+        </a>
+    </div>
+    {if $this->yzShopSet['hmenu_name']}
+          <ul class="nav_head fl">
+            {loop $this->yzShopSet['hmenu_name'] $k $v}
+            <li>
+                <a href="{php echo $this->yzShopSet['hmenu_url'][$k]}">{$v}</a>
+            </li>
+            {/loop}
+        </ul>
+    {else}
+        <ul class="nav_head fl">
+            <li>
+                <a href="{php echo $this->createMobileUrl('shop/index')}">首页</a>
+            </li>
+            <li>
+                <a href="{php echo $this->createMobileUrl('shop/list', array('order' => 'sales', 'by' => 'desc'))}">全部商品</a>
+            </li>
+            <li>
+                <a href="{php echo $this->createMobileUrl('shop/notice')}">店铺公告</a>
+            </li>
+            {if $this->footer['commission']}
+                <li {if $footer_current=='commission'}class='active'{/if}>
+                    <a href="{php echo $this->footer['commission']['url']}">
+                        <span>{php echo $this->footer['commission']['text']}</span>
+                    </a>
+                </li>
+            {/if}
+            <li>
+                <a href="{php echo $this->createMobileUrl('order')}">会员中心</a>
+            </li>
+        </ul>
+    {/if}
+
+    <!--<form id="searchForm" name="searchForm" method="get" action="" onSubmit="return checkSearchForm()" class="search-product fl">-->
+	<div class="search-product fl">
+        <input name="k_template" type="hidden" class="k_value" value="0">
+        <i class="fontello-icon-search fr search"></i>
+        <input autocomplete="off" name="keywords" type="text" id="keyword" placeholder="输入关键字搜索" value="" class="form-control search-box fr"/>
+        <div class="suggestions_box" id="suggestions" style="display:none;border-bottom: 1px solid #cdcdcd;">
+            <div class="suggestions_list" id="auto_suggestions_list"></div>
+        </div>
+        </div>
+    <!--</form>-->
+</div>
+</div>
+<script type="text/javascript">
+    require(['tpl', 'core'], function(tpl, core) {
+	$('#keyword').keyup(function(){
+	    if(event.keyCode == 13){
+		$('.search').click();
+		return;
+	    }
+	});
+
+        $('.search').click(function(){
+            var args  = {
+                   page:"{$_GPC['page']}",
+                   isnew: "{$_GPC['isnew']}",
+                   ishot: "{$_GPC['ishot']}",
+                   isrecommand:"{$_GPC['isrecommand']}",
+                   isdiscount:"{$_GPC['isdiscount']}",
+                   keywords:"{$_GPC['keywords']}",
+                   istime:"{$_GPC['istime']}",
+                   pcate:"{$_GPC['pcate']}",
+                   ccate:"{$_GPC['ccate']}",
+                   tcate:"{$_GPC['tcate']}",
+                   order:"{$_GPC['order']}",
+                   by:"{$_GPC['by']}",
+                   shopid:"{$_GPC['shopid']}",
+                   keywords:$("#keyword").val()
+            };
+            location.href=core.getUrl('shop/list', args);
+        });
+    })
+</script>

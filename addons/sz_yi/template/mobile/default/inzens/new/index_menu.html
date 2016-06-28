@@ -1,0 +1,9 @@
+	<div class="catebox">
+		<div class="grid">
+			<a class="col-5" href="{php echo $this->createMobileUrl('shop/list',array('shopid'=>$shop['mid']))}"><i class="iconfont icon-31paixingbang cate"></i><h4>畅销榜</h4></a>
+			<a class="col-5" href="{php echo $this->createMobileUrl('shop/category',array('shopid'=>$shop['mid']))}"><i class="iconfont icon-check cate"></i><h4>所有分类</h4></a>
+			<a class="col-5" href="{php echo $this->createPluginMobileUrl('commission/myshop')}"><i class="iconfont icon-present cate"></i><h4>加入分销</h4></a>
+			<a class="col-5" href="{php echo $this->createMobileUrl('member/recharge',array('openid'=>$openid))}"><i class="iconfont icon-gongzi cate"></i><h4>充值</h4></a>
+			<a class="col-5" id="fav"><i class="iconfont icon-favor cate"></i><h4>收藏店铺</h4></a>
+		</div>
+	</div>

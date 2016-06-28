@@ -1,0 +1,22 @@
+{template 'web/_header'} {template 'tabs'}
+<form action="" method="post">
+	<div class="panel panel-default">
+		<div class="panel-heading"><i class="fa fa-cogs"></i> 打印设置</div>
+		<div class="panel-body table-responsive">
+			<div class="alert alert-info" style="width: 500px;">提示：请在连有打印的电脑上安装控件并进行打印。</div>
+			<div class="input-group" style="width: 500px;">
+				<div style="border-right:none" class="input-group-addon">本地打印机IP</div>
+				<input type="text" value="{if empty($printset['ip'])}localhost{else}{$printset['ip']}{/if}" class="form-control" name="ip" disabled="">
+				<div style="border-right:none; border-left: none;" class="input-group-addon"> 打印机端口</div>
+				<input type="tel" value="{if empty($printset['port'])}8000{else}{$printset['port']}{/if}" class="form-control" name="port" {ifp 'exhelper.printset.save'}{else} disabled=""{/if}>
+			</div>
+		</div>
+		<div class="panel-footer">
+			{ifp 'exhelper.printset.save'}
+				<input type="hidden" name="token" value="{$_W['token']}" /> 
+				<button class="btn btn-primary">保存设置</button>
+			{/if}
+		</div>
+	</div>
+</form>
+{template 'web/_footer'}

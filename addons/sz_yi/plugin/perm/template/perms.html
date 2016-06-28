@@ -1,0 +1,121 @@
+<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">操作权限</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class='panel panel-default' >
+                        {loop $perms $pk $pt}
+                           {if $pt['isplugin']==1}
+                              {if !cp($pk)}
+                                {php continue;}
+                              {/if}
+                           {/if}
+                            <div class='panel-heading'>
+                                    <label class='checkbox-inline'>
+                                      
+                                         <input type='checkbox' name='perms[]' value='{$pk}' class='perm-all' data-group='{$pk}' 
+                                                {if in_array($pk,$role_perms) || in_array($pk,$user_perms) } checked{/if} 
+                                                {if in_array($pk,$role_perms) && $_GPC['method']=='user'} disabled{/if} 
+                                                />{$pt['text']} 
+                                             
+                                     </label>
+                            </div>
+                            <div class='panel-body perm-group'>
+                                 {if isset($pt['child'])}
+                                     {loop $pt['child'] $ck $ct}  
+                                     <span>
+                                        {loop $ct $ctk $ctt}
+                                      
+                                           {if $ctk!='text' && $ctk!='isplugin'}
+                                            <label class='checkbox-inline'>
+                                                <input type='checkbox' name='perms[]'  value='{$pk}.{$ck}.{$ctk}' class='perm-item' 
+                                                       data-group='{$pk}' data-child='{$ck}' data-op='{$ctk}' 
+                                                       {if in_array($pk.".".$ck.".".$ctk,$role_perms) || in_array($pk.".".$ck.".".$ctk,$user_perms) } checked{/if}
+                                                       {if in_array($pk.".".$ck.".".$ctk,$role_perms) && $_GPC['method']=='user'} disabled{/if}
+                                                       /> {php echo str_replace("-log", "", $ctt)}
+                                            </label>
+                                           {else}
+                                           <label class='checkbox-inline' style='width:100px;'>
+                                               <input type='checkbox'  name='perms[]' value='{$pk}.{$ck}' class='perm-all-item' 
+                                                      data-group='{$pk}' data-child='{$ck}' 
+                                                      {if in_array($pk.".".$ck,$role_perms) || in_array($pk.".".$ck,$user_perms)} checked{/if}
+                                                      {if in_array($pk.".".$ck,$role_perms) && $_GPC['method']=='user'} disabled{/if}
+                                                      /> <b> {php echo str_replace("-log", "", $ctt)}</b>
+                                           </label>
+                                           {/if}
+                                           
+                                        {/loop}
+                                        <br/>
+                                      
+                                     {/loop}  
+                                     
+                                     </span>
+                                 {else}
+                                   <span>
+                                 {loop $pt $pk1 $pt1}
+                                   {if $pk1!='text' && $pk1!='isplugin'}
+                                 
+                                     <label class='checkbox-inline'>
+                                         <input type='checkbox'  name='perms[]'  value='{$pk}.{$pk1}' class='perm-item' 
+                                                data-group='{$pk}' data-child='{$pk1}' 
+                                                {if in_array($pk.".".$pk1,$role_perms) || in_array($pk.".".$pk1,$user_perms)} checked{/if}
+                                                {if in_array($pk.".".$ck,$role_perms) && $_GPC['method']=='user'} disabled{/if}
+                                                />  {php echo str_replace("-log", "", $pt1)}
+                                     </label>
+                                   {/if}
+                                 {/loop}
+                                 </span>
+                                 {/if}
+                            </div>
+                     
+                        {/loop}   </div>
+                    </div>
+                </div>
+<script language="javascript">
+       $(function(){
+        $('.perm-all').click(function(){
+            var checked = $(this).get(0).checked;
+            var group = $(this).data('group');
+            $(".perm-item[data-group='" +group + "'],.perm-all-item[data-group='" +group + "']").each(function(){
+                $(this).get(0).checked = checked;
+            })
+        })
+        $('.perm-all-item').click(function(){
+            var checked = $(this).get(0).checked;
+            var group = $(this).data('group');
+            var child = $(this).data('child');
+            $(".perm-item[data-group='" +group + "'][data-child='" +child + "']").each(function(){
+                $(this).get(0).checked = checked;
+            })
+        });
+         $('.perm-item').click(function(){
+            var group = $(this).data('group');
+            var child = $(this).data('child');
+            var check = false;
+            $(this).closest('span').find(".perm-item").each(function(){
+                if($(this).get(0).checked){
+                     check =true;
+                     return false;
+                }
+            });
+            var allitem = $(".perm-all-item[data-group=" + group + "][data-child=" + child + "]");
+            if( allitem.length==1 ){
+                allitem.get(0).checked = check;
+            }
+           $(".perm-all[data-group=" + group + "]").get(0).checked = check;
+            
+        });
+//        $('.perm-group').find(':checked').click(function(){   
+//             $('.perm-group').each(function(){
+//                var check = false;
+//                $(this).find(":checkbox").each(function(){
+//                    if($(this).get(0).checked){
+//                         check =true;
+//                         return false;
+//                    }
+//                });
+//                $(this).prev().find('.perm-all').get(0).checked = check;
+//            })
+//        });
+       
+        
+    })
+    </script>

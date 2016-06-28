@@ -1,0 +1,548 @@
+﻿<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+    <div class="col-sm-9 col-xs-12">
+        {ife 'shop.goods' $item}
+        <input type="text" name="displayorder" id="displayorder" class="form-control" value="{$item['displayorder']}" />
+        <span class='help-block'>数字越大，排名越靠前,如果为空，默认排序方式为创建时间</span>
+        {else}
+        <div class='form-control-static'>{$item['displayorder']}</div>
+        {/if}
+    </div>
+</div>
+<!-- 供货商start -->
+{if p('supplier')}
+  {if $perm_role == 0}
+  <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">供货商</label>
+      <div class="col-sm-9 col-xs-12">
+        <select name='supplier_uid' class='form-control' id="supplier_uid">
+          <option value="">
+              请选择供货商
+          </option>
+          {loop $result $row}
+          <option value="{$row['uid']}" {if $item['supplier_uid']==$row['uid']}selected="selected"{/if}>{$row['realname']}/{$row['username']}</option>
+          {/loop}
+        </select>
+          <span class='help-block'>选择供货商</span>
+      </div>
+  </div>
+  {/if}
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $('#supplier_uid').change(function(){
+      if ($('#supplier_uid').val() != ''){
+        $('#dispatchprice').attr('readonly','readonly');
+        $('#dispatchtype1').attr('checked',true);
+        $('#dispatchtype2').attr('checked',false);
+        $('#type_dispatch_isshow').hide();
+        //alert($('input[name="dispatchtype"]').val());
+      }else{
+        $('#type_dispatch_isshow').show();
+        $('#dispatchprice').removeAttr('readonly');
+      }
+    });
+  });
+</script>
+{/if}
+
+<!-- 供货商end -->
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>商品名称</label>
+    <div class="col-sm-9 col-xs-12">
+         {ife 'shop.goods' $item}
+        <input type="text" name="goodsname" id="goodsname" class="form-control" value="{$item['title']}" />
+            {else}
+        <div class='form-control-static'>{$item['title']}</div>
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>分类</label>
+    <div class="col-sm-8 col-xs-12">
+        {if $shopset['catlevel']==3}
+             {ife 'shop.goods' $item}
+             {php echo tpl_form_field_category_3level('category', $parent, $children, $item['pcate'], $item['ccate'], $item['tcate'])}
+             {else}
+              <div class='form-control-static'>
+                   {php echo pdo_fetchcolumn('select name from '.tablename('sz_yi_category').' where id=:id limit 1',array(':id'=>$item['pcate']))} -
+                   {php echo pdo_fetchcolumn('select name from '.tablename('sz_yi_category').' where id=:id limit 1',array(':id'=>$item['ccate']))} -
+                   {php echo pdo_fetchcolumn('select name from '.tablename('sz_yi_category').' where id=:id limit 1',array(':id'=>$item['tcate']))}
+              </div>
+             {/if}
+
+        {else}
+            {ife 'shop.goods' $item}
+            {php echo tpl_form_field_category_2level('category', $parent, $children, $item['pcate'], $item['ccate'])}
+            {else}
+              <div class='form-control-static'>
+                   {php echo pdo_fetchcolumn('select name from '.tablename('sz_yi_category').' where id=:id limit 1',array(':id'=>$item['pcate']))} -
+                   {php echo pdo_fetchcolumn('select name from '.tablename('sz_yi_category').' where id=:id limit 1',array(':id'=>$item['ccate']))}
+              </div>
+            {/if}
+        {/if}
+    </div>
+</div>
+
+
+<link href="../addons/sz_yi/static/js/dist/select2/select2.css" rel="stylesheet">
+<link href="../addons/sz_yi/static/js/dist/select2/select2-bootstrap.css" rel="stylesheet">
+<script language="javascript" src="../addons/sz_yi/static/js/dist/select2/select2.min.js"></script>
+<script language="javascript" src="../addons/sz_yi/static/js/dist/select2/select2_locale_zh-CN.js"></script>
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">其他分类</label>
+    <div class="col-sm-8 col-xs-12">
+
+            {ife 'shop.goods' $item}
+
+               <select id="cates" name='cates[]' class="form-control" multiple="" >
+                {if intval($shopset['catlevel'])==3}
+                        {loop $category $p}
+                                    {if empty($p['parentid'])}
+                                        {loop $children[$p['id']] $c}
+                                           {loop $children[$c['id']] $t}
+                                             <option value="{$t['id']}" {if is_array($cates) && in_array($t['id'],$cates)}selected{/if} >{$p['name']}-{$c['name']}-{$t['name']}</option>
+                                           {/loop}
+                                        {/loop}
+                                    {/if}
+                                {/loop}
+                                {else}
+                                        {loop $category $p}
+                                            {if empty($p['parentid'])}
+                                                {loop $children[$p['id']] $c}
+                                                   <option value="{$c['id']}" {if is_array($cates) && in_array($c['id'],$cates)}selected{/if} >{$p['name']}-{$c['name']}</option>
+                                                {/loop}
+                                            {/if}
+                                        {/loop}
+                             {/if}
+                  </select>
+
+            {else}
+
+              <div class='form-control-static'>
+                         {if intval($shopset['catlevel'])==3}
+                            {loop $category $p}
+                                {if empty($p['parentid'])}
+                                    {loop $children[$p['id']] $c}
+                                       {loop $children[$c['id']] $t}
+                                         {if is_array($cates) && in_array($t['id'],$cates)}{$p['name']}-{$c['name']}-{$t['name']}; {/if}
+                                       {/loop}
+                                    {/loop}
+                                {/if}
+                            {/loop}
+                            {else}
+                                    {loop $category $p}
+                                        {if empty($p['parentid'])}
+                                            {loop $children[$p['id']] $c}
+                                               {if is_array($cates) && in_array($c['id'],$cates)}{$p['name']}-{$c['name']}; {/if}
+                                            {/loop}
+                                        {/if}
+                                    {/loop}
+                         {/if}
+            </div>
+         {/if}
+
+    </div>
+</div>
+<script language="javascript">
+    $(function(){
+            $('#cates').select2({
+              search:true,
+              placeholder: "请选择其他商品分类",
+              allowClear: true
+           });
+    })
+    </script>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商品类型</label>
+    <div class="col-sm-9 col-xs-12">
+        {ife 'shop.goods' $item}
+         <div style="float: left" id="ttttype">
+            <label for="isshow3" class="radio-inline"><input type="radio" name="type" value="1" id="isshow3" {if empty($item['type']) || $item['type'] == 1}checked="true"{/if} onclick="$('#product').show();$('#type_virtual').hide()" /> 实体商品</label>
+            <label for="isshow4" class="radio-inline"><input type="radio" name="type" value="2" id="isshow4"  {if $item['type'] == 2}checked="true"{/if}  onclick="$('#product').hide();$('#type_virtual').hide()" /> 虚拟商品</label>
+            {if p('virtual')}
+            <label for="isshow5" class="radio-inline"><input type="radio" name="type" value="3" id="isshow5"  {if $item['type'] == 3}checked="true"{/if}  onclick="$('#type_virtual').show();" /> 虚拟物品(卡密)</label>
+            {/if}
+        </div>
+        {if p('virtual')}
+        <div style="width: auto; float: left; margin-left: 10px;  {if $item['type'] != 3}display: none;{/if}" id="type_virtual">
+            <select class="form-control tpl-category-parent" id="virtual" name="virtual">
+                <option value="0">多规格虚拟物品</option>
+                {loop $virtual_types $virtual_type}
+                    <option value="{$virtual_type['id']}" {if $item['virtual'] == $virtual_type['id']}selected="true"{/if}>{$virtual_type['usedata']}/{$virtual_type['alldata']} | {$virtual_type['title']}</option>
+                {/loop}
+            </select>
+            <span>提示：直接选中虚拟物品模板即可，选择多规格需在商品规格页面设置</span>
+        </div>
+        {/if}
+
+        {else}
+         <div class='form-control-static'>{if empty($item['type']) || $item['type'] == 1}
+             实体物品
+             {elseif $item['type']==2}
+             虚拟物品
+             {elseif $item['type']==3}
+             虚拟物品(卡密)
+             {/if}</div>
+         {/if}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商品单位</label>
+    <div class="col-sm-6 col-xs-6">
+          {ife 'shop.goods' $item}
+        <input type="text" name="unit" id="unit" class="form-control" value="{$item['unit']}" />
+        <span class="help-block">如: 个/件/包</span>
+        {else}
+           <div class='form-control-static'>{$item['unit']}</div>
+        {/if}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商品属性</label>
+    <div class="col-sm-9 col-xs-12" >
+          {ife 'shop.goods' $item}
+        <label for="isrecommand" class="checkbox-inline">
+            <input type="checkbox" name="isrecommand" value="1" id="isrecommand" {if $item['isrecommand'] == 1}checked="true"{/if} /> 推荐
+        </label>
+        <label for="isnew" class="checkbox-inline">
+            <input type="checkbox" name="isnew" value="1" id="isnew" {if $item['isnew'] == 1}checked="true"{/if} /> 新上
+        </label>
+        <label for="ishot" class="checkbox-inline">
+            <input type="checkbox" name="ishot" value="1" id="ishot" {if $item['ishot'] == 1}checked="true"{/if} /> 热卖
+        </label>
+        <label for="isdiscount" class="checkbox-inline">
+            <input type="checkbox" name="isdiscount" value="1" id="isdiscount" {if $item['isdiscount'] == 1}checked="true"{/if} /> 促销
+        </label>
+        <label for="issendfree" class="checkbox-inline">
+            <input type="checkbox" name="issendfree" value="1" id="issendfree" {if $item['issendfree'] == 1}checked="true"{/if} /> 包邮
+        </label>
+        <label for="istime" class="checkbox-inline">
+            <input type="checkbox" name="istime" value="1" id="istime" {if $item['istime'] == 1}checked="true"{/if} /> 限时卖
+        </label>
+        <label for="isnodiscount" class="checkbox-inline">
+            <input type="checkbox" name="isnodiscount" value="1" id="isnodiscount" {if $item['isnodiscount'] == 1}checked="true"{/if} /> 不参与会员折扣
+        </label>
+          {else} <div class='form-control-static'>
+              {if $item['isnew']==1}新品; {/if}
+              {if $item['ishot']==1}热卖; {/if}
+              {if $item['isrecommand']==1}推荐; {/if}
+              {if $item['isdiscount']==1}促销; {/if}
+              {if $item['issendfree']==1}包邮; {/if}
+              {if $item['istime']==1}限时卖; {/if}
+              {if $item['isnodiscount']==1}不参与折扣; {/if}
+          </div>
+          {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">限时卖时间</label>
+      {ife 'shop.goods' $item}
+    <div class="col-sm-4 col-xs-6">
+
+        {php echo tpl_form_field_date('timestart', !empty($item['timestart']) ? date('Y-m-d H:i',$item['timestart']) : date('Y-m-d H:i'), 1)}
+    </div>
+    <div class="col-sm-4 col-xs-6">
+        {php echo tpl_form_field_date('timeend', !empty($item['timeend']) ? date('Y-m-d H:i',$item['timeend']) : date('Y-m-d H:i'), 1)}
+    </div>
+      {else}
+       <div class="col-sm-6 col-xs-6">
+           <div class='form-control-static'>
+               {if $item['istime']==1}
+               {php echo date('Y-m-d H:i',$item['timestart'])} - {php echo date('Y-m-d H:i',$item['timeend'])}
+               {/if}
+           </div>
+       </div>
+      {/if}
+</div>
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商品图片</label>
+    <div class="col-sm-9 col-xs-12 detail-logo">
+             {ife 'shop.goods' $item}
+        {php echo tpl_form_field_image('thumb', $item['thumb'])}
+        <span class="help-block">建议尺寸: 640 * 640 ，或正方型图片 </span>
+          {else}
+                            {if !empty($item['thumb'])}
+                            <a href='{php echo tomedia($item['thumb'])}' target='_blank'>
+                            <img src="{php echo tomedia($item['thumb'])}" style='width:100px;border:1px solid #ccc;padding:1px' />
+                             </a>
+                            {/if}
+                        {/if}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">其他图片</label>
+    <div class="col-sm-9 col-xs-12">
+           {ife 'shop.goods' $item}
+        {php echo tpl_form_field_multi_image('thumbs',$piclist)}
+            <span class="help-block">建议尺寸: 640 * 640 ，或正方型图片 </span>
+            {else}
+             {loop $piclist $p}
+             <a href='{php echo tomedia($p)}' target='_blank'>
+               <img src="{php echo tomedia($p)}" style='height:100px;border:1px solid #ccc;padding:1px;float:left;margin-right:5px;' />
+             </a>
+             {/loop}
+            {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商品编号</label>
+    <div class="col-sm-4 col-xs-12">
+          {ife 'shop.goods' $item}
+        <input type="text" name="goodssn" id="goodssn" class="form-control" value="{$item['goodssn']}" />
+          {else}
+           <div class='form-control-static'>{$item['goodssn']}</div>
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class=" col-sm-3 col-md-2 control-label">商品条码</label>
+    <div class="col-sm-4 col-xs-12">
+           {ife 'shop.goods' $item}
+        <input type="text" name="productsn" id="productsn" class="form-control" value="{$item['productsn']}" />
+            {else}
+           <div class='form-control-static'>{$item['productsn']}</div>
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商品价格</label>
+    <div class="col-sm-9 col-xs-12">
+         {ife 'shop.goods' $item}
+        <div class="input-group form-group">
+
+            <span class="input-group-addon">现价</span>
+            <input type="text" name="marketprice" id="marketprice" class="form-control" value="{$item['marketprice']}" />
+            <span class="input-group-addon">元</span>
+        </div>
+          {else}
+           <div class='form-control-static'>现价：{$item['marketprice']} 元</div>
+        {/if}
+    {ife 'shop.goods' $item}
+        <div class="input-group form-group">
+            <span class="input-group-addon">原价</span>
+            <input type="text" name="productprice" id="productprice" class="form-control" value="{$item['productprice']}" />
+            <span class="input-group-addon">元</span>
+        </div>
+           {else}
+           <div class='form-control-static'>原价：{$item['productprice']} 元</div>
+        {/if}
+            {ife 'shop.goods' $item}
+        <div class="input-group form-group">
+            <span class="input-group-addon">成本</span>
+            <input type="text" name="costprice" id="costprice" class="form-control" value="{$item['costprice']}" />
+            <span class="input-group-addon">元</span>
+        </div>
+           {else}
+           <div class='form-control-static'>成本：{$item['costprice']} 元</div>
+        {/if}
+           {ife 'shop.goods' $item}
+        <span class='help-block'>尽量填写完整，有助于于商品销售的数据分析</span>
+        {/if}
+        {if $bonus_start == 1}
+          {ife 'bonus.goods' $item}
+          <div class="input-group form-group">
+              <span class="input-group-addon">分红金额</span>
+              <input type="text" name="bonusmoney" class="form-control" value="{$item['bonusmoney']}" />
+              <span class="input-group-addon">元</span>
+          </div>
+             {else}
+             <div class='form-control-static'>分红金额{$item['bonusmoney']} 元</div>
+          {/if}
+             {ife 'bonus.goods' $item}
+          <span class='help-block'>填写分红金额，不填写则为现价计算</span>
+          {/if}
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">重量</label>
+    <div class="col-sm-6 col-xs-12">
+        {ife 'shop.goods' $item}
+        <div class="input-group">
+            <input type="text" name="weight" id="weight" class="form-control" value="{$item['weight']}" />
+            <span class="input-group-addon">克</span>
+        </div>
+		<div class='help-block'>商品重量设置空或0，则为包邮，如启用多规格，多规格内也需进行设置</div>
+        {else}
+         <div class='form-control-static'>{$item['weight']} 克</div>
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">库存</label>
+    <div class="col-sm-6 col-xs-12">
+             {ife 'shop.goods' $item}
+        <div class="input-group">
+            <input type="text" name="total" id="total" class="form-control" value="{$item['total']}" />
+            <span class="input-group-addon">件</span>
+        </div>
+        <span class="help-block">商品的剩余数量, 如启用多规格{if p('virtual')}或为虚拟卡密产品{/if}，则此处设置无效，请移至“商品规格”{if p('virtual')}或“虚拟物品插件”{/if}中设置</span>
+        {else}
+         <div class='form-control-static'>{$item['total']} 件</div>
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">减库存方式</label>
+    <div class="col-sm-9 col-xs-12">
+              {ife 'shop.goods' $item}
+        <label for="totalcnf1" class="radio-inline"><input type="radio" name="totalcnf" value="0" id="totalcnf1" {if empty($item) || $item['totalcnf'] == 0}checked="true"{/if} /> 拍下减库存</label>
+        &nbsp;&nbsp;&nbsp;
+        <label for="totalcnf2" class="radio-inline"><input type="radio" name="totalcnf" value="1" id="totalcnf2"  {if !empty($item) && $item['totalcnf'] == 1}checked="true"{/if} /> 付款减库存</label>
+        &nbsp;&nbsp;&nbsp;
+        <label for="totalcnf3" class="radio-inline"><input type="radio" name="totalcnf" value="2" id="totalcnf3"  {if !empty($item) && $item['totalcnf'] == 2}checked="true"{/if} /> 永不减库存</label>
+        {else}
+
+        <div class='form-control-static'>
+           {if empty($item) || $item['totalcnf'] == 0}拍下减库存{/if}
+           {if !empty($item) && $item['totalcnf'] == 1}付款减库存{/if}
+           {if !empty($item) && $item['totalcnf'] == 2}永不减库存{/if}
+         </div>
+
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">单次最多购买量</label>
+    <div class="col-sm-6 col-xs-12">
+               {ife 'shop.goods' $item}
+        <div class="input-group">
+            <input type="text" name="maxbuy" id="maxbuy" class="form-control" value="{$item['maxbuy']}" />
+            <span class="input-group-addon">件</span>
+
+        </div>
+			   <span class="help-block">用户单次购买此商品数量限制</span>
+                    {else}
+        <div class='form-control-static'>{$item['maxbuy']} 件</div>
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">用户最多购买量</label>
+
+    <div class="col-sm-6 col-xs-12">
+            {ife 'shop.goods' $item}
+        <div class="input-group">
+            <input type="text" name="usermaxbuy" class="form-control" value="{$item['usermaxbuy']}" />
+            <span class="input-group-addon">件</span>
+        </div>
+			<span class="help-block">用户购买过的此商品数量限制</span>
+        {else}
+        <div class='form-control-static'>{$item['usermaxbuy']} 件</div>
+        {/if}
+
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">已出售数</label>
+    <div class="col-sm-6 col-xs-12">
+              {ife 'shop.goods' $item}
+        <div class="input-group">
+            <input type="text" name="sales" id="sales" class="form-control" value="{$item['sales']}" />
+            <span class="input-group-addon">件</span>
+        </div>
+			    <span class="help-block">物品虚拟出售数，会员下单此数据就增加, 无论是否支付</span>
+            {else}
+        <div class='form-control-static'>{$item['sales']} 件</div>
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">赠送积分</label>
+    <div class="col-sm-6 col-xs-12">
+            {ife 'shop.goods' $item}
+        <div class="input-group">
+            <input type="text" name="credit" id="credit" class="form-control" value="{$item['credit']}" />
+            <span class="input-group-addon">分</span>
+        </div>
+        <p class="help-block">会员购物赠送的积分, 如果不填写或填写0，则默认为不赠送积分，如果带%则为按成交价格的比例计算积分</p>
+		<p class="help-block">如: 购买2件，设置10 积分, 不管成交价格是多少， 则购买后获得20积分</p>
+		<p class="help-block">如: 购买2件，设置10%积分, 成交价格2 * 200= 400， 则购买后获得 40 积分（400*10%）</p>
+               {else}
+        <div class='form-control-static'>{$item['credit']} 分</div>
+        {/if}
+    </div>
+</div>
+{if $com_set['upgrade_by_good'] && !empty($com_set['level'])}
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分销商</label>
+    <div class="col-sm-6 col-xs-12">
+        <select name='commission_level_id' class='form-control'>
+            <option value="0">请选择分销商等级</option>
+            {loop $commissionLevels $level}
+                <option value="{$level['id']}" {if $item['commission_level_id'] == $level['id']}selected="selected"{/if}>{$level['levelname']}</option>
+            {/loop}
+        </select>
+        <span class='help-block'>购买此商品成为指定的分销商等级</span>
+    </div>
+</div>
+{/if}
+
+<div class="form-group" id="dispatch_info" {if ($item['type'] == 2 || $item['type'] == 3)}style="display: none;"{/if}>
+<label class="col-xs-12 col-sm-3 col-md-2 control-label">运费设置</label>
+<div class="col-sm-6 col-xs-6">
+    {ife 'shop.goods' $item}
+    <label class="radio-inline" style="float: left;"><input type="radio" name="dispatchtype" value="1" {if $item['dispatchtype'] == 1}checked="true"{/if} {if p('supplier')}{if $perm_role == 1}checked="true"{/if}{/if} id="dispatchtype1" /> 统一邮费</label>
+
+    <div class="input-group form-group" style="width: 180px; float: left; margin: 0px 20px 0px 10px;">
+
+        <input type="text" name="dispatchprice" id="dispatchprice" class="form-control" value="{$item['dispatchprice']}" {if p('supplier')}{if $perm_role == 1}readonly='readonly'{/if}{/if}/>
+        <span class="input-group-addon">元</span>
+    </div>
+    {if p('supplier')}
+    {if $perm_role == 0}
+    <div id="type_dispatch_isshow">
+    <label class="radio-inline" style="float: left;"><input type="radio" name="dispatchtype" value="0" {if empty($item['dispatchtype'])}checked="true"{/if}   id="dispatchtype2"/> 运费模板</label>
+
+    <div style="width: auto; float: left; margin-left: 10px;"  id="type_dispatch">
+        <select class="form-control tpl-category-parent" id="dispatchid" name="dispatchid">
+            <option value="0">默认模板</option>
+            {loop $dispatch_data $dispatch_item}
+            <option value="{$dispatch_item['id']}" {if $item['dispatchid'] == $dispatch_item['id']}selected="true"{/if}>{$dispatch_item['dispatchname']}</option>
+            {/loop}
+        </select>
+    </div>
+    </div>
+    {/if}
+    {/if}
+    {else}
+    <div class='form-control-static'>{if empty($item['dispatchtype'])}运费模板 {if $item['dispatchid'] == 0}默认模板{else}{loop $dispatch_data $dispatch_item}{if $item['dispatchid'] == $dispatch_item['id']}{$dispatch_item['dispatchname']}{/if}{/loop}{/if}{else}统一邮费{/if}</div>
+    {/if}
+</div>
+</div>
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否支持货到付款</label>
+    <div class="col-sm-6 col-xs-6">
+        {ife 'shop.goods' $item}
+        <label class="radio-inline"><input type="radio" name="cash" value="1" {if empty($item['cash']) || $item['cash'] == 1}checked="true"{/if}  /> 不支持</label>
+        <label class="radio-inline"><input type="radio" name="cash" value="2" {if $item['cash'] == 2}checked="true"{/if}   /> 支持</label>
+           {else}
+           <div class='form-control-static'>{if empty($item['cash']) || $item['cash'] == 1}不支持{else}支持{/if}</div>
+         {/if}
+    </div>
+</div>
+{if p('supplier')}
+{if $perm_role == 0}
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否上架</label>
+    <div class="col-sm-9 col-xs-12">
+          {ife 'shop.goods' $item}
+        <label for="isshow1" class="radio-inline"><input type="radio" name="status" value="1" id="isshow1" {if $item['status'] == 1}checked="true"{/if} /> 是</label>
+        &nbsp;&nbsp;&nbsp;
+        <label for="isshow2" class="radio-inline"><input type="radio" name="status" value="0" id="isshow2"  {if $item['status'] == 0}checked="true"{/if} /> 否</label>
+        <span class="help-block"></span>
+
+            {else}
+                            <div class='form-control-static'>{if empty($item['status'])}否{else}是{/if}</div>
+                        {/if}
+
+    </div>
+</div>
+{/if}
+{/if}

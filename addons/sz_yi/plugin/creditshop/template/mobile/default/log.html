@@ -1,0 +1,142 @@
+{template 'common/header'}
+{template '_header'}
+<title>兑换记录</title>
+{if $_GPC['shine']==1}
+<script type='text/javascript' src='../addons/sz_yi/plugin/creditshop/template/mobile/default/images/jquery.color.js'></script>
+{/if}
+<style type='text/css'>
+  body { background:#fff }
+#log_loading { padding:10px;color:#666;text-align: center;}
+</style>
+<div id='container'></div>
+<script id='tpl_main' type='text/html'>
+   <div class="page_topbar">
+    <a href="{php echo $this->createPluginMobileUrl('creditshop')}" class="back" onclick="history.back()"><i class="fa fa-angle-left"></i></a>
+    <div class="title">兑换记录</div>
+</div>
+<div id="container_list"></div>
+</script>
+<script id='tpl_empty' type='text/html'>
+    <div class="record_ico"><i class="fa fa-database"></i></div>
+    <div class="record_no">您还没有兑换记录哦~</div>
+</script>
+<script id='tpl_list' type='text/html'>
+    <%each list as log i%>
+    <div class="record_line"
+           <%if log.type==0%>
+                    <%if log.status==1 || log.status==2%>onclick="location.href='{php echo $this->createPluginMobileUrl('creditshop/log',array('op'=>'detail'))}&id=<%log.id%>'"<%/if%>
+                <%else%>
+                    <%if log.status==1%>onclick="location.href='{php echo $this->createPluginMobileUrl('creditshop/detail')}&id=<%log.goodsid%>'"<%/if%>
+                    <%if log.status==2 || log.status==3%>onclick="location.href='{php echo $this->createPluginMobileUrl('creditshop/log',array('op'=>'detail'))}&id=<%log.id%>'"<%/if%>
+                <%/if%>
+             
+         >
+        <div class="img"><img src="<%log.thumb%>"></div>
+        <div class="go" ><i class='fa fa-angle-right'></i></div>
+             <div  class="info">
+        	<div class="desc">
+                     
+                <%if log.type==0%>兑换<%else%>抽取<%/if%><%log.title%></div>
+       
+            <div class="price">
+              
+             <%if log.acttype==0%>
+                 <%log.credit%><i class="fa fa-database" style=" padding-left:5px;"></i> <i class="fa fa-plus" style=" padding-left:5px;"></i> <%log.money%><i class="fa fa-rmb" style=" padding-left:5px;"></i>
+            <%/if%>
+            <%if log.acttype==1%>
+               <%log.credit%><i class="fa fa-database" style=" padding-left:5px;"></i>
+            <%/if%>
+    
+            <%if log.acttype==2%>
+               <%log.money%><i class="fa fa-rmb" style=" padding-left:5px;"></i>
+            <%/if%><%if log.goodstype==0%>
+                <span style='font-size:12px;'>
+				<%if log.isverify==1 && log.storeid==0%>请选择门店<%/if%>
+	        <%if log.isverify==0 && log.addressid==0%>请选择地址<%/if%>
+		
+				</span>	<%/if%>
+            </div>
+             <div class="result">
+	   <%if log.goodstype==0%>
+                <%if log.type==0%>
+                    <%if log.status==2%>兑奖码: <%log.eno%><%/if%>
+                    <%if log.status==3%>已兑换~<%/if%>
+                <%else%>
+                    <%if log.status==1%>未中奖~<%/if%>
+                    <%if log.status==2%>兑奖码: <%log.eno%><%/if%>
+                    <%if log.status==3%>已兑换~<%/if%>
+                <%/if%>
+				<%else%>
+				   <%if log.status==1%>未中奖~<%/if%>
+                    <%if log.status==3%>优惠券已发放~<%/if%>
+				<%/if%>
+            </div>
+        </div>
+    </div>
+<%/each%>
+</script>
+<script language='javascript'>
+    var page= 1;
+ 
+    require(['tpl', 'core'], function(tpl, core) {
+       
+        core.pjson('creditshop/log',{},function(json){
+
+                     
+                     $('#container').html(  tpl('tpl_main',json.result) );
+                     
+                     if(json.result.total<=0){
+                        $('#container_list').html(  tpl('tpl_empty') );
+                     }else{
+                           $('#container_list').html(  tpl('tpl_list',json.result) );
+                     }
+  
+                {if $_GPC['shine']==1}
+                     var first = $('.record_line:first-child');
+                     if(first.length>0){
+                         first.animate({backgroundColor:'#ff0'},300,null,function(){
+                               first.animate({backgroundColor:'#fff'},200);
+                         });
+                     }
+                {/if}
+if (json.result.list.length < json.result.pagesize) {
+                            return;
+                     }
+                
+                     var loaded = false;
+                      var stop=true; 
+                      $(window).scroll(function(){ 
+                          if(loaded){ 
+                              return;
+                          }
+                            totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
+                            if($(document).height() <= totalheight){ 
+                                
+                                if(stop==true){ 
+                                    stop=false; 
+                                    $("#container_list").append('<div id="log_loading"><i class="fa fa-spinner fa-spin"></i> 正在加载...</div>');
+                                    page++;
+                                    core.pjson('creditshop/log', {page:page}, function(morejson) {  
+                                        stop = true;
+                                        $('#log_loading').remove();
+                                        $("#container_list").append(tpl('tpl_list', morejson.result));
+                                        bindEvents();
+                                        if (morejson.result.list.length <morejson.result.pagesize) {
+                                          
+                                            $('#container_list').append('<div id="log_loading">已经加载完全部记录</div>');
+                                            loaded = true;
+                                            $(window).scroll = null;
+                                            return;
+                                        }
+                                    },true); 
+                                } 
+                            } 
+                        });
+            
+                  
+              
+                     
+         },true);
+   });
+</script>
+{template 'common/footer'}

@@ -1,0 +1,106 @@
+{template 'web/_header'}
+{template 'tabs'}
+<style type="text/css">
+.input-group{
+    width: 40%;
+    float: left;
+    margin-left: 90px
+}
+.col-md-2 {
+    width: 120px;
+}
+</style>
+<div class="panel panel-info">
+    <div class="panel-heading">条件</div>
+    <div class="panel-body">
+        <form action="" method="post" class="form-horizontal" role="form" id="form1">
+            <input type="hidden" name="op" value="sub_bonus" />
+            <input type="hidden" name="everyonemoney" value="{$everyonemoney}" />
+            <input type="hidden" name="bonus_money" value="{$bonus_money}" />
+            <input type="hidden" name="starttime_order" value="{$starttime_order}" />
+            <input type="hidden" name="endtime_order" value="{$endtime_order}" />
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">订单总金额</label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                    <span style='color:red'>{$ordermoney}</span>&nbsp;元
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">共计分红人数</label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                    <span style='color:red'>{$total}</span>&nbsp;人
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">共计分红金额</label>
+                <div class="col-sm-8 col-lg-9 col-xs-12">
+                    <span style='color:red'>{$totalmoney}</span>&nbsp;元
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">打款方式</label>
+                    <div class="col-sm-9 col-xs-12">
+                    <div class="input-group" style="margin-left:0">
+                      {if $set['paymethod']==0}打款到站内余额{/if}
+                      {if $set['paymethod']==1}打款到微信钱包{/if}
+                    </div>
+                </div>
+            </div>
+            {if $set['sendmethod'] == 1}
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                    <div class="input-group" style="margin-left:0">
+                      已选择自动打款不能操作
+                    </div>
+                </div>
+            </div>
+            {else}
+            <div class="form-group" style="text-align: center;">
+                <div class="col-sm-3 col-lg-2"><button class="btn btn-default" style="background-color: #428bca;color:#fff;width:200px;">全球分红发放</button></div>
+            </div>
+            {/if}
+         </form> 
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">分红总金额：{if !empty($totalmoney)}{$totalmoney}元{else}0元{/if}</div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead class="navbar-inner">
+                <tr>
+                    <th style='width:14%;'>id</th>
+                    <th style='width:14%;'>姓名</th>
+                    <th style='width:14%;'>真实姓名</th>
+                    <th style='width:14%;'>级别</th>
+                    <th style='width:14%;'>手机号</th>
+                    <th style='width:14%;'>已分红</th>
+                    <th style='width:14%;'>待分红</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list $row}
+                <tr>
+                    <td>{$row['id']}</td>
+                    <td>
+                        {if !empty($row['avatar'])}
+                        <img src='{$row['avatar']}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' />
+                        {/if}
+                        {if empty($row['nickname'])}未更新{else}{$row['nickname']}{/if}
+                    </td>
+                    <td>{$row['realname']}</td>
+                    <td>{$row['levelname']}</td>
+                    <td>{$row['mobile']}</td>
+                    <td>
+                        {$row['commission_pay']}
+                    </td>
+                    <td>{$row['commission_ok']}</td>
+                </tr>
+                {/loop}
+            </tbody>
+        </table>
+        {$pager}
+    </div>
+</div>
+{template 'common/footer'}

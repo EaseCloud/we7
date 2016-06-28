@@ -1,0 +1,196 @@
+{template 'web/_header'}
+{template 'tabs'}
+<div class='alert alert-info'>
+    提示: 没有设置等级的分销商将按默认设置计算提成。商品指定的佣金金额的优先级仍是最高的，也就是说只要商品指定了佣金金额就按商品的佣金金额来计算，不受等级影响
+</div>
+{if $operation == 'post'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$level['id']}" />
+        <div class='panel panel-default'>
+            <div class='panel-heading'>
+                分销商等级设置
+            </div>
+            <div class='panel-body'>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 等级名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="levelname" class="form-control" value="{$level['levelname']}" />
+                    </div>
+                </div>
+                {if $this->set['level']>=1}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">一级分销比例</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="commission1" class="form-control" value="{$level['commission1']}" />
+                    </div>
+                </div>
+                {/if}
+                  {if $this->set['level']>=2}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">二级分销比例</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="commission2" class="form-control" value="{$level['commission2']}" />
+                    </div>
+                </div>
+                    {/if}
+                  {if $this->set['level']>=3}
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">三级分销比例</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="commission3" class="form-control" value="{$level['commission3']}" />
+                    </div>
+                </div>
+                    {/if}
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">升级条件</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class='input-group'>
+							{if $leveltype==0}
+									<span class='input-group-addon'>分销订单金额满</span>
+									<input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
+									<span class='input-group-addon'>元</span>
+							{/if}
+							
+							{if $leveltype==1}
+									<span class='input-group-addon'>一级分销订单金额满</span>
+									<input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
+									<span class='input-group-addon'>元</span>
+							{/if}
+							 
+							
+							{if $leveltype==2}
+									<span class='input-group-addon'>分销订单数量满</span>
+									<input type="text" name="ordercount" class="form-control" value="{$level['ordercount']}" />
+									<span class='input-group-addon'>个</span>
+							{/if}
+							
+							{if $leveltype==3}
+									<span class='input-group-addon'>一级分销订单数量满</span>
+									<input type="text" name="ordercount" class="form-control" value="{$level['ordercount']}" />
+									<span class='input-group-addon'>个</span>
+							{/if}
+							
+							{if $leveltype==4}
+									<span class='input-group-addon'>自购订单金额满</span>
+									<input type="text" name="ordermoney" class="form-control" value="{$level['ordermoney']}" />
+									<span class='input-group-addon'>元</span>
+							{/if}
+							
+							{if $leveltype==5}
+									<span class='input-group-addon'>自购订单数量满</span>
+									<input type="text" name="ordercount" class="form-control" value="{$level['ordercount']}" />
+									<span class='input-group-addon'>个</span>
+							{/if}
+							{if $leveltype==6}
+									<span class='input-group-addon'>下级总人数满</span>
+									<input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
+									<span class='input-group-addon'>个（分销商+非分销商）</span>
+							{/if}
+							{if $leveltype==7}
+									<span class='input-group-addon'>一级下级人数满</span>
+									<input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
+									<span class='input-group-addon'>个（分销商+非分销商）</span>
+							{/if}
+							{if $leveltype==8}
+									<span class='input-group-addon'>团队总人数满</span>
+									<input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
+									<span class='input-group-addon'>个（分销商）</span>
+							{/if}
+							{if $leveltype==9}
+									<span class='input-group-addon'>一级团队人数满</span>
+									<input type="text" name="downcount" class="form-control" value="{$level['downcount']}" />
+									<span class='input-group-addon'>个（分销商）</span>
+							{/if}
+							 
+							{if $leveltype==10}
+									<span class='input-group-addon'>已提现佣金总金额满</span>
+									<input type="text" name="commissionmoney" class="form-control" value="{$level['commissionmoney']}" />
+									<span class='input-group-addon'>元</span>
+							{/if}
+							
+							
+                        </div>
+                        <span class='help-block'>分销商升级条件，不填写默认为不自动升级</span>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+	<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+	<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+    </form>
+</div>
+<script language='javascript'>
+    $('form').submit(function(){
+        if($(':input[name=levelname]').isEmpty()){
+            Tip.focus($(':input[name=levelname]'),'请输入等级名称!');
+            return false;
+        }
+        return true;
+    })
+    </script>
+{elseif $operation == 'display'}
+            <form action="" method="post" onsubmit="return formcheck(this)">
+     <div class='panel panel-default'>
+            <div class='panel-heading'>
+                分销商等级设置
+            </div>
+         <div class='panel-body'>
+   
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>等级名称</th>
+                        {if $this->set['level']>=1}<th>一级比例</th>{/if}
+                        {if $this->set['level']>=2}<th>二级比例</th>{/if}
+                        {if $this->set['level']>=3}<th>三级比例</th>{/if}
+                        <th>升级条件</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {loop $list $row}
+                    <tr>
+                        <td>{$row['levelname']}</td>
+                        {if $this->set['level']>=1}<td>{$row['commission1']}%</td>{/if}
+                         {if $this->set['level']>=2}<td>{$row['commission2']}%</td>{/if}
+                          {if $this->set['level']>=3}<td>{$row['commission3']}%</td>{/if}
+                          <td>
+						{if $leveltype==0}{if $row['ordermoney']>0}分销订单金额满 {$row['ordermoney']} 元 {else}不自动升级{/if}{/if}
+						{if $leveltype==1}{if $row['ordermoney']>0}一级分销订单金额满 {$row['ordermoney']} 元 {else}不自动升级{/if}{/if}
+						{if $leveltype==2}{if $row['ordercount']>0}分销订单数量满 {$row['ordercount']} 个 {else}不自动升级{/if}{/if}
+						{if $leveltype==3}{if $row['ordercount']>0}一级分销订单数量满 {$row['ordercount']} 个 {else}不自动升级{/if}{/if}
+						{if $leveltype==4}{if $row['ordermoney']>0}自购订单金额满 {$row['ordermoney']} 元 {else}不自动升级{/if}{/if}
+						{if $leveltype==5}{if $row['ordercount']>0}自购订单数量满 {$row['ordercount']} 个 {else}不自动升级{/if}{/if}
+						
+						{if $leveltype==6}{if $row['downcount']>0}下级总人数满 {$row['downcount']} 个（分销商+非分销商） {else}不自动升级{/if}{/if}
+						{if $leveltype==7}{if $row['downcount']>0}一级下级人数满 {$row['downcount']} 个（分销商+非分销商） {else}不自动升级{/if}{/if}
+						
+						{if $leveltype==8}{if $row['downcount']>0}团队总人数满 {$row['downcount']} 个（分销商） {else}不自动升级{/if}{/if}
+						{if $leveltype==9}{if $row['downcount']>0}一级团队人数满 {$row['downcount']} 个（分销商） {else}不自动升级{/if}{/if}
+						
+						 
+						{if $leveltype==10}{if $row['commissionmoney']>0}已提现佣金总金额满 {$row['commissionmoney']} 元{else}不自动升级{/if}{/if}	 
+                          </td>
+                        <td>
+                            <a class='btn btn-default' href="{php echo $this->createPluginWebUrl('commission/level', array('op' => 'post', 'id' => $row['id']))}">编辑</a>
+                            <a class='btn btn-default'  href="{php echo $this->createPluginWebUrl('commission/level', array('op' => 'delete', 'id' => $row['id']))}" onclick="return confirm('确认删除此等级吗？');return false;">删除</a></td>
+
+                    </tr>
+                    {/loop}
+                
+                </tbody>
+            </table>
+
+         </div>
+         <div class='panel-footer'>
+                            <a class='btn btn-default' href="{php echo $this->createPluginWebUrl('commission/level', array('op' => 'post'))}"><i class="fa fa-plus"></i> 添加新等级</a>
+         </div>
+     </div>
+         </form>
+{/if}
+{template 'web/_footer'}
