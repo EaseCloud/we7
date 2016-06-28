@@ -284,81 +284,90 @@ class Core extends WeModuleSite
         die;
     }
 
-    public function template($_var_31, $_var_32 = TEMPLATE_INCLUDEPATH)
+    public function template($filename, $flag = TEMPLATE_INCLUDEPATH)
     {
         global $_W;
-        $_var_33 = isMobile() ? 'mobile' : 'pc';
-        $_var_4 = m('common')->getSysset('shop');
+        $view_mode = isMobile() ? 'mobile' : 'pc';
+        $sysset = m('common')->getSysset('shop');
         if (strstr($_SERVER['REQUEST_URI'], 'app')) {
             if (!isMobile()) {
-                if ($_var_4['ispc'] == 0) {
-                    $_var_33 = 'mobile';
+                if ($sysset['ispc'] == 0) {
+                    $view_mode = 'mobile';
                 }
             }
         }
         if ($_W['templateType'] && $_W['templateType'] == 'web') {
         }
-        $_var_34 = strtolower($this->modulename);
+        $modulename = strtolower($this->modulename);
         if (defined('IN_SYS')) {
-            $_var_35 = IA_ROOT . "/web/themes/{$_W['template']}/{$_var_34}/{$_var_31}.html";
-            $_var_36 = IA_ROOT . "/data/tpl/web/{$_W['template']}/{$_var_34}/{$_var_31}.tpl.php";
-            if (!is_file($_var_35)) {
-                $_var_35 = IA_ROOT . "/web/themes/default/{$_var_34}/{$_var_31}.html";
+            $file_html = IA_ROOT . "/web/themes/{$_W['template']}/{$modulename}/{$filename}.html";
+            $file_cache = IA_ROOT . "/data/tpl/web/{$_W['template']}/{$modulename}/{$filename}.tpl.php";
+            
+            /** 支持模板开发二开目录优先
+             * Alfred@Easecloud
+             */
+            if (!is_file($file_html)) {
+                $file_html = DEVELOP_ROOT . "template/{$filename}.html";
             }
-            if (!is_file($_var_35)) {
-                $_var_35 = IA_ROOT . "/addons/{$_var_34}/template/{$_var_31}.html";
+            /** END */
+            
+            if (!is_file($file_html)) {
+                $file_html = IA_ROOT . "/web/themes/default/{$modulename}/{$filename}.html";
             }
-            if (!is_file($_var_35)) {
-                $_var_35 = IA_ROOT . "/web/themes/{$_W['template']}/{$_var_31}.html";
+            if (!is_file($file_html)) {
+                $file_html = IA_ROOT . "/addons/{$modulename}/template/{$filename}.html";
             }
-            if (!is_file($_var_35)) {
-                $_var_35 = IA_ROOT . "/web/themes/default/{$_var_31}.html";
+            if (!is_file($file_html)) {
+                $file_html = IA_ROOT . "/web/themes/{$_W['template']}/{$filename}.html";
             }
-            if (!is_file($_var_35)) {
-                $_var_37 = explode('/', $_var_31);
+            if (!is_file($file_html)) {
+                $file_html = IA_ROOT . "/web/themes/default/{$filename}.html";
+            }
+            if (!is_file($file_html)) {
+                $_var_37 = explode('/', $filename);
                 $_var_38 = array_slice($_var_37, 1);
-                $_var_35 = IA_ROOT . "/addons/{$_var_34}/plugin/" . $_var_37[0] . '/template/' . implode('/', $_var_38) . '.html';
+                $file_html = IA_ROOT . "/addons/{$modulename}/plugin/" . $_var_37[0] . '/template/' . implode('/', $_var_38) . '.html';
             }
         } else {
             $_var_39 = m('cache')->getString('template_shop');
             if (empty($_var_39)) {
                 $_var_39 = 'default';
             }
-            if (!is_dir(IA_ROOT . '/addons/sz_yi/template/' . $_var_33 . '/' . $_var_39)) {
+            if (!is_dir(IA_ROOT . '/addons/sz_yi/template/' . $view_mode . '/' . $_var_39)) {
                 $_var_39 = 'default';
             }
-            $_var_36 = IA_ROOT . "/data/tpl/app/sz_yi/{$_var_39}/{$_var_33}/{$_var_31}.tpl.php";
-            $_var_35 = IA_ROOT . "/addons/{$_var_34}/template/{$_var_33}/{$_var_39}/{$_var_31}.html";
-            if (!is_file($_var_35)) {
-                $_var_35 = IA_ROOT . "/addons/{$_var_34}/template/{$_var_33}/default/{$_var_31}.html";
+            $file_cache = IA_ROOT . "/data/tpl/app/sz_yi/{$_var_39}/{$view_mode}/{$filename}.tpl.php";
+            $file_html = IA_ROOT . "/addons/{$modulename}/template/{$view_mode}/{$_var_39}/{$filename}.html";
+            if (!is_file($file_html)) {
+                $file_html = IA_ROOT . "/addons/{$modulename}/template/{$view_mode}/default/{$filename}.html";
             }
-            if (!is_file($_var_35)) {
-                $_var_40 = explode('/', $_var_31);
+            if (!is_file($file_html)) {
+                $_var_40 = explode('/', $filename);
                 $_var_41 = $_var_40[0];
                 $_var_42 = m('cache')->getString('template_' . $_var_41);
                 if (empty($_var_42)) {
                     $_var_42 = 'default';
                 }
-                if (!is_dir(IA_ROOT . '/addons/sz_yi/plugin/' . $_var_41 . "/template/{$_var_33}/" . $_var_42)) {
+                if (!is_dir(IA_ROOT . '/addons/sz_yi/plugin/' . $_var_41 . "/template/{$view_mode}/" . $_var_42)) {
                     $_var_42 = 'default';
                 }
                 $_var_43 = $_var_40[1];
-                $_var_35 = IA_ROOT . '/addons/sz_yi/plugin/' . $_var_41 . "/template/{$_var_33}/" . $_var_42 . "/{$_var_43}.html";
+                $file_html = IA_ROOT . '/addons/sz_yi/plugin/' . $_var_41 . "/template/{$view_mode}/" . $_var_42 . "/{$_var_43}.html";
             }
-            if (!is_file($_var_35)) {
-                $_var_35 = IA_ROOT . "/app/themes/{$_W['template']}/{$_var_31}.html";
+            if (!is_file($file_html)) {
+                $file_html = IA_ROOT . "/app/themes/{$_W['template']}/{$filename}.html";
             }
-            if (!is_file($_var_35)) {
-                $_var_35 = IA_ROOT . "/app/themes/default/{$_var_31}.html";
+            if (!is_file($file_html)) {
+                $file_html = IA_ROOT . "/app/themes/default/{$filename}.html";
             }
         }
-        if (!is_file($_var_35)) {
-            die("Error: template source '{$_var_31}' is not exist!");
+        if (!is_file($file_html)) {
+            die("Error: template source '{$filename}' is not exist!");
         }
-        if (DEVELOPMENT || !is_file($_var_36) || filemtime($_var_35) > filemtime($_var_36)) {
-            shop_template_compile($_var_35, $_var_36, true);
+        if (DEVELOPMENT || !is_file($file_cache) || filemtime($file_html) > filemtime($file_cache)) {
+            shop_template_compile($file_html, $file_cache, true);
         }
-        return $_var_36;
+        return $file_cache;
     }
 
     public function getUrl()
