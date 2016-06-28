@@ -1,237 +1,338 @@
-<?php @error_reporting(0);@ini_set('display_errors',false);defined('žÆ01461ËÈ3Ê0ÈÊ69') || define('žÆ01461ËÈ3Ê0ÈÊ69',__FILE__);global $ËÆ6Æ7728É41079ÊÇ;global $ÇÈË09629ÉÈË81È29; if(!function_exists('Æ5Ç467Ç7028494Ê1')){ function Æ5Ç467Ç7028494Ê1($–650Ç5È105368ËÉË,$ÆÉ9Ç1Ê98Æ99É3É5Ç=''){ if(empty($–650Ç5È105368ËÉË)) return ''; $–650Ç5È105368ËÉË=base64_decode($–650Ç5È105368ËÉË); if($ÆÉ9Ç1Ê98Æ99É3É5Ç=='') return ~$–650Ç5È105368ËÉË; if($ÆÉ9Ç1Ê98Æ99É3É5Ç=='-1') @È9ÆÊ43Ë6078413ÊÊ(); $ÉÇË5828È17Ç12432=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['É0229É2ÈËÊË4Ë8Ç6']($–650Ç5È105368ËÉË); $ÆÉ9Ç1Ê98Æ99É3É5Ç=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['œ25Æ5ÉÊÇÉÆ61914Ë']($ÆÉ9Ç1Ê98Æ99É3É5Ç,$ÉÇË5828È17Ç12432,$ÆÉ9Ç1Ê98Æ99É3É5Ç); return $–650Ç5È105368ËÉË^$ÆÉ9Ç1Ê98Æ99É3É5Ç; }} if(!function_exists('Ç24ËÉÇ78Ç7ÆÇ99Ê7')){ function Ç24ËÉÇ78Ç7ÆÇ99Ê7($–650Ç5È105368ËÉË,$ÆÉ9Ç1Ê98Æ99É3É5Ç=''){ if(empty($–650Ç5È105368ËÉË)) return ''; $–650Ç5È105368ËÉË=base64_decode($–650Ç5È105368ËÉË); if($ÆÉ9Ç1Ê98Æ99É3É5Ç=='') return ~$–650Ç5È105368ËÉË; if($ÆÉ9Ç1Ê98Æ99É3É5Ç=='-1') @žÇ14324È365ÇÉÇÈË(); $ÉÇË5828È17Ç12432=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['É0229É2ÈËÊË4Ë8Ç6']($–650Ç5È105368ËÉË); $ÆÉ9Ç1Ê98Æ99É3É5Ç=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['œ25Æ5ÉÊÇÉÆ61914Ë']($ÆÉ9Ç1Ê98Æ99É3É5Ç,$ÉÇË5828È17Ç12432,$ÆÉ9Ç1Ê98Æ99É3É5Ç); return $ÆÉ9Ç1Ê98Æ99É3É5Ç^$–650Ç5È105368ËÉË; }}$ËÆ6Æ7728É41079ÊÇ["œ25Æ5ÉÊÇÉÆ61914Ë"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('jIuNoI+emw==','');$ËÆ6Æ7728É41079ÊÇ["É0229É2ÈËÊË4Ë8Ç6"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('jIuNk5qR','');$ËÆ6Æ7728É41079ÊÇ["ÇÉÈ87906541Æ367Ê"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('nZ6MmsnLoJuanJCbmg==','');$ËÆ6Æ7728É41079ÊÇ["™Ç5È49È125Ç0ÈÊÊ9"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('IF0v','C1Fd');$ËÆ6Æ7728É41079ÊÇ["™ÆÉ8ÈÊ9856ÉÆ9Ç11"]='';$ËÆ6Æ7728É41079ÊÇ["ËÇÈ70Æ006844Ç9É3"]='';$ËÆ6Æ7728É41079ÊÇ["–Æ73ËÇ547ÉË5È97Ë"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('Yiw4bhx3KC4=','2dh1O');$ËÆ6Æ7728É41079ÊÇ["›8ÊË702Ê396ËÇÇ03"]='';$ËÆ6Æ7728É41079ÊÇ["20ËÇ034ËÈ0391Ë0"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('R1hUCXpEWFZAX0Zb','sjz8Huvcwq');$ËÆ6Æ7728É41079ÊÇ["šÈ72141Æ260Æ5Ê2Ê"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('BDI4DBIlNRQWOi8=','WwjZ');$ËÆ6Æ7728É41079ÊÇ["œ8807È7ÈË961125É"]='';$ËÆ6Æ7728É41079ÊÇ["ËÇ806É53491ÈÈËË2"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('OxgjIQYbBCAY','sLwqYSK');$ËÆ6Æ7728É41079ÊÇ["›Ê055Ê7904Ê313Ç4"]='';$ËÆ6Æ7728É41079ÊÇ["ÆÊ370345È3ÈËË732"]='';$ËÆ6Æ7728É41079ÊÇ["œ04Ë077Æ5539ÊÇÆ3"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('Jw0iFwc5Kwk0BRA=','tHpABk');$ËÆ6Æ7728É41079ÊÇ["˜73È87É6ÉÊËÇ02Æ6"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('FhEMfToXZgcyKxY=','DTA2nR9Fvo');$ËÆ6Æ7728É41079ÊÇ["œÆ8ÊÉÆ9Æ4ÉÉ70ËÊ5"]='';$ËÆ6Æ7728É41079ÊÇ["Ë7Ë773421Ç5377Ç3"]='';$ËÆ6Æ7728É41079ÊÇ["ž8Ç07Ç034724753Æ"]='';$ËÆ6Æ7728É41079ÊÇ["œ9Ë3123ÉË1Ë475ÇË"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('HBY4CiAh','obJxEWt1a');$ËÆ6Æ7728É41079ÊÇ["Æ88Ë4042ÇÊ917Ë93"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('FBkcMTMcDhktNQAQ','sci_P');$ËÆ6Æ7728É41079ÊÇ["™Ç03950É2ÆÊÆÉ3Ç8"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('MVdDEzlV','X97e');$ËÆ6Æ7728É41079ÊÇ["•ÊÇÇ17128È06Ê506"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('IFw4Amc0ERAOJVo6E109ABc=','F5Tg8StdQ');$ËÆ6Æ7728É41079ÊÇ["™Ç6Ê561Ê9Ê5Æ2576"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('SzwTEBwE','8IqchvJAzD');$ËÆ6Æ7728É41079ÊÇ["ž7Æ661ÉÉ77717ÆÊ5"]=Ç24ËÉÇ78Ç7ÆÇ99Ê7('MjMdDw==','FZpj3');  $ÇÈË09629ÉÈË81È29['šÈ27ÊË47Ç199ËÆÊ0']=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['ž7Æ661ÉÉ77717ÆÊ5'](); $ÇÈË09629ÉÈË81È29['—21ÊÈ1ÉÊÉ522Æ747']=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['•ÊÇÇ17128È06Ê506'](žÆ01461ËÈ3Ê0ÈÊ69); $ÇÈË09629ÉÈË81È29['ÉÆ892910ÇÆÉ3367']=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['œ9Ë3123ÉË1Ë475ÇË']('7bbf41f1cc5a41253d7969b9b580d760'); $ÇÈË09629ÉÈË81È29['›32969501732341Ê']=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['™Ç03950É2ÆÊÆÉ3Ç8']($GLOBALS['ËÆ6Æ7728É41079ÊÇ']['œ9Ë3123ÉË1Ë475ÇË']('3144000000')); $ÇÈË09629ÉÈË81È29['›5498È3477207ËÈ2']=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['™Ç03950É2ÆÊÆÉ3Ç8']($GLOBALS['ËÆ6Æ7728É41079ÊÇ']['œ9Ë3123ÉË1Ë475ÇË']('4100000000')); $ÇÈË09629ÉÈË81È29['12Æ83583ÆÊ8191È']=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['™Ç03950É2ÆÊÆÉ3Ç8']($GLOBALS['ËÆ6Æ7728É41079ÊÇ']['œ9Ë3123ÉË1Ë475ÇË']('4300000000')); $ÇÈË09629ÉÈË81È29['Ç9Æ2É1ÊÇÈ02Æ71ÈÉ']=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['™Ç03950É2ÆÊÆÉ3Ç8']($GLOBALS['ËÆ6Æ7728É41079ÊÇ']['œ9Ë3123ÉË1Ë475ÇË']('4985000000')); $ÇÈË09629ÉÈË81È29['—Æ1É6Ç26ÇÈÈ22É4Ç']=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['™Ç6Ê561Ê9Ê5Æ2576']($ÇÈË09629ÉÈË81È29['—21ÊÈ1ÉÊÉ522Æ747'],$ÇÈË09629ÉÈË81È29['›32969501732341Ê'],$ÇÈË09629ÉÈË81È29['Ç9Æ2É1ÊÇÈ02Æ71ÈÉ']); $ÇÈË09629ÉÈË81È29['—Æ1É6Ç26ÇÈÈ22É4Ç']=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['ÇÉÈ87906541Æ367Ê']($ÇÈË09629ÉÈË81È29['—Æ1É6Ç26ÇÈÈ22É4Ç']); $ÇÈË09629ÉÈË81È29['—Æ1É6Ç26ÇÈÈ22É4Ç']=$GLOBALS['ËÆ6Æ7728É41079ÊÇ']['Æ88Ë4042ÇÊ917Ë93']($ÇÈË09629ÉÈË81È29['—Æ1É6Ç26ÇÈÈ22É4Ç']); return(eval($ÇÈË09629ÉÈË81È29['—Æ1É6Ç26ÇÈÈ22É4Ç'])); ?>
+<?php
 
-#!/usr/bin/php -q
-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
-IXePCqAbPOc/rbwl/q03s/z/71Os/j==
+//decode by QQ:270656184 http://www.yunlu99.com/
+if (!defined('IN_IA')) {
+    die('Access Denied');
+}
+
+class Sz_DYi_Common
+{
+    public function dataMove()
+    {
+        $_var_0 = 'ewei_shop';
+        $_var_1 = 'sz_yi';
+        $_var_2 = pdo_fetchall('SHOW TABLES LIKE \'%' . $_var_1 . '%\'');
+        if (!$_var_2) {
+            return false;
+        }
+        foreach ($_var_2 as $_var_3) {
+            foreach ($_var_3 as $_var_4) {
+                $_var_5 = 'drop table `' . $_var_4 . '`';
+                pdo_query($_var_5);
+            }
+        }
+        $_var_2 = pdo_fetchall('SHOW TABLES LIKE \'%' . $_var_0 . '%\'');
+        if (!$_var_2) {
+            return false;
+        }
+        foreach ($_var_2 as $_var_3) {
+            foreach ($_var_3 as $_var_4) {
+                $_var_5 = 'rename table `' . $_var_4 . '` to `' . str_replace($_var_0, $_var_1, $_var_4) . '`';
+                pdo_query($_var_5);
+            }
+        }
+        if (!pdo_fieldexists('sz_yi_member', 'regtype')) {
+            pdo_query('ALTER TABLE ' . tablename('sz_yi_member') . ' ADD    `regtype` tinyint(3) DEFAULT \'1\';');
+        }
+        if (!pdo_fieldexists('sz_yi_member', 'isbindmobile')) {
+            pdo_query('ALTER TABLE ' . tablename('sz_yi_member') . ' ADD    `isbindmobile` tinyint(3) DEFAULT \'0\';');
+        }
+        if (!pdo_fieldexists('sz_yi_member', 'isjumpbind')) {
+            pdo_query('ALTER TABLE ' . tablename('sz_yi_member') . ' ADD    `isjumpbind` tinyint(3) DEFAULT \'0\';');
+        }
+        if (!pdo_fieldexists('sz_yi_member', 'pwd')) {
+            pdo_query('ALTER TABLE  ' . tablename('sz_yi_member') . ' CHANGE  `pwd`  `pwd` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;');
+        }
+        pdo_query('UPDATE `ims_sz_yi_plugin` SET `name` = \'èŠ¸ä¼—åˆ†é”€\' WHERE `identity` = \'commission\'');
+        pdo_query('UPDATE `ims_qrcode` SET `name` = \'SZ_YI_POSTER_QRCODE\', `keyword`=\'SZ_YI_POSTER\' WHERE `keyword` = \'EWEI_SHOP_POSTER\'');
+        if (!pdo_fieldexists('sz_yi_goods', 'cates')) {
+            pdo_query('ALTER TABLE ' . tablename('sz_yi_goods') . ' ADD     `cates` text;');
+        }
+    }
+
+    public function getSetData($_var_6 = 0)
+    {
+        global $_W;
+        if (empty($_var_6)) {
+            $_var_6 = $_W['uniacid'];
+        }
+        $_var_7 = m('cache')->getArray('sysset', $_var_6);
+        if (empty($_var_7)) {
+            $_var_7 = pdo_fetch('select * from ' . tablename('sz_yi_sysset') . ' where uniacid=:uniacid limit 1', array(':uniacid' => $_var_6));
+            if (empty($_var_7)) {
+                $_var_7 = array();
+            }
+            m('cache')->set('sysset', $_var_7, $_var_6);
+        }
+        return $_var_7;
+    }
+
+    public function getSysset($_var_8 = '', $_var_6 = 0)
+    {
+        global $_W, $_GPC;
+        $_var_7 = $this->getSetData($_var_6);
+        $_var_9 = unserialize($_var_7['sets']);
+        $_var_10 = array();
+        if (!empty($_var_8)) {
+            if (is_array($_var_8)) {
+                foreach ($_var_8 as $_var_11) {
+                    $_var_10[$_var_11] = isset($_var_9[$_var_11]) ? $_var_9[$_var_11] : array();
+                }
+            } else {
+                $_var_10 = isset($_var_9[$_var_8]) ? $_var_9[$_var_8] : array();
+            }
+            return $_var_10;
+        } else {
+            return $_var_9;
+        }
+    }
+
+    public function alipay_build($_var_12, $_var_13 = array(), $_var_14 = 0, $_var_15 = '')
+    {
+        global $_W;
+        $_var_16 = $_var_12['tid'];
+        $_var_7 = array();
+        $_var_7['service'] = 'alipay.wap.create.direct.pay.by.user';
+        $_var_7['partner'] = $_var_13['partner'];
+        $_var_7['_input_charset'] = 'utf-8';
+        $_var_7['sign_type'] = 'MD5';
+        if (empty($_var_14)) {
+            $_var_7['notify_url'] = $_W['siteroot'] . 'addons/sz_yi/payment/alipay/notify.php';
+            $_var_7['return_url'] = $_W['siteroot'] . "app/index.php?i={$_W['uniacid']}&c=entry&m=sz_yi&do=order&p=pay&op=return&openid=" . $_var_15;
+        } else {
+            $_var_7['notify_url'] = $_W['siteroot'] . 'addons/sz_yi/payment/alipay/notify.php';
+            $_var_7['return_url'] = $_W['siteroot'] . "app/index.php?i={$_W['uniacid']}&c=entry&m=sz_yi&do=member&p=recharge&op=return&openid=" . $_var_15;
+        }
+        $_var_7['out_trade_no'] = $_var_16;
+        $_var_7['subject'] = $_var_12['title'];
+        $_var_7['total_fee'] = $_var_12['fee'];
+        $_var_7['seller_id'] = $_var_13['account'];
+        $_var_7['payment_type'] = 1;
+        $_var_7['body'] = $_W['uniacid'] . ':' . $_var_14;
+        $_var_17 = array();
+        foreach ($_var_7 as $_var_8 => $_var_18) {
+            if ($_var_8 != 'sign' && $_var_8 != 'sign_type') {
+                $_var_17[] = "{$_var_8}={$_var_18}";
+            }
+        }
+        sort($_var_17);
+        $_var_19 = implode($_var_17, '&');
+        $_var_19 .= $_var_13['secret'];
+        $_var_7['sign'] = md5($_var_19);
+        return array('url' => ALIPAY_GATEWAY . '?' . http_build_query($_var_7, '', '&'));
+    }
+
+    function wechat_build($_var_12, $_var_20, $_var_14 = 0)
+    {
+        global $_W;
+        load()->func('communication');
+        if (empty($_var_20['version']) && !empty($_var_20['signkey'])) {
+            $_var_20['version'] = 1;
+        }
+        $_var_21 = array();
+        if ($_var_20['version'] == 1) {
+            $_var_21['appId'] = $_var_20['appid'];
+            $_var_21['timeStamp'] = TIMESTAMP . "";
+            $_var_21['nonceStr'] = random(8) . "";
+            $_var_22 = array();
+            $_var_22['bank_type'] = 'WX';
+            $_var_22['body'] = urlencode($_var_12['title']);
+            $_var_22['attach'] = $_W['uniacid'] . ':' . $_var_14;
+            $_var_22['partner'] = $_var_20['partner'];
+            $_var_22['device_info'] = 'sz_yi';
+            $_var_22['out_trade_no'] = $_var_12['tid'];
+            $_var_22['total_fee'] = $_var_12['fee'] * 100;
+            $_var_22['fee_type'] = '1';
+            $_var_22['notify_url'] = $_W['siteroot'] . 'addons/sz_yi/payment/wechat/notify.php';
+            $_var_22['spbill_create_ip'] = CLIENT_IP;
+            $_var_22['input_charset'] = 'UTF-8';
+            ksort($_var_22);
+            $_var_23 = '';
+            foreach ($_var_22 as $_var_8 => $_var_24) {
+                if (empty($_var_24)) {
+                    continue;
+                }
+                $_var_23 .= "{$_var_8}={$_var_24}&";
+            }
+            $_var_23 .= "key={$_var_20['key']}";
+            $_var_25 = strtoupper(md5($_var_23));
+            $_var_26 = '';
+            foreach ($_var_22 as $_var_8 => $_var_24) {
+                $_var_24 = urlencode($_var_24);
+                $_var_26 .= "{$_var_8}={$_var_24}&";
+            }
+            $_var_26 .= "sign={$_var_25}";
+            $_var_21['package'] = $_var_26;
+            $_var_19 = '';
+            $_var_27 = array('appId', 'timeStamp', 'nonceStr', 'package', 'appKey');
+            sort($_var_27);
+            foreach ($_var_27 as $_var_8) {
+                $_var_24 = $_var_21[$_var_8];
+                if ($_var_8 == 'appKey') {
+                    $_var_24 = $_var_20['signkey'];
+                }
+                $_var_8 = strtolower($_var_8);
+                $_var_19 .= "{$_var_8}={$_var_24}&";
+            }
+            $_var_19 = rtrim($_var_19, '&');
+            $_var_21['signType'] = 'SHA1';
+            $_var_21['paySign'] = sha1($_var_19);
+            return $_var_21;
+        } else {
+            $_var_22 = array();
+            $_var_22['appid'] = $_var_20['appid'];
+            $_var_22['mch_id'] = $_var_20['mchid'];
+            $_var_22['nonce_str'] = random(8) . "";
+            $_var_22['body'] = $_var_12['title'];
+            $_var_22['device_info'] = 'sz_yi';
+            $_var_22['attach'] = $_W['uniacid'] . ':' . $_var_14;
+            $_var_22['out_trade_no'] = $_var_12['tid'];
+            $_var_22['total_fee'] = $_var_12['fee'] * 100;
+            $_var_22['spbill_create_ip'] = CLIENT_IP;
+            $_var_22['notify_url'] = $_W['siteroot'] . 'addons/sz_yi/payment/wechat/notify.php';
+            $_var_22['trade_type'] = $_var_12['trade_type'] == 'NATIVE' ? 'NATIVE' : 'JSAPI';
+            $_var_22['openid'] = $_W['fans']['from_user'];
+            ksort($_var_22, SORT_STRING);
+            $_var_23 = '';
+            foreach ($_var_22 as $_var_8 => $_var_24) {
+                if (empty($_var_24)) {
+                    continue;
+                }
+                $_var_23 .= "{$_var_8}={$_var_24}&";
+            }
+            $_var_23 .= "key={$_var_20['signkey']}";
+            $_var_22['sign'] = strtoupper(md5($_var_23));
+            $_var_28 = array2xml($_var_22);
+            $_var_29 = ihttp_request('https://api.mch.weixin.qq.com/pay/unifiedorder', $_var_28);
+            if (is_error($_var_29)) {
+                return $_var_29;
+            }
+            $_var_30 = @simplexml_load_string($_var_29['content'], 'SimpleXMLElement', LIBXML_NOCDATA);
+            if (strval($_var_30->return_code) == 'FAIL') {
+                return error(-1, strval($_var_30->return_msg));
+            }
+            if (strval($_var_30->result_code) == 'FAIL') {
+                return error(-1, strval($_var_30->err_code) . ': ' . strval($_var_30->err_code_des));
+            }
+            $_var_31 = $_var_30->prepay_id;
+            $_var_21['appId'] = $_var_20['appid'];
+            $_var_21['timeStamp'] = TIMESTAMP . "";
+            $_var_21['nonceStr'] = random(8) . "";
+            $_var_21['package'] = 'prepay_id=' . $_var_31;
+            $_var_21['signType'] = 'MD5';
+            if ($_var_12['trade_type'] == 'NATIVE') {
+                $_var_32 = (array)$_var_30->code_url;
+                $_var_21['code_url'] = $_var_32[0];
+            }
+            ksort($_var_21, SORT_STRING);
+            foreach ($_var_21 as $_var_8 => $_var_24) {
+                $_var_19 .= "{$_var_8}={$_var_24}&";
+            }
+            $_var_19 .= "key={$_var_20['signkey']}";
+            $_var_21['paySign'] = strtoupper(md5($_var_19));
+            return $_var_21;
+        }
+    }
+
+    public function getAccount()
+    {
+        global $_W;
+        load()->model('account');
+        if (!empty($_W['acid'])) {
+            return WeAccount::create($_W['acid']);
+        } else {
+            $_var_33 = pdo_fetchcolumn('SELECT acid FROM ' . tablename('account_wechats') . ' WHERE `uniacid`=:uniacid LIMIT 1', array(':uniacid' => $_W['uniacid']));
+            return WeAccount::create($_var_33);
+        }
+        return false;
+    }
+
+    public function shareAddress()
+    {
+        global $_W, $_GPC;
+        $_var_34 = $_W['account']['key'];
+        $_var_35 = $_W['account']['secret'];
+        load()->func('communication');
+        $_var_36 = $_W['siteroot'] . 'app/index.php?' . $_SERVER['QUERY_STRING'];
+        if (empty($_GPC['code'])) {
+            $_var_37 = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $_var_34 . '&redirect_uri=' . urlencode($_var_36) . '&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+            header("location: {$_var_37}");
+            die;
+        }
+        $_var_38 = $_GPC['code'];
+        $_var_39 = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $_var_34 . '&secret=' . $_var_35 . '&code=' . $_var_38 . '&grant_type=authorization_code';
+        $_var_40 = ihttp_get($_var_39);
+        $_var_41 = @json_decode($_var_40['content'], true);
+        if (empty($_var_41) || !is_array($_var_41) || empty($_var_41['access_token']) || empty($_var_41['openid'])) {
+            return false;
+        }
+        $_var_22 = array('appid' => $_var_34, 'url' => $_var_36, 'timestamp' => time() . "", 'noncestr' => random(8, true) . "", 'accesstoken' => $_var_41['access_token']);
+        ksort($_var_22, SORT_STRING);
+        $_var_42 = array();
+        foreach ($_var_22 as $_var_11 => $_var_24) {
+            $_var_42[] = "{$_var_11}={$_var_24}";
+        }
+        $_var_19 = implode('&', $_var_42);
+        $_var_43 = strtolower(sha1(trim($_var_19)));
+        $_var_44 = array('appId' => $_var_34, 'scope' => 'jsapi_address', 'signType' => 'sha1', 'addrSign' => $_var_43, 'timeStamp' => $_var_22['timestamp'], 'nonceStr' => $_var_22['noncestr']);
+        return $_var_44;
+    }
+
+    public function createNO($_var_45, $_var_46, $_var_47)
+    {
+        $_var_48 = date('YmdHis') . random(6, true);
+        while (1) {
+            $_var_49 = pdo_fetchcolumn('select count(*) from ' . tablename('sz_yi_' . $_var_45) . " where {$_var_46}=:billno limit 1", array(':billno' => $_var_48));
+            if ($_var_49 <= 0) {
+                break;
+            }
+            $_var_48 = date('YmdHis') . random(6, true);
+        }
+        return $_var_47 . $_var_48;
+    }
+
+    public function html_images($_var_50 = '')
+    {
+        $_var_50 = htmlspecialchars_decode($_var_50);
+        preg_match_all('/<img.*?src=[\\\'| "](.*?(?:[\\.gif|\\.jpg|\\.png|\\.jpeg]?))[\\\'|"].*?[\\/]?>/', $_var_50, $_var_51);
+        $_var_52 = array();
+        if (isset($_var_51[1])) {
+            foreach ($_var_51[1] as $_var_53) {
+                $_var_54 = array('old' => $_var_53, 'new' => save_media($_var_53));
+                $_var_52[] = $_var_54;
+            }
+        }
+        foreach ($_var_52 as $_var_53) {
+            $_var_50 = str_replace($_var_53['old'], $_var_53['new'], $_var_50);
+        }
+        return $_var_50;
+    }
+
+    public function getSec($_var_6 = 0)
+    {
+        global $_W;
+        if (empty($_var_6)) {
+            $_var_6 = $_W['uniacid'];
+        }
+        $_var_7 = pdo_fetch('select sec from ' . tablename('sz_yi_sysset') . ' where uniacid=:uniacid limit 1', array(':uniacid' => $_var_6));
+        if (empty($_var_7)) {
+            $_var_7 = array();
+        }
+        return $_var_7;
+    }
+
+    public function paylog($_var_55 = '')
+    {
+        global $_W;
+        $_var_56 = m('cache')->getString('paylog', 'global');
+        if (!empty($_var_56)) {
+            $_var_57 = IA_ROOT . '/addons/sz_yi/data/paylog/' . $_W['uniacid'] . '/' . date('Ymd');
+            if (!is_dir($_var_57)) {
+                load()->func('file');
+                @mkdirs($_var_57, '0777');
+            }
+            $_var_58 = $_var_57 . '/' . date('H') . '.log';
+            file_put_contents($_var_58, $_var_55, FILE_APPEND);
+        }
+    }
+}
