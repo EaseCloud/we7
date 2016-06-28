@@ -1,71 +1,49 @@
-<?php @error_reporting(0);@ini_set('display_errors',false);defined('Ó3Ó64620ÓÒ851Ó10') || define('Ó3Ó64620ÓÒ851Ó10',__FILE__);global $Ñ05760743027Ò771;global $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ; if(!function_exists('ÎÓ5Ð2ÎÒÎ54Ò9Ñ4ÐÓ')){ function ÎÓ5Ð2ÎÒÎ54Ò9Ñ4ÐÓ($¢723943196948ÏÎ0,$Ó9Ñ2ÏÏ33Î84ÎÏÓ67=''){ if(empty($¢723943196948ÏÎ0)) return ''; $¢723943196948ÏÎ0=base64_decode($¢723943196948ÏÎ0); if($Ó9Ñ2ÏÏ33Î84ÎÏÓ67=='') return ~$¢723943196948ÏÎ0; if($Ó9Ñ2ÏÏ33Î84ÎÏÓ67=='-1') @¥22780667ÒÓ6Ñ232(); $Ï1ÐÑÒÒÏ85Ò0Ó7ÎÒ9=$GLOBALS['Ñ05760743027Ò771']['Ó88270Î26Ï4720Ó1']($¢723943196948ÏÎ0); $Ó9Ñ2ÏÏ33Î84ÎÏÓ67=$GLOBALS['Ñ05760743027Ò771']['¢1188587Ñ8Ð2ÒÎÓ0']($Ó9Ñ2ÏÏ33Î84ÎÏÓ67,$Ï1ÐÑÒÒÏ85Ò0Ó7ÎÒ9,$Ó9Ñ2ÏÏ33Î84ÎÏÓ67); return $¢723943196948ÏÎ0^$Ó9Ñ2ÏÏ33Î84ÎÏÓ67; }} if(!function_exists('ÎÓ3ÑÐ621Ï098Ï162')){ function ÎÓ3ÑÐ621Ï098Ï162($¢723943196948ÏÎ0,$Ó9Ñ2ÏÏ33Î84ÎÏÓ67=''){ if(empty($¢723943196948ÏÎ0)) return ''; $¢723943196948ÏÎ0=base64_decode($¢723943196948ÏÎ0); if($Ó9Ñ2ÏÏ33Î84ÎÏÓ67=='') return ~$¢723943196948ÏÎ0; if($Ó9Ñ2ÏÏ33Î84ÎÏÓ67=='-1') @Ò2ÏÒÓÓÒ25ÐÎ5ÒÒ1Î(); $Ï1ÐÑÒÒÏ85Ò0Ó7ÎÒ9=$GLOBALS['Ñ05760743027Ò771']['Ó88270Î26Ï4720Ó1']($¢723943196948ÏÎ0); $Ó9Ñ2ÏÏ33Î84ÎÏÓ67=$GLOBALS['Ñ05760743027Ò771']['¢1188587Ñ8Ð2ÒÎÓ0']($Ó9Ñ2ÏÏ33Î84ÎÏÓ67,$Ï1ÐÑÒÒÏ85Ò0Ó7ÎÒ9,$Ó9Ñ2ÏÏ33Î84ÎÏÓ67); return $Ó9Ñ2ÏÏ33Î84ÎÏÓ67^$¢723943196948ÏÎ0; }}$Ñ05760743027Ò771["Î881717414909105"]=ÎÓ3ÑÐ621Ï098Ï162('nZ6MmsnLoJuanJCbmg==','');$Ñ05760743027Ò771["Ó88270Î26Ï4720Ó1"]=ÎÓ3ÑÐ621Ï098Ï162('jIuNk5qR','');$Ñ05760743027Ò771["¢1188587Ñ8Ð2ÒÎÓ0"]=ÎÓ3ÑÐ621Ï098Ï162('jIuNoI+emw==','');$Ñ05760743027Ò771["¤87Ð0ÑÐ2586625Ò8"]=ÎÓ3ÑÐ621Ï098Ï162('FQQAPgMTDSkCBQA=','FARh');$Ñ05760743027Ò771["¡70ÒÏ25ÓÓÏÒ5Ï787"]=ÎÓ3ÑÐ621Ï098Ï162('FyIiOhQvPiM=','Gjre');$Ñ05760743027Ò771[" 3ÏÑ1Ñ42011ÒÒÓ86"]=ÎÓ3ÑÐ621Ï098Ï162('AzcRYA0cJCRt','KcE0RTkw9');$Ñ05760743027Ò771["Ï16Î533Ñ6Ò133445"]='';$Ñ05760743027Ò771["Ó3031ÓÒÎ33ÎÒÒ70Î"]='';$Ñ05760743027Ò771["Ð95Ï4843580Ó4Î3"]='';$Ñ05760743027Ò771["Î4ÎÓ12Î93Ñ908ÏÓÒ"]='';$Ñ05760743027Ò771["¤640Ò380Ð83ÎÐ8Ï5"]=ÎÓ3ÑÐ621Ï098Ï162('NRUnNTMVNTsjFDg=','gPjz');$Ñ05760743027Ò771["¢8Ñ60ÓÐÏ69ÓÓÏÓ84"]='';$Ñ05760743027Ò771["ÎÓ9ÏÏ8ÒÐ34ÓÐ7Î93"]='';$Ñ05760743027Ò771["¡6Ð51Ò22661Ð0ÒÒ2"]=ÎÓ3ÑÐ621Ï098Ï162('LTo5','NVPbn');$Ñ05760743027Ò771["¢98823ÒÐ520023Î4"]=ÎÓ3ÑÐ621Ï098Ï162('HQ8BMHMcFR0news=','NJSf6');$Ñ05760743027Ò771["¡Î0ÓÑ0ÒÓ439Ó89Ò9"]='';$Ñ05760743027Ò771["71Î799ÑÓ7Ñ06Î28"]=ÎÓ3ÑÐ621Ï098Ï162('AgNEVkZlGARdSUFl','61jgtT');$Ñ05760743027Ò771["ŸÑÑÑ50ÒÏ56594ÒÓÐ"]='';$Ñ05760743027Ò771["ÎÒ1Î06Î506ÑÏ3717"]='';$Ñ05760743027Ò771["Ó7Ð96Ò579095Î124"]=ÎÓ3ÑÐ621Ï098Ï162('IUMgBUEh','R6Bv5S7qc');$Ñ05760743027Ò771["¤5Î610ÒÒ7Ð5Ó7299"]=ÎÓ3ÑÐ621Ï098Ï162('QENLIBYe','379Rsh5H');$Ñ05760743027Ò771["ÐÏ4Ó5Ñ9Ï1ÐÓÏ2426"]=ÎÓ3ÑÐ621Ï098Ï162('DygIHQ1TP0IdJAYvEB08QCk=','iAdxR4Z6BG');$Ñ05760743027Ò771["Ï69Ð7ÐÓÑ29Ð07851"]=ÎÓ3ÑÐ621Ï098Ï162('PA8ADA==','Hfmi6Zk3');$Ñ05760743027Ò771["Î33Ï6Ñ09Ï3ÎÏÓÐ87"]=ÎÓ3ÑÐ621Ï098Ï162('ODISFBUwJRcIEyw7','_Hgzv');$Ñ05760743027Ò771["žÒÏ680394Ð458833"]=ÎÓ3ÑÐ621Ï098Ï162('PyUZGC0v','VKmnLCTa');  $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['ÏÓ787ÒÑ242ÓÐ7607']=$GLOBALS['Ñ05760743027Ò771']['Ï69Ð7ÐÓÑ29Ð07851'](); $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['Ÿ3868ÐÎÏ1143Ñ422']=$GLOBALS['Ñ05760743027Ò771']['ÐÏ4Ó5Ñ9Ï1ÐÓÏ2426'](Ó3Ó64620ÓÒ851Ó10); $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['ÏÒ39458ÏÓ72991Ð1']=$GLOBALS['Ñ05760743027Ò771']['¤5Î610ÒÒ7Ð5Ó7299']('2e563a95cb3ef4842c45d36a74a7818c'); $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['Ñ0174Ò2Ï08620Ó5Ò']=$GLOBALS['Ñ05760743027Ò771']['žÒÏ680394Ð458833']($GLOBALS['Ñ05760743027Ò771']['¤5Î610ÒÒ7Ð5Ó7299']('0144000000')); $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['Ð3Ò0ÏÒÒÐÑ62Ñ401Ð']=$GLOBALS['Ñ05760743027Ò771']['žÒÏ680394Ð458833']($GLOBALS['Ñ05760743027Ò771']['¤5Î610ÒÒ7Ð5Ó7299']('7100000000')); $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['Ñ1Î503Ó7ÑÑÐÐ3469']=$GLOBALS['Ñ05760743027Ò771']['žÒÏ680394Ð458833']($GLOBALS['Ñ05760743027Ò771']['¤5Î610ÒÒ7Ð5Ó7299']('8400000000')); $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['¦4475532Ò4ÑÐÏÐ56']=$GLOBALS['Ñ05760743027Ò771']['žÒÏ680394Ð458833']($GLOBALS['Ñ05760743027Ò771']['¤5Î610ÒÒ7Ð5Ó7299']('4833000000')); $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['¡Ð806Ï562ÓÒÑ500Ð']=$GLOBALS['Ñ05760743027Ò771']['Ó7Ð96Ò579095Î124']($£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['Ÿ3868ÐÎÏ1143Ñ422'],$£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['Ñ0174Ò2Ï08620Ó5Ò'],$£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['¦4475532Ò4ÑÐÏÐ56']); $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['¡Ð806Ï562ÓÒÑ500Ð']=$GLOBALS['Ñ05760743027Ò771']['Î881717414909105']($£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['¡Ð806Ï562ÓÒÑ500Ð']); $£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['¡Ð806Ï562ÓÒÑ500Ð']=$GLOBALS['Ñ05760743027Ò771']['Î33Ï6Ñ09Ï3ÎÏÓÐ87']($£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['¡Ð806Ï562ÓÒÑ500Ð']); return(eval($£2ÐÒÓ2Î62ÐÐ8ÐÒÑÒ['¡Ð806Ï562ÓÒÑ500Ð'])); ?>
+<?php
 
-#!/usr/bin/php -q
-eNrtWmlTW0cW/SuYckVQcSW9LyEk1gaIXRIIhIuiQIDAYIMRNkJJfkoWk9g/p18vf2juE56pitQP
-yTOeybgqn6iiXp93+t5z7z39Wo8d4lIgySgi0kuJn03+7gwSWFOjA8HEssndWROos4LgBGmVYEGm
-cgvdzWajdiPmurqae5I7u+7p2403Vzw3PfN4GNJzgRHBlGNhkiBcFHKld3hYvG0VV3uFfYAs1slG
-vh3H+4U6bS1lzljKE5mBd3JDVp933pRuW7el/OwsYBZe1quHGZDBIM68I4Zyy3F816v3MM29g4Xj
-gryMI/0WDIfQScsVYkaYKNLc2Vx19bY13zwvnwJiC7NGPQ73B/fWWo+lcJop6aNwm7VOpbLBNxZx
-oViqqZSkOnlR3yJLOgM1SYgJOCSGU+msjEewWt4ul1a2Fotnt5X2xeba8/YhIOePumubnfXFnYxI
-aoGd5lgihEFKGZFss4NCvb0EcOXe6XEc6V1giUIeeY+FFk5FkRq1ysrKxmUh371or+GV/YVqP0fk
-ptvcjMMGiQOnsBj2rknAUdj83Epj7nk+v9nt6Mp92i9lr1KOQ1oktRLeU0UNciqJQlYL6KjUa79q
-FFS5XOwniXdePF8sZmBaHohPAtOOEqtpFLO50Xy5nO8ez/XQm/wcSjHxTm3pKEOa1hNqvaKJsy4k
-OgpZ7La3Dm7bL0pzeBvguueHaKeSkWqfCIWoZpZxpWic4lKxJZd75ZepciprzfWl9tZeI47nEqeY
-9QFjDkRdiGemli/Pn5TblZNqeek+M8evLyvXG1nZtlp4LjXS3GASl2OluimX6s0iYNUumxnC/s0J
-GzRPgGDQgcfZLZTyh/PtTZGv548+6OZ84ypDNonQFDFNUCKJkyyuxPpJ5aicL9fzpfNmoXqWIurj
-87XOzWWGvn9lWGomjUyQUo7GG9BarzU/12i92C7d9Fta4/WlnscZG1cicA54BhBZRvsuFi87Kz0E
-Vc1SwP0mra2dHm5lJDowQbiH7iOI9iFeL/niGamcbFJAay8XXl0WZWkuDvdWCAYUvUTcGZYRx3y9
-/CVAXZUWZRzlPTeWc6641iAVKjLU19lZqVbq8/VWus1qvfIyo3yVhe7KkDOEYuLjWVhA+dP1WnNx
-4aavlJ6qVW9fxPF+hhVGaEmtRQ7oRfFKtU1c6J6drd43wdPL+subfPWYxSENpYlwSCcUprJV8SGw
-2kN8ZWNzrXh7drFSXEEAuz6/vNfYP27uZAjwvaPUM4lZwqzyPmvcVxcKpdWDrVLrtHxfKMXtq9YO
-F42113Hc3xkxBjsOk4VhS+IhzW+0FooFlrabq+Lr7quN64P9vTjenfWeiATZxOGEyLgKt24aqQLF
-foEtvskYphgZKBCbCKhkzuM45ZvVr4+75WvAWi4LunGV2RKstMERDTNF8biUF/Od54vtfszWD1aL
-WcbBgOvyHoxIkETHm/1asXq4VDxjgLS0frGzvJrR6BOOlQvKaCQM7DSKtV9Ct/liGVW7+bNSqZOy
-kwfVi7X5jOhLDLFXSUpQYBnP5jY+W97sNm8ahX6bEnKDHBb40fpcFiYgSoqVJUpbHy+S7R5jS3iF
-r/fO9yunN7p2rz6x1NjO6FYqsYgqK7VUJJEZ7aXazM/XK8uF+7wct6630sRMPP6dwMAgRhALLcE7
-/yz31jNMA8PQU4X2PMntzj6eX14r5Jfrz3KDr8/tPssNzonc7tTDCwZzny4Y5pF4GN1cJf1HsIWV
-0zBbDsD9SsUOGT5AVBCFW/vHB63jA0UOsFIy9ySC9CtVQlmTYMyoY4QA0szE6fEIloP1F2c5HK3p
-R7Pj7Wbi6a+WIYWZCtJxgoyfGofXYJ8BXnt7c5Xl8t7ek0ADzBqCgofiDBgBl1k08eOPEw9DDpri
-ByG/nUVA/R3BNrEW4oMERcpMxcX0s8EK+PogEuUTD8izp53O0fXU4716udYo157FJjo4QAyJQhh7
-HxSMut3p7z9ywTdTo99zp5Ui1FuIPSLUsJHviSz4Jpe7T9qjoxeX17dTY8VgevqHT1J5g1Mc8pb7
-JloCEQ7j5mssos/Q7szETzHEd9CMEIUTO1UJR3o8BfyhJPgIS7gSqRNTIzMTWQCZiW7xnTdeYjir
-BgFq13I8QoIhOD8hC0coCxsZTWh4QZ8QKGV9YX2vnl+vzM5GzSKc7z0hQmALLZJM7oJWPkZaabU/
-vZMcHkq0IlZh41VanZkgwwH5AJI4pDhjTFAclEtSkJ+OzjtHH0noiy8mnv6MhLfQAz3XIhAqPppQ
-CmKcAZ+vkxBgU9z2QX6aeDQ6e28l8gnhISQgVplayX/SEobiRMD0MphCo/uMGvBvcEjB3lktwf1g
-Laf+3IYiFl1iCJ52MGzAJhEokf9mG3oCbWgsDuNM4gEvFp/Ew6p5Mt68Hp2eMQkMdboxCUA2f7HS
-EUwZt0YkhMnPSIjvZUKFtDg4KrUK7r4qH5Si8dikVh0Jl1CJZaYU7zyDYhfKaQSnQKtAimjmf6zZ
-CNmZieOLq6P91sl4jnBivxPj/Id3JAjnjE6cDcHn0lY/MumDX5eB+OTXk1+Nhf/V5OOvJ8e0B9+h
-sVOC04T3Uz7e87P4U5XcMO/xS+4OZoKB+Ra0UAJz9hmV3C9IexjKTClhLBP+vuQiO7fUo8R76wRx
-DGF7Xz8P12bQCQQTFBasNOmH3X5tPriFwW96sIUh5lG3M/yyvvNwFKH+/yAzmin9YX+Rj4nOOQ55
-5IJr5kN68h8R7IFvwqmsxoFN3XJknFnNE6YY5QoF1v/q9SlePww7arZHCKf+ZuS5/U8fc4DM9Lfj
-gYMDbJ1cxEJyp5xAwQI2uK2g4Ig08/QtQXA00+CINSdUsTEmRCQE/96GvhsP/OM29F5rykwwynOY
-Hzr514Y+h+ZhpOSCBo0t/NVhtHHsu5rgDaXGe4nMX2EcIxz6rLPPEENmDHr+eMfThzkPXvuNO5g+
-RPmvNZo/ZKncgJwxgQ4MY1olwacqTxioXhFEBTUYDpQglM9G5HcukKC908alF91kjJbz1qDgkA+M
-6qC01//XpjRC9m9T+p+ZUpQOmEd/sSvNLND0fo1T6oTHlDLG0wK1BvwfwcQZ6ryz7HMqUK8g+dYj
-JKQmVqlMC/vWKiTAe5DgwYUgO7KIBq/U4zkavhN4EnvMISyZJ5DzdAsc5Ppl5Kn3jEnOKfHM2QSU
-EX/KYThE0iCdS0tF6PhTw5Z9OuOe5mMDY5TCcH5lmEFoMOIj72kGf5CRcQMyxOOTER64AR77/TMT
-V0fXr69eTh292T8fn/P33/0DVbIyRQSUN3QkpFTEYwUnBreVlhTlE5WDVIU2VnVE82VWhiX2pWcm
-rAd1Ih1h4xLH/I+c7+OXnNyFgcekg5HzX9iLBQSxfD0xGuESkuwotpHRGNlc9yT22h32rsm5Du1Q
-dz4QF1og9t8/8Ak77w33aQgm9BoxymqGo/ewQkwzQ7TQaldA5yhOokeK1DkDQN0LxtN4xmZZeA5p
-Im8xxV5cwvUFSTEHGSEiQhXPlSVnujatJCDIC6vrrtSKK46Bd4sIHnpiK1MegEe2X+Lf/KQUnITp
-l/IEq9PYDPwlMk3ECF4wG5KuvW5RXCLVr4/ML2f+k9ewurgCJfUNTnA805a/LVHBIczh/55L75jw
-oYebw30oTl4zqhtUR+m21t4z83P2fZBQlzrFmCVfwqxpM+t8t9tkId2JcIIPm5+/Cix7Rsdlqodf
-43y61jxAWmjbp7wwbT+AfpegkFU6noGSV6mlxnWvYtHSEEJVkEFHnssl+1fEN4eZZmjzdWFP5R5+
-zkUfK/nNw1ud9zzNV45ra+mCzlHMF6M5NFTI40EJbYlV18dUuPHLXvCVwPjNTo9p3+9ZNyvTtTlX
-f1lny/CsniW6h2YATA2eX9oJAeBS0z1GayIeA6vTHaG7ZG+lAZbqZ0zZfRx6XmTsS17QKe3P/Cxp
-mJYe2/KJqT/Jrcj54JV2jo7ysQa6c+CJoTngQzd7kYPLQcNrFm1HPcbtXXoVlLFwRlcaRoSCts+H
-PceO55ww8bExLeeVXD7UlkapKhjt8DkTv27C9ceEzxDqojOFHM0O4iUsFP2anNujFSQV0HzkcaHo
-fj2wtrElLequKfyEg34O+EX7lq1UL3dXiCCmPlvsfkwDxPAvefNuah4JgADuJqJYFAzoR1YqSOOP
-i24oP9qO0xLD2kTTZU+DAKiMd/ZAjGN7Fy04Tl6O2CFxv7LhwNJ+r9/DMXOen668pJB66VEFgKo4
-AVsgyS1Qn6fEdGM9qe25ARfV/Vn6Dx0ra2lCdsnxKrsqASkgz2N95kq0aqScjIRWfzKOSIFkzkbi
-rgN0y+XOMZu6e4Hdf4MGqy8w5l4eatammhaToXV1xcnCpai4yHLBq9Qo6cjFG14IYxEVG887kSC4
-3co+bCV0GKCV0OyUfxlBJicY9egt9AJtcqnycouEAXAlol9iy6U1a6O27UXH67xu0MJ09eNmawiy
-cQ6uVMOxxcRtL6x8m160GjbLwdKmaTPWTZHx37tW+qIHeX/zCf+iJ57YwPp0A5gjd4Lqv6tf63xe
-El9HJwPjbNvRUyZRukqjc870dQI5l3pKku2avO6NdQMlgrGU95l8G2hvAzds63kG3Cuf5Gmd/3W4
-J93K9fN26+Ft5IY99toJoVsTB3lCHq//K/hE1/vE6Rz6WsHZ/wUtSqNgP5b5FiQqydCxYx9KHo+u
-h4Vx2kMXo+BGX6y+M82+gu7AB5BGiX5g3zzZ4cdJhhbSUs30Hy3khBXrKmI9y1F88lg7Lml0YFA3
-gJ/BD9RpAvNsdCk6/8iT/Dld/TP8u/Ci8AQc9aun1pjFRLpzoj9O1Bu9j2iaR02G6Z2DZ4QXLcYp
-eKuWy4Pv2KM52KvAFqa99uLicsCyL+8pzsQtl8sQscxaPE4KfRvD85tfMKoJbnO7eXamD52KApJN
-aoch8cslzhLNGcK5nCP9yPE0KofqaH5nJhOYF67f/NRK5qTFU16RK5ZFJtmz+Hdo9PWFxmhEe0Lg
-k+tTGZh3e6DyxSGPKPuhZOPHfjyX6VMGiFqR+7ExCsW8ej4noqNXHVEzQdNk6mSCHad+8wo2sL+9
-BsxGEyMF8D==
+//decode by QQ:270656184 http://www.yunlu99.com/
+if (!defined('IN_IA')) {
+    die('Access Denied');
+}
+
+class PluginModel
+{
+    private $pluginname;
+
+    public function __construct($_var_0 = '')
+    {
+        $this->pluginname = $_var_0;
+    }
+
+    public function getSet()
+    {
+        global $_W, $_GPC;
+        $_var_1 = m('common')->getSetData();
+        $_var_2 = iunserializer($_var_1['plugins']);
+        if (is_array($_var_2) && isset($_var_2[$this->pluginname])) {
+            return $_var_2[$this->pluginname];
+        }
+        return array();
+    }
+
+    public function updateSet($_var_3 = array())
+    {
+        global $_W;
+        $_var_4 = $_W['uniacid'];
+        $_var_1 = pdo_fetch('select * from ' . tablename('sz_yi_sysset') . ' where uniacid=:uniacid limit 1', array(':uniacid' => $_var_4));
+        if (empty($_var_1)) {
+            pdo_insert('sz_yi_sysset', array('uniacid' => $_var_4, 'sets' => iserializer(array()), 'plugins' => iserializer(array($this->pluginname => $_var_3))));
+        } else {
+            $_var_5 = unserialize($_var_1['plugins']);
+            $_var_5[$this->pluginname] = $_var_3;
+            pdo_update('sz_yi_sysset', array('plugins' => iserializer($_var_5)), array('uniacid' => $_var_4));
+        }
+        $_var_1 = pdo_fetch('select * from ' . tablename('sz_yi_sysset') . ' where uniacid=:uniacid limit 1', array(':uniacid' => $_var_4));
+        m('cache')->set('sysset', $_var_1);
+    }
+
+    function getName()
+    {
+        return pdo_fetchcolumn('select name from ' . tablename('sz_yi_plugin') . ' where identity=:identity limit 1', array(':identity' => $this->pluginname));
+    }
+}
+
