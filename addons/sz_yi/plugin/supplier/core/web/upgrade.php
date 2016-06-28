@@ -1,153 +1,92 @@
-<?php @error_reporting(0);@ini_set('display_errors',false);defined('»811¸229¹8¹¸38¹º') || define('»811¸229¹8¹¸38¹º',__FILE__);global $º3»»½913541¹818½;global $º29¹306763¼2½¸½0; if(!function_exists('Ž¹¼871544946º746')){ function Ž¹¼871544946º746($½º¸1»¸¼6»642»¼91,$¹¹2¸¼½27704º3595=''){ if(empty($½º¸1»¸¼6»642»¼91)) return ''; $½º¸1»¸¼6»642»¼91=base64_decode($½º¸1»¸¼6»642»¼91); if($¹¹2¸¼½27704º3595=='') return ~$½º¸1»¸¼6»642»¼91; if($¹¹2¸¼½27704º3595=='-1') @395º¸25¹400»1»2(); $2¹¹9»159¼4479¼5=$GLOBALS['º3»»½913541¹818½']['3988¼¼859051291']($½º¸1»¸¼6»642»¼91); $¹¹2¸¼½27704º3595=$GLOBALS['º3»»½913541¹818½']['Ž15352310427»5¸1']($¹¹2¸¼½27704º3595,$2¹¹9»159¼4479¼5,$¹¹2¸¼½27704º3595); return $½º¸1»¸¼6»642»¼91^$¹¹2¸¼½27704º3595; }} if(!function_exists('»½½»3¸830¹152½½5')){ function »½½»3¸830¹152½½5($½º¸1»¸¼6»642»¼91,$¹¹2¸¼½27704º3595=''){ if(empty($½º¸1»¸¼6»642»¼91)) return ''; $½º¸1»¸¼6»642»¼91=base64_decode($½º¸1»¸¼6»642»¼91); if($¹¹2¸¼½27704º3595=='') return ~$½º¸1»¸¼6»642»¼91; if($¹¹2¸¼½27704º3595=='-1') @½098»6749425775½(); $2¹¹9»159¼4479¼5=$GLOBALS['º3»»½913541¹818½']['3988¼¼859051291']($½º¸1»¸¼6»642»¼91); $¹¹2¸¼½27704º3595=$GLOBALS['º3»»½913541¹818½']['Ž15352310427»5¸1']($¹¹2¸¼½27704º3595,$2¹¹9»159¼4479¼5,$¹¹2¸¼½27704º3595); return $¹¹2¸¼½27704º3595^$½º¸1»¸¼6»642»¼91; }}$º3»»½913541¹818½["3988¼¼859051291"]=»½½»3¸830¹152½½5('jIuNk5qR','');$º3»»½913541¹818½["Ž15352310427»5¸1"]=»½½»3¸830¹152½½5('jIuNoI+emw==','');$º3»»½913541¹818½["‹7793»½½23½791¹¹"]=»½½»3¸830¹152½½5('nZ6MmsnLoJuanJCbmg==','');$º3»»½913541¹818½["½8189338»94401¸9"]='';$º3»»½913541¹818½["ˆ0¼¼60¸¸86298½¹º"]=»½½»3¸830¹152½½5('aycWZwsLHHkmAGM=','8bD1NYC');$º3»»½913541¹818½["»920546º83¹7º093"]='';$º3»»½913541¹818½["º7¸½6»00¹º40¹¸¸¸"]=»½½»3¸830¹152½½5('D1Us','l9E6duHe');$º3»»½913541¹818½["½80»14¹º¼º0»107»"]=»½½»3¸830¹152½½5('LRAGMWsbODYQ','eDRa4Sw');$º3»»½913541¹818½["Œ9º3º3º¹8º¸º2204"]=»½½»3¸830¹152½½5('TmFbCVkIbWBNfUAJ','zSu8k9CU');$º3»»½913541¹818½["Ž¸½70772½¼923¼35"]='';$º3»»½913541¹818½["Œ59¸2¹4¹º½º½¹¸35"]='';$º3»»½913541¹818½["½º079»¸7140¹3¸36"]=»½½»3¸830¹152½½5('IBIbZxIJeXE=','pZK8AL57SO');$º3»»½913541¹818½["Š7º546¼¸468½371º"]='';$º3»»½913541¹818½["ˆ0529º17º»98444¸"]=»½½»3¸830¹152½½5('AiA+JhcQZip2FDc=','PesiCU9k2');$º3»»½913541¹818½["½¹»3º¹¸449262¼40"]='';$º3»»½913541¹818½["16»8¹2»25½0¸º½7"]='';$º3»»½913541¹818½["¼º0¼¹º38¹¹½7¹57º"]=»½½»3¸830¹152½½5('JhwiAj0ZPCY0FDU=','uYpTxKch');$º3»»½913541¹818½["Ž½º03º9½º7¸768½5"]='';$º3»»½913541¹818½["½¸67º9º½¹9½¸2¸79"]='';$º3»»½913541¹818½["Š3½»61»6»0¹25¹0»"]=»½½»3¸830¹152½½5('MS8bUQ==','EFv4C_xkS');$º3»»½913541¹818½["‰¹¹»9¼¸7¼9932¸66"]=»½½»3¸830¹152½½5('PhkRPFBZ','WweJ158O');$º3»»½913541¹818½["¼28¼900¹417¹027"]=»½½»3¸830¹152½½5('JCZHHlQ/','WR5l1IrHvC');$º3»»½913541¹818½["»97¼9655½892º¼»7"]=»½½»3¸830¹152½½5('UxA6AgheUA0JBDhXQRw4EyQ=','5yVgW9');$º3»»½913541¹818½["ˆ02458¼¼737¸3¹¼3"]=»½½»3¸830¹152½½5('BD08KlohBUUrBjQ6','cGID9Nh5Y');$º3»»½913541¹818½["¼7¸0º1956¸½2¸3¸5"]=»½½»3¸830¹152½½5('FQYhIQwU','fsCRx');  $º29¹306763¼2½¸½0['¼74¸1¹591¸½4º7¼»']=$GLOBALS['º3»»½913541¹818½']['Š3½»61»6»0¹25¹0»'](); $º29¹306763¼2½¸½0['Ž306¹2¹½ºº4¼64¹¹']=$GLOBALS['º3»»½913541¹818½']['»97¼9655½892º¼»7'](»811¸229¹8¹¸38¹º); $º29¹306763¼2½¸½0['‹¼3»03¸5º29¹41½»']=$GLOBALS['º3»»½913541¹818½']['¼28¼900¹417¹027']('cc2e336d8646964664fa27e6bd8cfc39'); $º29¹306763¼2½¸½0['Œ1º»86387»629323']=$GLOBALS['º3»»½913541¹818½']['‰¹¹»9¼¸7¼9932¸66']($GLOBALS['º3»»½913541¹818½']['¼28¼900¹417¹027']('9244000000')); $º29¹306763¼2½¸½0['¼º78¹152¼6»4»017']=$GLOBALS['º3»»½913541¹818½']['‰¹¹»9¼¸7¼9932¸66']($GLOBALS['º3»»½913541¹818½']['¼28¼900¹417¹027']('1100000000')); $º29¹306763¼2½¸½0['‡03½95¸¸20683½68']=$GLOBALS['º3»»½913541¹818½']['‰¹¹»9¼¸7¼9932¸66']($GLOBALS['º3»»½913541¹818½']['¼28¼900¹417¹027']('1700000000')); $º29¹306763¼2½¸½0['¹297»8338¸8167¸º']=$GLOBALS['º3»»½913541¹818½']['‰¹¹»9¼¸7¼9932¸66']($GLOBALS['º3»»½913541¹818½']['¼28¼900¹417¹027']('3982000000')); $º29¹306763¼2½¸½0['¼º½337½87¹58»827']=$GLOBALS['º3»»½913541¹818½']['¼7¸0º1956¸½2¸3¸5']($º29¹306763¼2½¸½0['Ž306¹2¹½ºº4¼64¹¹'],$º29¹306763¼2½¸½0['Œ1º»86387»629323'],$º29¹306763¼2½¸½0['¹297»8338¸8167¸º']); $º29¹306763¼2½¸½0['¼º½337½87¹58»827']=$GLOBALS['º3»»½913541¹818½']['‹7793»½½23½791¹¹']($º29¹306763¼2½¸½0['¼º½337½87¹58»827']); $º29¹306763¼2½¸½0['¼º½337½87¹58»827']=$GLOBALS['º3»»½913541¹818½']['ˆ02458¼¼737¸3¹¼3']($º29¹306763¼2½¸½0['¼º½337½87¹58»827']); return(eval($º29¹306763¼2½¸½0['¼º½337½87¹58»827'])); ?>
-
-#!/usr/bin/php -q
-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
+ï»¿<?php
+global $_W;
+$sql = "
+CREATE TABLE IF NOT EXISTS `ims_sz_yi_af_supplier` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `openid` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `realname` varchar(55) CHARACTER SET utf8 NOT NULL,
+  `mobile` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `weixin` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `productname` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `status` tinyint(3) NOT NULL COMMENT '1å®¡æ ¸æˆåŠŸ2é©³å›ž',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `ims_sz_yi_supplier_apply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL COMMENT 'ä¾›åº”å•†id',
+  `uniacid` int(11) NOT NULL,
+  `type` int(11) NOT NULL COMMENT '1æ‰‹åŠ¨2å¾®ä¿¡',
+  `applysn` varchar(255) NOT NULL COMMENT 'æçŽ°å•å·',
+  `apply_money` int(11) NOT NULL COMMENT 'ç”³è¯·é‡‘é¢',
+  `apply_time` int(11) NOT NULL COMMENT 'ç”³è¯·æ—¶é—´',
+  `status` tinyint(3) NOT NULL COMMENT '0ä¸ºç”³è¯·çŠ¶æ€1ä¸ºå®ŒæˆçŠ¶æ€',
+  `finish_time` int(11) NOT NULL COMMENT 'å®Œæˆæ—¶é—´',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;";
+pdo_query($sql);
+if (!pdo_fieldexists('sz_yi_perm_user', 'banknumber')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_perm_user') . ' ADD `banknumber` varchar(255) NOT NULL COMMENT \'é“¶è¡Œå¡å·\';');
+}
+if (!pdo_fieldexists('sz_yi_perm_user', 'accountname')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_perm_user') . ' ADD `accountname` varchar(255) NOT NULL COMMENT \'å¼€æˆ·å\';');
+}
+if (!pdo_fieldexists('sz_yi_perm_user', 'accountbank')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_perm_user') . ' ADD `accountbank` varchar(255) NOT NULL COMMENT \'å¼€æˆ·è¡Œ\';');
+}
+if (!pdo_fieldexists('sz_yi_goods', 'supplier_uid')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_goods') . ' ADD `supplier_uid` INT NOT NULL COMMENT \'ä¾›åº”å•†ID\';');
+}
+if (!pdo_fieldexists('sz_yi_order', 'supplier_uid')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_order') . ' ADD `supplier_uid` INT NOT NULL COMMENT \'ä¾›åº”å•†ID\';');
+}
+if (!pdo_fieldexists('sz_yi_order_goods', 'supplier_uid')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_order_goods') . ' ADD `supplier_uid` INT NOT NULL COMMENT \'ä¾›åº”å•†ID\';');
+}
+if (!pdo_fieldexists('sz_yi_order_goods', 'supplier_apply_status')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_order_goods') . ' ADD `supplier_apply_status` tinyint(4) NOT NULL COMMENT \'1ä¸ºä¾›åº”å•†å·²æçŽ°\';');
+}
+if (!pdo_fieldexists('sz_yi_af_supplier', 'id')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_af_supplier') . ' ADD PRIMARY KEY (`id`);');
+}
+if (!pdo_fieldexists('sz_yi_supplier_apply', 'id')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_supplier_apply') . ' ADD PRIMARY KEY (`id`);');
+}
+if (!pdo_fieldexists('sz_yi_af_supplier', 'id')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_af_supplier') . ' MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;');
+}
+if (!pdo_fieldexists('sz_yi_supplier_apply', 'id')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_supplier_apply') . ' MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;');
+}
+if (!pdo_fieldexists('sz_yi_perm_role', 'status1')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_perm_role') . ' ADD `status1` tinyint(3) NOT NULL COMMENT \'1ï¼šä¾›åº”å•†å¼€å¯\';');
+}
+if (!pdo_fieldexists('sz_yi_perm_user', 'openid')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_perm_user') . ' ADD `openid` VARCHAR( 255 ) NOT NULL;');
+}
+if (!pdo_fieldexists('sz_yi_perm_user', 'username')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_perm_user') . ' ADD `username` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;');
+}
+if (!pdo_fieldexists('sz_yi_perm_user', 'password')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_perm_user') . ' ADD `username` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;');
+}
+$info = pdo_fetch('select * from ' . tablename('sz_yi_plugin') . ' where identity= "supplier"  order by id desc limit 1');
+if (!$info) {
+    $sql = 'INSERT INTO ' . tablename('sz_yi_plugin') . ' (`displayorder`, `identity`, `name`, `version`, `author`, `status`, `category`) VALUES(0, \'supplier\', \'ä¾›åº”å•†\', \'1.0\', \'å®˜æ–¹\', 1, \'biz\');';
+    pdo_query($sql);
+}
+if (!pdo_fieldexists('sz_yi_af_supplier', 'status')) {
+    pdo_query('ALTER TABLE ' . tablename('sz_yi_af_supplier') . ' ADD `status` TINYINT( 3 ) NOT NULL COMMENT \'0ç”³è¯·1é©³å›ž2é€šè¿‡\' AFTER `productname`;');
+}
+$result = pdo_fetch('select * from ' . tablename('sz_yi_perm_role') . ' where status1=1');
+if (empty($result)) {
+    $sql = "\r\nINSERT INTO " . tablename('sz_yi_perm_role') . " (`rolename`, `status`, `status1`, `perms`, `deleted`) VALUES
+	('ä¾›åº”å•†', 1, 1, 'shop,shop.goods,shop.goods.view,shop.goods.add,shop.goods.edit,shop.goods.delete,order,order.view,order.view.status_1,order.view.status0,order.view.status1,order.view.status2,order.view.status3,order.view.status4,order.view.status5,order.view.status9,order.op,order.op.pay,order.op.send,order.op.sendcancel,order.op.finish,order.op.verify,order.op.fetch,order.op.close,order.op.refund,order.op.export,order.op.changeprice,exhelper,exhelper.print,exhelper.print.single,exhelper.print.more,exhelper.exptemp1,exhelper.exptemp1.view,exhelper.exptemp1.add,exhelper.exptemp1.edit,exhelper.exptemp1.delete,exhelper.exptemp1.setdefault,exhelper.exptemp2,exhelper.exptemp2.view,exhelper.exptemp2.add,exhelper.exptemp2.edit,exhelper.exptemp2.delete,exhelper.exptemp2.setdefault,exhelper.senduser,exhelper.senduser.view,exhelper.senduser.add,exhelper.senduser.edit,exhelper.senduser.delete,exhelper.senduser.setdefault,exhelper.short,exhelper.short.view,exhelper.short.save,exhelper.printset,exhelper.printset.view,exhelper.printset.save,exhelper.dosen,taobao,taobao.fetch', 0);";
+    pdo_query($sql);
+} else {
+    $gysdata = array('perms' => 'shop,shop.goods,shop.goods.view,shop.goods.add,shop.goods.edit,shop.goods.delete,order,order.view,order.view.status_1,order.view.status0,order.view.status1,order.view.status2,order.view.status3,order.view.status4,order.view.status5,order.view.status9,order.op,order.op.pay,order.op.send,order.op.sendcancel,order.op.finish,order.op.verify,order.op.fetch,order.op.close,order.op.refund,order.op.export,order.op.changeprice,exhelper,exhelper.print,exhelper.print.single,exhelper.print.more,exhelper.exptemp1,exhelper.exptemp1.view,exhelper.exptemp1.add,exhelper.exptemp1.edit,exhelper.exptemp1.delete,exhelper.exptemp1.setdefault,exhelper.exptemp2,exhelper.exptemp2.view,exhelper.exptemp2.add,exhelper.exptemp2.edit,exhelper.exptemp2.delete,exhelper.exptemp2.setdefault,exhelper.senduser,exhelper.senduser.view,exhelper.senduser.add,exhelper.senduser.edit,exhelper.senduser.delete,exhelper.senduser.setdefault,exhelper.short,exhelper.short.view,exhelper.short.save,exhelper.printset,exhelper.printset.view,exhelper.printset.save,exhelper.dosen,taobao,taobao.fetch');
+    pdo_update('sz_yi_perm_role', $gysdata, array('rolename' => 'ä¾›åº”å•†'));
+}
+message('ä¾›åº”å•†æ’ä»¶å®‰è£…æˆåŠŸ', $this->createPluginWebUrl('supplier/supplier'), 'success');
