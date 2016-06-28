@@ -11,7 +11,7 @@ global $_W;
 //if(!$content['status']){ exit($content['msg']); }
 //else{ echo $content['msg']; }
 
-echo '本版本商城系统已经被破解整合，请放心使用！';
+//echo '本版本商城系统已经被破解整合，请放心使用！';
 
 pdo_query( <<<SQL
 
@@ -1823,12 +1823,12 @@ INSERT INTO `ims_sz_yi_plugin` (`id`, `displayorder`, `identity`, `name`, `versi
 (12, 12, 'article', '文章营销', '1.0', '官方', 1, 'sale'),
 (13, 13, 'coupon', '超级券', '1.0', '官方', 1, 'sale'),
 (14, 14, 'postera', '活动海报', '1.0', '官方', 1, 'sale'),
-(15, 0, 'exhelper', '快递助手', '1.0', '官方', 1, 'tool'),
-(16, 0, 'yunpay', '云支付', '1.0', '云支付', 1, 'tool'),
-(17, 0, 'supplier', '供应商', '1.0', '官方', 1, 'biz'),
-(18, 0, 'diyform', '自定义表单', '1.0', '官方', 1, 'help'),
-(19, 0, 'system', '系统工具', '1.0', '官方', 1, 'help'),
-(20, 15, 'bonus', '芸众分红', '1.0', '官方', 1, 'biz');
+(15, 15, 'exhelper', '快递助手', '1.0', '官方', 1, 'tool'),
+(16, 16, 'yunpay', '云支付', '1.0', '云支付', 1, 'tool'),
+(17, 17, 'supplier', '供应商', '1.0', '官方', 1, 'biz'),
+(18, 18, 'diyform', '自定义表单', '1.0', '官方', 1, 'help'),
+(19, 19, 'system', '系统工具', '1.0', '官方', 1, 'help'),
+(20, 20, 'bonus', '芸众分红', '1.0', '官方', 1, 'biz');
 
 UPDATE `ims_qrcode` SET `name` = 'SZ_YI_POSTER_QRCODE', `keyword`='SZ_YI_POSTER' WHERE `keyword` = 'EWEI_SHOP_POSTER'
 
