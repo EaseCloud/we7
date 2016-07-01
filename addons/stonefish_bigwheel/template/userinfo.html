@@ -1,0 +1,78 @@
+    <div class="table-responsive" style="height:300px;overflow-Y: auto; overflow-X:hidden;">
+		<table style="min-width:568px; height:50px; margin:0px;padding:0px;">
+			<tr>
+				<td><img src="{if substr($data['avatar'],-1)=='0'}{php echo rtrim(toimage($data['avatar']), '0').$reply['poweravatar']}{else}{php echo toimage($data['avatar'])}{/if}" width="30"></td>
+				<td>{$data['nickname']}</td>
+			</tr>
+		</table>
+		<table class="table" style="min-width:568px;">
+			<tbody>				
+				{if $exchange['isrealname']}
+				<tr>
+					<td>{$isfansname[0]}</td>
+					<td>{$data['realname']}</td>
+				</tr>
+				{/if}
+				{if $exchange['ismobile']}
+				<tr>
+					<td>{$isfansname[1]}</td>
+					<td>{$data['mobile']}</td>
+				</tr>
+				{/if}
+				{if $exchange['isqq']}
+				<tr>
+					<td>{$isfansname[2]}</td>
+					<td>{$data['qq']}</td>
+				</tr>
+				{/if}
+				{if $exchange['isemail']}
+				<tr>
+					<td>{$isfansname[3]}</td>
+					<td>{$data['email']}</td>
+				</tr>
+				{/if}
+				{if $exchange['isaddress']}
+				<tr>
+					<td>{$isfansname[4]}</td>
+					<td>{$data['address']}</td>
+				</tr>
+				{/if}
+				{if $exchange['isgender']}
+				<tr>
+					<td>{$isfansname[5]}</td>
+					<td>{if $data['gender']==0}保密{/if}{if $data['gender']==1}男{/if}{if $data['gender']==2}女{/if}</td>
+				</tr>
+				{/if}
+				{if $exchange['istelephone']}
+				<tr>
+					<td>{$isfansname[6]}</td>
+					<td>{$data['telephone']}</td>
+				</tr>
+				{/if}
+				{if $exchange['isidcard']}
+				<tr>
+					<td>{$isfansname[7]}</td>
+					<td>{$data['idcard']}</td>
+				</tr>
+				{/if}
+				{if $exchange['iscompany']}
+				<tr>
+					<td>{$isfansname[8]}</td>
+					<td>{$data['company']}</td>
+				</tr>
+				{/if}
+				{if $exchange['isoccupation']}
+				<tr>
+					<td>{$isfansname[9]}</td>
+					<td>{$data['occupation']}</td>
+				</tr>
+				{/if}
+				{if $exchange['isposition']}
+				<tr>
+					<td>{$isfansname[10]}</td>
+					<td>{$data['position']}</td>
+				</tr>
+				{/if}
+			</tbody>
+		</table>
+	</div>

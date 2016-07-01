@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[积分签到]]></name>
+		<identifie><![CDATA[mon_sign]]></identifie>
+		<version><![CDATA[3.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[积分签到]]></ability>
+		<description><![CDATA[积分签到!]]></description>
+		<author><![CDATA[Man.Dan QQ:82089092]]></author>
+		<url><![CDATA[http://www.chaojiYM.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+
+		<menu>
+			<entry title="签到管理" do="sign" state="" />
+			<entry title="统计分析" do="analyse" state="" />
+
+
+		</menu>
+
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_mon_sign` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `rid` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `follow_credit` int(10) NOT NULL,
+  `follow_credit_allow` int(1) DEFAULT '0',
+  `leave_credit_clear` int(1) DEFAULT '0',
+  `sign_credit` int(11) DEFAULT '0',
+  `sync_credit` int(1) DEFAULT '0',
+  `rule` varchar(2000) DEFAULT NULL,
+  `starttime` int(10) DEFAULT '0',
+  `endtime` int(10) DEFAULT '0',
+  `sin_suc_msg` varchar(200) DEFAULT NULL,
+  `sin_suc_fail` varchar(200) DEFAULT NULL,
+  `new_title` varchar(200) DEFAULT NULL,
+  `new_icon` varchar(200) DEFAULT NULL,
+  `new_content` varchar(200) DEFAULT NULL,
+  `copyright` varchar(200) DEFAULT NULL,
+  `createtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_mon_sign_award` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sid` int(10) unsigned DEFAULT NULL,
+  `uid` int(10) NOT NULL,
+  `sign_type` int(2) NOT NULL,
+  `serial_start_time` int(10) DEFAULT NULL,
+  `serial_end_time` int(10) DEFAULT NULL,
+  `serial_day` int(10) DEFAULT NULL,
+  `credit` int(10) NOT NULL,
+  `createtime` int(10) unsigned NOT NULL COMMENT '日期',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_mon_sign_link` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sid` int(11) unsigned DEFAULT NULL,
+  `sort` int(2) DEFAULT '0',
+  `link_name` varchar(50) NOT NULL,
+  `link_url` varchar(50) NOT NULL,
+  `createtime` int(10) unsigned NOT NULL COMMENT '日期',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_mon_sign_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL,
+  `openid` varchar(200) NOT NULL,
+  `sid` int(10) DEFAULT '0',
+  `sin_time` int(10) DEFAULT '0',
+  `credit` int(10) NOT NULL,
+  `sign_type` int(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_mon_sign_serial` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sid` int(11) unsigned DEFAULT NULL,
+  `day` int(4) NOT NULL,
+  `credit` int(10) DEFAULT '0',
+  `createtime` int(10) unsigned NOT NULL COMMENT '日期',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_mon_sign_token` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(11) unsigned DEFAULT NULL,
+  `access_token` varchar(1000) NOT NULL,
+  `expires_in` int(11) DEFAULT NULL,
+  `createtime` int(10) unsigned NOT NULL COMMENT '日期',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_mon_sign_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sid` int(10) NOT NULL,
+  `begin_sign_time` int(10) DEFAULT NULL,
+  `end_sign_time` int(10) DEFAULT NULL,
+  `openid` varchar(200) NOT NULL,
+  `nickname` varchar(20) NOT NULL,
+  `headimgurl` varchar(200) DEFAULT NULL,
+  `serial_id` int(10) DEFAULT NULL,
+  `credit` int(10) DEFAULT '0',
+  `sin_count` int(10) DEFAULT '0',
+  `sin_serial` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+	]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

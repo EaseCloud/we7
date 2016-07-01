@@ -48,7 +48,7 @@
                         <div class="input-group-addon">%</div>
                     </div>
                   <span class='help-block'>新加入的分销商（默认等级），采用此默认比例</span>
-        <span class='help-block'>分销佣金计算优先级： 商品固定佣金比例 > 分销商等级佣金比例 >默认佣金比例</span>
+		<span class='help-block'>分销佣金计算优先级： 商品固定佣金比例 > 分销商等级佣金比例 >默认佣金比例</span>
                 </div>
             </div>
              <div class="form-group">
@@ -217,26 +217,26 @@
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否关闭"我的小店"功能</label>
                 <div class="col-sm-9 col-xs-12">
-                    <label class="radio-inline"><input type="radio"  name="setdata[closemyshop]" value="0" {if empty($set['closemyshop'])} checked="checked"{/if} /> 开启</label>
+                	<label class="radio-inline"><input type="radio"  name="setdata[closemyshop]" value="0" {if empty($set['closemyshop'])} checked="checked"{/if} /> 开启</label>
                     <label class="radio-inline"><input type="radio"  name="setdata[closemyshop]" value="1" {if $set['closemyshop'] ==1} checked="checked"{/if} /> 关闭</label>
                     
                     <span class="help-block">如果关闭小店功能, 则分享的店铺连接，进入店铺的连接全是总店</span>
                 </div> 
            </div>
-            
-     <div class="form-group">
+			
+	 <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">分销订单商品详情</label>
                 <div class="col-sm-9 col-xs-12">
-                    <label class="radio-inline"><input type="radio"  name="setdata[openorderdetail]" value="0" {if empty($set['openorderdetail'])} checked="checked"{/if} /> 关闭</label>
+                	<label class="radio-inline"><input type="radio"  name="setdata[openorderdetail]" value="0" {if empty($set['openorderdetail'])} checked="checked"{/if} /> 关闭</label>
                     <label class="radio-inline"><input type="radio"  name="setdata[openorderdetail]" value="1" {if $set['openorderdetail'] ==1} checked="checked"{/if} /> 显示</label>
                     
                     <span class="help-block">分销中心分销订单是否显示商品详情</span>
                 </div> 
            </div>
-           <div class="form-group">
+	       <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">分销订单购买者详情</label>
                 <div class="col-sm-9 col-xs-12">
-                    <label class="radio-inline"><input type="radio"  name="setdata[openorderbuyer]" value="0" {if empty($set['openorderbuyer'])} checked="checked"{/if} /> 关闭</label>
+                	<label class="radio-inline"><input type="radio"  name="setdata[openorderbuyer]" value="0" {if empty($set['openorderbuyer'])} checked="checked"{/if} /> 关闭</label>
                     <label class="radio-inline"><input type="radio"  name="setdata[openorderbuyer]" value="1" {if $set['openorderbuyer'] ==1} checked="checked"{/if} /> 显示</label>
                     
                     <span class="help-block">分销中心分销订单是否显示购买者</span>
@@ -254,70 +254,70 @@
             
         </div>
  
-      <div class='panel-heading'>
+	  <div class='panel-heading'>
             等级设置
         </div>
-    <div class='panel-body'>
-          <div class="form-group">
+	<div class='panel-body'>
+		  <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">默认级别名称</label>
                 <div class="col-sm-9 col-xs-12">
                     <input type="text" name="setdata[levelname]" class="form-control" value="{php echo empty($set['levelname'])?'普通等级':$set['levelname']}"  />
                     <span class="help-block">分销商默认等级名称，不填写默认“普通等级”</span>
                 </div>
             </div> 
-        <div class='panel-body'>
-          <div class="form-group">
+		<div class='panel-body'>
+		  <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">分销商等级升级依据</label>
                 <div class="col-sm-9 col-xs-12">
               
                         <label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="0" {if empty($set['leveltype'])}checked{/if}/> 分销订单总额(完成的订单)
                         </label>
-            <label class="radio radio-inline" style="width:240px">
+		    <label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="1" {if $set['leveltype']==1}checked{/if}/> 一级分销订单金额(完成的订单)
-                        </label>        <br/>
-                        
-                    
-           <label class="radio radio-inline" style="width:240px">
+                        </label>		<br/>
+						
+					
+		   <label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="2" {if $set['leveltype']==2}checked{/if}/> 分销订单总数(完成的订单)
                         </label>
-                           <label class="radio radio-inline" style="width:240px">
+						   <label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="3" {if $set['leveltype']==3}checked{/if}/> 一级分销订单总数(完成的订单)
                         </label>
-                <br /><br />    
-           <label class="radio radio-inline" style="width:240px">
+				<br /><br />	
+		   <label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="4" {if $set['leveltype']==4}checked{/if}/> 自购订单金额(完成的订单)
-                        </label>        
-                        <label class="radio radio-inline" style="width:240px">
+                        </label>		
+						<label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="5" {if $set['leveltype']==5}checked{/if}/> 自购订单数量(完成的订单)
-                        </label>        
-<br/>                
-           
-         <br />
-                  <label class="radio radio-inline" style="width:240px">
+                        </label>		
+<br/>				
+		   
+		 <br />
+	              <label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="6" {if $set['leveltype']==6}checked{/if}/> 下线总人数（分销商+非分销商）
-                        </label>        
-           <label class="radio radio-inline" style="width:240px">
+                        </label>		
+		   <label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="7" {if $set['leveltype']==7}checked{/if}/> 一级下线人数（分销商+非分销商）
                         </label> 
-                    <br />    
-           <label class="radio radio-inline" style="width:240px">
+					<br />	
+		   <label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="8" {if $set['leveltype']==8}checked{/if}/> 下级分销商总人数
-                        </label>        
-           <label class="radio radio-inline" style="width:240px">
+                        </label>		
+		   <label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="9" {if $set['leveltype']==9}checked{/if}/> 一级分销商人数
                         </label>
-                <br /><br />
-                 <label class="radio radio-inline" style="width:240px">
+				<br /><br />
+				 <label class="radio radio-inline" style="width:240px">
                               <input type="radio" name="setdata[leveltype]" value="10" {if $set['leveltype']==10}checked{/if}/> 已提现佣金总金额
-                        </label>    
+                        </label>	
                         <span class="help-block">默认为分销订单总金额</span> 
                       
                 </div>
             </div>
-            
+			
  </div> </div> 
-    
+	
         <div class='panel-heading'>
             样式设置
         </div>
@@ -473,7 +473,7 @@
                         </div>
                     </div>
               </div>
-            <div class="form-group">
+			<div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
                     <div class="col-sm-9 col-xs-12">
                           <div class="input-group">

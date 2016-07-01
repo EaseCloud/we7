@@ -64,37 +64,37 @@ a {text-decoration:none;}
     <div class="left"><div class='inner'><%order.ordersn%>(<%order.level%>级)<br><span><%order.createtime%></span></div></div>
    <div class="right">+<%order.commission%><br><span><%order.status%></span></div>
  </div>
-    {if !empty($this->set['openorderdetail']) || !empty($this->set['openorderbuyer'])}
-    <div class="order_detail" style='display:none;'>
-        {if !empty($this->set['openorderbuyer'])}
-         <div class="team_list">
-            <div class="img"><img src="<%order.buyer.avatar%>"></div>
-            <div class="info"><%order.buyer.nickname%>
-            <%if order.buyer.weixin!=''%>    <br><span>微信号: <%order.buyer.weixin%></span><%/if%>
-            </div>
-        </div>
-        {/if}
-        {if !empty($this->set['openorderdetail'])}
-        <div class='detail_good'>
-            <%each order.order_goods as g%>
-                <div class="good">
-                <div class="img"  onclick="location.href='{php echo $this->createMobileUrl('shop/detail')}&id=<%g.goodsid%>'"><img src="<%g.thumb%>"/></div>
-                <div class='info' onclick="location.href='{php echo $this->createMobileUrl('shop/detail')}&id=<%g.goodsid%>'">
-                    <div class='inner'>
-                           <div class="name" ><%g.title%></div>     
-                           <div class='option'> <%g.optionname%>x<%g.total%></div>
-                    </div>
-                </div>
-                <div class="price">
-                    <div class='pnum'>预计佣金</div>
-                    <div class='pnum'>+<%g.commission%></div>
-                </div>
-            </div>
-          <%/each%>
-        </div>
-        {/if}
-    </div>
-    {/if}
+	{if !empty($this->set['openorderdetail']) || !empty($this->set['openorderbuyer'])}
+	<div class="order_detail" style='display:none;'>
+		{if !empty($this->set['openorderbuyer'])}
+		 <div class="team_list">
+			<div class="img"><img src="<%order.buyer.avatar%>"></div>
+			<div class="info"><%order.buyer.nickname%>
+			<%if order.buyer.weixin!=''%>	<br><span>微信号: <%order.buyer.weixin%></span><%/if%>
+			</div>
+		</div>
+		{/if}
+		{if !empty($this->set['openorderdetail'])}
+		<div class='detail_good'>
+			<%each order.order_goods as g%>
+	            <div class="good">
+				<div class="img"  onclick="location.href='{php echo $this->createMobileUrl('shop/detail')}&id=<%g.goodsid%>'"><img src="<%g.thumb%>"/></div>
+				<div class='info' onclick="location.href='{php echo $this->createMobileUrl('shop/detail')}&id=<%g.goodsid%>'">
+					<div class='inner'>
+						   <div class="name" ><%g.title%></div>     
+						   <div class='option'> <%g.optionname%>x<%g.total%></div>
+					</div>
+				</div>
+				<div class="price">
+					<div class='pnum'>预计佣金</div>
+					<div class='pnum'>+<%g.commission%></div>
+				</div>
+			</div>
+		  <%/each%>
+		</div>
+		{/if}
+	</div>
+	{/if}
     <%/each%>
 </script>
 <script id='tpl_empty' type='text/html'>
@@ -106,12 +106,12 @@ a {text-decoration:none;}
    var current_status = '';
     require(['tpl', 'core'], function (tpl, core) {
 function bindEvents(){
-    {if !empty($this->set['openorderdetail']) ||!empty($this->set['openorderbuyer'])}
-    $('.order_list').unbind('click').click(function(){
-        $('.order_detail').slideUp();
-        $(this).next('.order_detail').slideDown();
-    })
-    {/if}
+	{if !empty($this->set['openorderdetail']) ||!empty($this->set['openorderbuyer'])}
+	$('.order_list').unbind('click').click(function(){
+		$('.order_detail').slideUp();
+		$(this).next('.order_detail').slideDown();
+	})
+	{/if}
 }
 
 function bindScroller(){
@@ -137,7 +137,7 @@ function bindScroller(){
                         stop = true;
                         $('#order_loading').remove();
                         $("#container").append(tpl('tpl_order', morejson.result));
-            bindEvents();            
+			bindEvents();			
                         if (morejson.result.list.length < morejson.result.pagesize) {
                             $("#container").append('<div id="order_loading">已经加载完全部订单</div>');
                             loaded = true;

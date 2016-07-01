@@ -1,0 +1,151 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li ><a href="{php echo $this->createWebUrl('order', array('state'=>0));}">未发货商品单</a></li>
+	<li ><a href="{php echo $this->createWebUrl('order', array('state'=>1));}">已发货商品单</a></li>
+	<li class="active"><a>奖品发货</a></li>
+</ul>
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" id="form">
+	<div class="panel panel-default">
+		<div class="panel-heading">物流信息</div>
+		<div class="panel-body table-responsive">
+			<div class="modal-body">
+
+				<div class="form-group">
+					<label class="col-xs-10 col-sm-3 col-md-3 control-label">是否需要快递</label>
+					<div class="col-xs-12 col-sm-9 col-md-8 col-lg-8">
+						<select class="form-control" name="express[send]" id="express">
+							<option value="1" {if $goods['send'] == '1'} selected{/if}>是</option>
+							<option value="0" {if $goods['send'] == '0'} selected{/if}>否</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-10 col-sm-3 col-md-3 control-label">快递公司</label>
+					<div class="col-xs-12 col-sm-9 col-md-8 col-lg-8">
+						<select class="form-control" name="express[express]" id="express" value="{$goods['express']}">
+							<option value="" {if $goods['express'] == ''} selected{/if} data-name="">无</option>
+							<option value="shunfeng" {if $goods['express'] == 'shunfeng'} selected{/if} data-name="顺丰">顺丰</option>
+							<option value="shentong" {if $goods['express'] == 'shentong'} selected{/if} data-name="申通">申通</option>
+							<option value="yunda" {if $goods['express'] == 'yunda'} selected{/if} data-name="韵达快运">韵达快运</option>
+							<option value="tiantian" {if $goods['express'] == 'tiantian'} selected{/if} data-name="天天快递">天天快递</option>
+							<option value="yuantong" {if $goods['express'] == 'yuantong'} selected{/if} data-name="圆通速递">圆通速递</option>
+							<option value="zhongtong" {if $goods['express'] == 'zhongtong'} selected{/if} data-name="中通速递">中通速递</option>
+							<option value="ems" {if $goods['express'] == 'ems'} selected{/if} data-name="ems快递">ems快递</option>
+							<option value="huitongkuaidi" {if $goods['express'] == 'huitongkuaidi'} selected{/if} data-name="汇通快运">汇通快运</option>
+							<option value="quanfengkuaidi" {if $goods['express'] == 'quanfengkuaidi'} selected{/if} data-name="全峰快递">全峰快递</option>
+							<option value="zhaijisong" {if $goods['express'] == 'zhaijisong'} selected{/if} data-name="宅急送">宅急送</option>					
+							<option value="guotongkuaidi" {if $goods['express'] == 'guotongkuaidi'} selected{/if} data-name="国通快递">国通快递</option>
+							<option value="lianb" {if $goods['express'] == 'lianb'} selected{/if} data-name="联邦快递（国内）">联邦快递（国内）</option>
+							<option value="minghangkuaidi" {if $goods['express'] == 'minghangkuaidi'} selected{/if} data-name="民航快递">民航快递</option>
+							<option value="quanchenkuaidi" {if $goods['express'] == 'quanchenkuaidi'} selected{/if} data-name="全晨快递">全晨快递</option>
+							<option value="quanjitong" {if $goods['express'] == 'quanjitong'} selected{/if} data-name="全际通物流">全际通物流</option>
+							<option value="quanritongkuaidi" {if $goods['express'] == 'quanritongkuaidi'} selected{/if} data-name="全日通快递">全日通快递</option>
+							<option value="rufengda" {if $goods['express'] == 'rufengda'} selected{/if} data-name="如风达">如风达</option>
+							<option value="yafengsudi" {if $goods['express'] == 'yafengsudi'} selected{/if} data-name="亚风速递">亚风速递</option>
+							<option value="youshuwuliu" {if $goods['express'] == 'youshuwuliu'} selected{/if} data-name="优速物流">优速物流</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-10 col-sm-3 col-md-3 control-label">快递单号</label>
+					<div class="col-xs-12 col-sm-9 col-md-8 col-lg-8">
+						<input type="text" name="express[expressn]" class="form-control" value="{$goods['expressn']}">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 col-sm-offset-3 col-md-offset-2 col-lg-offset-2">
+						<input type="hidden" name="id" value="{$goods['id']}" />
+						<input name="submit" type="submit" value="提交发货" class="btn btn-primary" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	</form>
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading">中奖信息单</div>
+		<div class="panel-body">
+			<div class="table-responsive panel-body">
+				<table class="table table-hover" style="min-width: 300px;">
+					<thead class="navbar-inner">
+						<tr>
+							<th class="col-sm-1">ID</th>
+							<th class="col-sm-1">商品ID</th>
+							<th class="col-sm-2">商品名称</th>
+							<th class="col-sm-1">商品图片</th>
+							<th class="col-sm-1">商品价格</th>
+							<th class="col-sm-1">当前/总期数</th>
+							<th class="col-sm-1">中奖人昵称</th>
+							<th class="col-sm-3">中奖人form_user</th>
+							<th class="col-sm-1">中奖码</th>
+							<th class="col-sm-2">揭晓时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{$goods['id']}</td>
+							<td>{$goods['sid']}</td>
+							<td>{$goods['title']}</td>
+							<td><image src="{php echo tomedia($goods['picarr']);}" style="max-width: 48px; max-height: 48px; border: 1px dotted gray"></td>
+							<td>{$goods['price']}</td>
+							<td>{$goods['periods']}/{$goods['maxperiods']}</td>
+							<td>{$goods['q_uid']}</td>
+							<td>{$goods['q_user']}</td>
+							<td>{$goods['q_user_code']}</td>
+							<td>{php echo date('Y-m-d H:i:s', $goods['q_end_time'])}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">中奖用户信息<span class="text-muted"></span></div>
+			<div class="panel-body ">
+				<table class="table table-hover">
+					<thead class="navbar-inner">
+					<tr>
+						<th style="width:30px;">ID</th>
+						<th style="width:200px;">用户from_user</th>
+						<th style="width:150px;">用户昵称</th>
+						<th style="width:80px;">真实姓名</th>
+						<th style="width:120px;">电话</th>
+						<th style="width:400px;">地址</th>
+					</tr>
+					</thead>
+					<tr>
+						<td>{$member['id']}</td>
+						<td>{$member['from_user']}</td>
+						<td>{$member['nickname']}</td>
+						<td>{$member['realname']}</td>
+						<td>{$member['mobile']}</td>
+						<td>{$member['address']}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+	require(['jquery', 'util'], function($, util){
+		$(function(){
+			$('#form').submit(function(){
+				return true;
+			});
+		});
+	});
+</script> 
+{template 'common/footer'}

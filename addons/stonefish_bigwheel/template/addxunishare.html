@@ -1,0 +1,27 @@
+<form method="post" action="{php echo url('site/entry/savexunishare',array('m' => 'stonefish_bigwheel','rid' => $rid))}" id="form1">
+	<input type="hidden" name="uid" value="{$data['id']}">
+	<div class="table-responsive" style="height:300px;overflow-Y: auto; overflow-X:hidden;">
+	<table class="table" style="min-width:518px;">
+	<tr>
+		<td style="border-top:none;vertical-align:middle;width:120px;"><strong>头像</strong></td>
+		<td style="border-top:none;vertical-align:middle;">{php echo tpl_form_field_image('avatar','../addons/stonefish_bigwheel/template/images/avatar.jpg');}</td>
+	</tr>
+	<tr>
+		<td style="border-top:none;vertical-align:middle;width:120px;"><strong>昵称</strong></td>
+		<td style="border-top:none;vertical-align:middle"><input type="text" id="nickname" class="form-control" name="nickname" value="系统"></td>
+	</tr>
+	<tr>
+		<td style="border-top:none;vertical-align:middle;width:120px;"><strong>增加助力值</strong></td>
+		<td style="border-top:none;vertical-align:middle"><input type="text" id="viewnum" class="form-control" name="viewnum" value="1"></td>
+	</tr>	
+	<tr>
+		<td style="border-top:none;vertical-align:middle;width:120px;"><strong>增加助力额</strong></td>
+		<td style="border-top:none;vertical-align:middle"><input type="text" id="point" class="form-control" name="point" value="1"></td>
+	</tr>
+	<tr>
+		<td style="border-top:none;vertical-align:middle;" colspan="2"><button class="btn btn-primary"><i class="fa fa-file-text-o"></i> 保存虚拟助力</button></td>
+	</tr>
+	<input name="token" type="hidden" value="{$_W['token']}"/>
+	</table>
+	</div>
+</form>

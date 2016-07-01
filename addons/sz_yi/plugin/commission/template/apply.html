@@ -56,16 +56,16 @@
                 </div>
               
             </div>
-            
-     <div class="form-group">
+			
+	 <div class="form-group">
                 <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
                 <div class="col-sm-8 col-lg-9 col-xs-12">
                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
-                       
-           {ifp 'commission.agent.export'.$status}   
+					   
+		   {ifp 'commission.agent.export'.$status}   
                         <button type="submit" name="export" value="1" class="btn btn-primary">导出 Excel</button>
                         {/if}
-                        
+						
                 </div>
                  
             </div>
@@ -124,7 +124,7 @@
                     <td>{$row['invalidtime']}</td>
                     {/if}
                      <td>
-                        <a class='btn btn-default' href="{php echo $this->createPluginWebUrl('commission/apply/detail',array('id' => $row['id']));}">详情</a>        
+                        <a class='btn btn-default' href="{php echo $this->createPluginWebUrl('commission/apply/detail',array('id' => $row['id']));}">详情</a>		
                     </td>
                 </tr>
                 {/loop}
@@ -202,7 +202,7 @@
             {if $status==1 && cv('commission.apply.check')}
             <a href="javascript:;" onclick="checkall(true)" class="btn btn-success">批量审核通过</a>
             <a href="javascript:;" onclick="checkall(false)" class="btn btn-danger">批量审核不通过</a>
-            {/if}
+			{/if}
         </div>
         <div class='panel-body'>
             <table class="table table-hover">
@@ -240,7 +240,7 @@
                                </td>
               
                                <td>{php echo date('Y-m-d H:i',$row['createtime'])}</td>   
-                           </tr>    
+                           </tr>	
                            <tr >
 
                                <td colspan="6">
@@ -343,8 +343,8 @@
                                                </td>
                                            </tr>
                                            {/loop}
-                                       </tbody></table>       
-                               </td></tr>    
+                                       </tbody></table>	   
+                               </td></tr>	
                        {/loop}
                    </table>
         </div>

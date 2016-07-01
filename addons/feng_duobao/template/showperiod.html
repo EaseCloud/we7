@@ -1,0 +1,57 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li class="active"><a>往期商品列表</a></li>
+	<li><a href="{php echo $this->createWebUrl('goods', array('op'=>'display'));}">商品列表</a></li>
+	<li><a href="{php echo $this->createWebUrl('goods', array('op'=>'edit'));}">添加商品</a></li>
+</ul>
+	<div class="panel panel-default">
+		<div class="panel-heading">往期商品列表</div>
+		<div class="panel-body">
+			<div class="table-responsive panel-body">
+				<table class="table table-hover" style="min-width: 300px;">
+					<thead class="navbar-inner">
+						<tr>
+							<th class="col-sm-1">商品ID</th>
+							<th class="col-sm-2">商品名称</th>
+							<th class="col-sm-1">商品图片</th>
+							<th class="col-sm-1">商品价格</th>
+							<th class="col-sm-1">当前/总期数</th>
+							<th class="col-sm-1">中奖人昵称</th>
+							<th class="col-sm-1">中奖码</th>
+							<th class="col-sm-2">揭晓时间</th>
+							<th class="col-sm-1 text-right">查看兑换记录</th>
+						</tr>
+					</thead>
+					<tbody>
+						{loop $goodses $goodsid $goods}
+						<tr>
+							<td>{$goods['id']}</td>
+							<td>{$goods['title']}</td>
+							<td><image src="{php echo tomedia($goods['picarr']);}" style="max-width: 48px; max-height: 48px; border: 1px dotted gray"></td>
+							<td>{$goods['price']}</td>
+							<td>{$goods['periods']}/{$goods['maxperiods']}</td>
+							<td>{$goods['q_uid']}</td>
+							<td>{$goods['q_user_code']}</td>
+							<td>{php echo date('Y-m-d H:i:s', $goods['q_end_time'])}</td>
+							<td class="text-right">
+								<a href="{php echo $this->createWebUrl('srecords', array('id'=>$goods['id']));}" class="btn btn-success btn-sm" data-original-title="" title="">兑换记录</a>
+							</td>
+						</tr>
+						{/loop}
+						{if empty($goodses)}
+						<tr>
+							<td colspan="8">
+								没有往期商品
+							</td>
+						</tr>
+						{/if}
+					</tbody>
+				</table>
+				{$pager}
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'common/footer'}

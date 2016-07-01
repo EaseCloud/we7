@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$reply['title']}--{$_W['account']['name']}</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="Description" content="{$reply['description']}" />
+<!-- Mobile Devices Support @begin -->
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<!-- Mobile Devices Support @end -->
+</head>
+<style>
+	img{max-width:100%!important;}
+    body,div{margin:0; padding:0;}
+	#miao{margin:0px 80px;height:40px;text-align:center; line-height:40px;background:#F5F5F5; color:#000; border:0; border-radius:5px;filter:alpha(opacity=40);-moz-opacity:0.4;-khtml-opacity: 0.4;opacity: 0.4;}
+</style>
+<body>
+<div style="position:absolute; width:100%; height:20px; z-index:1;bottom:30px;font-size:15px;color:#FF0000;text-align:center;">
+    <div id='miao'>{$reply['homepictime']}秒后进入活动</div>
+</div>
+<div style="position:absolute; width:100%; height:100%; z-index:-1">
+    <img style="position:fixed;" src="{php echo toimage($reply['homepic'])}" width="100%" height="100%" id="imgpic"/>
+</div>
+{template 'jssdkhide'}
+<script src="{$_W['siteroot']}app/resource/js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+var t_img; // 定时器
+var isLoad = true; // 控制变量
+ 
+// 判断图片加载状况，加载完成后回调
+isImgLoad(function(){
+    // 加载完成
+	djstime({$reply['homepictime']},'秒后进入活动','miao');
+    setTimeout(function () {
+        window.location.href='{php echo $this->createMobileUrl('entry', array('rid' => $rid,'iid' => $iid,'entrytype' => $entrytype,'from_user' => $_GPC['from_user'],'homepic' => 'yes'))}';
+    },({$reply['homepictime']}+1)*1000);
+});
+ 
+// 判断图片加载的函数
+function isImgLoad(callback){
+    // 注意我的图片类名都是cover，因为我只需要处理cover。其它图片可以不管。
+    // 查找所有封面图，迭代处理
+    $('#imgpic').each(function(){
+        // 找到为0就将isLoad设为false，并退出each
+        if(this.height === 0){
+            isLoad = false;
+            return false;
+        }
+    });
+    // 为true，没有发现为0的。加载完毕
+    if(isLoad){
+        clearTimeout(t_img); // 清除定时器
+        // 回调函数
+        callback();
+    // 为false，因为找到了没有加载完成的图，将调用定时器递归
+    }else{
+        isLoad = true;
+        t_img = setTimeout(function(){
+            isImgLoad(callback); // 递归扫描
+        },50); // 我这里设置的是50毫秒就扫描一次，可以自己调整
+    }
+}
+</script>
+</body>
+</html>

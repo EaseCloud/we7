@@ -1,0 +1,25 @@
+<div class="table-responsive" style="height:300px;overflow-Y: auto; overflow-X:hidden;">
+	<table class="table" style="min-width:568px;">
+		<tr>
+			<th style="border-top:none;vertical-align:middle;width:50px;">好友</th>
+			<th style="border-top:none;vertical-align:middle;">昵称</th>
+			<th style="border-top:none;vertical-align:middle;width:70px;">助力量</th>
+			<th style="border-top:none;vertical-align:middle;width:70px;">助力值</th>
+			<th style="border-top:none;vertical-align:middle;width:130px;">访问IP</th>
+			<th style="border-top:none;vertical-align:middle;width:140px;">访问时间</th>
+		</tr>
+		{loop $share $sharerow}
+		<tr>
+			<td><img src="{if substr($sharerow['avatar'],-1)=='0'}{php echo rtrim(toimage($sharerow['avatar']), '0').$reply['poweravatar']}{else}{php echo toimage($sharerow['avatar'])}{/if}" width="30"></td>
+			<td>{php echo stripcslashes($sharerow['nickname'])}</td>
+			<td>{$sharerow['viewnum']}</td>
+			<td>{$sharerow['point']}</td>
+			<td>{$sharerow['visitorsip']}</td>
+			<td>{php echo date('Y/m/d H:i',$sharerow['visitorstime']);}</td>
+		</tr>
+		{/loop}
+		<tr>
+			<td colspan='6'><a href="{php echo url('site/entry/sharedata',array('m' => 'stonefish_bigwheel','rid' => $rid,'fromuser' => $data['from_user']))}">查看详情</a></td>
+		</tr>
+	</table>
+</div>

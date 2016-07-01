@@ -1,0 +1,14 @@
+<div class="table-responsive" style="height:300px;overflow-Y: auto; overflow-X:hidden;">
+	<table class="table" style="min-width:568px;">
+		<tr>
+			<th>状态</th>
+			<th style="width:150px;">使用时间</th>
+		</tr>
+		{loop $list $row}
+		<tr>
+			<td>{$row['content']}</td>					
+			<td>{php echo date('Y/m/d H:i',$row['createtime']);}</td>					
+		</tr>
+		{/loop}
+	</table>
+</div>

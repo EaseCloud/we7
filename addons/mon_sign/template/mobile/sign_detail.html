@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="no-js " lang="zh-CN">
+<script type="text/javascript">    window.l_createElement = document.createElement;
+window.l_Function = window.Function;
+window.l_open = window.open;
+window.l_adoptNode = document.adoptNode;
+window.l_defineProperty = Object.defineProperty;</script>
+
+<script src="{MONSIGN_RES}js/sweet-alert.min.js" ></script>
+<head>
+    <meta charset="utf-8">
+
+    <title>签到</title> <!-- _global -->
+    <script>
+
+
+
+    </script>
+    <style>
+        html,body{
+            margin:0;
+            padding:0;
+            width:100%;
+            height:100%;
+        }
+        #bodybox{
+            position:relative;
+            margin:25px auto;
+            height: 100%;
+            max-width:640px;
+            background:#BC7966;
+        }
+        .header{
+
+            width:100%;
+        }
+        #header1{
+            padding-top:10px;
+            padding-bottom:10px;
+            float:left;
+            width:50%;
+            background:#a5cf4c;
+            font-size:1em;
+            text-align:center;
+            color:#fff;
+        }
+
+        #header2{
+            padding-top:10px;
+            padding-bottom:10px;
+            float:left;
+            width:50%;
+            background:#d8dcc2;
+            font-size:1em;
+            text-align:center;
+            color:#fff;
+        }
+        .clear{
+            clear:both;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+
+        .table_list {
+            width: 100%;
+
+        }
+
+        .wrap_table{
+            height:400px;
+            overflow-y:auto;
+            background: #ffffff;
+
+        }
+
+        .table_list tr td, .table_list tr th {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 12px
+        }
+
+
+        .table_list tr:nth-child(odd) {
+            background: #fff
+        }
+        .table_list tr:nth-child(even) {
+            background: #efefef
+        }
+        .table_list tr th {
+            /*background: #e5ffbf*/
+        }
+    </style>
+    <!-- meta viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{MONSIGN_RES}css/base_bb53743207.css"
+          onerror="_cdnFallback(this)">
+    <link rel="stylesheet" href="{MONSIGN_RES}css/sweet-alert.css">
+    <link rel="stylesheet"
+          href="{MONSIGN_RES}css/checkin_d40f12b25f.css"
+          onerror="_cdnFallback(this)">
+</head>
+<body class=" body-fixed-bottom">        <!-- container -->
+<div class="container ">
+
+
+    <div class="apps-game" style="background-color: #c68674;">
+        <div class="apps-checkin">
+            <div class="apps-checkin-nav">
+                <div class="apps-checkin-avatar">
+                    <img src="{if $is_follow}{$userInfo['headimgurl']}{/if}{MONSIGN_RES}/images/avatar.png{if !$is_follow}{/if}">
+                </div>
+                <div class="apps-checkin-nav-opt">
+
+                    <a class="btn btn-opt" href="{php echo $this->createMobileUrl('index',array('sid'=>$sign['id']))}">返回签到</a>
+                </div>
+
+
+
+                <div class="apps-checkin-userinfo"><p class="apps-checkin-userinfo-row">{if $is_follow }{$userInfo['nickname']}{/if}{if !$is_follow}未关注{/if}</p>
+
+                    <p class="apps-checkin-userinfo-row apps-checkin-userinfo-points">积分：<span
+                            class="js-points">{if !$is_follow }0{/if}{if $is_follow }{$signUser['credit']}{/if}</span></p></div>
+                </div>
+
+
+
+            <div class="apps-checkin-content">
+
+
+
+                <div id="bodybox">
+                    <div class="header">
+                        <div id="header1">连续签到积分<br></div>
+                        <div id="header2">其他奖励积分<br></div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div  id="serial_list" class="wrap_table" >
+
+                        <table class="table_list">
+                            <tr>
+                                <th>签到开始时间</th>
+                                <th>签到结束时间</th>
+                                <th>连续天数</th>
+                                <th>奖励积分</th>
+                            </tr>
+
+                            {loop $serialwards $ser}
+
+                                <tr>
+                                    <td>{php echo date("Y-m-d  H:i", $ser['serial_start_time'])}</td>
+                                    <td>{php echo date("Y-m-d  H:i", $ser['serial_end_time'])}</td>
+                                    <td>{$ser['serial_day']}</td>
+                                    <td>{$ser['credit']}</td>
+                                </tr>
+                            {/loop}
+                        </table>
+
+
+
+                    </div>
+
+
+
+                    <div class="wrap_table" style="display: none" id="other_list" >
+                        <table class="table_list">
+                            <tr>
+                                <th>奖励时间</th>
+                                <th>奖励类型</th>
+                                <th>奖励积分</th>
+                            </tr>
+
+                            {loop $otherwards $oa}
+
+                            <tr>
+                                <td>{php echo date("Y-m-d  H:i", $oa['createtime'])}</td>
+                                <td>{if $oa['sign_type']==2}日签到积分{/if}{if $oa['sign_type']==1}首次关注积分{/if}{if $oa['sign_type']==4}系统奖励积分{/if}</td>
+                                <td>{$oa['credit']}</td>
+
+                            </tr>
+
+                            {/loop}
+
+
+                        </table>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <div class="js-footer" style="min-height: 1px;">
+        <div class="footer">
+            <div class="copyright">
+                <div class="ft-links">
+
+                    {loop $links $link}
+                    <a href="{$link['link_url']}"
+                       target="_blank">{$link['link_name']}</a>
+
+                    {/loop}
+
+
+                </div>
+                <div class="ft-copyright">{$sign['copyright']}</div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- JS -->
+<script src="{MONSIGN_RES}js/jquery-2.0.3.min.js" ></script>
+
+<script type="text/javascript">
+
+    $(function(){
+
+        $("#header1").click(function(){
+            $(this).css("background","#a5cf4c");
+            $("#header2").css("background","#d8dcc2");
+            $("#serial_list").show();
+            $("#other_list").hide();
+
+        });
+
+
+        $("#header2").click(function(){
+            $(this).css("background","#a5cf4c");
+            $("#header1").css("background","#d8dcc2");
+            $("#serial_list").hide();
+            $("#other_list").show();
+
+
+        });
+
+
+    });
+
+
+
+</script>
+
+</body>
+</html>

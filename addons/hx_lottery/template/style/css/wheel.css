@@ -1,0 +1,526 @@
+html,body {
+	height: 100%
+}
+
+body {
+	font-family: Helvetica, 'STHeiti STXihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial
+}
+
+.container {
+	height: 100%
+}
+
+.apps-game {
+	width: 320px;
+	margin: 0 auto;
+	min-height: 100%
+}
+
+ul.activity-info {
+	font-size: 12px;
+	margin: 0;
+	margin-top: 5px
+}
+
+ul.activity-info li {
+	margin-bottom: 5px;
+	line-height: 1.5em
+}
+
+ul.activity-info li .activity-info-content {
+	margin-left: 1em;
+	word-break: break-all
+}
+
+ul.activity-info .activity-note {
+	margin-top: 10px
+}
+
+ul.activity-info .user-center {
+	color: #ffc73d
+}
+
+.info-area {
+	padding-top: 10px;
+	width: 275px;
+	margin: 0 auto
+}
+
+.view-prize {
+	font-size: 14px;
+	text-align: right;
+	color: #ffc73d
+}
+
+.view-prize a {
+	color: #ffc73d
+}
+
+.view-prize a:hover {
+	color: #ffc73d
+}
+
+.share-mp-info {
+	z-index: 2000
+}
+
+.important {
+	color: #e03021
+}
+
+.footer {
+	position: relative;
+	z-index: 1500;
+	margin-top: 20px;
+	overflow: hidden;
+	width: 100%;
+	background-color: #2d3132;
+	color: #aaa
+}
+
+.footer .copyright {
+	width: 100%
+}
+
+.apps-mask {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 1000;
+	background: rgba(0,0,0,0.5);
+	color: #4d4c4c
+}
+
+.apps-mask.apps-mask-transparent {
+	background: rgba(0,0,0,0)
+}
+
+.apps-mask .apps-modal {
+	position: fixed;
+	display: table;
+	height: 90px;
+	top: 165px;
+	left: 50%;
+	margin-left: -122px;
+	width: 225px;
+	background: #fff;
+	border-radius: 5px;
+	padding: 10px;
+	z-index: 100
+}
+
+.apps-mask .apps-modal .apps-modal-content-wrap {
+	display: table-cell;
+	vertical-align: middle
+}
+
+.apps-mask .apps-modal .apps-modal-content {
+	margin: 5px 0 10px;
+	text-align: center;
+	line-height: 1.5em
+}
+
+.apps-mask .apps-modal .apps-modal-action {
+	text-align: center
+}
+
+.apps-mask .apps-modal .apps-modal-action .apps-btn {
+	margin-left: 20px
+}
+
+.apps-mask .apps-modal .apps-modal-action .apps-btn:first-child {
+	margin-left: 0
+}
+
+.apps-mask .apps-btn {
+	background: #fff;
+	border: 1px solid #666;
+	box-shadow: none;
+	font-size: 13px;
+	line-height: 13px;
+	width: 80px;
+	height: 35px;
+	border-radius: 3px;
+	color: #4d4c4c
+}
+
+.apps-mask .apps-btn.apps-primary-btn {
+	color: #fff;
+	background: #ed203d;
+	border: none
+}
+
+.apps-mask .give-point {
+	color: #ed203d
+}
+
+.animated {
+	-webkit-animation-duration: 1s;
+	-moz-animation-duration: 1s;
+	-o-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	-moz-animation-fill-mode: both;
+	-o-animation-fill-mode: both;
+	animation-fill-mode: both
+}
+
+.animated.infinite {
+	-webkit-animation-iteration-count: infinite;
+	-moz-animation-iteration-count: infinite;
+	-o-animation-iteration-count: infinite;
+	animation-iteration-count: infinite
+}
+
+@-webkit-keyframes tada {
+	0% {
+		-webkit-transform: scale(1)
+	}
+
+	10%,20% {
+		-webkit-transform: scale(0.9) rotate(-3deg)
+	}
+
+	30%,50%,70%,90% {
+		-webkit-transform: scale(1.1) rotate(3deg)
+	}
+
+	40%,60%,80% {
+		-webkit-transform: scale(1.1) rotate(-3deg)
+	}
+
+	100% {
+		-webkit-transform: scale(1) rotate(0)
+	}
+}
+
+@-moz-keyframes tada {
+	0% {
+		-moz-transform: scale(1)
+	}
+
+	10%,20% {
+		-moz-transform: scale(0.9) rotate(-3deg)
+	}
+
+	30%,50%,70%,90% {
+		-moz-transform: scale(1.1) rotate(3deg)
+	}
+
+	40%,60%,80% {
+		-moz-transform: scale(1.1) rotate(-3deg)
+	}
+
+	100% {
+		-moz-transform: scale(1) rotate(0)
+	}
+}
+
+@-o-keyframes tada {
+	0% {
+		-o-transform: scale(1)
+	}
+
+	10%,20% {
+		-o-transform: scale(0.9) rotate(-3deg)
+	}
+
+	30%,50%,70%,90% {
+		-o-transform: scale(1.1) rotate(3deg)
+	}
+
+	40%,60%,80% {
+		-o-transform: scale(1.1) rotate(-3deg)
+	}
+
+	100% {
+		-o-transform: scale(1) rotate(0)
+	}
+}
+
+@keyframes tada {
+	0% {
+		transform: scale(1)
+	}
+
+	10%,20% {
+		transform: scale(0.9) rotate(-3deg)
+	}
+
+	30%,50%,70%,90% {
+		transform: scale(1.1) rotate(3deg)
+	}
+
+	40%,60%,80% {
+		transform: scale(1.1) rotate(-3deg)
+	}
+
+	100% {
+		transform: scale(1) rotate(0)
+	}
+}
+
+.tada {
+	-webkit-animation-name: tada;
+	-moz-animation-name: tada;
+	-o-animation-name: tada;
+	animation-name: tada
+}
+
+@-webkit-keyframes pulse {
+	0% {
+		-webkit-transform: scale(1)
+	}
+
+	50% {
+		-webkit-transform: scale(1.1)
+	}
+
+	100% {
+		-webkit-transform: scale(1)
+	}
+}
+
+@-moz-keyframes pulse {
+	0% {
+		-moz-transform: scale(1)
+	}
+
+	50% {
+		-moz-transform: scale(1.1)
+	}
+
+	100% {
+		-moz-transform: scale(1)
+	}
+}
+
+@-o-keyframes pulse {
+	0% {
+		-o-transform: scale(1)
+	}
+
+	50% {
+		-o-transform: scale(1.1)
+	}
+
+	100% {
+		-o-transform: scale(1)
+	}
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1)
+	}
+
+	50% {
+		transform: scale(1.1)
+	}
+
+	100% {
+		transform: scale(1)
+	}
+}
+
+.pulse {
+	-webkit-animation-name: pulse;
+	-moz-animation-name: pulse;
+	-o-animation-name: pulse;
+	animation-name: pulse
+}
+
+body {
+	background-color: #7f2789
+}
+
+#wxcover {
+	display: none;
+	background-image: url('../img/wheel_cover.png')
+}
+
+.apps-wheel .logo {
+	width: 320px;
+	height: 154px;
+	background: url('../img/logo.png') no-repeat;
+	background-size: 320px 154px
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-device-pixel-ratio: 1.5) {
+	.apps-wheel .logo {
+		background-image: url('../img/logo@2x.png')
+	}
+}
+
+.apps-wheel .wheel-wrap {
+	position: relative;
+	width: 280px;
+	margin: 10px auto 0
+}
+
+.apps-wheel .wheel-wrap * {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none
+}
+
+.apps-wheel .wheel-wrap .middle-button-area {
+	position: absolute;
+	top: 72px;
+	left: 70px;
+	width: 139px;
+	height: 145px;
+	background: url('../img/middle_button.png');
+	z-index: 1
+}
+
+.apps-wheel .wheel-wrap .middle-button-area .middle-button {
+	position: absolute;
+	top: 25px;
+	left: 20px;
+	width: 100px;
+	height: 100px;
+	cursor: pointer;
+	border-radius: 40px
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-device-pixel-ratio: 1.5) {
+	.apps-wheel .wheel-wrap .middle-button-area {
+		background-image: url('../img/middle_button@2x.png');
+		background-size: 139px 145px
+	}
+}
+
+.apps-wheel .wheel .wheel-row {
+	*zoom: 1
+}
+
+.apps-wheel .wheel .wheel-row:before,.apps-wheel .wheel .wheel-row:after {
+	display: table;
+	content: "";
+	line-height: 0
+}
+
+.apps-wheel .wheel .wheel-row:after {
+	clear: both
+}
+
+.apps-wheel .wheel .wheel-sep-row .wheel-block:last-child {
+	float: right
+}
+
+.apps-wheel .wheel .wheel-block {
+	float: left;
+	position: relative;
+	width: 69px;
+	margin: 0 1px 1px 0;
+	height: 71px;
+	background-color: #cb1573;
+	box-sizing: border-box;
+	z-index: 2
+}
+
+.apps-wheel .wheel .wheel-block.even {
+	background-color: #d84190
+}
+
+.apps-wheel .wheel .wheel-block::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 5px;
+	background: rgba(0,0,0,0.2)
+}
+
+.apps-wheel .wheel .wheel-block.active {
+	background-color: #ffffb5
+}
+
+.apps-wheel .wheel .wheel-block.active::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: #ff0;
+	opacity: .3
+}
+
+.apps-wheel .wheel .wheel-icon {
+	position: absolute;
+	left: 18px;
+	top: 16px;
+	width: 36px;
+	height: 36px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 36px
+}
+
+.apps-wheel .wheel .wheel-icon.custom-icon {
+	left: 12px;
+	top: 10px;
+	width: 48px;
+	height: 48px;
+	background-size: 48px
+}
+
+.apps-wheel .wheel .prize-again .wheel-icon {
+	background-image: url('../img/face_smile.png')
+}
+
+.apps-wheel .wheel .prize-no .wheel-icon {
+	background-image: url('../img/face_normal.png')
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-device-pixel-ratio: 1.5) {
+	.apps-wheel .wheel .prize-again .wheel-icon {
+		background-image: url('../img/face_smile@2x.png')
+	}
+
+	.apps-wheel .wheel .prize-no .wheel-icon {
+		background-image: url('../img/face_normal@2x.png')
+	}
+}
+
+.apps-wheel .wheel .prize1 .wheel-icon {
+	background-image: url('../img/prize_1.png')
+}
+
+.apps-wheel .wheel .prize2 .wheel-icon {
+	background-image: url('../img/prize_2.png')
+}
+
+.apps-wheel .wheel .prize3 .wheel-icon {
+	background-image: url('../img/prize_3.png')
+}
+
+.apps-wheel .wheel .prize4 .wheel-icon {
+	background-image: url('../img/prize_4.png')
+}
+
+.apps-wheel .wheel .wheel-icon.point-icon,.apps-wheel .wheel .wheel-icon.coupon-icon {
+	left: 12px;
+	top: 14px;
+	width: 48px;
+	height: 48px;
+	background-size: 48px
+}
+
+.apps-wheel .wheel .wheel-icon.point-icon {
+	background-image: url('../img/point.png')
+}
+
+.apps-wheel .wheel .wheel-icon.coupon-icon {
+	top: 9px;
+	background-image: url('../img/coupon.png')
+}
+
+ul.activity-info {
+	color: #e2bfe0
+}

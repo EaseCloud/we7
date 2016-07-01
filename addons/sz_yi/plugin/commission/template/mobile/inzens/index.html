@@ -16,10 +16,10 @@ body {background:#efefef;}
 .icon-notification{background-color:#fd7c59;}
 
 .fxbar{ 
-    width:100%; height:124px; text-align:center; padding:20px 0; color:#fff; overflow:hidden;
-    background-image: -moz-linear-gradient(top, #ff7e27, #ff6700); /* Firefox */
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff7e27), color-stop(1, #ff6700)); /* Saf4+, Chrome */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff7e27', endColorstr='#ff6700', GradientType='0');
+	width:100%; height:124px; text-align:center; padding:20px 0; color:#fff; overflow:hidden;
+	background-image: -moz-linear-gradient(top, #ff7e27, #ff6700); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff7e27), color-stop(1, #ff6700)); /* Saf4+, Chrome */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff7e27', endColorstr='#ff6700', GradientType='0');
 }
 .fxbar .fx_face{ width:56px; height:56px; overflow:hidden; border:3px solid #ffa05f; border-radius:50%; margin:0 auto; margin-bottom:2px; background-color:#fff;}
 .fxbar .fx_face img { width:100%;height:100%;}
@@ -38,36 +38,36 @@ body {background:#efefef;}
 <div id='container'></div>
 <script id='tpl_main' type='text/html'>
     <div class="fxbar">
-        <div class="fx_face"><img src="<%member.avatar%>" /></div>
-        <div class="fx_name" <%if set.levelurl!=''%>onclick='location.href="<%set.levelurl%>"'<%/if%>><%member.nickname%></div>
-        <div class="fx_level">
-        <%if level%><%level.levelname%><%else%>
-            <%if set.levelname!=''%><%set.levelname%><%else%>普通等级<%/if%>
-        <%/if%>
-        </div>
-        <div class="fx_date">加入时间：<%member.agenttime%></div>
-    </div>
-    
-    <div class="counts clear_in">
-        <div class="count fl"><a href="{php echo $this->createPluginMobileUrl('commission/withdraw')}"><span style="color:#ff6700;"><%member.commission_total%></span><br />{php echo $this->set['texts']['commission_total']}</a></div>
-        <div class="count fl"><a href="{php echo $this->createPluginMobileUrl('commission/order')}"><span><%member.ordercount0%></span><br />{php echo $this->set['texts']['order']}</a></div>
-        <div class="count fr"><a href="{php echo $this->createPluginMobileUrl('commission/team')}"><span><%member.agentcount%></span><br />{php echo $this->set['texts']['myteam']}</a></div>
-    </div>
-    
-    <div class="fx_menu clear_in">
-        <a href="{php echo $this->createPluginMobileUrl('commission/order')}" class="menu"><i class="iconfont icon-calendar cate"></i><br />{php echo $this->set['texts']['order']}</a>
-        <a href="{php echo $this->createPluginMobileUrl('commission/withdraw')}" class="menu"><i class="iconfont icon-gongzi cate"></i><br />{php echo $this->set['texts']['commission1']}</a>
-        <a href="{php echo $this->createPluginMobileUrl('commission/myshop/set')}" class="menu"><i class="iconfont icon-shezhi cate"></i><br />店铺设置</a>
-        <a href="{php echo $this->createPluginMobileUrl('commission/customer')}" class="menu"><i class="iconfont icon-group cate"></i><br />{php echo $this->set['texts']['mycustomer']}</a>
-        <a href="{php echo $this->createPluginMobileUrl('commission/team')}" class="menu"><i class="iconfont icon-shequ cate"></i><br />{php echo $this->set['texts']['myteam']}</a>
-        <%if set.openselect%>
-        <a href="{php echo $this->createPluginMobileUrl('commission/myshop/select')}" class="menu"><i class="iconfont icon-goods cate"></i><br />商品管理</a>
-        <%/if%>
-        <a href="{php echo $this->createPluginMobileUrl('commission/log')}" class="menu"><i class="iconfont icon-licai cate"></i><br />{php echo $this->set['texts']['commission']}明细</a>
-        <a href="{php echo $this->createPluginMobileUrl('commission/shares')}" class="menu"><i class="iconfont icon-qrcode cate"></i><br />二维码</a>
-        <!--<a href="{php echo $this->createPluginMobileUrl('commission/myshop')}" class="menu"><i class="do do-my"></i><br />我的店铺</a>-->
-        <a href="{php echo $this->createMobileUrl('shop/notice')}" class="menu"><i class="iconfont icon-notification cate"></i><br />系统通知</a>
-    </div>
+		<div class="fx_face"><img src="<%member.avatar%>" /></div>
+		<div class="fx_name" <%if set.levelurl!=''%>onclick='location.href="<%set.levelurl%>"'<%/if%>><%member.nickname%></div>
+		<div class="fx_level">
+		<%if level%><%level.levelname%><%else%>
+			<%if set.levelname!=''%><%set.levelname%><%else%>普通等级<%/if%>
+		<%/if%>
+		</div>
+		<div class="fx_date">加入时间：<%member.agenttime%></div>
+	</div>
+	
+	<div class="counts clear_in">
+		<div class="count fl"><a href="{php echo $this->createPluginMobileUrl('commission/withdraw')}"><span style="color:#ff6700;"><%member.commission_total%></span><br />{php echo $this->set['texts']['commission_total']}</a></div>
+		<div class="count fl"><a href="{php echo $this->createPluginMobileUrl('commission/order')}"><span><%member.ordercount0%></span><br />{php echo $this->set['texts']['order']}</a></div>
+		<div class="count fr"><a href="{php echo $this->createPluginMobileUrl('commission/team')}"><span><%member.agentcount%></span><br />{php echo $this->set['texts']['myteam']}</a></div>
+	</div>
+	
+	<div class="fx_menu clear_in">
+		<a href="{php echo $this->createPluginMobileUrl('commission/order')}" class="menu"><i class="iconfont icon-calendar cate"></i><br />{php echo $this->set['texts']['order']}</a>
+		<a href="{php echo $this->createPluginMobileUrl('commission/withdraw')}" class="menu"><i class="iconfont icon-gongzi cate"></i><br />{php echo $this->set['texts']['commission1']}</a>
+		<a href="{php echo $this->createPluginMobileUrl('commission/myshop/set')}" class="menu"><i class="iconfont icon-shezhi cate"></i><br />店铺设置</a>
+		<a href="{php echo $this->createPluginMobileUrl('commission/customer')}" class="menu"><i class="iconfont icon-group cate"></i><br />{php echo $this->set['texts']['mycustomer']}</a>
+		<a href="{php echo $this->createPluginMobileUrl('commission/team')}" class="menu"><i class="iconfont icon-shequ cate"></i><br />{php echo $this->set['texts']['myteam']}</a>
+		<%if set.openselect%>
+		<a href="{php echo $this->createPluginMobileUrl('commission/myshop/select')}" class="menu"><i class="iconfont icon-goods cate"></i><br />商品管理</a>
+		<%/if%>
+		<a href="{php echo $this->createPluginMobileUrl('commission/log')}" class="menu"><i class="iconfont icon-licai cate"></i><br />{php echo $this->set['texts']['commission']}明细</a>
+		<a href="{php echo $this->createPluginMobileUrl('commission/shares')}" class="menu"><i class="iconfont icon-qrcode cate"></i><br />二维码</a>
+		<!--<a href="{php echo $this->createPluginMobileUrl('commission/myshop')}" class="menu"><i class="do do-my"></i><br />我的店铺</a>-->
+		<a href="{php echo $this->createMobileUrl('shop/notice')}" class="menu"><i class="iconfont icon-notification cate"></i><br />系统通知</a>
+	</div>
 </script>
  
 <script language="javascript">

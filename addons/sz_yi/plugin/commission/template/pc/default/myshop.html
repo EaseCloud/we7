@@ -203,13 +203,13 @@ body {margin:0px; width:100%;background:#f4f4f4; font-family:'微软雅黑';}
              if( result.advs.length>0) {
                     //$('.banner').height($('.main_image').find('img').height());
                     new Swipe($('.main_image')[0], {
-            speed:300,
-            auto:4000,
-            callback: function(){
-              
+			speed:300,
+			auto:4000,
+			callback: function(){
+			  
                                  $(".flicking_con  .inner  a").removeClass("on").eq(this.index).addClass("on");
-        }
-      });
+		}
+	  });
                 
                }
                 $('.search').click(function(){

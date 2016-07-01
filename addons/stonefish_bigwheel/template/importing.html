@@ -1,0 +1,53 @@
+<script language='javascript'>
+    function fetchChildCategoryi(cid) {
+	var html = '<option value="0">请选择网点</option>';
+	if (!categorys || !categorys[cid]) {
+		$('#districtid').html(html);
+		return false;
+	}
+	for (i in categorys[cid]) {
+		html += '<option value="'+categorys[cid][i][0]+'">'+categorys[cid][i][1]+'</option>';
+	}
+	$('#districtid').html(html);
+    }
+	var categorys = {php echo json_encode($business)};
+</script>
+<form method="post" action="{php echo url('site/entry/importingsave',array('m' => 'stonefish_bigwheel','rid' => $rid))}" id="form1" enctype="multipart/form-data" >
+	<input type="hidden" name="uid" value="{$data['id']}">
+	<div class="table-responsive" style="height:260px;overflow-Y: auto; overflow-X:hidden;">
+	    <table class="table" style="min-width:568px;">
+	    <tr>
+		    <td style="border-top:none;vertical-align:middle;width:100px;"><strong>选择文件</strong></td>
+		    <td style="border-top:none;vertical-align:middle;"><input type="file" name="inputExcel" id="inputExcel" ></td>
+	    </tr>
+		<tr>
+		    <td style="border-top:none;vertical-align:middle;" colspan="2"><div class="help-block">导入的数据必需为xls格式，请下载<a href="../addons/stonefish_flying/template/moban/moban.xls">模板文件</a>查看格式</div></td>
+	    </tr>
+	    <tr>
+		    <td style="border-top:none;vertical-align:middle;" colspan="2"><div class="row row-fix tpl-categorys-container">
+					    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					        <select class="form-control" style="margin-right:15px;" id="pcate" name="pcate" onchange="fetchChildCategoryi(this.options[this.selectedIndex].value)">
+				            <option value="" selected="selected">请选择网点区域</option>
+				            {loop $district $row}
+				            <option value="{$row['id']}">{$row['title']}</option>
+				            {/loop}
+				            </select>
+					    </div>
+					    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					        <select class="form-control" id="districtid" name="districtid">
+					        <option value="0" selected="selected">请先选择网点区域</option>					       
+					        </select>
+					    </div>
+					</div></td>
+	    </tr>		
+		<tr>
+		    <td style="border-top:none;vertical-align:middle;" colspan="2"><div class="help-block">请选择网点，如果不选择则以导入的文件为主</div></td>
+	    </tr>
+		<tr>
+		    <td style="border-top:none;vertical-align:middle;" colspan="2"><button class="btn btn-primary"><i class="fa fa-upload"></i> 导入数据</button></td>
+	    </tr>
+	    <input name="token" type="hidden" value="{$_W['token']}"/>
+		</table>
+	</div>
+</form>
+

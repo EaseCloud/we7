@@ -1,0 +1,205 @@
+{template 'common/header'}
+<script language='javascript'>
+    function fetchChildCategory(cid) {
+	var html = '<option value="0">请选择网点</option>';
+	if (!category || !category[cid]) {
+		$('#cate_2').html(html);
+		return false;
+	}
+	for (i in category[cid]) {
+		html += '<option value="'+category[cid][i][0]+'">'+category[cid][i][1]+'</option>';
+	}
+	$('#cate_2').html(html);
+    }
+	var category = {php echo json_encode($business)};
+</script>
+<div class="main">
+	<ul class="nav nav-tabs">
+		<li{if $_GPC['do'] == 'manage'} class="active"{/if}><a href="{php echo $this->createWebUrl('manage');}">管理幸运大转盘</a></li>
+		<li{if $_GPC['do'] == 'post'} class="active"{/if}><a href="{php echo url('platform/reply/post',array('m'=>'stonefish_bigwheel'));}"><i class="fa fa-plus"></i> 添加幸运大转盘</a></li>
+		<li{if $_GPC['do'] == 'fansdata'} class="active"{/if}><a href="{php echo $this->createWebUrl('fansdata',array('rid' => $rid));}">参与粉丝</a></li>
+		<li{if $_GPC['do'] == 'sharedata'} class="active"{/if}><a href="{php echo $this->createWebUrl('sharedata',array('rid' => $rid));}">分享数据</a></li>
+		<li{if $_GPC['do'] == 'prizedata'} class="active"{/if}><a href="{php echo $this->createWebUrl('prizedata',array('rid' => $rid));}">中奖名单</a></li>		
+		<li{if $_GPC['do'] == 'rankdata'} class="active"{/if}><a href="{php echo $this->createWebUrl('rankdata',array('rid' => $rid));}">粉丝排行</a></li>
+		<li{if $_GPC['do'] == 'trend'} class="active"{/if}><a href="{php echo $this->createWebUrl('trend',array('rid' => $rid));}">活动分析</a></li>
+		<li{if $_GPC['do'] == 'posttmplmsg'} class="active"{/if}><a href="{php echo $this->createWebUrl('posttmplmsg',array('rid' => $rid));}">消息通知</a></li>
+		{if $stonefish_branch}<li{if $_GPC['do'] == 'branch'} class="active"{/if}><a href="{php echo $this->createWebUrl('branch',array('rid' => $rid));}">商家赠送项</a></li>{/if}
+		<li><a href="{php echo url('platform/reply/post',array('m'=>'stonefish_bigwheel', 'rid' => $rid));}">编辑幸运大转盘</a></li>
+	</ul>
+    <div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+        	<input type="hidden" name="m" value="stonefish_bigwheel" />
+        	<input type="hidden" name="do" value="branch" />
+        	<input type="hidden" name="rid" value="{$_GPC['rid']}" />			
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">手机号码</label>
+				<div class="col-xs-12 col-sm-8 col-lg-9">
+					<input class="form-control" name="mobile" id="" type="text" value="{$_GPC['mobile']}" placeholder="手机号码"> 
+				</div>
+			</div>			
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">选择服务商</label>
+				<div class="col-xs-12 col-sm-8 col-lg-9">
+					<div class="row row-fix tpl-category-container">
+					    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					        <select class="form-control" style="margin-right:15px;" id="pcate" name="pcate" onchange="fetchChildCategory(this.options[this.selectedIndex].value)">
+				            <option value="" selected="selected">请选择网点区域</option>
+				            {loop $district $row}
+				            <option value="{$row['id']}"{if $_GPC['pcate']==$row['id']} selected{/if}>{$row['title']}</option>
+				            {/loop}
+				            </select>
+					    </div>
+					    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					        <select class="form-control" id="cate_2" name="districtid">
+					        <option value="0" selected="selected">请先选择网点区域</option>
+					        {if !empty($_GPC['pcate']) && !empty($business[$_GPC['pcate']])}
+					        {loop $business[$_GPC['pcate']] $row}
+					        <option value="{$row[0]}" {if $row[0] == $_GPC['districtid']} selected="selected"{/if}>{$row[1]}</option>
+					        {/loop}
+					        {/if}							
+					        </select>
+					    </div>
+					</div>
+				</div>
+                <div class=" col-xs-12 col-sm-2 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+	<div class="row-fluid">
+    	<div class="span8 control-group">
+			<a class="btn btn-warning" href="{php echo $this->createWebUrl('download',array('rid'=>$rid,'data'=>'branch','pcate'=>$_GPC['pcate'],'districtid'=>$_GPC['districtid']))}"><i class="fa fa-download"></i> 导出赠送信息</a>
+			<a class="btn btn-danger importing" href="javascript:void(0)" id="{$row['id']}"  data-toggle="tooltip" data-placement="top" title="导入赠送信息"><i class="fa fa-upload"></i> 导入赠送信息</a>
+        </div>
+    </div>
+</div>
+<div style="position:relative">
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="position:relative">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:50px;">删？</th>
+					<th style="width:50px;">序号</th>
+					<th style="width:150px;">手机号</th>
+					<th style="width:150px;">次数</th>					
+					<th style="width:120px;">使用次数</th>
+					<th style="width:80px;">商家</th>
+					<th style="width:80px;">状态</th>
+					<th style="width:120px;">赠送时间</th>
+					<th style="width:100px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $row}
+				<tr>
+					<td><input type="checkbox" name="uid[]" value="{$row['id']}" class=""></td>
+					<td>{$row['id']}</td>
+                	<td>{$row['mobile']}</td>
+					<td>{$row['awardcount']}</td>					
+					<td><a href="javascript:void(0)" id="{$row['id']}" class="btn btn-success btn-sm useinfo" style="width:130px;" data-toggle="tooltip" data-placement="top" title="使用情况"><i class="fa fa-list"></i> 使用情况[{$row['usecount']}]</a></td>
+					<td>{$row['shangjia']}</td>
+					<td>{if $row['status']==0}<label data="{$row['status']}"  style="cursor:pointer" class="label label-default" onclick="setcheck(this,{$row['id']},'status')">不可用{/if}{if $row['status']==1}<label data="{$row['status']}"   style="cursor:pointer" class="label label-warning" onclick="setcheck(this,{$row['id']},'status')">未审核{/if}{if $row['status']==2}<label data="{$row['status']}"   style="cursor:pointer" class="label label-success" onclick="setcheck(this,{$row['id']},'status')">已审核{/if}</label></td>
+					<td>{php echo date('Y/m/d H:i',$row['createtime']);}</td>
+					<td><a href="javascript:void(0)" id="{$row['id']}" class="btn btn-default btn-sm manage" data-toggle="tooltip" data-placement="top" title="修改赠送"><i class="fa fa-pencil-square-o"></i> 修改赠送</a></td>
+				</tr>
+				{/loop}
+				<tr>
+					<td><input type="checkbox" name="" onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});"></td>
+					<td colspan="8"><input name="token" type="hidden" value="{$_W['token']}" /><input type="submit" name="deleteall" class="btn btn-danger" value="删除选中的增送记录"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+{$pager}
+</div>
+<div id="guanbi" class="hide">
+	<span type="button" class="pull-right btn btn-primary" data-dismiss="modal" aria-hidden="true">关闭</span>
+</div>
+<script>
+	require(['jquery', 'util'], function($, u){
+		$("input[name=deleteall]").click(function(){
+		    if($(":checkbox[name='uid[]']:checked").size() > 0){
+			    var check = $(":checkbox[name='uid[]']:checked");
+			    //if(confirm("确认要删除选择的粉丝中奖记录?")){
+		            var id = new Array();
+				    var rid = {$rid};
+		            check.each(function(i){
+			            id[i] = $(this).val();
+		            });
+		            $.post('{php echo $this->createWebUrl('deletebranch')}', {idArr:id,rid:rid},function(data){
+			        if (data.errno ==0){
+						u.message(data.error, '{php echo url('site/entry/branch',array('m' => 'stonefish_bigwheel','rid' => $rid))}', 'warning');
+			        }else{
+				        u.message(data.error, '', 'error');
+			        }
+					return false;
+		            },'json');
+		        //}
+		    }else{
+		        u.message('没有选择商家增送记录', '', 'error');
+		        return false;
+		    }		    
+	    });		
+		$('.manage').click(function(){
+			var uid = parseInt($(this).attr('id'));
+			$.get("{php echo url('site/entry/editbranch',array('m' => 'stonefish_bigwheel','rid' => $rid))}&uid=" + uid, function(data){
+				if(data == 'dataerr') {
+					u.message('未找到指定粉丝', '', 'error');
+				} else {
+					var obj = u.dialog('修改赠送项', data, $('#guanbi').html());
+				}
+				obj.modal('show');
+			});
+		})
+		$('.useinfo').click(function(){
+			var uid = parseInt($(this).attr('id'));
+			$.get("{php echo url('site/entry/useinfo',array('m' => 'stonefish_bigwheel','rid' => $rid))}&uid=" + uid, function(data){
+				if(data == 'dataerr') {
+					u.message('未找到指定粉丝', '', 'error');
+				} else {
+					var obj = u.dialog('使用详细情况', data, $('#guanbi').html());
+				}
+				obj.modal('show');
+			});
+		})
+		$('.importing').click(function(){
+			$.get("{php echo url('site/entry/importing',array('m' => 'stonefish_bigwheel','rid' => $rid))}", function(data){
+				if(data == 'dataerr') {
+					u.message('系统出错', '', 'error');
+				} else {
+					var obj = u.dialog('导入赠送次数数据', data, $('#guanbi').html());
+				}
+				obj.modal('show');
+			});
+		})
+	});
+    function setcheck(obj,id,type){
+       $(obj).html($(obj).html() + "...");
+        $.post("{php echo $this->createWebUrl('setcheck')}",{id:id,type:type, data: obj.getAttribute("data")},function(d){
+            $(obj).html($(obj).html().replace("...",""));
+				if(d.data=='2'){
+					$(obj).html('已审核');
+					$(obj).addClass("label-success");
+					$(obj).removeClass("label-default");
+					$(obj).removeClass("label-warning");
+				}else{
+					$(obj).html('未审核');
+					$(obj).addClass("label-warning");
+					$(obj).removeClass("label-default");
+					$(obj).removeClass("label-success");
+				}
+            $(obj).attr("data",d.data);
+        },"json");
+    }
+</script>
+{template 'common/footer'}

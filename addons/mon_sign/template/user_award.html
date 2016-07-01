@@ -1,0 +1,165 @@
+{template 'common/header'}
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li {if $type==0} class="active"{/if} ><a href="{php echo $this->createWebUrl('UserAward',array('uid'=>$uid,'type'=>0));}">全部</a></li>
+        <li {if $type==2} class="active"{/if}> <a href="{php echo $this->createWebUrl('UserAward',array('uid'=>$uid,'type'=>2));}">每日签到积分</a></li>
+        <li {if $type==3} class="active"{/if}><a href="{php echo $this->createWebUrl('UserAward',array('uid'=>$uid,'type'=>3));}">连续签到积分</a></li>
+
+        <li {if $type==4} class="active"{/if} > <a href="{php echo $this->createWebUrl('UserAward',array('uid'=>$uid,'type'=>4));}">系统奖励积分</a></li>
+
+    </ul>
+
+    <!--全部 -->
+    {if $type==0}
+
+            <table class="table table-hover">
+
+                <thead>
+                <tr>
+                    <th>类型</th>
+                    <th>奖励积分</th>
+                    <th>奖励时间</th>
+                    <th>操作时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $list $item}
+                <tr>
+                    <td>{php echo $this->getTypeName($item['sign_type'])}</td>
+                    <td>{$item['credit']}</td>
+                    <td>{php echo date("Y-m-d  H:i", $item['createtime'])}</td>
+                    <td>
+                        <a href="{php echo $this->createWebUrl('UserAward', array( 'id' => $item['id'], 'op' => 'delete'))}"
+                           onclick="return confirm('此操作不可恢复，确认删除？');return false;" title="删除"
+                           class="btn btn-small"><i class="icon-remove"></i>删除</a>
+
+                    </td>
+
+                </tr>
+                {/loop}
+                </tbody>
+
+
+        </table>
+    {$pager}
+   {/if}
+
+
+
+    {if $type==2}
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>奖励时间</th>
+            <th>奖励积分</th>
+            <th>操作时间</th>
+        </tr>
+        </thead>
+
+        </thead>
+        <tbody>
+        {loop $list $item}
+        <tr>
+            <td>{php echo date("Y-m-d  H:i", $item['createtime'])}</td>
+            <td>{$item['credit']}</td>
+            <td>
+                <a href="{php echo $this->createWebUrl('UserAward', array( 'id' => $item['id'], 'op' => 'delete'))}"
+                   onclick="return confirm('此操作不可恢复，确认删除？');return false;" title="删除"
+                   class="btn btn-small"><i class="glyphicon glyphicon-remove"></i>删除</a>
+
+            </td>
+        </tr>
+        {/loop}
+        </tbody>
+
+
+    </table>
+    {$pager}
+    {/if}
+
+
+
+<!--连续签到时间-->
+
+    {if $type==3}
+
+    <table class="table table-hover">
+
+        <thead>
+        <tr>
+            <th>签到开始时间</th>
+            <th>签到结束时间</th>
+            <th>连续签到天数</th>
+            <th>奖励积分</th>
+            <th>操作时间</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {loop $list $item}
+                <tr>
+                    <td>{php echo date("Y-m-d  H:i", $item['serial_start_time'])}</td>
+                    <td>{php echo date("Y-m-d  H:i", $item['serial_end_time'])}</td>
+                    <td>{php echo date("Y-m-d  H:i", $item['serial_day'])}</td>
+                    <td>{$item['credit']}</td>
+                    <td>
+                        <a href="{php echo $this->createWebUrl('UserAward', array( 'id' => $item['id'], 'op' => 'delete'))}"
+                           onclick="return confirm('此操作不可恢复，确认删除？');return false;" title="删除"
+                           class="btn btn-small"><i class="glyphicon glyphicon-remove"></i>删除</a>
+
+                    </td>
+                </tr>
+        {/loop}
+
+        </tbody>
+
+
+    </table>
+    {$pager}
+    {/if}
+
+
+
+
+    {if $type==4}
+
+    <table class="table table-hover">
+
+        <thead>
+        <tr>
+            <th>奖励时间</th>
+            <th>奖励积分</th>
+            <th>操作时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $item}
+        <tr>
+            <td>{php echo date("Y-m-d  H:i", $item['createtime'])}</td>
+            <td>{$item['credit']}</td>
+            <td>
+                <a href="{php echo $this->createWebUrl('UserAward', array( 'id' => $item['id'],'uid'=>$uid, 'op' => 'delete'))}"
+                   onclick="return confirm('此操作不可恢复，确认删除？');return false;" title="删除"
+                   class="btn btn-small"><i class="glyphicon glyphicon-remove"></i>删除</a>
+
+            </td>
+        </tr>
+        {/loop}
+        </tbody>
+
+
+    </table>
+    {$pager}
+    {/if}
+
+
+
+
+
+</div>
+
+
+
+{template 'common/footer'}

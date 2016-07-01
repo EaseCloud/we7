@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>统计</title>
+
+		<script type="text/javascript" src="../addons/mon_sign/js/jquery-1.8.2.min.js"></script>
+        <script src="../addons/mon_sign/js/highcharts.js"></script>
+		<style type="text/css">
+				
+		</style>
+		<script type="text/javascript">
+                $(function () {
+
+
+    $(function () {
+        $('#container').highcharts({
+            title: {
+                text: '签到用户近10内数据统计',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '{$msign['title']}数据统计',
+                x: -20
+            },
+            xAxis: {
+                categories:{$date_str}
+            },
+            yAxis: {
+                title: {
+                    text: '人数'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '人'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: '签到用户',
+                data: {$count_str}
+            }]
+        });
+    });
+        
+        $("#zid").change(function(){
+        	
+        	$("#jz_form").submit();
+        });
+    });
+    
+    
+   
+
+		</script>
+	</head>
+	<body>
+
+
+
+
+<form  id="jz_form" action="{php echo $this->createWebUrl('Analyse');}" method="post">
+	<div>
+		选择签到活动
+	<select id="sid" name="sid" >
+		{loop $signs $sns}
+			<option value='{$sns['id']}' {if $sns['id']==$sid} selected="selected"{/if} >{$sns['title']}</option>
+		{/loop}
+	</select>
+	</div>
+</form>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+	</body>
+</html>

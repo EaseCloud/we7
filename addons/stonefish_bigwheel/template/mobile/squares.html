@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$reply['title']}--{$_W['account']['name']}</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="Description" content="{$reply['description']}" />
+<!-- Mobile Devices Support @begin -->
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<!-- Mobile Devices Support @end -->
+<link href="../addons/stonefish_bigwheel/template/css/style.css?{php echo time()}" rel="stylesheet" type="text/css" />
+<script src="{$_W['siteroot']}app/resource/js/lib/jquery-1.11.1.min.js?{php echo time()}"></script>
+<style>
+html{color:{$template['textcolor']};}
+html{background-image: url({php echo toimage($template['bgimg'])});}
+html{background-color: {$template['bgcolor']};}
+body{font-size:{$template['fontsize']}px;color:{$template['textcolor']};}
+a:link, a:visited, a:hover, a:active { color:{$template['textcolorlink']}; text-decoration:none; } 
+.mingdan{background-color:{$template['buttoncolor']};}
+.biaoti{color:{$template['buttontextcolor']};}
+.biaoti a{ color:{$template['buttontextcolor']};}
+.mingdaninfo{background-color:{$template['rulecolor']};	border:1px {$template['rulecolor']} solid ;color:{$template['ruletextcolor']};}
+/* 排行层CSS */
+.rankList {	margin:0px 10px;}
+.rankList .ranks {margin-top:10px;color:{$template['ruletextcolor']};}
+.rankList .ranks .avatar {float: left;width: 40px;height: 40px;	margin: 10px 0 0 0;}
+.rankList .ranks .avatar img {display: block;width: 100%;height: 100%;}
+.rankList .ranks .name {float: left;margin-left: 5px;}
+.rankList .ranks .lihe {margin-left:10px;float: left;margin-top:10px;width:100%;}
+.rankList .ranks .price {float: right;margin-right: 10px;}
+.rankList .rank_01{height: 90px;margin-bottom: 20px}
+.rankList .rank_01 {background: {$template['rulecolor']};border-radius: 5px;}
+.rankList .rank_01 .avatar{margin: 10px 0 0 10px}
+.rankList .rank_01 .name,.rankList .rank_01 .price{line-height: 40px;margin-top:10px;}
+/* 排行层CSS */
+/* 弹出层CSS */
+.panel-box .panel-content{color: {$template['watchtextcolor']};	background-color: {$template['watchcolor']};}
+.panel-box .btn-confirm{background: {$template['buttoncolor']};	color: {$template['buttontextcolor']};}
+/* 弹出层CSS */
+#lottery table td.active{background-image:url({php echo toimage($reply['bigwheelimgbg'])});}
+</style>
+</head>
+<body>
+<!--大转盘-->
+<input type="hidden" value="{$msg}" id="msg"/>
+<div>
+    <div class="nou">
+	    <div style="margin:10px;" class="adpic">
+		{if !empty($reply['adpic'])}{if !empty($reply['adpicurl'])}<a href="{$reply['adpicurl']}">{/if}<img id="top_img" style="max-width: 100%;height: auto;width: auto\9;"  src="{php echo toimage($reply['adpic'])}" width="100%" border="0">{if !empty($reply['adpicurl'])}</a>{/if}{/if}
+        </div>       
+        <div class="zhuan1" id="lottery">
+		    {if $reply['opportunity']==2}
+			<div class="mingdaninfo">
+                <div class="Detail">我的{$creditnames}  <span class="n" id="credit_now">{php echo intval($credit[$reply['credit_type']])}</span> 个  每次 <span class="n">{$reply['credit_value']}</span> {$creditnames}</div>
+            </div>
+			{/if}
+			{if $reply['opportunity']==1}
+			<div class="mingdaninfo">
+                <div class="Detail"> 赠送 <span class="n">{$reply['number_times']}</span> 次抽奖机会 剩余 <span class="n" id="number_times">{php echo $reply['number_times']-$fans['totalnum']}</span> 次</div>
+            </div>
+			{/if}
+			{if $reply['opportunity']==0}
+			<div class="mingdaninfo">
+				<div class="box">
+					<div class="Detail" style="text-align:center;">{$reply['tips']}</div>
+				</div>
+            </div>
+			{/if}
+			<table id="tb" style="max-width: 100%;background-color: #FD6830;" align="center;" >
+                <tr>
+					{php $i=0}
+					{loop $prize0_3 $prizes0_3}
+					<td class="playnormal lottery-unit lottery-unit-{$i}">
+                        <div class="xx">
+                            {if !empty($prizes0_3['prizepic'])}<img src="{php echo toimage($prizes0_3['prizepic'])}" />{/if}
+                        </div>
+                        {if empty($prizes0_3['prizepic'])}<div class="ee">{$prizes0_3['prizename']}</div>{/if}
+                    </td>
+					{php $i++}
+					{/loop}                    
+                </tr>
+				<tr>
+                    <td class="playnormal lottery-unit lottery-unit-11">
+                        <div class="xx">
+                            {if !empty($prize11['prizepic'])}<img src="{php echo toimage($prize11['prizepic'])}" />{/if}
+                        </div>
+                        {if empty($prize11['prizepic'])}<div class="ee">{$prize11['prizename']}</div>{/if}
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td class="playnormal lottery-unit lottery-unit-4">
+                        <div class="xx">
+                            {if !empty($prize4['prizepic'])}<img src="{php echo toimage($prize4['prizepic'])}" />{/if}
+                        </div>
+                         {if empty($prize4['prizepic'])}<div class="ee">{$prize4['prizename']}</div>{/if}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="playnormal lottery-unit lottery-unit-10">
+                        <div class="xx">
+                            {if !empty($prize10['prizepic'])}<img src="{php echo toimage($prize10['prizepic'])}" />{/if}
+                        </div>
+                         {if empty($prize10['prizepic'])}<div class="ee">{$prize10['prizename']}</div>{/if}
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td class="playnormal lottery-unit lottery-unit-5">
+                        <div class="xx">
+                            {if !empty($prize5['prizepic'])}<img src="{php echo toimage($prize5['prizepic'])}" />{/if}
+                        </div>
+                         {if empty($prize5['prizepic'])}<div class="ee">{$prize5['prizename']}</div>{/if}
+                    </td>
+                </tr>
+                <tr>
+                    {php $i=9}
+					{loop $prize6_9 $prizes6_9}
+					<td class="playnormal lottery-unit lottery-unit-{$i}">
+                        <div class="xx">
+                            {if !empty($prizes6_9['prizepic'])}<img src="{php echo toimage($prizes6_9['prizepic'])}" />{/if}
+                        </div>
+                         {if empty($prizes6_9['prizepic'])}<div class="ee">{$prizes6_9['prizename']}</div>{/if}
+                    </td>
+					{php $i--}
+					{/loop}
+                </tr>
+            </table>
+            <div class="liji">                
+                <a href="javascript:square()" id="btn"><span id="liji1" class="liji1" style="display:none">{$running}</span>
+				<img id="liji2" class="liji2" src="{php echo toimage($reply['bigwheelimgan'])}" width="132" border="0" align="middle" /></a>
+            </div>
+			<div class="mingdan" style="margin-top:10px;">
+                <div class="biaoti">已有 <span class="n">{php echo $reply['xuninum']+$reply['fansnum']}</span> 人参与此活动</div>
+            </div>
+			{if !empty($award_list)}
+			<!--中奖列表-->
+			<div class="mingdaninfo" style="margin-top:10px;">
+                <div class="Detail"><marquee behavior="scroll" scrolldelay="200">{$award_list}</marquee></div>
+            </div>
+			<!--中奖列表-->
+			{/if}
+			{if $share['share_open_close']}
+			<!--分享按钮-->
+			<div class="mingdan" style="margin-top:10px;">
+                <div id="shareimg" class="biaoti">{if strstr($share['share_anniu'], '/')}<img style="height: 35px;width: auto;" src="{php echo toimage($share['share_anniu'])}">{else}{$share['share_anniu']}{/if}</div>
+				<div id="pop_share"><img src="{php echo toimage($share['share_pic'])}" width="100%" alt="分享到朋友圈"/></div>
+            </div>
+			{if $reply['power']==2}
+			<div class="mingdan" style="margin-top:10px;">
+                <a href="{php echo $this->createMobileUrl('firend', array('rid' => $rid))}"><div class="biaoti">{if strstr($share['share_firend'], '/')}<img src="{php echo toimage($share['share_anniu'])}">{else}{$share['share_firend']}{/if}</div></a>
+            </div>
+			{/if}
+			<!--分享按钮-->
+			{/if}
+        </div>
+    </div>
+</div>
+<!--大转盘-->
+<!--结果-->
+<div class="panel-box" id="panel_box">
+    <div class="panel-content" id="panel-content">
+        <div class="panel-close" id="panel-close"></div>
+        <span class="icon-prize-useless" id="panelimg"></span><br/>
+		<div id="cccc">{$exchange['awarding_tips']}</div>
+		<div id="result_info" style="display:none">
+		    <hr class="common-hr" />
+			<div id="isfans">
+            {if $exchange['isrealname']}<div style="float: left;width:100%;"><label>{$isfansname[0]}</label><input name="realname" class="px" id="realname" value="{$profile['realname']}" type="text" placeholder="请输入{$isfansname[0]}"></div>{/if}
+			{if $exchange['ismobile']}<div style="float: left;width:100%;"><label>{$isfansname[1]}</label><input name="mobile" class="px" id="mobile" value="{$profile['mobile']}" type="tel" placeholder="请输入{$isfansname[1]}"></div>{/if}
+			{if $exchange['isqq']}<div style="float: left;width:100%;"><label>{$isfansname[2]}</label><input name="qq" class="px" id="qq" value="{$profile['qq']}" type="tel" placeholder="请输入{$isfansname[2]}"></div>{/if}
+			{if $exchange['isemail']}<div style="float: left;width:100%;"><label>{$isfansname[3]}</label><input name="email" class="px" id="email" value="{$profile['email']}" type="email" placeholder="请输入{$isfansname[3]}"></div>{/if}
+			{if $exchange['isaddress']}<div style="float: left;width:100%;"><label>{$isfansname[4]}</label><input name="address" class="px" id="address" value="{$profile['address']}" type="text" placeholder="请输入{$isfansname[4]}"></div>{/if}
+			{if $exchange['isgender']}<div style="float: left;width:100%;"><label>{$isfansname[5]}</label><select name="gender" id="gender" class="form-control">
+				<option value="0"{if $profile['gender']==0} selected {/if}>选择{$isfansname[5]}</option>
+				<option value="1"{if $profile['gender']==1} selected {/if}>男</option>
+				<option value="2"{if $profile['gender']==2} selected {/if}>女</option>
+			</select></div>{/if}
+			{if $exchange['istelephone']}<div style="float: left;width:100%;"><label>{$isfansname[6]}</label><input name="telephone" class="px" id="telephone" value="{$profile['telephone']}" type="tel" placeholder="请输入{$isfansname[6]}"></div>{/if}
+			{if $exchange['isidcard']}<div style="float: left;width:100%;"><label>{$isfansname[7]}</label><input name="idcard" class="px" id="idcard" value="{$profile['idcard']}" type="text" placeholder="请输入{$isfansname[7]}"></div>{/if}
+			{if $exchange['iscompany']}<div style="float: left;width:100%;"><label>{$isfansname[8]}</label><input name="company" class="px" id="company" value="{$profile['company']}" type="text" placeholder="请输入{$isfansname[8]}"></div>{/if}
+			{if $exchange['isoccupation']}<div style="float: left;width:100%;"><label>{$isfansname[9]}</label><input name="occupation" class="px" id="occupation" value="{$profile['occupation']}" type="text" placeholder="请输入{$isfansname[9]}"></div>{/if}
+			{if $exchange['isposition']}<div style="float: left;width:100%;"><label>{$isfansname[10]}</label><input name="position" class="px" id="position" value="{$profile['position']}" type="text" placeholder="请输入{$isfansname[10]}"></div>{/if}
+		    </div>
+            <div id="result_info_tip"></div>
+			<div class="btn-layout">
+				<input class="btn-confirm" name="提交资料" id="save-btn" type="button" value="提交资料">
+            </div>
+        </div>
+		<div id="result_info1" style="display:none">
+			<div style="margin-top:10px;"><input class="btn-confirm" name="放入百宝箱" id="savebtn" type="button" value="放入百宝箱"> </div>
+		</div>
+		<div id="result_info2" style="display:none">
+			<div style="margin-top:10px;"><input class="btn-confirm" name="关闭" id="closebtn" type="button" value="关闭"> </div>
+		</div>
+    </div>
+</div>
+<!--结果-->
+{if $reply['music']==1}
+<!--音乐控制-->
+<div class="audio-controls on"></div>
+<!-- 背景音乐 -->
+<audio id="audio" {if $reply['mauto']}autoplay="autoplay"{/if} {if $reply['mloop']}loop="loop"{/if}>
+	<source src="{php echo toimage($reply['musicurl'])}" type="audio/mpeg" />
+</audio>
+<!-- 背景音乐 -->
+<!--音乐控制-->
+{/if}
+{template 'footer'}
+<script type="text/javascript">
+<!--九宫格设置-->
+var lottery={
+	index:-1,	//当前转动到哪个位置，起点位置
+	count:0,	//总共有多少个位置
+	timer:0,	//setTimeout的ID，用clearTimeout清除
+	speed:20,	//初始转动速度
+	times:0,	//转动次数
+	cycle:40,	//转动基本次数：即至少需要转动多少次再进入抽奖环节
+	prize:-1,	//中奖位置
+	againprize:0,	//是否为再来一次
+	init:function(id){
+		if ($("#"+id).find(".lottery-unit").length>0) {
+			$lottery = $("#"+id);
+			$units = $lottery.find(".lottery-unit");
+			this.obj = $lottery;
+			this.count = $units.length;
+			$lottery.find(".lottery-unit-"+this.index).addClass("active");
+		};
+	},
+	roll:function(){
+		var index = this.index;
+		var count = this.count;
+		var lottery = this.obj;
+		$(lottery).find(".lottery-unit-"+index).removeClass("active");
+		index += 1;
+		if (index>count-1) {
+			index = 0;
+		};
+		$(lottery).find(".lottery-unit-"+index).addClass("active");
+		this.index=index;
+		return false;
+	},
+	stop:function(index){
+		this.prize=index;	
+		return false;		
+	}
+};
+
+function roll(){
+	lottery.times += 1;
+	lottery.roll();
+	if (lottery.times > lottery.cycle+10 && lottery.prize==lottery.index) {
+		clearTimeout(lottery.timer);
+		lottery.prize=-1;
+		lottery.times=0;
+		click=false;		
+		setTimeout(function () { 
+            $("#panel_box").show();
+			$("#btn").show();
+        }, 500);
+	}else{
+		if (lottery.times<lottery.cycle) {
+			lottery.speed -= 10;
+		}else if(lottery.times==lottery.cycle) {
+			lottery.prize = lottery.prizes;
+		}else{
+			if (lottery.times > lottery.cycle && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
+				lottery.speed += 110;
+			}else{
+				lottery.speed += 20;
+			}
+		}
+		if (lottery.speed<40) {
+			lottery.speed=40;
+		};
+		//console.log(lottery.times+'^^^^^^'+lottery.speed+'^^^^^^^'+lottery.prize);
+		lottery.timer = setTimeout(roll,lottery.speed);
+		
+	}
+	return false;	
+}
+
+var click=false;
+
+window.onload=function(){
+	lottery.init('lottery');
+	$("#btn").click(function(){
+		{if $isfans}
+	        $("#result_info").show();
+	        $("#panel_box").show();
+			return false;
+        {/if}
+		if (click) {
+			return false;
+		}else{
+			$("#btn").hide();
+			$.getJSON('{php echo $this->createMobileUrl('get_award', array('rid' => $rid,'avatar' => $firend['headimgurl'],'nickname' => $firend['nickname']))}', function(data){
+				if($("#count").length>0){
+					$("#count").text(parseInt($("#count").text())+1);
+				}
+				if($("#totalcount").length>0){
+					$("#totalcount").text(parseInt($("#totalcount").text())+1)
+				}
+				if($("#number_times").length>0){
+					$("#number_times").text(parseInt($("#number_times").text())-1);
+				}
+				if(data.success==1) {
+                    lottery.prizes = data.prizetype-1;
+					lottery.credit_now = data.credit_now;
+					$('#awardname').html(data.award['prizerating']+"-"+data.award['prizename']);
+					$("#panelimg").css({"background-image": "url("+data.award['prizepic']+")"});
+					$("#cccc").text(data.award['prizerating']+"-"+data.award['prizename']);
+					{if $reply['opportunity']==2}
+					if($("#credit_now").length>0){
+						$("#credit_now").text(parseInt($("#credit_now").text())-{$reply['credit_value']});
+					}
+					{/if}
+					if(data.isfans==1){
+					    $("#result_info").show();
+						$("#result_info1").hide();
+					    $("#result_info2").hide();
+				    }else{
+					    $("#result_info1").show();
+						$("#result_info2").hide();
+						$("#panel-content").css({"height": "220px"});
+					}
+					if(data.award['prizetype']=='spaceprize'){
+					    $("#result_info2").show();
+						$("#result_info1").hide();
+					}
+					lottery.speed=100;
+			        roll();
+			        click=true;
+                }else{
+                    $("#panel-content").css({"height": "220px"});
+					$("#panelimg").css({"background-image": "url(../addons/stonefish_scratch/template/images/icon_prize_useless.png)"});
+					$("#cccc").text(data.msg);
+					$("#panel_box").show();
+					$("#result_info").hide();
+					$("#result_info1").hide();					
+					$("#result_info2").show();
+					$("#msg").val(data.msg);
+					return false;
+                }
+			});
+			return false;
+		}
+	});
+};
+<!--九宫格设置-->
+<!--保存数据-->
+$("#save-btn").bind("click",function () {
+    var btn = $(this);
+    {if $exchange['isrealname']}
+	var realname = $("#realname").val();
+	if (realname == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[0]}");
+	    return;
+	}
+	var partten = /[\u4e00-\u9fa5]/g;
+	if(!partten.test(realname)){
+	    $("#result_info_tip").text("请输入正确的{$isfansname[0]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['ismobile']}
+	var mobile = $("#mobile").val();
+	if (mobile == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[1]}");
+	    return;
+	}
+	var partten = /^1\d{10}$/;
+	if(!partten.test(mobile)){
+	    $("#result_info_tip").text("请输入正确的{$isfansname[1]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isqq']}
+	var qq = $("#qq").val();
+	if (qq == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[2]}");
+	    return;
+	}			
+	var partten = /^[1-9]{1}\d{4,11}$/;
+	if(!partten.test(qq)){
+	    $("#result_info_tip").text("请输入正确的{$isfansname[2]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isemail']}
+	var email = $("#email").val();
+	if (email == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[3]}");
+	    return;
+	}
+	var partten = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+	if(!partten.test(email)){
+	    $("#result_info_tip").text("请输入正确的{$isfansname[3]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isaddress']}
+	var address = $("#address").val();
+	if (address == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[4]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isgender']}
+	var gender = $("#gender").val();
+	if (gender == '0') {
+	    $("#result_info_tip").text("请选择{$isfansname[5]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['istelephone']}
+	var telephone = $("#telephone").val();
+	if (telephone == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[6]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isidcard']}
+	var idcard = $("#idcard").val();
+	if (idcard == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[7]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['iscompany']}
+	var company = $("#company").val();
+	if (company == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[8]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isoccupation']}
+	var occupation = $("#occupation").val();
+	if (occupation == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[9]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isposition']}
+	var position = $("#position").val();
+	if (position == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[10]}");
+	    return;
+	}
+	{/if}
+	var submitData = {
+        {if $exchange['isrealname']}realname: realname,{/if}
+		{if $exchange['ismobile']}mobile: mobile,{/if}
+		{if $exchange['isqq']}qq: qq,{/if}
+		{if $exchange['isemail']}email: email,{/if}
+		{if $exchange['isaddress']}address: address,{/if}
+		{if $exchange['isgender']}gender: gender,{/if}
+		{if $exchange['istelephone']}telephone: telephone,{/if}
+		{if $exchange['isidcard']}idcard: idcard,{/if}
+		{if $exchange['iscompany']}company: company,{/if}
+		{if $exchange['isoccupation']}occupation: occupation,{/if}
+		{if $exchange['isposition']}position: position,{/if}
+	};
+	$.post('{php echo $this->createMobileUrl('editfans', array('rid' => $rid,'from_user' => $page_from_user))}', submitData, function(data) {
+	if (data.success == 1) {
+		$("#result_info").text(data.msg);
+		setTimeout(function () {
+			$("#panel_box").hide();
+			location.reload();
+		},3000)
+		return;
+	}else{
+		$("#result_info_tip").text(data.msg);
+		return;
+	}
+	},"json")
+});	
+<!--保存数据-->
+<!--常用弹出关闭-->
+   $("#panel-close").click(function(){
+		$("#panel_box").hide();
+	});
+	$("#savebtn").click(function(){
+		$("#panel_box").hide();
+	});
+	$("#closebtn").click(function(){
+		$("#panel_box").hide();
+	});
+	$("#share_close").click(function(){
+		$("#share_box").hide();
+	});
+	$("#sharebtn").click(function(){
+		$("#share_box").hide();
+	});
+<!--常用弹出关闭-->
+</script>
+{if $share['share_open_close']}
+{template 'jssdk'}
+{else}
+{template 'jssdkhide'}
+{/if}
+<script>
+{if $isfans}
+	$("#result_info").show();
+	$("#panel_box").show();
+{/if}
+{if $reply['music']==1}
+<!-- 音频暂停播放 -->
+var audioAuto = document.getElementById('audio');
+{if $reply['mauto']}
+	audioAuto.play();
+{else}
+	$(".audio-controls").removeClass("on");
+{/if}
+$(".audio-controls").click(function (){ 
+	if (audioAuto.paused) {
+		audioAuto.play();
+		$(".audio-controls").addClass("on");
+    }else{
+		audioAuto.pause();
+		$(".audio-controls").removeClass("on");
+    }
+});
+<!-- 音频暂停播放 -->
+{/if}
+{if $share['share_open_close']==1}
+$("#shareimg").click(function(){
+	$("#pop_share").show();
+});
+$("#pop_share").click(function(){
+	$("#pop_share").hide();
+});
+{/if}
+</script>
+</body>		
+</html>

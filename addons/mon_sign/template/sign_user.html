@@ -1,0 +1,154 @@
+{template 'common/header'}
+<style>
+    .modal-body{
+        max-height:100%;
+        width: 600px;
+        overflow-x: hidden;
+        overflow-y:auto;
+    }
+
+    .modal{
+        width: 650px;
+    }
+
+
+</style>
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li><a href="{php echo $this->createWebUrl('sign');}">签到管理</a></li>
+        <li class="active"> <a href="">签到用户</a></li>
+
+    </ul>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get">
+
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="mon_sign" />
+                <input type="hidden" name="do" value="SignUser" />
+                <input type="hidden" name="sid" value="{$sid}" />
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+                    <div class="col-sm-8 col-lg-9">
+                        <input class="form-control" name="keywords" id="" type="text" value="{$_GPC['keywords']}" placeholder="昵称">
+                    </div>
+                    <div class=" col-xs-12 col-sm-2 col-lg-2">
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                    </div>
+                </div>
+
+
+
+            </form>
+            </div>
+
+        </div>
+
+
+
+    <div style="padding: 0 15px 0  15px;">
+        <div class="row-fluid">
+            <div class="span8 control-group">
+
+
+                <a class="btn btn-default" href="{php echo $this->createWebUrl('userDownload', array('sid'=>$sid))}"><i class="icon-download-alt"></i>导出用户信息</a>
+                <a class="btn btn-default" href="#">参与用户共{$total}人</a>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div style="padding:15px;">
+        <table class="table table-hover">
+            <thead class="navbar-inner">
+                <tr>
+                    <th style="width:200px;">昵称</th>
+                    <th>头像</th>
+                    <th>积分</th>
+                    <th>连续签到天数</th>
+                    <th>签到次数</th>
+                    <th style="min-width:60px;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list $user}
+                <tr>
+
+
+                    <td>{$user['nickname']}</td>
+                    <td><img src="{$user['headimgurl']}" height="50px" width="50px"/></td>
+                    <td>{$user['credit']}</td>
+                    <td>{$user['sin_serial']}</td>
+                    <td>{$user['sin_count']}</td>
+                    <td >
+                     
+                        <a href="{php echo $this->createWebUrl('UserAward',array('uid'=>$user['id']))}" class="btn" rel="tooltip" title="积分详细"><i class="glyphicon glyphicon-file"></i>积分详细</a>
+                        <a class="btn" rel="tooltip" href="{php echo $this->createWebUrl('Systemaward', array('uid'=>$user['id'],'sid'=>$sid))}" title="奖励积分"><i class="glyphicon glyphicon-plus">奖励积分</i></a>
+
+                        <a href="{php echo $this->createWebUrl('signUser', array( 'id' => $user['id'],'sid'=>$sid, 'op' => 'delete'))}"
+                           onclick="return confirm('此操作不可恢复，确认删除？');return false;" title="删除"
+                           class="btn btn-small"><i class="glyphicon glyphicon-remove"></i>删除</a>
+
+
+                  
+                    </td>
+                </tr>
+                {/loop}
+
+            </tbody>
+        </table>
+        {$pager}
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="awardDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title" id="myModalLabel">积分签到详细</h4>
+            </div>
+            <div class="modal-body">
+
+                <iframe width="600px" align="center" height="400px" id="ward_frame"   frameborder="0" scrolling="yes" ></iframe>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+
+
+  
+
+
+
+</script>
+
+
+{template 'common/footer'}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$reply['title']}排行榜--{$_W['account']['name']}</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="Description" content="{$reply['description']}" />
+<!-- Mobile Devices Support @begin -->
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<!-- Mobile Devices Support @end -->
+<link href="../addons/stonefish_bigwheel/template/css/style.css?v1" rel="stylesheet" type="text/css" />
+<style>
+html{color:{$template['textcolor']};}
+html{background-image: url({php echo toimage($template['bgimg'])});}
+html{background-color: {$template['bgcolor']};}
+body{font-size:{$template['fontsize']}px; }
+a:link, a:visited, a:hover, a:active { color:{$template['textcolorlink']}; text-decoration:none; } 
+.mingdan{background-color:{$template['buttoncolor']};}
+.biaoti{color:{$template['buttontextcolor']};}
+.biaoti a{ color:{$template['buttontextcolor']};}
+.mingdaninfo{background-color:{$template['rulecolor']};	border:1px {$template['rulecolor']} solid ;color:{$template['ruletextcolor']};}
+
+.rankList {	margin:0px 10px;}
+.rankList .ranks {margin-top:10px;color:{$template['ruletextcolor']};}
+.rankList .ranks .avatar {float: left;width: 40px;height: 40px;	margin: 10px 0 0 0;}
+.rankList .ranks .avatar img {display: block;width: 100%;height: 100%;}
+.rankList .ranks .name {float: left;margin-left: 5px;}
+.rankList .ranks .lihe {margin-left:10px;float: left;margin-top:10px;width:100%;}
+.rankList .ranks .price {float: right;margin-right: 10px;}
+.rankList .rank_01{height: 60px;margin-bottom: 20px}
+.rankList .rank_01 {background: {$template['rulecolor']};border-radius: 5px;}
+.rankList .rank_01 .avatar{margin: 10px 0 0 10px}
+.rankList .rank_01 .name,.rankList .rank_01 .price{line-height: 40px;margin-top:10px;}
+.rankList .ranks .serialNum {
+	float: left;
+	width: 44px;
+	height: 44px;
+	margin: 12px 12px 0 5px;
+	background: url(../addons/stonefish_bigwheel/template/images/serial_num_bg.png);
+	background-size: 100% 100%;
+	line-height: 20px;
+	font-size: 20px;
+	text-align: center;
+	color: #a9a589
+}
+.rankList .rank_bg .serialNum{
+	position: relative;
+	top: -2px;
+	width: 46px;
+	height: 74px;
+	margin: 0;
+	background: url(../addons/stonefish_bigwheel/template/images/rank_bg.png);
+	background-size: 46px 298px;
+	border-top: 0;
+	line-height: 65px
+}
+.rankList .rank_bg1 .serialNum {
+	color: #ffe949;
+	background-position: 0 0;
+}
+
+.rankList .rank_bg2 .serialNum {
+	color: #fff6b2;
+	background-position: 0 -75px;
+}
+
+.rankList .rank_bg3 .serialNum {
+	color: #fffff3;
+	background-position: 0 -149px;
+}
+.rankList .rank_bg4 .serialNum {
+	color: #fffff3;
+	background-position: 0 -224px;
+}
+</style>
+</head>
+<body>
+<div>
+    <div class="nou">	    
+        <div style="margin:10px;" class="adpic">
+		{if !empty($reply['adpic'])}{if !empty($reply['adpicurl'])}<a href="{$reply['adpicurl']}">{/if}<img id="top_img" style="max-width: 100%;height: auto;width: auto\9;"  src="{php echo toimage($reply['adpic'])}" width="100%" border="0">{if !empty($reply['adpicurl'])}</a>{/if}{/if}
+        </div>
+		<div class="zhuan1">
+		    <div class="mingdan">
+                <h2 class="biaoti">排行榜</h2>
+            </div>
+			{if !empty($rank)}
+		    <div class="rankList">
+			    {php $i =1;}
+				{loop $rank $row}
+			    <div class="ranks rank_01 rank_bg rank_bg{if $i>3}4{else}{$i}{/if}">
+                    <div class="serialNum">{if $i>3}{$i}{/if}</div>
+                    <div class="avatar"><img src="{if substr($row['avatar'],-1)=='0'}{php echo rtrim(toimage($row['avatar']), '0').$reply['poweravatar']}{else}{php echo toimage($row['avatar'])}{/if}"></div>
+                    <div class="name nickname" style="vertical-align: middle;">{php echo stripslashes($row['nickname'])}</div>
+                </div>
+				{php $i++}
+			   {/loop}
+			</div>
+			{else}
+			<div class="mingdaninfo">
+				<div>暂时没有排名！</div>					
+            </div>
+			{/if}
+        </div>
+    </div>
+</div>
+{template 'footer'}
+{template 'jssdkhide'}
+</body>
+</html>

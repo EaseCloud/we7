@@ -120,7 +120,7 @@ div.flicking_con a.on{background-position:0 -9px}
 
 <div class="itemlist-ad background"><div class="title"><i></i><span>猜你喜欢</span></div></div>
 <div class="goods">
-    <div id='goods_container'></div>
+	<div id='goods_container'></div>
 </div>
 
 <script id="tpl_main" type="text/html">
@@ -157,47 +157,47 @@ div.flicking_con a.on{background-position:0 -9px}
 <!--搜索
 <div class='search'><i class="fa fa-search"></i> 在店铺内搜索</div>
 <div class="search1">
-    <div class="topbar1">
-        <div class='right'>
-            <button class="sub1"><i class="iconfont icon-search"></i></button>
-            <div class="home1">取消</div>
-        </div>
-        <div class="left_wrap">
-            <div class="left">
-                <input type="text" id='keywords' class="input1" placeholder="搜索: 输入商品关键词" value='{$_GPC['keywords']}'/>
-            </div>
-        </div>
-    </div>
-    <div id='search_container' class='result1'></div>
+	<div class="topbar1">
+		<div class='right'>
+			<button class="sub1"><i class="iconfont icon-search"></i></button>
+			<div class="home1">取消</div>
+		</div>
+		<div class="left_wrap">
+			<div class="left">
+				<input type="text" id='keywords' class="input1" placeholder="搜索: 输入商品关键词" value='{$_GPC['keywords']}'/>
+			</div>
+		</div>
+	</div>
+	<div id='search_container' class='result1'></div>
 </div>
 -->
 
 <%if advs.length>0%>
 <div class="banner">
 
-    <%if advs.length>1%>
-    <div class="flicking_con"><div class="inner">
-        <%each advs as value index %>
-        <a class="<%if index==0%>on<%/if%>" href="#@"><%index%></a>
-        <%/each%>
-        </div>
-    </div>
-    <%/if%>
-    <div class="main_image">
-        <ul>
-            <%each advs as adv %>
-            <li <%if adv.link%>onclick="location.href='<%adv.link%>'"<%/if%>> <img src="<%adv.thumb%>"></li>
-            <%/each%>
-        </ul>
-    </div>
+	<%if advs.length>1%>
+	<div class="flicking_con"><div class="inner">
+		<%each advs as value index %>
+		<a class="<%if index==0%>on<%/if%>" href="#@"><%index%></a>
+		<%/each%>
+		</div>
+	</div>
+	<%/if%>
+	<div class="main_image">
+		<ul>
+			<%each advs as adv %>
+			<li <%if adv.link%>onclick="location.href='<%adv.link%>'"<%/if%>> <img src="<%adv.thumb%>"></li>
+			<%/each%>
+		</ul>
+	</div>
 </div>
 <%/if%>
 
-    {template 'new/index_menu'}
-    
-    {template 'new/index_ad'}
-    
-    {template 'new/index_ms'}
+	{template 'new/index_menu'}
+	
+	{template 'new/index_ad'}
+	
+	{template 'new/index_ms'}
 
 <!--右悬浮客服
 <div class="service"><a href="0000000000000"><i class="iconfont icon-comment"></i></a></div>
@@ -227,7 +227,7 @@ div.flicking_con a.on{background-position:0 -9px}
     var page = 1;  var loaded = false;
     var stop = true;
     require(['tpl', 'core','jquery.touchslider','swipe'], function(tpl, core) {
-        
+		
          function getGoods(type) {
 
                 core.pjson('commission/myshop', {'op': 'goods', page: page,mid:"{$_GPC['mid']}"}, function (gjson) {
@@ -291,13 +291,13 @@ div.flicking_con a.on{background-position:0 -9px}
              if( result.advs.length>0) {
                     //$('.banner').height($('.main_image').find('img').height());
                     new Swipe($('.main_image')[0], {
-            speed:300,
-            auto:4000,
-            callback: function(){
-              
+			speed:300,
+			auto:4000,
+			callback: function(){
+			  
                                  $(".flicking_con  .inner  a").removeClass("on").eq(this.index).addClass("on");
-        }
-      });
+		}
+	  });
                }
                 $('.search').click(function(){
  

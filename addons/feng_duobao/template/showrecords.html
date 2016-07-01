@@ -1,0 +1,45 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+<!-- 	<li {if $status == ''}class="active"{/if}><a href="{php echo $this->createWebUrl('record');}">全部记录</a></li> -->
+	<li ><a href="{php echo $this->createWebUrl('record',array('status' => 0));}">未付款</a></li>
+	<li ><a href="{php echo $this->createWebUrl('record',array('status' => 1));}">已付款</a></li>
+	<li class="active"><a href="{php echo $this->createWebUrl('record',array('status' => 1));}">兑换码</a></li>
+</ul>
+	<div class="panel panel-default">
+		<div class="panel-heading">兑换码</div>
+		<div class="panel-body">
+			<div class="table-responsive panel-body">
+				<table class="table table-hover" style="min-width: 300px;">
+					<thead class="navbar-inner">
+						<tr>
+							<th class="col-sm-1">兑换码总计：{$allcount}</th>
+							<th class="col-sm-1"></th>
+							<th class="col-sm-1"></th>
+							<th class="col-sm-1"></th>
+							<th class="col-sm-1"></th>
+							<th class="col-sm-1"></th>
+							<th class="col-sm-1"></th>
+							<th class="col-sm-1"></th>
+							<th class="col-sm-1"></th>
+							<th class="col-sm-1"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{$list['s_codes']}
+						{if empty($list['s_codes'])}
+						<tr>
+							<td colspan="8">
+								无兑换码
+							</td>
+						</tr>
+						{/if}
+					</tbody>
+				</table>
+				{$pager}
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'common/footer'}

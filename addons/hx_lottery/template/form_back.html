@@ -1,0 +1,634 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h5 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">基本参数</a>
+      </h5>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <input type="hidden" name="reply_id" value="{$reply['id']}" />
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动标题</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" value="{$reply['title']}" class="span2" name="title">
+            <div class="help-block">活动的标题</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">缩略图</label>
+          <div class="col-sm-9">
+            {php echo tpl_form_field_image('thumb',$reply['thumb'],'', $options);}
+            <div class="help-block">图文消息的缩略图</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动简介</label>
+          <div class="col-sm-9">
+            <textarea class="form-control" name="description">{$reply['description']}</textarea>
+            <div class="help-block">图文消息的简介</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动时间</label>
+          <div class="col-sm-4">
+            {php echo tpl_form_field_daterange('time', array('start'=>date('Y-m-d H:i:s',$reply['starttime']),'end'=>date('Y-m-d H:i:s',$reply['endtime'])), true)}
+            <div class="help-block">输入活动的起止时间</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">参与活动强制提交资料</label>
+          <div class="col-sm-2">
+             <label><input type="radio" value="0" name="reg" {if $reply['reg'] == 0 }checked{/if}>否</label>
+             <label><input type="radio" value="1" name="reg" {if $reply['reg'] == 1 }checked{/if}>是</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动状态</label>
+          <div class="col-sm-2">
+             <label><input type="radio" value="0" name="status" {if $reply['status'] == 0 }checked{/if}>结束</label>
+             <label><input type="radio" value="1" name="status" {if $reply['status'] == 1 }checked{/if}>正常</label>
+             <label><input type="radio" value="2" name="status" {if $reply['status'] == 2 }checked{/if}>暂停</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">可参与活动的用户组</label>
+          <div class="col-sm-4">
+            <select name="groupid" class="form-control" multiple="multiple">
+              <option value="0" {if $reply['groupid'] == '0'}selected{/if}>全部会员组</option>
+              {loop $groups $group}
+              <option value="{$group['groupid']}" {if $reply['groupid'] == $group['groupid']}selected{/if}>{$group['title']}</option>
+              {/loop}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">每次抽奖所需消耗</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <span class="input-group-addon">
+              {loop $creditnames['creditnames'] $scredit $creditname}
+               <label><input type="radio" value="{$scredit}" name="need_type" {if $reply['need_type'] == $scredit }checked{/if}>{$creditname['title']}</label>
+              {/loop}
+              </span>
+              <input class="form-control" type="text" value="{$reply['need_num']}" class="span2" name="need_num">
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">每人最多获奖次数</label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <input class="form-control" type="text" value="{$reply['awardnum']}" class="span2" name="awardnum">
+              <span class="input-group-addon">次</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">每人最多抽奖次数</label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <input class="form-control" type="text" value="{$reply['playnum']}" class="span2" name="playnum">
+              <span class="input-group-addon">次</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">每人每天可抽奖次数</label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <input class="form-control" type="text" value="{$reply['dayplaynum']}" class="span2" name="dayplaynum">
+              <span class="input-group-addon">次</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">转发赠送抽奖次数</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <span class="input-group-addon">每转发</span>
+              <input class="form-control" type="text" value="{$reply['zfcs']}" class="span2" name="zfcs">
+              <span class="input-group-addon">次，增加总数</span>
+              <input class="form-control" type="text" value="{$reply['zjcs']}" class="span2" name="zjcs">
+              <span class="input-group-addon">次</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">每人每天最多次数</label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <input class="form-control" type="text" value="{$reply['daytotalnum']}" class="span2" name="daytotalnum">
+              <span class="input-group-addon">次</span>
+            </div>
+          </div>
+          <span>最多抽奖次数为每天可抽奖次数与转发增加次数的总和</span>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">每次抽奖赠送</label>
+          <div class="col-sm-6" >
+            <div class="input-group">
+              <span class="input-group-addon">
+              {loop $creditnames['creditnames'] $scredit $creditname}
+              <label><input type="radio" value="{$scredit}" name="give_type" {if $reply['give_type'] == $scredit }checked{/if}>{$creditname['title']}</label>
+              {/loop}
+              </span>
+              <input class="form-control" type="text" value="{$reply['give_num']}" class="span2" name="give_num">
+              <span class="input-group-addon">
+              <label><input type="checkbox" name="onlynone" value="1" {if $reply['onlynone'] == 1 }checked{/if}> 仅送给未中奖的用户</label>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动说明</label>
+          <div class="col-sm-9">
+            <textarea class="form-control" name="tips">{$reply['tips']}</textarea>
+            <div class="help-block">活动页面的说明</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">奖品信息</label>
+          <div class="col-sm-9">
+            <textarea class="form-control" name="prizeinfo">{$reply['prizeinfo']}</textarea>
+            <div class="help-block">活动页面的说明</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">备注</label>
+          <div class="col-sm-9">
+            <textarea class="form-control" name="remark">{$reply['remark']}</textarea>
+            <div class="help-block">活动页面的备注</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h5 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">奖品设置</a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-5 control-label">综合中奖率</label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <input class="form-control" type="text" value="{$reply['rate']}" class="span2" name="rate">
+              <span class="input-group-addon">%</span>
+            </div>
+            中奖率必须为整数
+          </div>
+        </div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#home" role="tab" data-toggle="tab">奖品一</a>
+          </li>
+          <li role="presentation">
+            <a href="#profile" role="tab" data-toggle="tab">奖品二</a>
+          </li>
+          <li role="presentation">
+            <a href="#messages" role="tab" data-toggle="tab">奖品三</a>
+          </li>
+          <li role="presentation">
+            <a href="#settings" role="tab" data-toggle="tab">奖品四</a>
+          </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="home">
+            <h5>奖品一参数设置</h5>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">选择奖品</label>
+              <div class="col-sm-9" style="padding-top: 7px;">
+                {php $i = 1;}
+                {loop $creditnames['creditnames'] $scredit $creditname}
+                {php $t = str_replace("$('#p1_".$i."').hide()","$('#p1_".$i."').show()","$('#p1_1').hide();$('#p1_2').hide();$('#p1_3').hide();$('#p1_4').hide();$('#p1_5').hide();");}
+                <label>
+                  <input type="radio" value="{$scredit}" name="p1_type" onclick="$('#p1_zkq').hide();$('#p1_djq').hide();$('#p1_zswp').hide();{$t}" {if $prizes['p1_type'] == $scredit }checked{/if}>{$creditname['title']}</label>
+                {php $i++;}
+                {/loop}
+                <label>
+                  <input type="radio" value="2" name="p1_type" onclick="$('#p1_jf').hide();$('#p1_zkq').show();$('#p1_djq').hide();$('#p1_zswp').hide();$('#p1_1').hide();$('#p1_2').hide();$('#p1_3').hide();$('#p1_4').hide();$('#p1_5').hide();" {if $prizes['p1_type'] == 2 }checked{/if}>折扣券</label>
+                <label>
+                  <input type="radio" value="3" name="p1_type" onclick="$('#p1_jf').hide();$('#p1_zkq').hide();$('#p1_djq').show();$('#p1_zswp').hide();$('#p1_1').hide();$('#p1_2').hide();$('#p1_3').hide();$('#p1_4').hide();$('#p1_5').hide();" {if $prizes['p1_type'] == 3 }checked{/if}>代金券</label>
+                <label>
+                  <input type="radio" value="4" name="p1_type" onclick="$('#p1_jf').hide();$('#p1_zkq').hide();$('#p1_djq').hide();$('#p1_zswp').show();$('#p1_1').hide();$('#p1_2').hide();$('#p1_3').hide();$('#p1_4').hide();$('#p1_5').hide();" {if $prizes['p1_type'] == 4 }checked{/if}>真实物品</label>
+              </div>
+            </div>
+            {php $j = 1;}
+            {loop $creditnames['creditnames'] $scredit $creditname}
+            <div class="form-group" id="p1_{$j}" {if $prizes['p1_type'] != $scredit}style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">赠送{$creditname['title']}</label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  {php $v = p1_.$scredit;}
+                  <input class="form-control" type="text" value="{$prizes['p1_score']}" name="{$v}" id="{$v}">
+                  <span class="input-group-addon">个</span>
+                </div>
+              </div>
+            </div>
+            {php $j++;}
+            {/loop}
+            <div class="form-group" id="p1_zkq" {if $prizes['p1_type'] != 2 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">折扣券</label>
+              <div class="col-sm-4">
+                <select name="p1_2" class="form-control">
+                  {loop $couponlists $couponlist}
+                  {php $num = $couponlist['amount'] - $couponlist['dosage'];}
+                  <option value="{$couponlist['couponid']}" {if $prizes['p1_score'] == $couponlist['couponid']}selected{/if}>{$couponlist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=coupon&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group" id="p1_djq" {if $prizes['p1_type'] != 3 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">代金券</label>
+              <div class="col-sm-4">
+                <select name="p1_3" class="form-control">
+                  {loop $tokenlists $tokenlist}
+                {php $num = $tokenlist['amount'] - $tokenlist['dosage'];}
+                  <option value="{$tokenlist['couponid']}" {if $prizes['p1_score'] == $tokenlist['couponid']}selected{/if}>{$tokenlist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=token&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group" id="p1_zswp" {if $prizes['p1_type'] != 4 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">真实物品</label>
+              <div class="col-sm-4">
+                <select name="p1_4" class="form-control">
+                  {loop $goodslists $goodslist}
+                {php $num = $goodslist['total'] - $goodslist['num'];}
+                  <option value="{$goodslist['id']}" {if $prizes['p1_score'] == $goodslist['id']}selected{/if}>{$goodslist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=goods&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">奖品数量</label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <input class="form-control" type="text" value="{$prizes['p1_num']}" name="p1_num">
+                  <span class="input-group-addon">份</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">奖品图片</label>
+              <div class="col-sm-4">
+                {php echo tpl_form_field_image('p1_thumb',$prizes['p1_thumb'],'', $options);}
+                <div class="help-block">图文消息的缩略图</div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="profile">
+            <h5>奖品二参数设置</h5>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">选择奖品</label>
+              <div class="col-sm-9" style="padding-top: 7px;">
+                {php $i = 1;}
+                {loop $creditnames['creditnames'] $scredit $creditname}
+                {php $t = str_replace("$('#p2_".$i."').hide()","$('#p2_".$i."').show()","$('#p2_1').hide();$('#p2_2').hide();$('#p2_3').hide();$('#p2_4').hide();$('#p2_5').hide();");}
+                <label>
+                  <input type="radio" value="{$scredit}" name="p2_type" onclick="$('#p2_zkq').hide();$('#p2_djq').hide();$('#p2_zswp').hide();{$t}" {if $prizes['p2_type'] == $scredit }checked{/if}>{$creditname['title']}</label>
+                {php $i++;}
+                {/loop}
+                <label>
+                  <input type="radio" value="2" name="p2_type" onclick="$('#p2_jf').hide();$('#p2_zkq').show();$('#p2_djq').hide();$('#p2_zswp').hide();$('#p2_1').hide();$('#p2_2').hide();$('#p2_3').hide();$('#p2_4').hide();$('#p2_5').hide();" {if $prizes['p2_type'] == 2 }checked{/if}>折扣券</label>
+                <label>
+                  <input type="radio" value="3" name="p2_type" onclick="$('#p2_jf').hide();$('#p2_zkq').hide();$('#p2_djq').show();$('#p2_zswp').hide();$('#p2_1').hide();$('#p2_2').hide();$('#p2_3').hide();$('#p2_4').hide();$('#p2_5').hide();" {if $prizes['p2_type'] == 3 }checked{/if}>代金券</label>
+                <label>
+                  <input type="radio" value="4" name="p2_type" onclick="$('#p2_jf').hide();$('#p2_zkq').hide();$('#p2_djq').hide();$('#p2_zswp').show();$('#p2_1').hide();$('#p2_2').hide();$('#p2_3').hide();$('#p2_4').hide();$('#p2_5').hide();" {if $prizes['p2_type'] == 4 }checked{/if}>真实物品</label>
+              </div>
+            </div>
+            {php $j = 1;}
+            {loop $creditnames['creditnames'] $scredit $creditname}
+            <div class="form-group" id="p2_{$j}" {if $prizes['p2_type'] != $scredit}style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">赠送{$creditname['title']}</label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  {php $v = p2_.$scredit;}
+                  <input class="form-control" type="text" value="{$prizes['p2_score']}" id="{$v}" name="{$v}">
+                  <span class="input-group-addon">个</span>
+                </div>
+              </div>
+            </div>
+            {php $j++;}
+            {/loop}
+            <div class="form-group" id="p2_zkq" {if $prizes['p2_type'] != 2 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">折扣券</label>
+              <div class="col-sm-4">
+                <select name="p2_2" class="form-control">
+                  {loop $couponlists $couponlist}
+                {php $num = $couponlist['amount'] - $couponlist['dosage'];}
+                  <option value="{$couponlist['couponid']}" {if $prizes['p2_score'] == $couponlist['couponid']}selected{/if}>{$couponlist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=coupon&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group" id="p2_djq" {if $prizes['p2_type'] != 3 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">代金券</label>
+              <div class="col-sm-4">
+                <select name="p2_3" class="form-control">
+                  {loop $tokenlists $tokenlist}
+                {php $num = $tokenlist['amount'] - $tokenlist['dosage'];}
+                  <option value="{$tokenlist['couponid']}" {if $prizes['p2_score'] == $tokenlist['couponid']}selected{/if}>{$tokenlist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=token&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group" id="p2_zswp" {if $prizes['p2_type'] != 4 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">真实物品</label>
+              <div class="col-sm-4">
+                <select name="p2_4" class="form-control">
+                  {loop $goodslists $goodslist}
+                {php $num = $goodslist['total'] - $goodslist['num'];}
+                  <option value="{$goodslist['id']}" {if $prizes['p2_score'] == $goodslist['id']}selected{/if}>{$goodslist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=goods&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">奖品数量</label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <input class="form-control" type="text" value="{$prizes['p2_num']}" name="p2_num">
+                  <span class="input-group-addon">份</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">奖品图片</label>
+              <div class="col-sm-4">
+                {php echo tpl_form_field_image('p2_thumb',$prizes['p2_thumb'],'', $options);}
+                <div class="help-block">图文消息的缩略图</div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="messages">
+
+            <h5>奖品三参数设置</h5>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">选择奖品</label>
+              <div class="col-sm-9" style="padding-top: 7px;">
+                {php $i = 1;}
+                {loop $creditnames['creditnames'] $scredit $creditname}
+                {php $t = str_replace("$('#p3_".$i."').hide()","$('#p3_".$i."').show()","$('#p3_1').hide();$('#p3_2').hide();$('#p3_3').hide();$('#p3_4').hide();$('#p3_5').hide();");}
+                <label>
+                  <input type="radio" value="{$scredit}" name="p3_type" onclick="$('#p3_zkq').hide();$('#p3_djq').hide();$('#p3_zswp').hide();{$t}" {if $prizes['p3_type'] == $scredit }checked{/if}>{$creditname['title']}</label>
+                {php $i++;}
+                {/loop}
+                <label>
+                  <input type="radio" value="2" name="p3_type" onclick="$('#p3_jf').hide();$('#p3_zkq').show();$('#p3_djq').hide();$('#p3_zswp').hide();$('#p3_1').hide();$('#p3_2').hide();$('#p3_3').hide();$('#p3_4').hide();$('#p3_5').hide();" {if $prizes['p3_type'] == 2 }checked{/if}>折扣券</label>
+                <label>
+                  <input type="radio" value="3" name="p3_type" onclick="$('#p3_jf').hide();$('#p3_zkq').hide();$('#p3_djq').show();$('#p3_zswp').hide();$('#p3_1').hide();$('#p3_2').hide();$('#p3_3').hide();$('#p3_4').hide();$('#p3_5').hide();" {if $prizes['p3_type'] == 3 }checked{/if}>代金券</label>
+                <label>
+                  <input type="radio" value="4" name="p3_type" onclick="$('#p3_jf').hide();$('#p3_zkq').hide();$('#p3_djq').hide();$('#p3_zswp').show();$('#p3_1').hide();$('#p3_2').hide();$('#p3_3').hide();$('#p3_4').hide();$('#p3_5').hide();" {if $prizes['p3_type'] == 4 }checked{/if}>真实物品</label>
+              </div>
+            </div>
+            {php $j = 1;}
+            {loop $creditnames['creditnames'] $scredit $creditname}
+            <div class="form-group" id="p3_{$j}" {if $prizes['p3_type'] != $scredit}style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">赠送{$creditname['title']}</label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  {php $v = p3_.$scredit;}
+                  <input class="form-control" type="text" value="{$prizes['p3_score']}" id="{$v}" name="{$v}">
+                  <span class="input-group-addon">个</span>
+                </div>
+              </div>
+            </div>
+            {php $j++;}
+            {/loop}
+            <div class="form-group" id="p3_zkq" {if $prizes['p3_type'] != 2 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">折扣券</label>
+              <div class="col-sm-4">
+                <select name="p3_2" class="form-control">
+                  {loop $couponlists $couponlist}
+                {php $num = $couponlist['amount'] - $couponlist['dosage'];}
+                  <option value="{$couponlist['couponid']}" {if $prizes['p3_score'] == $couponlist['couponid']}selected{/if}>{$couponlist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=coupon&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group" id="p3_djq" {if $prizes['p3_type'] != 3 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">代金券</label>
+              <div class="col-sm-4">
+                <select name="p3_3" class="form-control">
+                  {loop $tokenlists $tokenlist}
+                {php $num = $tokenlist['amount'] - $tokenlist['dosage'];}
+                  <option value="{$tokenlist['couponid']}" {if $prizes['p3_score'] == $tokenlist['couponid']}selected{/if}>{$tokenlist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=token&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group" id="p3_zswp" {if $prizes['p3_type'] != 4 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">真实物品</label>
+              <div class="col-sm-4">
+                <select name="p3_4" class="form-control">
+                  {loop $goodslists $goodslist}
+                {php $num = $goodslist['total'] - $goodslist['num'];}
+                  <option value="{$goodslist['id']}" {if $prizes['p3_score'] == $goodslist['id']}selected{/if}>{$goodslist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=goods&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">奖品数量</label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <input class="form-control" type="text" value="{$prizes['p3_num']}" name="p3_num">
+                  <span class="input-group-addon">份</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">奖品图片</label>
+              <div class="col-sm-4">
+                {php echo tpl_form_field_image('p3_thumb',$prizes['p3_thumb'],'', $options);}
+                <div class="help-block">图文消息的缩略图</div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="settings">
+
+            <h5>奖品四参数设置</h5>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">选择奖品</label>
+              <div class="col-sm-9" style="padding-top: 7px;">
+                {php $i = 1;}
+                {loop $creditnames['creditnames'] $scredit $creditname}
+                {php $t = str_replace("$('#p4_".$i."').hide()","$('#p4_".$i."').show()","$('#p4_1').hide();$('#p4_2').hide();$('#p4_3').hide();$('#p4_4').hide();$('#p4_5').hide();");}
+                <label>
+                  <input type="radio" value="{$scredit}" name="p4_type" onclick="$('#p4_zkq').hide();$('#p4_djq').hide();$('#p4_zswp').hide();{$t}" {if $prizes['p4_type'] == $scredit }checked{/if}>{$creditname['title']}</label>
+                {php $i++;}
+                {/loop}
+                <label>
+                  <input type="radio" value="2" name="p4_type" onclick="$('#p4_jf').hide();$('#p4_zkq').show();$('#p4_djq').hide();$('#p4_zswp').hide();$('#p4_1').hide();$('#p4_2').hide();$('#p4_3').hide();$('#p4_4').hide();$('#p4_5').hide();" {if $prizes['p4_type'] == 2 }checked{/if}>折扣券</label>
+                <label>
+                  <input type="radio" value="3" name="p4_type" onclick="$('#p4_jf').hide();$('#p4_zkq').hide();$('#p4_djq').show();$('#p4_zswp').hide();$('#p4_1').hide();$('#p4_2').hide();$('#p4_3').hide();$('#p4_4').hide();$('#p4_5').hide();" {if $prizes['p4_type'] == 3 }checked{/if}>代金券</label>
+                <label>
+                  <input type="radio" value="4" name="p4_type" onclick="$('#p4_jf').hide();$('#p4_zkq').hide();$('#p4_djq').hide();$('#p4_zswp').show();$('#p4_1').hide();$('#p4_2').hide();$('#p4_3').hide();$('#p4_4').hide();$('#p4_5').hide();" {if $prizes['p4_type'] == 4 }checked{/if}>真实物品</label>
+              </div>
+            </div>
+            {php $j = 1;}
+            {loop $creditnames['creditnames'] $scredit $creditname}
+            <div class="form-group" id="p4_{$j}" {if $prizes['p4_type'] != $scredit}style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">赠送{$creditname['title']}</label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  {php $v = p4_.$scredit;}
+                  <input class="form-control" type="text" value="{$prizes['p4_score']}" id="{$v}" name="{$v}">
+                  <span class="input-group-addon">个</span>
+                </div>
+              </div>
+            </div>
+            {php $j++;}
+            {/loop}
+            <div class="form-group" id="p4_zkq" {if $prizes['p4_type'] != 2 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">折扣券</label>
+              <div class="col-sm-4">
+                <select name="p4_2" class="form-control">
+                  {loop $couponlists $couponlist}
+                {php $num = $couponlist['amount'] - $couponlist['dosage'];}
+                  <option value="{$couponlist['couponid']}" {if $prizes['p4_score'] == $couponlist['couponid']}selected{/if}>{$couponlist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=coupon&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group" id="p4_djq" {if $prizes['p4_type'] != 3 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">代金券</label>
+              <div class="col-sm-4">
+                <select name="p4_3" class="form-control">
+                  {loop $tokenlists $tokenlist}
+                {php $num = $tokenlist['amount'] - $tokenlist['dosage'];}
+                  <option value="{$tokenlist['couponid']}" {if $prizes['p4_score'] == $tokenlist['couponid']}selected{/if}>{$tokenlist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=token&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group" id="p4_zswp" {if $prizes['p4_type'] != 4 }style="display: none;"{/if}>
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">真实物品</label>
+              <div class="col-sm-4">
+                <select name="p4_4" class="form-control">
+                  {loop $goodslists $goodslist}
+                {php $num = $goodslist['total'] - $goodslist['num'];}
+                  <option value="{$goodslist['id']}" {if $prizes['p4_score'] == $goodslist['id']}selected{/if}>{$goodslist['title']}({$num}张可用)</option>
+                  {/loop}
+                </select>
+              </div>
+              <div style="padding-top: 7px;">
+                <a href="./index.php?c=activity&a=goods&do=post" target="_blank" ><span class="glyphicon glyphicon-plus"></span> 添加</a>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">奖品数量</label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <input class="form-control" type="text" value="{$prizes['p4_num']}" name="p4_num">
+                  <span class="input-group-addon">份</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-1 control-label">奖品图片</label>
+              <div class="col-sm-4">
+                {php echo tpl_form_field_image('p4_thumb',$prizes['p4_thumb'],'', $options);}
+                <div class="help-block">图文消息的缩略图</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h5 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">分享信息</a>
+      </h5>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" value="{$reply['share_title']}" class="span2" name="share_title">
+            <div class="help-block">分享给好友或朋友圈时的标题</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图片</label>
+          <div class="col-sm-9">
+            {php echo tpl_form_field_image('share_img',$reply['share_img'],'', $options);}
+            <div class="help-block">分享给好友或朋友圈时的图片</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
+          <div class="col-sm-9">
+            <textarea class="form-control" name="share_content">{$reply['share_content']}</textarea>
+            <div class="help-block">分享给好友或朋友圈时的描述</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">引导关注链接</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" value="{$reply['share_url']}" class="span2" name="share_url">
+            <div class="help-block">
+              用户未关注时访问跳转链接! 推荐用微信平台的素材库，转成短地址
+              <a target="_blank" href="http://www.dwz.cn/">短网址转换</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  window.initReplyController = function($scope) {
+    
+  };
+  window.validateReplyForm = function(form, $, _, util, $scope) {
+    
+    return true;
+  };
+</script>

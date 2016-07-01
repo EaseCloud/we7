@@ -1,0 +1,32 @@
+<form method="post" action="{php echo url('site/entry/savexuniaward',array('m' => 'stonefish_bigwheel','rid' => $rid))}" id="form1">
+	<input type="hidden" name="uid" value="{$data['id']}">
+	<div class="table-responsive" style="height:300px;overflow-Y: auto; overflow-X:hidden;">
+	<table class="table" style="min-width:568px;">
+	{if $awardlist}
+	<tr>
+		<td style="border-top:none;vertical-align:middle;width:80px;"><strong>选择奖品</strong></td>
+		<td style="border-top:none;vertical-align:middle">
+		    <select name="awardid" class="form-control" style="float:left">
+                <option value="" selected>请选择奖品</option>
+					{loop $awardlist $awardlistrow}
+					{if $awardlistrow['prizetotal']>$awardlistrow['prizedraw']}<option value="{$awardlistrow['id']}">{$awardlistrow['prizerating']} - {$awardlistrow['prizename']}({$awardlistrow['prizetotal']}) [剩余 {php echo ($awardlistrow['prizetotal']-$awardlistrow['prizedraw'])} 个奖品]</option>{/if}
+					{/loop}						
+            </select>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-top:none;vertical-align:middle;width:100%;" colspan="2"><strong>必需选择上面的奖品才能正常生效!</strong></td>
+	</tr>
+	<tr>
+		<td style="border-top:none;vertical-align:middle;" colspan="2"><button class="btn btn-primary"><i class="fa fa-file-text-o"></i> 保存虚拟奖品数据</button></td>
+	</tr>
+	<input name="token" type="hidden" value="{$_W['token']}"/>
+	{else}
+	<tr>
+		<td style="border-top:none;vertical-align:middle;width:100%;" colspan="2"><strong>已没有奖品可发了!</strong></td>
+	</tr>
+	{/if}	
+	</table>
+	</div>
+</form>
+

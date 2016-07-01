@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>了解夺宝</title>
+    <meta  content="app-id=518966501"  name="apple-itunes-app">
+    <meta  name="viewport"  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta  content="yes"  name="apple-mobile-web-app-capable">
+    <meta  content="black"  name="apple-mobile-web-app-status-bar-style">
+    <meta  content="telephone=no"  name="format-detection">
+    <link  href="../addons/feng_duobao/template/css/comm.css"  rel="stylesheet"  type="text/css">
+    <link  href="../addons/feng_duobao/template/css/help.css"  rel="stylesheet"  type="text/css">
+</head>
+<style type="text/css">
+    .button{
+    width: 140px;
+    line-height: 38px;
+    text-align: center;
+    color: #fff;
+    text-shadow:1px 1px 1px #333;
+    border-radius: 5px;
+    margin:20px 20px 0px 90px;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.6em;
+    font-weight: bold;
+    }
+    .button:nth-child(6n){
+    margin-right: 0;
+    }
+    .button.gray{
+    border:0px;
+    background: #FF0202;
+
+    }
+</style>
+<body  style="zoom: 1;">
+    <div  class="wrapper">
+        <div  class="learnCon">
+            <ul>
+                <li  class="pic1"></li>
+                <li  class="pic2"></li>
+                <button type="button" class="button gray" onclick="guanzhu()">立即夺宝</button>
+            </ul>
+            <dl>
+                <dt><i></i>一元夺宝规则</dt>
+                <dd>
+                    <p><em></em>每件商品参考市场价平分成相应“等份”，每份1元，1份对应1个夺宝码。</p>
+                </dd>
+                <dd>
+                    <p><em></em>同一件商品可以购买多次或一次购买多份。</p>
+                </dd>
+                <dd>
+                    <p><em></em>当一件商品所有“等份”全部售出后计算出“幸运夺宝码”，拥有“幸运夺宝码”者即可获得此商品。</p>
+                </dd>
+            </dl>
+            <dl>
+                <dt><i></i>幸运夺宝码计算方式</dt>
+                <dd>
+                    <p><em></em>取该商品最后购买时间前网站所有商品100条购买时间记录。</p>
+                </dd>
+                <dd>
+                    <p><em></em>时间按时、分、秒、毫秒依次排列组成一组数值。</p>
+                </dd>
+                <dd>
+                    <p><em></em>将这100组数值之和除以商品总需参与人次后取余数，余数加上10,000,001即为“幸运云购码”。</p>
+                </dd>
+            </dl>
+            <s></s>
+        </div>
+    </div>
+</body>
+<script>
+{if !empty($share_data['url'])}
+function guanzhu(){
+    window.location.href = "{php echo $share_data['url']}";
+  }
+{else}
+function guanzhu(){
+    window.location.href = "{php echo $this->createMobileUrl('index')}";
+  }
+{/if}
+</script>
+</html>

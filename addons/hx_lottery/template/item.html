@@ -1,0 +1,36 @@
+<tr>
+  <td>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon">
+          <input type="hidden" name="priceitem-new[]" value="{$tag}" />
+          <input type="radio" name="price_new_type[]" value="o2o"></span>
+        <div class="input-group-addon">实物</div>
+        <input type="text" class="form-control" name="price_new_o2o[]" value="奖品名称">
+      </div>
+      {loop $creditnames['creditnames'] $select_credit $creditname}
+      <div class="input-group" style="margin-top: 5px;">
+        <span class="input-group-addon">
+          <input type="radio" name="price_new_type[]" value="{$select_credit}"></span>
+        <div class="input-group-addon">{$creditname['title']}</div>
+        <input type="text" class="form-control" name="price_new_{$select_credit}[]" value="{$creditname['title']}">
+      </div>
+      {/loop}
+    </div>
+  </td>
+  <td>
+    <div class="input-group">
+      <input class="form-control" placeholder="中奖率" name="price_new_rate[]">
+      <span class="input-group-addon">%</span>
+    </div>
+  </td>
+  <td>
+    <input class="form-control" placeholder="数量" name="price_new_num[]"></td>
+  <td>
+    {php echo tpl_form_field_image("price_new_img[]",'','', $options);}
+  </td>
+  <td>
+    <a href="javascript:;" onclick="$(this).parent().parent().remove();" class="btn btn-small" title="删除此条目"> <i class="glyphicon glyphicon-remove"></i>
+    </a>
+  </td>
+</tr>
