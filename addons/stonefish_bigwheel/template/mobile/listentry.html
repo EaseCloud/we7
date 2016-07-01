@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>所有活动－{$_W['account']['name']}</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="Description" content="{$reply['description']}" />
+<!-- Mobile Devices Support @begin -->
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<!-- Mobile Devices Support @end -->
+<style type="text/css">
+body{
+    background:#EDEDED;margin:0;padding:0;
+}
+.entrytitle{
+    height:50px;
+	border-bottom:1px solid #D6D6D6;
+	text-align:center;
+	line-height:50px;
+	background:#F9F9F9;
+}
+.con{
+	margin:10px 0px;
+	border-bottom:1px solid #D6D6D6;
+	border-top:1px solid #D6D6D6;
+	background:#FEFEFE;
+}
+.con .title{
+    height:40px;line-height:40px;
+	font-size:14px;	
+	padding:0px 5px;
+	border-bottom:1px solid #E4E4E4;
+}
+.con .title a:link,.con .title a:focus,.con .title a:hover,.con .title a:active{
+    color:blue;
+}
+.con .content{
+    padding:10px;
+}
+.text img{width:100%;}
+.text{
+    line-height:30px;
+	color:666666;
+}
+.con .end{
+    border-top:1px solid #E4E4E4;
+	height:40px;
+}
+.con .end .canyu{
+    height:40px;line-height:40px;
+	background:url(../addons/stonefish_bigwheel/template/images/canyu.png) no-repeat;background-position: center left;
+	padding-left:35px;
+	width:30%; float:left;
+	margin-left:30px;
+}
+.con .end .mycanyu{
+    height:40px;line-height:40px;
+	background:url(../addons/stonefish_bigwheel/template/images/mycanyu.png) no-repeat;background-position: center left;
+	padding-left:35px;
+	width:30%; float:right;	
+}
+</style>
+<body>
+<img src="{$_W['attachurl']}{$cover_reply['thumb']}" width="100%" />
+<div class="entrytitle">{$cover_reply['title']}</div>
+{loop $reply $row}
+<div class="con">
+    <div class="title"><a href="{php echo $this->createMobileUrl('index', array('rid' => $row['rid'],'from' => 'listentry','from_user' => $page_from_user))}">{$row['title']}</a></div>
+	<div class="content">
+	    <div class="text"><img src="{$row['picture']}" /></div>
+	    <div class="text">活动时间：{php echo date('Y-m-d H:i', $row['start_time']);} 至 {php echo date('Y-m-d H:i', $row['end_time']);}</div>
+	    <div class="text">活动简介：{$row['description']}</div>
+	</div>
+	<div class="end">
+	    <div class="canyu">已有 {$row['num']} 人参与</div>
+		<div class="mycanyu"><a href="{php echo $this->createMobileUrl('index', array('rid' => $row['rid'],'from' => 'listentry','from_user' => $page_from_user))}">{if $row['is']>=1}我的奖品{else}我要参与{/if}</a></div>
+	</div>
+</div>
+{/loop}
+<!-- 微信分享设置 -->
+<script>var require = { urlArgs: 'v={php echo date('YmdH');}' };</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="{$_W['siteroot']}app/resource/js/require.js"></script>
+<script src="{$_W['siteroot']}app/resource/js/app/config.js"></script>
+<script type="text/javascript">
+	// jssdk config 对象
+	jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || {};
+	// 是否启用调试
+	jssdkconfig.debug = false;	
+	jssdkconfig.jsApiList = [
+		'checkJsApi',
+		'onMenuShareTimeline',
+		'onMenuShareAppMessage',
+		'onMenuShareQQ',
+		'onMenuShareWeibo',
+		'showOptionMenu'
+	];
+	wx.config(jssdkconfig);
+	require(['jquery', 'util'], function($, util){
+		var sharedata = {
+	        "imgUrl" : "{php echo toimage($cover_reply['thumb'])}",
+	        "link" : "{$_W['siteroot']}app/{php echo substr($cover_reply['url'],2)}&j={$_W['acid']}",
+	        "desc" : "{$cover_reply['description']}",
+	        "title" : "{$cover_reply['title']}"
+	    };
+		wx.ready(function () {
+			wx.showOptionMenu();
+			wx.onMenuShareAppMessage(sharedata);
+			wx.onMenuShareTimeline(sharedata);
+			wx.onMenuShareQQ(sharedata);
+			wx.onMenuShareWeibo(sharedata);
+		});
+	});
+</script>
+</body>
+</html>

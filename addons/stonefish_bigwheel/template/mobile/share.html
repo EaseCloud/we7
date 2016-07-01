@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$reply['title']}助力--{$_W['account']['name']}</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="Description" content="{$reply['description']}" />
+<!-- Mobile Devices Support @begin -->
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<!-- Mobile Devices Support @end -->
+<link href="../addons/stonefish_bigwheel/template/css/style.css?{php echo time()}" rel="stylesheet" type="text/css" />
+<script src="{$_W['siteroot']}app/resource/js/lib/jquery-1.11.1.min.js"></script>
+</head>
+<style>
+html{color:{$template['textcolor']};}
+html{background-image: url({php echo toimage($template['bgimg'])});}
+html{background-color: {$template['bgcolor']};}
+body{font-size:{$template['fontsize']}px;color:{$template['textcolor']};}
+a:link, a:visited, a:hover, a:active { color:{$template['textcolorlink']}; text-decoration:none; } 
+.mingdan{background-color:{$template['buttoncolor']};}
+.biaoti{color:{$template['buttontextcolor']};}
+.biaoti a{ color:{$template['buttontextcolor']};}
+.mingdaninfo{background-color:{$template['rulecolor']};	border:1px {$template['rulecolor']} solid ;color:{$template['ruletextcolor']};}
+/* 排行层CSS */
+.rankList {	margin:0px 10px;}
+.rankList .ranks {margin-top:10px;color:{$template['ruletextcolor']};}
+.rankList .ranks .avatar {float: left;width: 40px;height: 40px;	margin: 10px 0 0 0;}
+.rankList .ranks .avatar img {display: block;width: 100%;height: 100%;}
+.rankList .ranks .name {float: left;margin-left: 5px;}
+.rankList .ranks .lihe {margin-left:10px;float: left;margin-top:10px;width:100%;}
+.rankList .ranks .price {float: right;margin-right: 10px;}
+.rankList .rank_01{height: 60px;margin-bottom: 20px}
+.rankList .rank_01 {background: {$template['rulecolor']};border-radius: 5px;}
+.rankList .rank_01 .avatar{margin: 10px 0 0 10px}
+.rankList .rank_01 .name,.rankList .rank_01 .price{line-height: 40px;margin-top:10px;}
+/* 排行层CSS */
+/* 弹出层CSS */
+.panel-box .panel-content{color: {$template['watchtextcolor']};	background-color: {$template['watchcolor']};}
+.panel-box .btn-confirm{background: {$template['buttoncolor']};	color: {$template['buttontextcolor']};}
+/* 弹出层CSS */
+</style>
+<body>
+<div>
+    <div class="nou">	    
+        <div class="zhuan1">
+		    <div class="rankList">
+			    <div class="ranks rank_01">
+                    <div class="avatar"><img src="{if substr($firend['headimgurl'],-1)=='0'}{php echo rtrim(toimage($firend['headimgurl']), '0').$reply['poweravatar']}{else}{php echo toimage($firend['headimgurl'])}{/if}"></div>
+                    <div class="name nickname" style="vertical-align: middle;">{php echo stripslashes($firend['nickname'])}</div>
+                </div>
+			</div>
+			{if $res["code"]==''}
+            <div style="margin:10px;">
+				<span class="sharefirend" style="margin:0px;" id="help"><img src="../addons/stonefish_bigwheel/template/images/sharefirend.png" width="100%;margin:0px 10px;"></span>
+            </div>
+			{else}
+			<div style="margin:10px;">
+				<span class="sharefirend" style="margin:0px;"><img src="../addons/stonefish_bigwheel/template/images/sharefirends.png" width="100%;margin:0px 10px;"></span>
+            </div>
+			{/if}
+			<div class="rankList">
+			    <div class="ranks rank_01">
+                    <div class="avatar"><img src="{if substr($fans['avatar'],-1)=='0'}{php echo rtrim(toimage($fans['avatar']), '0').$reply['poweravatar']}{else}{php echo toimage($fans['avatar'])}{/if}"></div>
+                    <div class="name nickname" style="vertical-align: middle;">{$realname}</div>
+					<div class="price">亲友团：<span id="sharenum">{$sharenum}</span> 人</div>
+                </div>
+			</div>
+			<div style="clear:both" style="margin:10px;"></div>			
+			<a href="{php echo $this->createMobileUrl('entry', array('rid' => $rid,'entrytype' => 'index'))}"><div class="mingdan">
+                <h2 class="biaoti">我也要参与活动</h2>
+            </div></a>
+        </div>	
+    </div>
+	<div class="info" align="center"><img src="../addons/stonefish_bigwheel/template/images/info.png" alt="提示信息"></div>
+</div>
+{template 'jssdkhide'}
+<script type="text/javascript">
+$("#help").click(function () {
+	$.ajax({type: "POST",url:"{php echo $this->createMobileUrl('firendhelp',array('rid'=>$rid,'fromuser'=>$fromuser))}",data: {fopenid: "{$from_user}",fnickname: "{$firend['nickname']}",fheadimgurl:"{$firend['headimgurl']}"},dataType: "json",async: true,timeout: 3000,success: function(data) {
+		showInfo(data.code);
+	},error: function(xhr, type) {
+		alert("发送网络请求失败！")
+    }});
+});
+function showInfo(showinfopng){//提示
+    if(showinfopng == 502){
+        $('.info img').attr('src','../addons/stonefish_bigwheel/template/images/infoone.png');
+    }
+	if(showinfopng == 503){
+        $('.info img').attr('src','../addons/stonefish_bigwheel/template/images/infoend.png');
+    }
+	if(showinfopng == 504){
+		$('.info img').attr('src','../addons/stonefish_bigwheel/template/images/infoday.png');
+	}
+	if(showinfopng == 505){
+        $('.info img').attr('src','../addons/stonefish_bigwheel/template/images/infohelp.png');
+    }
+	if(showinfopng == 200){
+		$('.info img').attr('src','../addons/stonefish_bigwheel/template/images/info.png');
+		$("#sharenum").text(parseInt($("#sharenum").text())+1);
+	}
+    $('.info').addClass('info_on').show();
+	setTimeout(function(){
+        $('.info').removeClass('info_on').hide();
+    },5000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$_W['account']['name']}--提示信息</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<!-- Mobile Devices Support @begin -->
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<!-- Mobile Devices Support @end -->
+<style>  
+    body{margin:0;padding:0;font-size:15px;}
+    img{max-width:300px!important;}
+    .content-black{width:100%;height:100%;position:fixed;z-index:5;background:rgba(0,0,0,0.8);margin:0;padding:0;}
+    .content-black p{ color:#fff1cb; line-height:35px;}
+    .btns{width:300px; height:40px; line-height:40px;background:#FFF; color:#000; border:0; border-radius:5px;MARGIN-RIGHT: auto;MARGIN-LEFT: auto;}
+</style>
+</head>
+<body>
+<div class="bg-content" id="shareBox" style="background:rgba(0,0,0,0.8);height:100%">
+	<div class="content-black word-4" style="padding-top:40px;">
+		<div style="text-align:center; font-size:16px; color:#fff;">
+			<img src="{$_W['account']['qrcode']}" alt="{$_W['account']['name']}二维码" />
+			<p>
+				用手机微信扫描二维码关注@{$_W['account']['name']}
+			</p>
+			<p>
+				或搜索微信号:{$_W['account']['account']}关注@{$_W['account']['name']} 
+			</p>
+			{if !empty($_W['account']['subscribeurl'])}
+			<p>
+				<div class="btns"><a href="{$_W['account']['subscribeurl']}">一键关注@{$_W['account']['name']}</a></div> 
+			</p>
+			{/if}
+		</div>
+	</div>
+</div>
+{template 'jssdkhide'}
+</body>
+</html>

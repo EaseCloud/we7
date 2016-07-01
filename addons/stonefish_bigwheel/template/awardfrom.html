@@ -1,0 +1,33 @@
+    <div class="table-responsive" style="height:300px;overflow-Y: auto; overflow-X:hidden;">
+	    <table class="table" style="min-width:568px;">
+				<tr>
+				    <td style="border-top:none;vertical-align:middle;"><strong>用户ID</strong> {$data['fansID']}</td>
+				    <td style="border-top:none;vertical-align:middle;"><strong>姓名</strong> {if $data['realname']} {$data['realname']} {else} 未完善 {/if}</td>
+				    <td style="border-top:none;vertical-align:middle"><strong>手机</strong> {if $data['mobile']} {$data['mobile']} {else} 未完善 {/if}</td>
+				</tr>
+		</table>
+		<table class="table" style="min-width:568px;">
+				<tr>
+					<th style="width:130px;">奖品类别</th>
+					<th style="width:120px;">状态</th>
+					<th style="width:140px;">中奖时间</th>
+					<th style="width:140px;">使用时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $row}
+				<tr>
+					<td>{$row['name']}</td>
+					<td>{if $row['status']==0}<span class="label label-danger">被取消</span>
+						{elseif $row['status']==1}<span class="label label-warning">未兑奖</span>
+						{else}<span class="label label-success">已兑奖</span>{/if}
+						{if $row['xuni']==0}<span class="label label-success">真实</span>						
+						{else}<span class="label label-default">虚拟</span>{/if}
+						</td>					
+					<td>{php echo date('Y/m/d H:i',$row['createtime']);}</td>
+					<td>{if $row['consumetime'] == 0}未使用{else}{php echo date('Y/m/d H:i',$row['consumetime']);}{/if}</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+	</div>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{$reply['title']}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=yes;" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="email=no" name="format-detection" />
+    <link href="../addons/stonefish_bigwheel/template/css/square.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../addons/stonefish_bigwheel/template/js/WeixinApi.js"></script>
+</head>
+<body>
+<div style="max-width:500px;">
+    <div class="nou">
+	    <div style="max-width:100%">
+		{if !empty($reply['adpic'])}{if !empty($reply['adpicurl'])}<a href="{$reply['adpicurl']}">{/if}<img id="top_img" style="max-width: 100%;height: auto;width: auto\9;"  src="{php echo toimage($reply['adpic'])}" width="100%" border="0">{if !empty($reply['adpicurl'])}</a>{/if}{/if}
+        </div>       
+        <div class="zhuan1" id="lottery">
+			<div class="mingdan">
+                <h2 class="biaoti">{if !empty($msg)}{$msg}{else}我的奖品{/if}</h2>
+            </div>
+            {if !empty($award) || !empty($awardw)}
+			<div class="mingdaninfo">
+				<div class="box">					
+					<div class="Detail">
+						{if !empty($awardw)}<p><strong>未兑奖项</strong></p>{/if}
+						{loop $awardw $roww}
+						{if $roww['num']==1}
+						<p>你中了：{if empty($roww['name'])}感谢参与{else}{$roww['name']} - {$roww['description']}{/if}</p>
+						{else}
+						<p>你中了：{if empty($roww['name'])}感谢参与{else}{$roww['name']} - {$roww['description']} X{$roww['num']}{/if}</p>
+						{/if}
+						<p class="line"></p>
+						{/loop}
+						{if !empty($award)}<p><strong>已兑奖项</strong></p>{/if}
+						{loop $award $row}
+						{if $row['num']==1}
+						<p>你兑了：{if empty($row['name'])}感谢参与{else}{$row['name']} - {$row['description']}{/if}</p>
+						{else}
+						<p>你兑了：{if empty($row['name'])}感谢参与{else}{$row['name']} - {$row['description']}  X{$row['num']}{/if}</p>
+						{/if}
+						<p class="line"></p>						
+						{/loop}
+						{if $reply['opportunity']==1}
+						<p>请前往您的服务网点进行兑奖<br/>
+						网点：{$business['title']}<br/>
+						地址：{$business['address']}<br/>
+						电话：<a href="tel:{$business['phone']}">{$business['phone']}</a></p>
+						{if !empty($awardw)}
+						{if !empty($business['password'])}
+						<span id="result_duijiang">
+						<input name="bid" type="hidden" value="{$business['id']}">
+						<p><input name="password" class="px" id="password" type="text" placeholder="请网点工作人员输入密码"></p>
+                        <p><input class="pxbtn" name="提 交" id="save-duijiang" type="button" value="工作人员提交兑奖"></p>
+						</span>
+						{else}
+						 <p><input class="pxbtn" type="button" value="向工作人员展示兑奖"></p>
+						{/if}
+						{else}
+						<p><input class="pxbtn" type="button" value="已成功兑奖！"></p>
+						{/if}
+						{else}
+						<p>本次兑奖码已经关联你的微信号，你可向公众号发送【{php $tempArr=explode(',',$reply['keyword']);echo $tempArr[0];}】进行查询!<br/>
+						{$reply['ticket_information']}</p>
+						{/if}
+					</div>
+				</div>
+			</div>
+			{/if}
+			<div style="height:45px;">&nbsp;&nbsp;</div>
+        </div>
+    </div>
+</div>
+{template 'footer'}
+<script type="text/javascript">
+    $("#save-duijiang").bind("click",function () {
+            var btn1 = $(this);            
+			var password = $("#password").val();
+            if (password == '') {
+                alert("请输入兑奖密码");
+                return
+            }
+			
+            var submitData1 = {
+					code: $("#sncode").text(),
+					password: password,
+            };
+           	$.post('{php echo $this->createMobileUrl('duijiang', array('rid' => $rid,'fansID' => $fansID))}', submitData1, function(data1) {
+			if (data1.success == true) {
+				alert(data1.msg);
+				$("#result_duijiang").html(data1.msg);
+				return
+			} else {
+			    $("#password").val(data1.msg);
+				return
+			}
+			},"json")
+    });
+</script>
+{template 'jssdkhide'}
+</body>
+</html>

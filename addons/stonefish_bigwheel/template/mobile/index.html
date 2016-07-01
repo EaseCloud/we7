@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$reply['title']}--{$_W['account']['name']}</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="Description" content="{$reply['description']}" />
+<!-- Mobile Devices Support @begin -->
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<!-- Mobile Devices Support @end -->
+<link href="../addons/stonefish_bigwheel/template/css/style.css?{php echo time()}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../addons/stonefish_bigwheel/template/js/zepto.js"></script>
+<style>
+html{color:{$template['textcolor']};}
+html{background-image: url({php echo toimage($template['bgimg'])});}
+html{background-color: {$template['bgcolor']};}
+body{font-size:{$template['fontsize']}px;color:{$template['textcolor']};}
+a:link, a:visited, a:hover, a:active { color:{$template['textcolorlink']}; text-decoration:none; } 
+.mingdan{background-color:{$template['buttoncolor']};}
+.biaoti{color:{$template['buttontextcolor']};}
+.biaoti a{ color:{$template['buttontextcolor']};}
+.mingdaninfo{background-color:{$template['rulecolor']};	border:1px {$template['rulecolor']} solid ;color:{$template['ruletextcolor']};}
+/* 排行层CSS */
+.rankList {	margin:0px 10px;}
+.rankList .ranks {margin-top:10px;color:{$template['ruletextcolor']};}
+.rankList .ranks .avatar {float: left;width: 40px;height: 40px;	margin: 10px 0 0 0;}
+.rankList .ranks .avatar img {display: block;width: 100%;height: 100%;}
+.rankList .ranks .name {float: left;margin-left: 5px;}
+.rankList .ranks .lihe {margin-left:10px;float: left;margin-top:10px;width:100%;}
+.rankList .ranks .price {float: right;margin-right: 10px;}
+.rankList .rank_01{height: 90px;margin-bottom: 20px}
+.rankList .rank_01 {background: {$template['rulecolor']};border-radius: 5px;}
+.rankList .rank_01 .avatar{margin: 10px 0 0 10px}
+.rankList .rank_01 .name,.rankList .rank_01 .price{line-height: 40px;margin-top:10px;}
+/* 排行层CSS */
+/* 弹出层CSS */
+.panel-box .panel-content{color: {$template['watchtextcolor']};	background-color: {$template['watchcolor']};}
+.panel-box .btn-confirm{background: {$template['buttoncolor']};	color: {$template['buttontextcolor']};}
+/* 弹出层CSS */
+</style>
+</head>
+<body>
+<!--大转盘-->
+<input type="hidden" value="{$msg}" id="msg"/>
+<div>
+    <div class="nou">
+	    <div style="margin:10px;" class="adpic">
+		{if !empty($reply['adpic'])}{if !empty($reply['adpicurl'])}<a href="{$reply['adpicurl']}">{/if}<img id="top_img" style="max-width: 100%;height: auto;width: auto\9;"  src="{php echo toimage($reply['adpic'])}" width="100%" border="0">{if !empty($reply['adpicurl'])}</a>{/if}{/if}
+        </div>       
+        <div class="zhuan1" id="lottery">
+		    {if $reply['opportunity']==2}
+			<div class="mingdaninfo">
+                <div class="Detail">我的{$creditnames}  <span class="n" id="credit_now">{php echo intval($credit[$reply['credit_type']])}</span> 个  每次 <span class="n">{$reply['credit_value']}</span> {$creditnames}</div>
+            </div>
+			{/if}
+			{if $reply['opportunity']==1}
+			<div class="mingdaninfo">
+                <div class="Detail"> 赠送 <span class="n">{$reply['number_times']}</span> 次抽奖机会 剩余 <span class="n" id="number_times">{php echo $reply['number_times']-$fans['totalnum']}</span> 次</div>
+            </div>
+			{/if}
+			{if $reply['opportunity']==0}
+			<div class="mingdaninfo">
+				<div class="box">
+					<div class="Detail" style="text-align:center;">{$reply['tips']}</div>
+				</div>
+            </div>
+			{/if}
+			<div class="main">
+				<div id="outercont">
+            		<div id="outer-cont">
+               		 <div id="outer"><img src="{php echo toimage($reply['bigwheelpic'])}"></div>
+            		</div>
+            		<div id="inner-cont">
+                		<div id="inner">
+                    		<img src="{php echo toimage($reply['bigwheelimg'])}">
+                		</div>
+            		</div>
+       		    </div>
+			</div>
+			<div class="mingdan" style="margin-top:10px;">
+                <div class="biaoti">已有 <span class="n">{php echo $reply['xuninum']+$reply['fansnum']}</span> 人参与此活动</div>
+            </div>
+			{if !empty($award_list)}
+			<!--中奖列表-->
+			<div class="mingdaninfo" style="margin-top:10px;">
+                <div class="Detail"><marquee behavior="scroll" scrolldelay="200">{$award_list}</marquee></div>
+            </div>
+			<!--中奖列表-->
+			{/if}
+			{if $share['share_open_close']}
+			<!--分享按钮-->
+			<div class="mingdan" style="margin-top:10px;">
+                <div id="shareimg" class="biaoti">{if strstr($share['share_anniu'], '/')}<img style="height: 35px;width: auto;" src="{php echo toimage($share['share_anniu'])}">{else}{$share['share_anniu']}{/if}</div>
+				<div id="pop_share"><img src="{php echo toimage($share['share_pic'])}" width="100%" alt="分享到朋友圈"/></div>
+            </div>
+			{if $reply['power']==2}
+			<div class="mingdan" style="margin-top:10px;">
+                <a href="{php echo $this->createMobileUrl('firend', array('rid' => $rid))}"><div class="biaoti">{if strstr($share['share_firend'], '/')}<img src="{php echo toimage($share['share_anniu'])}">{else}{$share['share_firend']}{/if}</div></a>
+            </div>
+			{/if}
+			<!--分享按钮-->
+			{/if}
+        </div>
+    </div>
+</div>
+<!--大转盘-->
+<!--结果-->
+<div class="panel-box" id="panel_box">
+    <div class="panel-content" id="panel-content">
+        <div class="panel-close" id="panel-close"></div>
+        <span class="icon-prize-useless" id="panelimg"></span><br/>
+		<div id="cccc">{$exchange['awarding_tips']}</div>
+		<div id="result_info" style="display:none">
+		    <hr class="common-hr" />
+			<div id="isfans">
+            {if $exchange['isrealname']}<div style="float: left;width:100%;"><label>{$isfansname[0]}</label><input name="realname" class="px" id="realname" value="{$profile['realname']}" type="text" placeholder="请输入{$isfansname[0]}"></div>{/if}
+			{if $exchange['ismobile']}<div style="float: left;width:100%;"><label>{$isfansname[1]}</label><input name="mobile" class="px" id="mobile" value="{$profile['mobile']}" type="tel" placeholder="请输入{$isfansname[1]}"></div>{/if}
+			{if $exchange['isqq']}<div style="float: left;width:100%;"><label>{$isfansname[2]}</label><input name="qq" class="px" id="qq" value="{$profile['qq']}" type="tel" placeholder="请输入{$isfansname[2]}"></div>{/if}
+			{if $exchange['isemail']}<div style="float: left;width:100%;"><label>{$isfansname[3]}</label><input name="email" class="px" id="email" value="{$profile['email']}" type="email" placeholder="请输入{$isfansname[3]}"></div>{/if}
+			{if $exchange['isaddress']}<div style="float: left;width:100%;"><label>{$isfansname[4]}</label><input name="address" class="px" id="address" value="{$profile['address']}" type="text" placeholder="请输入{$isfansname[4]}"></div>{/if}
+			{if $exchange['isgender']}<div style="float: left;width:100%;"><label>{$isfansname[5]}</label><select name="gender" id="gender" class="form-control">
+				<option value="0"{if $profile['gender']==0} selected {/if}>选择{$isfansname[5]}</option>
+				<option value="1"{if $profile['gender']==1} selected {/if}>男</option>
+				<option value="2"{if $profile['gender']==2} selected {/if}>女</option>
+			</select></div>{/if}
+			{if $exchange['istelephone']}<div style="float: left;width:100%;"><label>{$isfansname[6]}</label><input name="telephone" class="px" id="telephone" value="{$profile['telephone']}" type="tel" placeholder="请输入{$isfansname[6]}"></div>{/if}
+			{if $exchange['isidcard']}<div style="float: left;width:100%;"><label>{$isfansname[7]}</label><input name="idcard" class="px" id="idcard" value="{$profile['idcard']}" type="text" placeholder="请输入{$isfansname[7]}"></div>{/if}
+			{if $exchange['iscompany']}<div style="float: left;width:100%;"><label>{$isfansname[8]}</label><input name="company" class="px" id="company" value="{$profile['company']}" type="text" placeholder="请输入{$isfansname[8]}"></div>{/if}
+			{if $exchange['isoccupation']}<div style="float: left;width:100%;"><label>{$isfansname[9]}</label><input name="occupation" class="px" id="occupation" value="{$profile['occupation']}" type="text" placeholder="请输入{$isfansname[9]}"></div>{/if}
+			{if $exchange['isposition']}<div style="float: left;width:100%;"><label>{$isfansname[10]}</label><input name="position" class="px" id="position" value="{$profile['position']}" type="text" placeholder="请输入{$isfansname[10]}"></div>{/if}
+		    </div>
+            <div id="result_info_tip"></div>
+			<div class="btn-layout">
+				<input class="btn-confirm" name="提交资料" id="save-btn" type="button" value="提交资料">
+            </div>
+        </div>
+		<div id="result_info1" style="display:none">
+			<div style="margin-top:10px;"><input class="btn-confirm" name="放入百宝箱" id="savebtn" type="button" value="放入百宝箱"> </div>
+		</div>
+		<div id="result_info2" style="display:none">
+			<div style="margin-top:10px;"><input class="btn-confirm" name="关闭" id="closebtn" type="button" value="关闭"> </div>
+		</div>
+    </div>
+</div>
+<!--结果-->
+{if $reply['music']==1}
+<!--音乐控制-->
+<div class="audio-controls on"></div>
+<!-- 背景音乐 -->
+<audio id="audio" {if $reply['mauto']}autoplay="autoplay"{/if} {if $reply['mloop']}loop="loop"{/if}>
+	<source src="{php echo toimage($reply['musicurl'])}" type="audio/mpeg" />
+</audio>
+<!-- 背景音乐 -->
+<!--音乐控制-->
+{/if}
+{template 'footer'}
+<script type="text/javascript">
+<!--大转盘设置-->
+        $(function () {
+			window.requestAnimFrame = (function () {
+                return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60)
+                }
+            })();
+            var totalDeg = 360 * 3 + 0;
+            var steps = [];
+            var lostDeg = [{$reply['lostDeg']}];
+            var prizeDeg = [{$reply['prizeDeg']}];
+            var prize,spaceprize,credit_now;
+            var count = 0;
+            var now = 0;
+            var a = 0.01;
+            var outter, inner, timer, running = false;
+            function countSteps() {
+                var t = Math.sqrt(2 * totalDeg / a);
+                var v = a * t;
+                for (var i = 0; i < t; i++) {
+                    steps.push((2 * v * i - a * i * i) / 2)
+                }
+                steps.push(totalDeg)
+            }
+            function step() {
+                outter.style.webkitTransform = 'rotate(' + steps[now++] + 'deg)';
+                outter.style.MozTransform = 'rotate(' + steps[now++] + 'deg)';
+                if (now < steps.length) {
+                    running = true;
+                    requestAnimFrame(step)
+                } else {
+                    running = false;					
+					if(spaceprize=='spaceprize'){
+				       $("#result_info1").hide();
+				       $("#result_info2").show();
+			        }
+                    setTimeout(function () {
+                        $("#panel_box").show();
+				        $("#credit_now").text(credit_now);
+                    },
+                    200)
+                }
+            }			
+            function run(){
+                running = true;
+                timer = setInterval(function () {
+                    i += 5;
+                    outter.style.webkitTransform = 'rotate(' + i + 'deg)';
+                    outter.style.MozTransform = 'rotate(' + i + 'deg)'
+                },
+                1)
+            }
+            function start(deg) {
+                deg = deg || lostDeg[parseInt(lostDeg.length * Math.random())];
+                running = true;
+                clearInterval(timer);
+                totalDeg = 360 * 2 + deg;
+                steps = [];
+                now = 0;
+                countSteps();
+                requestAnimFrame(step)
+            }
+            window.start = start;
+            outter = document.getElementById('outer');
+            inner = document.getElementById('inner');
+            i = 10;
+            $("#inner").click(function () {
+	        if($("#isfans").text()==1){
+			$("#panel_box").show();
+			$("#panel-content").css({"height": "{$isfansh}px"});
+			}else{
+			    if (running) return;
+				running = true;
+                $.ajax({
+                    url: "{php echo $this->createMobileUrl('get_award', array('rid' => $rid,'avatar' => $firend['headimgurl'],'nickname' => $firend['nickname']))}",
+                    dataType: "json",
+                    data: {
+                        t: Math.random()
+                    },
+                    beforeSend: function () {
+                       
+                    },
+                    success: function (data) {
+                        if($("#count").length>0){
+					        $("#count").text(parseInt($("#count").text())+1);
+				        }
+				        if($("#totalcount").length>0){
+					        $("#totalcount").text(parseInt($("#totalcount").text())+1)
+				        }
+				        if($("#number_times").length>0){
+					        $("#number_times").text(parseInt($("#number_times").text())-1);
+				        }
+						if (data.success) {
+							if(data.success==1) {
+                                run();
+                                prize = data.prizetype;
+								spaceprize = data.spaceprize;
+								credit_now = data.credit_now;
+								if(data.prizetype==0){
+								    start();
+								}else{
+								    start(prizeDeg[data.prizetype - 1]);
+								}
+								$('#awardname').html(data.award['prizerating']+"-"+data.award['prizename']);
+								$("#panelimg").css({"background-image": "url("+data.award['prizepic']+")"});
+								$("#cccc").text(data.award['prizerating']+"-"+data.award['prizename']);
+								{if $reply['opportunity']==2}
+								if($("#credit_now").length>0){
+									$("#credit_now").text(parseInt($("#credit_now").text())-{$reply['credit_value']});
+								}
+								{/if}
+								if(data.isfans==1){
+					    			$("#result_info").show();
+									$("#result_info1").hide();						
+					    			$("#result_info2").hide();
+				    			}else{
+					    			$("#result_info1").show();
+									$("#result_info2").hide();
+									$("#panel-content").css({"height": "220px"});
+								}
+                            }else{
+                                prize = null;  clearInterval(timer);
+								if($("#count").length>0){
+								    $("#count").text(parseInt($("#count").text())-1);
+								}
+								if($("#totalcount").length>0){
+								    $("#totalcount").text(parseInt($("#totalcount").text())-1)
+								}
+								if($("#number_times").length>0){
+								    $("#number_times").text(parseInt($("#number_times").text())+1);
+								}
+								$("#panel-content").css({"height": "220px"});
+								$("#panelimg").css({"background-image": "url(../addons/stonefish_scratch/template/images/icon_prize_useless.png)"});
+								$("#cccc").text(data.msg);
+								$("#panel_box").show();
+								$("#result_info").hide();
+								$("#result_info1").hide();					
+								$("#result_info2").show();
+								$("#msg").val(data.msg);
+                            }
+                        }else{
+                            prize = null;run();
+                            start();
+							$("#panel-content").css({"height": "220px"});
+					        $("#panelimg").css({"background-image": "url(../addons/stonefish_scratch/template/images/icon_prize_useless.png)"});
+					        $("#cccc").text(data.msg);
+					        $("#result_info").hide();
+					        $("#result_info1").hide();
+					        $("#result_info2").show();
+					        $("#msg").val(data.msg);
+                        }						
+                        running = false;
+                        count++;
+						
+                    },
+                    error: function () {
+                        prize = null;
+                        start();
+                        running = false;
+                        count++;
+                    },
+                    timeout: 15000
+                })
+            }
+            })
+        });
+<!--九宫格设置-->
+<!--保存数据-->
+$("#save-btn").bind("click",function () {
+    var btn = $(this);
+    {if $exchange['isrealname']}
+	var realname = $("#realname").val();
+	if (realname == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[0]}");
+	    return;
+	}
+	var partten = /[\u4e00-\u9fa5]/g;
+	if(!partten.test(realname)){
+	    $("#result_info_tip").text("请输入正确的{$isfansname[0]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['ismobile']}
+	var mobile = $("#mobile").val();
+	if (mobile == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[1]}");
+	    return;
+	}
+	var partten = /^1\d{10}$/;
+	if(!partten.test(mobile)){
+	    $("#result_info_tip").text("请输入正确的{$isfansname[1]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isqq']}
+	var qq = $("#qq").val();
+	if (qq == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[2]}");
+	    return;
+	}			
+	var partten = /^[1-9]{1}\d{4,11}$/;
+	if(!partten.test(qq)){
+	    $("#result_info_tip").text("请输入正确的{$isfansname[2]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isemail']}
+	var email = $("#email").val();
+	if (email == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[3]}");
+	    return;
+	}
+	var partten = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+	if(!partten.test(email)){
+	    $("#result_info_tip").text("请输入正确的{$isfansname[3]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isaddress']}
+	var address = $("#address").val();
+	if (address == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[4]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isgender']}
+	var gender = $("#gender").val();
+	if (gender == '0') {
+	    $("#result_info_tip").text("请选择{$isfansname[5]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['istelephone']}
+	var telephone = $("#telephone").val();
+	if (telephone == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[6]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isidcard']}
+	var idcard = $("#idcard").val();
+	if (idcard == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[7]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['iscompany']}
+	var company = $("#company").val();
+	if (company == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[8]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isoccupation']}
+	var occupation = $("#occupation").val();
+	if (occupation == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[9]}");
+	    return;
+	}
+	{/if}
+	{if $exchange['isposition']}
+	var position = $("#position").val();
+	if (position == '') {
+	    $("#result_info_tip").text("请输入{$isfansname[10]}");
+	    return;
+	}
+	{/if}
+	var submitData = {
+        {if $exchange['isrealname']}realname: realname,{/if}
+		{if $exchange['ismobile']}mobile: mobile,{/if}
+		{if $exchange['isqq']}qq: qq,{/if}
+		{if $exchange['isemail']}email: email,{/if}
+		{if $exchange['isaddress']}address: address,{/if}
+		{if $exchange['isgender']}gender: gender,{/if}
+		{if $exchange['istelephone']}telephone: telephone,{/if}
+		{if $exchange['isidcard']}idcard: idcard,{/if}
+		{if $exchange['iscompany']}company: company,{/if}
+		{if $exchange['isoccupation']}occupation: occupation,{/if}
+		{if $exchange['isposition']}position: position,{/if}
+	};
+	$.post('{php echo $this->createMobileUrl('editfans', array('rid' => $rid,'from_user' => $page_from_user))}', submitData, function(data) {
+	if (data.success == 1) {
+		$("#result_info").text(data.msg);
+		setTimeout(function () {
+			$("#panel_box").hide();
+			location.reload();
+		},3000)
+		return;
+	}else{
+		$("#result_info_tip").text(data.msg);
+		return;
+	}
+	},"json")
+});	
+<!--保存数据-->
+<!--常用弹出关闭-->
+   $("#panel-close").click(function(){
+		$("#panel_box").hide();
+	});
+	$("#savebtn").click(function(){
+		$("#panel_box").hide();
+	});
+	$("#closebtn").click(function(){
+		$("#panel_box").hide();
+	});
+	$("#share_close").click(function(){
+		$("#share_box").hide();
+	});
+	$("#sharebtn").click(function(){
+		$("#share_box").hide();
+	});
+<!--常用弹出关闭-->
+</script>
+{if $share['share_open_close']}
+{template 'jssdk'}
+{else}
+{template 'jssdkhide'}
+{/if}
+<script>
+{if $isfans}
+	$("#result_info").show();
+	$("#panel_box").show();
+{/if}
+{if $reply['music']==1}
+<!-- 音频暂停播放 -->
+var audioAuto = document.getElementById('audio');
+{if $reply['mauto']}
+	audioAuto.play();
+{else}
+	$(".audio-controls").removeClass("on");
+{/if}
+$(".audio-controls").click(function (){ 
+	if (audioAuto.paused) {
+		audioAuto.play();
+		$(".audio-controls").addClass("on");
+    }else{
+		audioAuto.pause();
+		$(".audio-controls").removeClass("on");
+    }
+});
+<!-- 音频暂停播放 -->
+{/if}
+{if $share['share_open_close']==1}
+$("#shareimg").click(function(){
+	$("#pop_share").show();
+});
+$("#pop_share").click(function(){
+	$("#pop_share").hide();
+});
+{/if}
+</script>
+</body>		
+</html>

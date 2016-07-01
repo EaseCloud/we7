@@ -1,0 +1,91 @@
+{template 'common/header'}
+<style>
+.label{cursor:pointer;}
+</style>
+<div class="main">
+	<ul class="nav nav-tabs">
+		<li{if $_GPC['do'] == 'manage'} class="active"{/if}><a href="{php echo $this->createWebUrl('manage');}">管理幸运大转盘</a></li>
+		<li{if $_GPC['do'] == 'post'} class="active"{/if}><a href="{php echo url('platform/reply/post',array('m'=>'stonefish_bigwheel'));}"><i class="fa fa-plus"></i> 添加拆礼盒活动</a></li>
+		<li{if $_GPC['do'] == 'fansdata'} class="active"{/if}><a href="{php echo $this->createWebUrl('fansdata',array('rid' => $rid));}">参与粉丝</a></li>
+		<li{if $_GPC['do'] == 'sharedata'} class="active"{/if}><a href="{php echo $this->createWebUrl('sharedata',array('rid' => $rid));}">分享数据</a></li>
+		<li{if $_GPC['do'] == 'prizedata'} class="active"{/if}><a href="{php echo $this->createWebUrl('prizedata',array('rid' => $rid));}">中奖名单</a></li>		
+		<li{if $_GPC['do'] == 'rankdata'} class="active"{/if}><a href="{php echo $this->createWebUrl('rankdata',array('rid' => $rid));}">粉丝排行</a></li>
+		<li{if $_GPC['do'] == 'trend'} class="active"{/if}><a href="{php echo $this->createWebUrl('trend',array('rid' => $rid));}">活动分析</a></li>
+		<li{if $_GPC['do'] == 'posttmplmsg'} class="active"{/if}><a href="{php echo $this->createWebUrl('posttmplmsg',array('rid' => $rid));}">消息通知</a></li>
+		{if $stonefish_branch}<li{if $_GPC['do'] == 'branch'} class="active"{/if}><a href="{php echo $this->createWebUrl('branch',array('rid' => $rid));}">商家赠送项</a></li>{/if}
+		<li><a href="{php echo url('platform/reply/post',array('m'=>'stonefish_bigwheel', 'rid' => $rid));}">编辑幸运大转盘</a></li>
+	</ul>
+    <div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+        	<input type="hidden" name="m" value="stonefish_bigwheel" />
+        	<input type="hidden" name="do" value="posttmplmsg" />
+        	<input type="hidden" name="rid" value="{$_GPC['rid']}" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">粉丝昵称</label>
+				<div class="col-xs-12 col-sm-8 col-lg-4">
+					<input class="form-control" name="nickname" id="" type="text" value="{$_GPC['nickname']}" placeholder="粉丝昵称"> 
+				</div>			
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">真实姓名</label>
+				<div class="col-xs-12 col-sm-8 col-lg-4">
+					<input class="form-control" name="realname" id="" type="text" value="{$_GPC['realname']}" placeholder="真实姓名"> 
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">手机号码</label>
+				<div class="col-xs-12 col-sm-8 col-lg-4">
+					<input class="form-control" name="mobile" id="" type="text" value="{$_GPC['mobile']}" placeholder="手机号码"> 
+				</div>
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">中奖状态</label>
+				<div class="col-xs-12 col-sm-8 col-lg-4">
+					<select name="zhongjiang" class="form-control" style="float:left">
+                    	<option value="" {if $_GPC['zhongjiang']==''}selected{/if}>全部</option>
+                        <option value="1" {if $_GPC['zhongjiang']=='1'}selected{/if}>未中奖</option>
+						<option value="2" {if $_GPC['zhongjiang']=='2'}selected{/if}>已中奖</option>
+						<option value="3" {if $_GPC['zhongjiang']=='3'}selected{/if}>虚拟奖</option>						
+                	</select>
+				</div>
+                <div class=" col-xs-12 col-sm-2 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+	消息模板发送记录　共计：{$total}条
+</div>
+<div style="position:relative">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover" style="position:relative">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:50px;">头像</th>
+					<th style="width:120px;">真实姓名</th>
+					<th style="width:120px;">手机号码</th>
+					<th>消息内容</th>
+					<th style="width:150px;">发送时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $row}
+				<tr>
+					<td><img src="{if substr($row['avatar'],-1)=='0'}{php echo rtrim(toimage($row['avatar']), '0').$reply['poweravatar']}{else}{php echo toimage($row['avatar'])}{/if}" width="30"></td>
+					<td>{if !empty($row['realname'])}{$row['realname']}{else}{php echo stripcslashes($row['nickname'])}{/if}</td>
+					<td>{$row['mobile']}</td>
+					<td>{$row['template_name']}</td>
+					<td>{php echo date('Y/m/d H:i',$row['createtime']);}</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+{$pager}
+</div>
+{template 'common/footer'}

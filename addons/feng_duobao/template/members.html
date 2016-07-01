@@ -1,0 +1,46 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li class="active"><a>会员信息列表</a></li>
+</ul>
+	<div class="panel panel-default">
+		<div class="panel-heading">会员列表</div>
+		<div class="panel-body">
+			<div class="table-responsive panel-body">
+				<table class="table table-hover" style="min-width: 300px;">
+					<thead class="navbar-inner">
+						<tr>
+							<th style="width:50px;">ID</th>
+							<th style="width:220px;">用户from_user</th>
+							<th style="width:120px;">用户昵称</th>
+							<th style="width:120px;">真实姓名</th>
+							<th style="width:120px;">电话</th>
+							<th style="width:400px;">地址</th>
+						</tr>
+					</thead>
+						{loop $members $memberid $member}
+						<tr>
+							<td>{$member['id']}</td>
+							<td>{$member['from_user']}</td>
+							<td>{$member['nickname']}</td>
+							<td>{$member['realname']}</td>
+							<td>{$member['mobile']}</td>
+							<td>{$member['address']}</td>
+						</tr>
+						{/loop}
+						{if empty($members)}
+						<tr>
+							<td colspan="8">
+								没有会员信息
+							</td>
+						</tr>
+						{/if}
+					</tbody>
+				</table>
+				{$pager}
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'common/footer'}

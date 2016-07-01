@@ -1,0 +1,52 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+<!-- 	<li {if $status == ''}class="active"{/if}><a href="{php echo $this->createWebUrl('order');}">已揭晓商品单</a></li> -->
+	<li {if ($send_state == '0' || $send_state == '')}class="active"{/if}><a href="{php echo $this->createWebUrl('order', array('state'=>0));}">未发货商品单</a></li>
+	<li {if $send_state == '1'}class="active"{/if}><a href="{php echo $this->createWebUrl('order', array('state'=>1));}">已发货商品单</a></li>
+</ul>
+	<div class="panel panel-default">
+		<div class="panel-heading">已揭晓商品单</div>
+		<div class="panel-body">
+			<div class="table-responsive panel-body">
+				<table class="table table-hover" style="min-width: 300px;">
+					<thead class="navbar-inner">
+						<tr>
+							<th class="col-sm-1">ID</th>
+							<th class="col-sm-1">商品ID</th>
+							<th class="col-sm-2">商品名称</th>
+							<th class="col-sm-1">商品图片</th>
+							<th class="col-sm-1">商品价格</th>
+							<th class="col-sm-1">当前/总期数</th>
+							<th class="col-sm-1">中奖人昵称</th>
+							<th class="col-sm-2">中奖人form_user</th>
+							<th class="col-sm-1">中奖码</th>
+							<th class="col-sm-2">揭晓时间</th>
+							<th class="col-sm-1 text-right">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{loop $goodses $goodsid $goods}
+						<tr>
+							<td>{$goods['id']}</td>
+							<td>{$goods['sid']}</td>
+							<td>{$goods['title']}</td>
+							<td><image src="{php echo tomedia($goods['picarr']);}" style="max-width: 48px; max-height: 48px; border: 1px dotted gray"></td>
+							<td>{$goods['price']}</td>
+							<td>{$goods['periods']}/{$goods['maxperiods']}</td>
+							<td>{$goods['q_uid']}</td>
+							<td>{$goods['q_user']}</td>
+							<td>{$goods['q_user_code']}</td>
+							<td>{php echo date('Y-m-d H:i:s', $goods['q_end_time'])}</td>
+							<td class="text-right">
+								{if ($goods['send_state']!=1)}<a href="{php echo $this->createWebUrl('sendprize', array('sid'=>$goods['id'],'openid'=>$goods['q_user']));}" class="btn btn-success btn-sm" data-original-title="" title="">去发货{else}<a href="{php echo $this->createWebUrl('sendprize', array('sid'=>$goods['id'],'openid'=>$goods['q_user']));}" class="btn btn-danger btn-sm" data-original-title="" title="">已发货{/if}</a>
+							</td>
+						</tr>
+						{/loop}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+	</div>
+{template 'common/footer'}

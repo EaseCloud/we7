@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>一元夺宝</title>
+{php echo register_jssdk();}
+<link rel="stylesheet" href="../addons/feng_duobao/template/css/css.css">
+<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+</head>
+<body style="background:#f6f6f8;">
+<section class="top_bar"> 
+	<a href="javascript:;" onclick="window.history.back();" title="返回" class="back"><i class="b_arr"></i>返回</a>
+	<a href="{php echo $this->createMobileUrl('index')}" title="首页" class="home">首页</a>
+	<h2 id="oneNavTitle">兑换的幸运码</h2>
+</section>
+
+<section class="wrap">
+	<section id="oneUserJoinInfo" class="white_box">		<h3 class="pri_tit1"> 
+			<a href="#">{php echo date('Y-m-d H:i:s',$list['createtime'])}兑换的幸运码</a> 
+		</h3>
+		<div class="user_jion_info"> 
+			<span class="abs_left">总数：<span id="oneUserNick" class="fc">{$list['count']}</span></span>
+		</div>
+		<div class="lucky_code_list">
+			<table id="oneUjoinList" width="100%" border="0" cellspacing="0" cellpadding="0" class="tb">
+				<tbody>
+					{$list['s_codes']}
+				</tbody>				
+			</table>
+		</div>
+	</section>
+</section>
+
+<!-- <div id="oneCommonMsgBg" class="pop_layer"></div><div id="oneCommonMsgWrap" class="p_box"><a id="oneCommonMsgClose" href="javascript:;" title="关闭" class="p_clo"><i>关闭</i></a><div class="p_top"><h3 id="oneCommonMsgTitle">2015-01-09 15:58:39.312兑换的幸运码</h3></div><div class="p_cont"><div id="oneCommonMsgContent" class="more_code"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb"><tbody><tr><td>10000337</td><td>10005132</td><td>10003054</td></tr><tr><td>10001902</td></tr></tbody></table></div></div></div> -->
+
+</body>
+
+<script type="text/javascript">
+wx.ready(function () {
+  var shareData = {
+    title: "{$share_data['share_title']}",
+    desc: "{$share_data['share_desc']}",
+    link: "{$to_url}",
+    imgUrl: "{$_W['attachurl']}{$share_data['share_image']}",
+  };
+//分享朋友
+  wx.onMenuShareAppMessage({
+      title: shareData.title,
+      desc: shareData.desc,
+      link: shareData.link,
+      imgUrl:shareData.imgUrl,
+      trigger: function (res) {
+      },
+      success: function (res) {
+        window.location.href =adurl;
+      },
+      cancel: function (res) {
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+  });
+  //朋友圈
+  wx.onMenuShareTimeline({
+      title: shareData.title+"---"+shareData.desc,
+      link: shareData.link,
+      imgUrl:shareData.imgUrl,
+      trigger: function (res) {
+      },
+      success: function (res) {
+        window.location.href =adurl;
+      },
+      cancel: function (res) {
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+  });   
+
+});
+</script>
+</html>

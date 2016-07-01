@@ -1,0 +1,40 @@
+{template 'common/header'}
+<style>
+	body{background:#d2e6e9; padding-bottom:63px; font-family:Helvetica, Arial, sans-serif;}
+	a{color:#666666;}a:hover{color:#3ebacc;}
+	.profile-box{padding:10px 0; background:transparent url('resource/images/home-bg.jpg') no-repeat; background-size:100% 100%;}
+</style>
+{php load()->func('tpl');}
+<div class="profile">
+	<div class="tabbable">
+		<div class="profile-box">
+		<form class="tab-content clearfix" action="" method="post" enctype="multipart/form-data">
+		<div class="tab-pane active animated" id="tab1">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-12 control-label">真实姓名</label>
+				<div class="col-sm-12 col-xs-12">
+					{php echo tpl_fans_form('realname',$profile['realname'] );}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-12 control-label">手机</label>
+				<div class="col-sm-12 col-xs-12">
+					{if $profile['mobile']}
+					<input type="text" name="mobile" value="{$profile['mobile']}" class="form-control">
+					{else}
+					{php echo tpl_fans_form('mobile',$profile['mobile']);}
+					{/if}
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-12 control-label"></label>
+			<div class="col-sm-12 col-xs-12" style="text-align:center">
+				<button type="submit" class="btn btn-primary btn-block" name="submit" value="提交">提交</button>
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+		</div>
+		</form>
+		</div>
+	</div>
+</div>

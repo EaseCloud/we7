@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$reply['title']}活动规则--{$_W['account']['name']}</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="Description" content="{$reply['description']}" />
+<!-- Mobile Devices Support @begin -->
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<!-- Mobile Devices Support @end -->
+<link href="../addons/stonefish_bigwheel/template/css/style.css?v1" rel="stylesheet" type="text/css" />
+</head>
+<style>
+html{font:{$template['fontsize']}px; color:{$template['textcolor']};}
+html{background-image: url({php echo toimage($template['bgimg'])});}
+html{background-color: {$template['bgcolor']};}
+a:link, a:visited, a:hover, a:active { color:{$template['textcolorlink']}; text-decoration:none; } 
+.mingdan{background-color:{$template['buttoncolor']};border:1px {$template['buttoncolor']} solid ;}
+.biaoti{color:{$template['buttontextcolor']};}
+.biaoti a{ color:{$template['buttontextcolor']};}
+.mingdaninfo{background-color:{$template['rulecolor']};	border:1px {$template['rulecolor']} solid ;color:{$template['ruletextcolor']};}
+</style>
+<body>
+<div>
+   <div class="nou">
+        <div style="margin:10px;" class="adpic">
+		{if !empty($reply['adpic'])}{if !empty($reply['adpicurl'])}<a href="{$reply['adpicurl']}">{/if}<img id="top_img" style="max-width: 100%;height: auto;width: auto\9;"  src="{php echo toimage($reply['adpic'])}" width="100%" border="0">{if !empty($reply['adpicurl'])}</a>{/if}{/if}
+        </div>
+		<div class="zhuan1">
+		    <div class="mingdan">
+                <h2 class="biaoti">活动时间</h2>
+            </div>
+            <div class="mingdaninfo">
+				<div style="text-align:center;">{php echo date('Y-m-d H:i',$reply['starttime']);} 至 {php echo date('Y-m-d H:i',$reply['endtime']);}</div>					
+            </div>
+			<div class="mingdan">
+                <h2 class="biaoti">活动说明</h2>
+            </div>
+            <div class="mingdaninfo">
+				<div>{php echo htmlspecialchars_decode($share['share_txt'])}</div>					
+            </div>
+			<div class="mingdan">
+                <h2 class="biaoti">活动奖品</h2>
+            </div>
+            <div class="mingdaninfo">
+				<div class='guize'>
+                    {if $reply['showprize']>0}
+			        {loop $prize $prizes}
+		            <p style="text-align:center; margin:0px 20px;line-height:200%;"><img src="{php echo toimage($prizes['prizepic'])}"><br/>{$prizes['prizerating']} - {$prizes['prizename']}{if $reply['showprize']==2} X{$prizes['prizetotal']}{/if}</p>
+                    {/loop}
+			        {/if}
+		            <p class="line"></p>
+			        <p style="text-align:left; margin:0px 20px;line-height:200%;">{php echo htmlspecialchars_decode($reply['prizeinfo'])}</p>
+    	        </div>
+            </div>
+        </div>
+    </div>
+</div>
+{template 'footer'}
+{template 'jssdkhide'}
+</body>
+</html>

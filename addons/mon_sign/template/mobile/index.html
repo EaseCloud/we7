@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="no-js " lang="zh-CN">
+<script type="text/javascript">    window.l_createElement = document.createElement;
+window.l_Function = window.Function;
+window.l_open = window.open;
+window.l_adoptNode = document.adoptNode;
+window.l_defineProperty = Object.defineProperty;</script>
+
+<script src="{MONSIGN_RES}js/sweet-alert.min.js" ></script>
+<head>
+    <meta charset="utf-8">
+
+    <title>签到</title> <!-- _global -->
+    <script>
+    var _global = {
+        "url": {
+
+        }
+    };
+    _global.spm = {};
+
+    </script>
+    <!-- meta viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{MONSIGN_RES}css/base_bb53743207.css"
+          onerror="_cdnFallback(this)">
+    <link rel="stylesheet" href="{MONSIGN_RES}css/sweet-alert.css">
+    <link rel="stylesheet"
+          href="{MONSIGN_RES}css/checkin_d40f12b25f.css"
+          onerror="_cdnFallback(this)">
+</head>
+<body class=" body-fixed-bottom">        <!-- container -->
+<div class="container ">
+    <div class="apps-game">
+        <div class="apps-checkin">
+            <div class="apps-checkin-nav">
+                <div class="apps-checkin-avatar">
+                    <img
+                        src="{if $is_follow}{$userInfo['headimgurl']}{/if}{MONSIGN_RES}/images/avatar.png{if !$is_follow}{/if}">
+                </div>
+
+
+
+                <div class="apps-checkin-nav-opt">
+
+                    <a class="btn btn-opt" href="{if !empty($signUser)}{php echo $this->createMobileUrl('signDetail',array('sid'=>$sign['id'],'uid'=>$signUser['id']))}{/if}{if empty($signUser)}#{/if}">{if !empty($signUser)}积分详细{/if}{if empty($signUser)} 您还未签到哦！{/if}</a>
+                </div>
+
+                <div class="apps-checkin-userinfo"><p class="apps-checkin-userinfo-row">{if $is_follow }{$userInfo['nickname']}{/if}{if !$is_follow}未关注{/if}</p>
+
+                    <p class="apps-checkin-userinfo-row apps-checkin-userinfo-points">积分：<span class="js-points"></span></p></div>
+            </div>
+            <div class="apps-checkin-content">
+                <div class="apps-checkin-center-content">
+                    <div class="apps-checkin-center-block">
+                        <div class="apps-checkin-center-info"><h4 class="apps-checkin-center-info-title">已连续签到</h4>
+
+                            <p class="apps-checkin-center-info-row"><span class="apps-checkin-center-info-days">1</span>
+                                <span class="apps-checkin-center-info-small">天</span></p></div>
+                    </div>
+                    <div class="apps-checkin-runway">
+                        <div class="apps-checkin-progress"></div>
+                        <div class="apps-checkin-progress-filled-wrap">
+                            <div class="apps-checkin-progress-filled"></div>
+                        </div>
+                        <div class="apps-checkin-prize-wrap"> 再签到<span class="js-prize-need"></span>天，有惊喜！</div>
+                        <ul class="apps-checkin-days-wrap">
+                            <li class="apps-checkin-day">&nbsp;</li>
+                            <li class="apps-checkin-day">&nbsp;</li>
+                            <li class="apps-checkin-day">&nbsp;</li>
+                            <li class="apps-checkin-day">&nbsp;</li>
+                            <li class="apps-checkin-day">&nbsp;</li>
+                            <li class="apps-checkin-day">&nbsp;</li>
+                            <li class="apps-checkin-day">&nbsp;</li>
+                        </ul>
+                        <div class="apps-checkin-man"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="apps-checkin-footer">
+               <button class="btn btn-checkin js-checkin">加载中</button>
+            </div>
+        </div>
+        <div id="wxcover"></div>
+        <!-- 富文本内容区域 -->
+        <div class="custom-richtext">
+               {$sign['rule']}
+        </div>
+    </div>
+
+
+
+    <script id="apps-modal-tpl" type="text/template">
+        <div class="apps-mask">
+            <div class="apps-modal">
+                <div class="apps-modal-content-wrap"><p class="js-apps-modal-content apps-modal-content"></p>
+
+                    <div class="apps-modal-action">
+                        <button class="js-apps-modal-confirm apps-btn apps-primary-btn">确定</button>
+                        <button class="js-apps-modal-cancel apps-btn">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>    </script>
+    <script id="apps-notice-tpl" type="text/template">
+        <div class="apps-mask">
+            <div class="apps-notice-wap">
+                <div class="apps-notice-close"></div>
+                <div class="apps-notice-content"></div>
+            </div>
+        </div>    </script>
+    <div class="js-footer" style="min-height: 1px;">
+        <div class="footer">
+            <div class="copyright">
+                <div class="ft-links">
+
+                    {loop $links $link}
+                         <a href="{$link['link_url']}"
+                           target="_blank">{$link['link_name']}</a>
+
+                    {/loop}
+
+                </div>
+                <div class="ft-copyright">{$sign['copyright']}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JS -->
+<script src="{MONSIGN_RES}js/jquery-2.0.3.min.js" ></script>
+<script src="{MONSIGN_RES}js/base_d9ce8e4764.js"></script>
+<script type="text/javascript">
+
+    var _apps_global = {
+        "is_valid_checkin": {$is_valid_checkin},
+        "total_continuous": {$total_continuous},
+        "next_prize_days_length": {$next_prize_days_length},
+        "shared_text": "来签个到吧！",
+        "user": {
+            "username": "xx",
+            "points": "{$signUser['credit']}",
+            "avatar": ""
+        },
+        "login": "",
+        "errorCode": 0,
+        "errorMsg": ""
+    };
+
+
+
+    function mon_sign(){
+
+        $.post("{php echo $this->createMobileUrl('Sign',array('sid'=>$sign['id']))}",function(res){
+
+            if(res.code==200){
+
+
+                swal(
+                        {
+                            title: "提示!",
+                            text: "{$sign['sin_suc_msg']} "+res.msg,
+                            type: "success",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "查看积分",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                        function(isConfirm){
+
+                            if (isConfirm) {
+
+                                window.location.href="{php echo $this->createMobileUrl('signDetail',array('sid'=>$sign['id'],'uid'=>$signUser['id']))}";
+
+                            }else {
+
+                                location.reload();
+                            }
+
+                        });
+
+
+            }else {
+
+                alert(res.msg);
+            }
+
+        },"json");
+
+
+    }
+
+</script>
+<script src="{MONSIGN_RES}js/checkin_5d934bf1bf.js"  onerror="_cdnFallback(this)"></script>
+</body>
+</html>

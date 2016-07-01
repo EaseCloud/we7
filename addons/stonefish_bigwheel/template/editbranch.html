@@ -1,0 +1,29 @@
+<form method="post" action="{php echo url('site/entry/editbranchsave',array('m' => 'stonefish_bigwheel','rid' => $rid))}" id="form1">
+	<input type="hidden" name="uid" value="{$data['id']}">
+	<input type="hidden" name="usecount" value="{$data['usecount']}">
+	<div class="table-responsive" style="height:200px;overflow-Y: auto; overflow-X:hidden;">
+	<table class="table" style="min-width:568px;">
+	<tr>
+		<td style="border-top:none;vertical-align:middle"><strong>手机</strong> {if $data['mobile']} {$data['mobile']} {else} 未完善 {/if}</td>
+		<td style="border-top:none;vertical-align:middle">修改后的次数不能小于{$data['usecount']}</td>
+	</tr>
+	<tr>
+		<td style="border-top:none;vertical-align:middle;"><strong>修改抽奖次数</strong></td>
+		<td style="border-top:none;vertical-align:middle;"><input type="text" id="awardcount" class="form-control" name="awardcount" value="{$data['awardcount']}"></td>
+	</tr>
+	<tr>
+		<td style="border-top:none;vertical-align:middle;"><strong>状态</strong></td>
+		<td style="border-top:none;vertical-align:middle;">
+		    <label class="radio-inline"><input type="radio" name="status" value="0" {if $data['status'] == 0} checked="checked"{/if}/>不可用</label>
+			<label class="radio-inline"><input type="radio" name="status" value="1" {if $data['status'] == 1} checked="checked"{/if}/>未审核</label>
+			<label class="radio-inline"><input type="radio" name="status" value="2" {if $data['status'] == 2} checked="checked"{/if}/>已审核</label>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-top:none;vertical-align:middle;" colspan="2"><button class="btn btn-primary"><i class="fa fa-file-text-o"></i> 保存修改</button></td>
+	</tr>
+	<input name="token" type="hidden" value="{$_W['token']}"/>
+	</table>
+	</div>
+</form>
+

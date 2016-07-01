@@ -1,0 +1,340 @@
+/* CSS Document */
+@charset "utf-8";
+/* CSS Document */
+html,body,div,span,h1,h2,h3,h4,h5,h6,p,pre,a,code,em,img,small,strong,sub,sup,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
+a{text-decoration:none;}
+a:hover{text-decoration:none}
+ol,ul{list-style:none}
+html{background:url(../images/bg.png)}
+body{height:100%; font:12px/18px "Microsoft Yahei", Tahoma, Helvetica, Arial, Verdana, "\5b8b\4f53", sans-serif; color:#51555C; background: url(../images/body_bg.gif) repeat-x}
+img{border:none}
+
+body{font-family:"Microsoft YaHei";	color:#111111;}
+
+.headimgurl {text-align:center;}
+.headimgurl  img{width:30%;height:auto;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;}
+.px {
+    margin: 0.5em 0;
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) inset;
+    background-color: #FFFFFF;
+    border-radius: 0.6em 0.6em 0.6em 0.6em;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: #333333;
+    text-shadow: 0 1px 0 #FFFFFF;
+    display: block;
+    width: 100%;
+    padding: 6px 10px;
+    margin: 8px 0 0 0;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-appearance: none;
+}
+#result_info_tip,#result_info_tip_kehu{color:red;line-height:180%; height:30px;text-align:center;width:100%;}
+.px:hover {border: 1px solid #ff6501;}
+
+.px:focus {border: 1px solid #ff6501;box-shadow: 0 0 5px #ff6501;}
+
+.px[type="text"],.px[type="tel"] ,.px[type="email"] ,.px[type="password"],.px[select]  {
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+input::-moz-placeholder, textarea::-moz-placeholder , select::-moz-placeholder {color: #999;}
+.btnduihuan {
+	display: block;
+	height: 40px;
+	background: #88BF23;
+	border-radius: 5px;
+	text-align: center;
+	color: #fff;
+	font-size: 12px;
+	font-family: microsoft yahei
+}
+.btn_duihuan {
+	display: block;
+	height: 40px;
+	background: #cccccc;
+	border-radius: 5px;
+	text-align: center;
+	color: #fff;
+	font-size: 12px;
+	font-family: microsoft yahei
+}
+.panel-box{
+	position: fixed;
+	display: none;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index:999;
+	background-color: rgba(0,0,0,0.72);
+}
+.panel-box.show{
+	display: block;
+}
+.panel-box .panel-content{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height:400px;
+	text-align: center;
+	font-size: 16px;
+	color: #717171;
+	margin: auto 20px;
+	border-radius: 8px;
+	background-color: #f5f0eb;
+	padding: 10px;
+	box-sizing:border-box;
+}
+.panel-box .panel-content #isfans{height:150px; overflow-y:auto;}
+.panel-box .regfans{
+	height:120px;
+	overflow-y:auto;
+}
+.panel-box .icon-prize-useless{
+	display: inline-block;
+	width: 90px;
+	height: 90px;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url(../images/icon_prize_useless.png);
+}
+.panel-box .msg-ps{
+	color: #717171;
+	font-size: 14px;
+	line-height: 18px;
+	height: 36px;
+	padding-bottom: 15px;
+	text-align: center;
+}
+.panel-box .btn-confirm{
+	border: none;	
+  	border-radius: 5px;
+  	background: #8571fe;
+  	color: #fff;
+  	width: 80%;
+  	height: 40px;font-size: 15px;
+  	display: inline-block;
+}
+.panel-box .panel-close{
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: -12px;
+	right: -12px;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url(../images/btn_close.png);
+}
+.panel-box form{text-align: left;}
+.panel-box label{
+	float: left;
+	width: 26%;line-height:45px;margin-right:1%;
+	text-align: right;
+	position: relative;
+	white-space: nowrap;
+}
+.panel-box  input[type='password'],.panel-box  input[type='text'],.panel-box  input[type='tel'],.panel-box select{
+	border: none;
+	border-bottom: 1px solid #c1c1c1;
+	background-color: transparent;
+	color: #000;
+	width: 70%;
+	margin: 8px 0;
+}
+.common-hr{border: none;border-bottom: 1px solid #D8D8D8;}
+.panel-box .common-hr{margin: 15px 0;}
+
+#shareimg{cursor: pointer;}
+#pop_share{position: fixed; left: 0; width: 100%; top: 0; height: 100%; background-color: rgba(0,0,0,.8); z-index: 999;text-align: center; display: none;}
+#pop_share img{width: 90%; height: auto; padding-top: 20px;}
+
+.footermeu{
+    width: 100%;
+    height: 45px;
+    position:fixed;
+    bottom:0;
+    left:0;
+	overflow:hidden;
+    z-index: 1;
+	background:#FDE4EA;
+}
+.footermeu div{ float:left;width:20%;text-align:center;padding-top:10px;}
+
+.nou{margin:0 auto;}
+.adpic img{
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+}
+.zhuan1{
+    max-width:100%;
+    margin:0 auto;
+	margin-top:10px;
+}
+.mingdaninfo    {
+    max-width:100%;
+    position:relative;
+    background-color:#FFD1ED;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+	margin:10px;padding:5px;
+	font-size:14px;line-height:24px;
+	color:#F36CA4;
+}
+.mingdaninfo    img{max-width:100%;height:auto;}
+.mingdaninfo .red {
+    color: #006042;
+}
+.mingdan    {
+    max-width:100%;
+    height:35px;
+    position:relative;
+    background-color:#F36CA4;	
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+	margin:0 10px;padding:0px 10px;	
+}
+.biaoti{
+    color:#F5F5F5;
+    font-family:"微软雅黑";
+    font-size:14px;
+    text-align:center;
+    height:35px;
+	line-height:35px;
+}
+.biaoti a{ color:#F5F5F5;}
+
+.biaoti_address{
+    color:#F5F5F5;
+	background:url(../images/addr.png) 10px 5px no-repeat;
+	background-size: 25px 25px;
+    font-family:"微软雅黑";
+    font-size:14px;
+    text-align:center;
+    height:35px;
+	line-height:35px;
+}
+.biaoti_address a{ color:#F5F5F5;}
+
+.biaoti_tel{
+    color:#F5F5F5;
+	background:url(../images/tel.png) 10px 5px no-repeat;
+	background-size: 25px 25px;
+    font-family:"微软雅黑";
+    font-size:14px;
+    text-align:center;
+    height:35px;
+	line-height:35px;
+}
+.biaoti_tel a{ color:#F5F5F5;}
+
+.info {width:100%;height:228px;background:url(../images/info_bg.png) 0 0 no-repeat;position:absolute;z-index:80;top:158px;left:0;display:none;text-align:center;}
+.info img {top:30px;position: relative;width:100%; height:auto;}
+.info_on {display:block;
+	-webkit-animation: jifen 5s 1 linear;
+	   -moz-animation: jifen 5s 1 linear;
+	        animation: jifen 5s 1 linear;
+}
+@-webkit-keyframes jifen {
+	0% {opacity:0;-webkit-transform: translate(0,100px);}
+	15%,85% {opacity:1;-webkit-transform: translate(0,0);}
+	100% {opacity:0;-webkit-transform: translate(0,-100px);}
+}
+
+/*音乐控制按钮*/
+.audio-controls {cursor: pointer; width: 44px; height: 44px;  position:fixed;  top:10px;right:10px; background: url("../images/icons.png") no-repeat scroll 0 0; z-index:45;}
+.on { 
+-webkit-backface-visibility:visible;
+-webkit-transform-origin:center center;
+-webkit-animation:audio 2s 0s infinite linear normal none ;}
+@-webkit-keyframes audio{
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(360deg);} 
+}
+
+/*大转盘*/
+#outer-cont {
+    position: relative;
+    width: 100%;overflow:hidden;
+}
+
+#inner-cont {
+    position: relative;
+    width: 100%;
+	top: -217px;
+}
+
+#outer {
+    height: 300px;
+    margin: 0 auto;
+    max-width: 300px;
+    width: 300px;overflow:hidden;
+}
+#outer img{ height: 300px;width: 300px;}
+#inner {
+    cursor: pointer;
+    height: 0px;
+    margin: 0 auto;
+    max-width: 90px;
+    width: 90px;	
+}
+#inner img {height: 114px;width: 90px;}
+#outer img, #inner img {
+    display: block;
+    margin: 0 auto;
+}
+#tb {
+    height: 300px;
+    margin: 0 auto;
+    max-width: 300px;
+    width: 300px;
+	overflow:hidden;
+}
+.playnormal{
+    width:73px;
+    height:73px;
+    background-color:#FCE8B3;
+    text-align:center;
+    vertical-align:middle;
+}
+.playcurr{
+    width:73px;
+    height:73px;
+    background-color:#FF9805;
+    text-align:center;
+    vertical-align:middle;
+}
+.playnormal    img{
+    width:63px;
+    height:63px;
+}
+.xx{
+    width:63px;
+    height:63px;margin:5px;
+}
+.xx    img{
+    width:63px;
+    height:63px;
+}
+
+.ee{
+    position:absolute;
+    font-size:12px;
+    margin-top:-18px;
+    width:70px;
+    text-align:center;
+    color:#666;
+}
+.liji{
+    position:relative;
+	width:100%;
+	height:0px;
+    top:-221px;
+	left:0px;
+    text-align:center;
+}

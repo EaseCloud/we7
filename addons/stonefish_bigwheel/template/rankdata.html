@@ -1,0 +1,75 @@
+{template 'common/header'}
+<style>
+.label{cursor:pointer;}
+</style>
+<div class="main">
+	<ul class="nav nav-tabs">
+		<li{if $_GPC['do'] == 'manage'} class="active"{/if}><a href="{php echo $this->createWebUrl('manage');}">管理幸运大转盘</a></li>
+		<li{if $_GPC['do'] == 'post'} class="active"{/if}><a href="{php echo url('platform/reply/post',array('m'=>'stonefish_bigwheel'));}"><i class="fa fa-plus"></i> 添加幸运大转盘</a></li>
+		<li{if $_GPC['do'] == 'fansdata'} class="active"{/if}><a href="{php echo $this->createWebUrl('fansdata',array('rid' => $rid));}">参与粉丝</a></li>
+		<li{if $_GPC['do'] == 'sharedata'} class="active"{/if}><a href="{php echo $this->createWebUrl('sharedata',array('rid' => $rid));}">分享数据</a></li>
+		<li{if $_GPC['do'] == 'prizedata'} class="active"{/if}><a href="{php echo $this->createWebUrl('prizedata',array('rid' => $rid));}">中奖名单</a></li>		
+		<li{if $_GPC['do'] == 'rankdata'} class="active"{/if}><a href="{php echo $this->createWebUrl('rankdata',array('rid' => $rid));}">粉丝排行</a></li>
+		<li{if $_GPC['do'] == 'trend'} class="active"{/if}><a href="{php echo $this->createWebUrl('trend',array('rid' => $rid));}">活动分析</a></li>
+		<li{if $_GPC['do'] == 'posttmplmsg'} class="active"{/if}><a href="{php echo $this->createWebUrl('posttmplmsg',array('rid' => $rid));}">消息通知</a></li>
+		{if $stonefish_branch}<li{if $_GPC['do'] == 'branch'} class="active"{/if}><a href="{php echo $this->createWebUrl('branch',array('rid' => $rid));}">商家赠送项</a></li>{/if}
+		<li><a href="{php echo url('platform/reply/post',array('m'=>'stonefish_bigwheel', 'rid' => $rid));}">编辑幸运大转盘</a></li>
+	</ul>
+<div class="panel panel-default">
+<div class="panel-heading">
+	<div class="row-fluid">
+    	<div class="span8 control-group">
+			<a class="btn btn-default{if $_GPC['rank']=='sharenum' || $_GPC['rank']==''} btn-primary active{/if}" href="{php echo $this->createWebUrl('rankdata',array('rid'=>$rid,'rank'=>'sharenum'))}">分享值排行榜</a>
+			<a class="btn btn-default{if $_GPC['rank']=='sharepoint'} btn-primary active{/if}" style="margin:0px 10px;" href="{php echo $this->createWebUrl('rankdata',array('rid'=>$rid,'rank'=>'sharepoint'))}">分享额排行榜</a>
+			<a class="btn btn-default{if $_GPC['rank']=='award'} btn-primary active{/if}" href="{php echo $this->createWebUrl('rankdata',array('rid'=>$rid,'rank'=>'award'))}">中奖量排行榜</a>
+			<a class="btn btn-warning">共计：{$total}参与活动</a>
+			<a class="btn btn-warning" style="float:right;" href="{php echo $this->createWebUrl('download',array('rid'=>$rid,rank=>$_GPC['rank'],'data'=>'rankdata'))}"><i class="fa fa-download"></i> 导出{$statustitle}排行榜</a>
+        </div>
+    </div>
+</div>
+<div style="position:relative">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover" style="position:relative">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:50px;">排名</th>
+					<th style="width:50px;">头像</th>
+					<th style="width:100px;">真实姓名</th>
+					<th style="width:100px;">手机号码</th>					
+					<th style="width:100px;">奖品状态</th>
+					<th style="width:100px;">助力情况</th>
+					<th style="width:150px;">参与时间</th>
+					<th style="width:50px;">分享值</th>
+					<th style="width:50px;">分享额</th>
+					<th style="width:50px;">中奖量</th>
+				</tr>
+			</thead>
+			<tbody>
+				{php $i=1;}
+				{loop $list $row}
+				<tr>
+					<td>{php echo $i+$psize*$_GPC['page']}</td>
+					<td><img src="{if substr($row['avatar'],-1)=='0'}{php echo rtrim(toimage($row['avatar']), '0').$reply['poweravatar']}{else}{php echo toimage($row['avatar'])}{/if}" width="30"></td>
+					<td>{if !empty($row['realname'])}{$row['realname']}{else}{php echo stripcslashes($row['nickname'])}{/if}</td>
+					<td>{$row['mobile']}</td>
+					<td>{if $row['zhongjiang']==0}<span class="label label-default">未中奖
+						{elseif $row['zhongjiang']==1}<span class="label label-warning">未兑换
+						{else}<span class="label label-success">已兑奖{/if}
+						{if $row['xuni']==0}/真实</span>
+						{else}/虚拟</span>{/if}</td>
+					<td>{if $row['share_num']==0}未成功分享{else}助力情况[{$row['sharenum']}]{/if}</td>
+					<td>{php echo date('Y/m/d H:i',$row['createtime']);}</td>
+					<td>{$row['sharenum']}</td>
+					<td>{$row['sharepoint']}</td>
+					<td>{$row['awardnum']}</td>
+				</tr>
+				{php $i++;}
+				{/loop}				
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+{$pager}
+</div>
+{template 'common/footer'}

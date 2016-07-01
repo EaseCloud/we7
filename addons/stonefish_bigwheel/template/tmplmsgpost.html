@@ -1,0 +1,378 @@
+{template 'common/header'}
+<div class="main">
+	<ul class="nav nav-tabs">
+		<li{if $_GPC['do'] == 'manage'} class="active"{/if}><a href="{php echo $this->createWebUrl('manage');}"> 管理幸运大转盘</a></li>
+		<li{if $_GPC['do'] == 'post'} class="active"{/if}><a href="{php echo url('platform/reply/post',array('m'=>'stonefish_bigwheel'));}"><i class="fa fa-plus"></i> 添加幸运大转盘</a></li>
+		<li{if $_GPC['do'] == 'template'} class="active"{/if}><a href="{php echo $this->createWebUrl('template');}"> 管理活动模板</a></li>
+        <li{if $_GPC['do'] == 'templatepost'} class="active"{/if}><a href="{php echo url('site/entry/templatepost',array('m'=>'stonefish_bigwheel'));}"><i class="fa fa-plus"></i> 添加活动模板</a></li>
+		<li{if $_GPC['do'] == 'tmplmsg'} class="active"{/if}><a href="{php echo $this->createWebUrl('tmplmsg');}"> 管理消息模板</a></li>
+        <li{if $_GPC['do'] == 'tmplmsgpost' || $_GPC['do'] == '' } class="active"{/if}><a href="{php echo url('site/entry/tmplmsgpost',array('m'=>'stonefish_bigwheel'));}"><i class="fa fa-plus"></i> 添加消息模板</a></li>
+	</ul>
+	<div class="alert alert-info"><a href="http://bbs.012wz.com" target="_blank">消息模板说明</a></div>
+	<form action="" class="form-horizontal form" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="id" value="{$item['id']}">
+	<input type="hidden" name="uniacid" value="{$item['uniacid']}">
+    <div class="panel panel-default">
+	    <div class="panel-heading">消息模板配置</div>
+	        <div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="color:red">消息模板名称</label>
+					<div class="col-sm-9">
+						<input type="text" name="template_name" value="{if !empty($item['template_name'])}{$item['template_name']}{/if}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">消息模板ID</label>
+					<div class="col-sm-9">
+						<input type="text" name="template_id" value="{if !empty($item['template_id'])}{$item['template_id']}{/if}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">提醒名称文字色</label>
+					<div class="col-sm-9">
+						{php echo tpl_form_field_color('topcolor', $item['topcolor'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">可用变量</label>
+					<div class="col-sm-9">
+						<div class="help-block"><span style='color:red'>#活动名称# ：</span>本次活动的活动名称</div>
+						<div class="help-block"><span style='color:red'>#参与人数# ：</span>所有参与活动的真实人数 + 虚拟人数</div>
+						<div class="help-block"><span style='color:red'>#活动时间# ：</span>一次活动设置的活动时间2015年05月01日至2015年05月31日</div>
+						<div class="help-block"><span style='color:red'>#兑奖时间# ：</span>一次活动设置的兑奖时间2015年05月01日至2015年05月31日</div>
+						<div class="help-block"><span style='color:red'>#奖品名称# ：</span>获取奖品的名称</div>
+						<div class="help-block"><span style='color:red'>#粉丝昵称# ：</span>获取奖品的粉丝昵称</div>
+						<div class="help-block"><span style='color:red'>#真实姓名# ：</span>获取奖品的粉丝输入的兑奖真实姓名，活动配置时需要选择兑奖项：姓名</div>
+						<div class="help-block"><span style='color:red'>#现在时间# ：</span>触发消息模板的北京时间</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒标题</label>
+					<div class="col-sm-9">
+					    <input type="text" name="first" value="{if !empty($item['first'])}{$item['first']}{/if}" class="form-control">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">提醒标题文字色</label>
+					<div class="col-sm-9">
+						{php echo tpl_form_field_color('firstcolor', $item['firstcolor'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">提醒关健词说明</label>
+					<div class="col-sm-9">
+						<div class="help-block"><span style='color:red'>根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可</span></div>
+						<div class="help-block">提醒关健词请输入需要提醒的变量或自定义内容</div>
+						<div class="help-block">代码为微信平台消息模板的{{keyword1.DATA}}除去.DATA的变量代码</div>
+						<div class="help-block">文字色为显示此变量转换成功的文字色</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒关键字1</label>
+					<div class="col-sm-9">
+					    <input type="text" name="keyword1" value="{if !empty($item['keyword1'])}{$item['keyword1']}{/if}" class="form-control" placeholder="根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字1代码</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword1code" value="{if !empty($item['keyword1code'])}{$item['keyword1code']}{else}keyword1{/if}" class="form-control">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字1文字色</label>
+                    <div class="col-sm-5">
+                        {php echo tpl_form_field_color('keyword1color', $item['keyword1color'])}
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒关键字2</label>
+					<div class="col-sm-9">
+					    <input type="text" name="keyword2" value="{if !empty($item['keyword2'])}{$item['keyword2']}{/if}" class="form-control" placeholder="根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字2代码</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword2code" value="{if !empty($item['keyword2code'])}{$item['keyword2code']}{else}keyword2{/if}" class="form-control">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字2文字色</label>
+                    <div class="col-sm-5">
+                        {php echo tpl_form_field_color('keyword2color', $item['keyword2color'])}
+                    </div>
+                </div>
+				<div class="form-group" id="keyword3show" {if !empty($item['keyword3code'])}style="display: none;"{/if}>
+				    <div class="col-sm-5"></div>
+				    <div class="col-sm-7">
+				        <button id="keyword3but" type="button" class="btn btn-warning">
+					        <span class="glyphicon glyphicon-plus"></span> 添加提醒关键字
+				        </button>
+				    </div>
+				</div>
+				<div id="keyword3" {if empty($item['keyword3code'])}style="display: none;"{/if}>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒关键字3</label>
+					<div class="col-sm-9">
+					    <input type="text" name="keyword3" value="{if !empty($item['keyword3'])}{$item['keyword3']}{/if}" class="form-control" placeholder="根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字3代码</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword3code" value="{if !empty($item['keyword3code'])}{$item['keyword3code']}{/if}" class="form-control">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字3文字色</label>
+                    <div class="col-sm-5">
+                        {php echo tpl_form_field_color('keyword3color', $item['keyword3color'])}
+                    </div>
+                </div>
+				<div class="form-group" id="keyword4show" {if !empty($item['keyword4code'])}style="display: none;"{/if}>
+				    <div class="col-sm-5"></div>
+				    <div class="col-sm-7">
+				        <button id="keyword4but" type="button" class="btn btn-warning">
+					        <span class="glyphicon glyphicon-plus"></span> 添加提醒关键字
+				        </button>
+				    </div>
+				</div>
+				</div>
+				<div id="keyword4" {if empty($item['keyword4code'])}style="display: none;"{/if}>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒关键字4</label>
+					<div class="col-sm-9">
+					    <input type="text" name="keyword4" value="{if !empty($item['keyword4'])}{$item['keyword4']}{/if}" class="form-control" placeholder="根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字4代码</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword4code" value="{if !empty($item['keyword4code'])}{$item['keyword4code']}{/if}" class="form-control">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字4文字色</label>
+                    <div class="col-sm-5">
+                        {php echo tpl_form_field_color('keyword4color', $item['keyword4color'])}
+                    </div>
+                </div>
+				<div class="form-group" id="keyword5show" {if !empty($item['keyword5code'])}style="display: none;"{/if}>
+				    <div class="col-sm-5"></div>
+				    <div class="col-sm-7">
+				        <button id="keyword5but" type="button" class="btn btn-warning">
+					        <span class="glyphicon glyphicon-plus"></span> 添加提醒关键字
+				        </button>
+				    </div>
+				</div>
+				</div>
+				<div id="keyword5" {if empty($item['keyword5code'])}style="display: none;"{/if}>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒关键字5</label>
+					<div class="col-sm-9">
+					    <input type="text" name="keyword5" value="{if !empty($item['keyword5'])}{$item['keyword5']}{/if}" class="form-control" placeholder="根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字5代码</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword5code" value="{if !empty($item['keyword5code'])}{$item['keyword5code']}{/if}" class="form-control">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字5文字色</label>
+                    <div class="col-sm-5">
+                        {php echo tpl_form_field_color('keyword5color', $item['keyword5color'])}
+                    </div>
+                </div>
+				<div class="form-group" id="keyword6show" {if !empty($item['keyword6code'])}style="display: none;"{/if}>
+				    <div class="col-sm-5"></div>
+				    <div class="col-sm-7">
+				        <button id="keyword6but" type="button" class="btn btn-warning">
+					        <span class="glyphicon glyphicon-plus"></span> 添加提醒关键字
+				        </button>
+				    </div>
+				</div>
+				</div>
+				<div id="keyword6" {if empty($item['keyword6code'])}style="display: none;"{/if}>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒关键字6</label>
+					<div class="col-sm-9">
+					    <input type="text" name="keyword6" value="{if !empty($item['keyword6'])}{$item['keyword6']}{/if}" class="form-control" placeholder="根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字6代码</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword6code" value="{if !empty($item['keyword6code'])}{$item['keyword6code']}{/if}" class="form-control">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字6文字色</label>
+                    <div class="col-sm-5">
+                        {php echo tpl_form_field_color('keyword6color', $item['keyword6color'])}
+                    </div>
+                </div>
+				<div class="form-group" id="keyword7show" {if !empty($item['keyword7code'])}style="display: none;"{/if}>
+				    <div class="col-sm-5"></div>
+				    <div class="col-sm-7">
+				        <button id="keyword7but" type="button" class="btn btn-warning">
+					        <span class="glyphicon glyphicon-plus"></span> 添加提醒关键字
+				        </button>
+				    </div>
+				</div>
+				</div>
+				<div id="keyword7" {if empty($item['keyword7code'])}style="display: none;"{/if}>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒关键字7</label>
+					<div class="col-sm-9">
+					    <input type="text" name="keyword7" value="{if !empty($item['keyword7'])}{$item['keyword7']}{/if}" class="form-control" placeholder="根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字7代码</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword7code" value="{if !empty($item['keyword7code'])}{$item['keyword7code']}{/if}" class="form-control">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字7文字色</label>
+                    <div class="col-sm-5">
+                        {php echo tpl_form_field_color('keyword7color', $item['keyword7color'])}
+                    </div>
+                </div>
+				<div class="form-group" id="keyword8show" {if !empty($item['keyword8code'])}style="display: none;"{/if}>
+				    <div class="col-sm-5"></div>
+				    <div class="col-sm-7">
+				        <button id="keyword8but" type="button" class="btn btn-warning">
+					        <span class="glyphicon glyphicon-plus"></span> 添加提醒关键字
+				        </button>
+				    </div>
+				</div>
+				</div>
+				<div id="keyword8"  {if empty($item['keyword8code'])}style="display: none;"{/if}>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒关键字8</label>
+					<div class="col-sm-9">
+					    <input type="text" name="keyword8" value="{if !empty($item['keyword8'])}{$item['keyword8']}{/if}" class="form-control" placeholder="根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字8代码</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword8code" value="{if !empty($item['keyword8code'])}{$item['keyword8code']}{/if}" class="form-control">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字8文字色</label>
+                    <div class="col-sm-5">
+                        {php echo tpl_form_field_color('keyword8color', $item['keyword8color'])}
+                    </div>
+                </div>
+				<div class="form-group" id="keyword9show" {if !empty($item['keyword9code'])}style="display: none;"{/if}>
+				    <div class="col-sm-5"></div>
+				    <div class="col-sm-7">
+				        <button id="keyword9but" type="button" class="btn btn-warning">
+					        <span class="glyphicon glyphicon-plus"></span> 添加提醒关键字
+				        </button>
+				    </div>
+				</div>
+				</div>
+				<div id="keyword9" {if empty($item['keyword9code'])}style="display: none;"{/if}>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒关键字9</label>
+					<div class="col-sm-9">
+					    <input type="text" name="keyword9" value="{if !empty($item['keyword9'])}{$item['keyword9']}{/if}" class="form-control" placeholder="根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字9代码</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword9code" value="{if !empty($item['keyword9code'])}{$item['keyword9code']}{/if}" class="form-control">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字9文字色</label>
+                    <div class="col-sm-5">
+                        {php echo tpl_form_field_color('keyword9color', $item['keyword9color'])}
+                    </div>
+                </div>
+				<div class="form-group" id="keyword10show" {if !empty($item['keyword10code'])}style="display: none;"{/if}>
+				    <div class="col-sm-5"></div>
+				    <div class="col-sm-7">
+				        <button id="keyword10but" type="button" class="btn btn-warning">
+					        <span class="glyphicon glyphicon-plus"></span> 添加提醒关键字
+				        </button>
+				    </div>
+				</div>
+				</div>
+				<div id="keyword10" {if empty($item['keyword10code'])}style="display: none;"{/if}>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒关键字10</label>
+					<div class="col-sm-9">
+					    <input type="text" name="keyword10" value="{if !empty($item['keyword10'])}{$item['keyword10']}{/if}" class="form-control" placeholder="根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字10代码</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword10code" value="{if !empty($item['keyword10code'])}{$item['keyword10code']}{/if}" class="form-control">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 control-label">提醒关键字10文字色</label>
+                    <div class="col-sm-5">
+                        {php echo tpl_form_field_color('keyword10color', $item['keyword10color'])}
+                    </div>
+                </div>				
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">提醒关健词说明</label>
+					<div class="col-sm-9">
+						<div class="help-block"><span style='color:red'>根据消息模板所使用的变量代码进行输入，有几个输入几个，其他留空即可</span></div>
+						<div class="help-block">提醒关健词请输入需要提醒的变量或自定义内容</div>
+						<div class="help-block">代码为微信平台消息模板的{{keyword1.DATA}}除去.DATA的变量代码</div>
+						<div class="help-block">文字色为显示此变量转换成功的文字色</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" >提醒备注</label>
+					<div class="col-sm-9">
+					    <input type="text" name="remark" value="{if !empty($item['remark'])}{$item['remark']}{/if}" class="form-control">			
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">提醒备注文字色</label>
+					<div class="col-sm-9">
+						{php echo tpl_form_field_color('remarkcolor', $item['remarkcolor'])}
+					</div>
+				</div>
+	        </div>			
+        </div>
+		<div class="form-group">
+		    <div class="col-sm-12">
+			    <button type="submit" class="btn btn-primary col-lg-3" name="submit" value="保存消息模板配置">保存消息模板配置</button>
+			    <input type="hidden" name="token" value="{$_W['token']}" />
+		    </div>
+	    </div>
+    </div>
+	</form>
+</div>
+<script type="text/javascript">
+<!--
+    $('#keyword3but').click(function(){
+	    $('#keyword3').show();
+		$('#keyword3show').hide();
+	});
+	$('#keyword4but').click(function(){
+	    $('#keyword4').show();
+		$('#keyword4show').hide();
+	});
+	$('#keyword5but').click(function(){
+	    $('#keyword5').show();
+		$('#keyword5show').hide();
+	});
+	$('#keyword6but').click(function(){
+	    $('#keyword6').show();
+		$('#keyword6show').hide();
+	});
+	$('#keyword7but').click(function(){
+	    $('#keyword7').show();
+		$('#keyword7show').hide();
+	});
+	$('#keyword8but').click(function(){
+	    $('#keyword8').show();
+		$('#keyword8show').hide();
+	});
+	$('#keyword9but').click(function(){
+	    $('#keyword9').show();
+		$('#keyword9show').hide();
+	});
+	$('#keyword10but').click(function(){
+	    $('#keyword10').show();
+		$('#keyword10show').hide();
+	});
+//-->
+</script>
+{template 'common/footer'}

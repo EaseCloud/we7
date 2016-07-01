@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[一元夺宝]]></name>
+		<identifie><![CDATA[feng_duobao]]></identifie>
+		<version><![CDATA[3.3]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[一元夺宝是一种全新的购物方式。]]></ability>
+		<description><![CDATA[一云夺宝是一种全新的购物方式,是时尚、潮流的风向标,能满足个性、年轻消费者的购物需求]]></description>
+		<author><![CDATA[Man.Dan QQ:82089092]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="首页入口设置" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="商品管理" do="goods" state="" direct="false" />
+			<entry title="交易记录" do="record" state="" direct="false" />
+			<entry title="订单管理" do="order" state="" direct="false" />
+			<entry title="会员管理" do="member" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="夺宝首页" do="index" state="" direct="false" />
+			<entry title="个人中心" do="profile" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[
+		CREATE TABLE IF NOT EXISTS `ims_feng_goodscodes` (
+		 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+		 `uniacid` int(11) NOT NULL COMMENT '公众账号',
+		 `s_id` int(10) unsigned NOT NULL COMMENT '商品ID',
+		 `s_cid` smallint(5) unsigned NOT NULL,
+		 `s_len` smallint(5) DEFAULT NULL COMMENT '长度',
+		 `s_codes` longtext COMMENT '商品码',
+		 `s_codes_tmp` longtext COMMENT '商品码备份',
+		 PRIMARY KEY (`id`),
+		 KEY `s_id` (`s_id`),
+		 KEY `uniacid` (`uniacid`),
+		 KEY `s_len` (`s_len`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+		CREATE TABLE IF NOT EXISTS `ims_feng_goodslist` (
+		 `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+		 `uniacid` int(10) unsigned NOT NULL COMMENT '公众账号',
+		 `sid` int(10) unsigned NOT NULL COMMENT '同一个商品id',
+		 `title` varchar(100) DEFAULT NULL COMMENT '商品标题',
+		 `price` int(10) DEFAULT '0' COMMENT '金额',
+		 `zongrenshu` int(10) unsigned DEFAULT '0' COMMENT '总需人数',
+		 `canyurenshu` int(10) unsigned DEFAULT '0' COMMENT '已参与人数',
+		 `shengyurenshu` int(10) unsigned DEFAULT NULL COMMENT '剩余人数',
+		 `periods` smallint(6) unsigned DEFAULT '0' COMMENT '期数',
+		 `maxperiods` smallint(5) unsigned DEFAULT '1' COMMENT ' 最大期数',
+		 `picarr` text COMMENT '商品图片',
+		 `content` mediumtext COMMENT '商品详情',
+		 `createtime` int(10) unsigned DEFAULT NULL COMMENT '创建时间',
+		 `pos` tinyint(4) unsigned DEFAULT NULL COMMENT '是否推荐',
+		 `status` int(11) NOT NULL COMMENT '1:下架, 2: 上架',
+		 `scale` int(10) unsigned DEFAULT NULL COMMENT '比例',
+		 `q_uid` varchar(10) DEFAULT NULL COMMENT '中奖人昵称',
+		 `q_user` varchar(50) DEFAULT NULL COMMENT '中奖人from_user',
+		 `q_user_code` char(20) DEFAULT NULL COMMENT '中奖码',
+		 `q_end_time` char(20) DEFAULT NULL COMMENT '揭晓时间',
+		 `send_state` int(4) unsigned NOT NULL COMMENT '1为已发货',
+		 `send` int(4) unsigned NOT NULL COMMENT '是否需要快递1为需要',
+		 `express` varchar(20) DEFAULT NULL COMMENT '快递公司',
+		 `expressn` char(20) DEFAULT NULL COMMENT '快递单',
+		 `send_time` char(20) DEFAULT NULL COMMENT '发货时间',
+		 PRIMARY KEY (`id`),
+		 KEY `uniacid` (`uniacid`),
+		 KEY `sid` (`sid`),
+		 KEY `status` (`status`),
+		 KEY `shenyurenshu` (`shengyurenshu`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+		CREATE TABLE IF NOT EXISTS `ims_feng_member` (
+		 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+		 `uniacid` int(10) unsigned NOT NULL COMMENT '公众账号id',
+		 `from_user` varchar(50) NOT NULL COMMENT '微信会员openID',
+		 `realname` varchar(10) NOT NULL COMMENT '真实姓名',
+		 `nickname` varchar(20) NOT NULL COMMENT '昵称',
+		 `avatar` varchar(255) NOT NULL COMMENT '头像',
+		 `mobile` varchar(11) NOT NULL COMMENT '手机号码',
+		 `address` varchar(255) NOT NULL COMMENT '邮寄地址',
+		 PRIMARY KEY (`id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+		CREATE TABLE IF NOT EXISTS `ims_feng_wechat` (
+		 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+		 `uniacid` int(10) unsigned NOT NULL,
+		 `appid` varchar(100) DEFAULT NULL,
+		 `appsecret` varchar(200) DEFAULT NULL,
+		 `access_token` text,
+		 `lasttime` char(20) DEFAULT NULL,
+		 `share_title` varchar(200) DEFAULT NULL,
+		 `share_image` varchar(500) DEFAULT NULL,
+		 `share_desc` varchar(300) DEFAULT NULL,
+		 `win_mess` varchar(200) DEFAULT NULL,
+		 PRIMARY KEY (`id`),
+		 KEY `uniacid` (`uniacid`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+		CREATE TABLE IF NOT EXISTS `ims_feng_record` (
+		 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+		 `from_user` varchar(50) NOT NULL COMMENT '微信会员ID',
+		 `nickname` varchar(20) NOT NULL COMMENT '用户昵称',
+		 `uniacid` int(10) unsigned NOT NULL COMMENT '公众账号',
+		 `sid` int(10) unsigned NOT NULL COMMENT '商品编号',
+		 `ordersn` varchar(20) NOT NULL COMMENT '订单编号',
+		 `status` smallint(4) NOT NULL DEFAULT '0' COMMENT '0未支付，1为已付款',
+		 `paytype` tinyint(1) unsigned NOT NULL COMMENT '1为余额支付，2为支付宝，3为微信支付',
+		 `transid` varchar(30) NOT NULL COMMENT '微信订单号',
+		 `count` int(10) unsigned NOT NULL COMMENT '商品数量',
+		 `s_codes` longtext COMMENT '商品码',
+		 `createtime` int(10) unsigned NOT NULL COMMENT '购买时间',
+		 PRIMARY KEY (`id`),
+		 KEY `uniacid` (`uniacid`),
+		 KEY `status` (`status`),
+		 KEY `sid` (`sid`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+		]]></install>
+	<uninstall><![CDATA[
+		DROP TABLE `ims_feng_goodscodes` ,
+		`ims_feng_goodslist` ,
+		`ims_feng_member` ,
+		`ims_feng_record` ,
+		`ims_feng_wechat` ;
+		]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

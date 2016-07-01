@@ -1,0 +1,95 @@
+{template 'common/header'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" id="setting-form">
+		<div class="panel panel-default">
+			<div class="panel-heading">信息设置</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享标题</label>
+					<div class="col-sm-8">
+						<input type="text" name="dat[share_title]" class="form-control" value="{$settings['share_title']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享图片</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('dat[share_image]', $settings['share_image']);}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享描述</label>
+					<div class="col-sm-8">
+						<textarea style="height:200px;" id="description" name="dat[share_desc]" class="form-control description" cols="60">{$settings['share_desc']}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">关注链接</label>
+					<div class="col-sm-8">
+						<input type="text" name="dat[url]" class="form-control" value="{$settings['url']}" />
+						<span class="help-block">关注链接用于分享后，引导用户关注(不填则不需要关注即可参加)</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">规则介绍</label>
+					<div class="col-sm-8">
+						<textarea style="height:200px;" id="int_desc" name="dat[int_desc]" class="form-control richtext" cols="60">{$settings['int_desc']}</textarea>
+						<span class="help-block">不填则是默认规则</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">模板消息设置</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">订单支付成功消息ID</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="dat[succ_mess]" class="form-control" value="{$settings['succ_mess']}" />
+						<span class="help-block">模板消息用于对支付成功用户的提醒，请进入公众平台模板消息选择：IT科技-互联网|电子商务-TM00015号模板ID，限认证服务号</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">中奖结果通知ID</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="dat[win_mess]" class="form-control" value="{$settings['win_mess']}" />
+						<span class="help-block">模板消息用于对中奖用户的提醒，请进入公众平台模板消息选择：IT科技-互联网|电子商务-TM00695号模板ID，限认证服务号</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+
+<script>
+require(['jquery', 'util'], function($, util){
+	$(function(){
+		$('#setting-form').submit(function(){
+			var result = true;
+			if($('input[name="dat[share_title]"]').val() == ''){
+				result = false;
+				util.message('未填写分享标题.');
+			}
+			if($('input[name="dat[share_image]"]').val() == ''){
+				result = false;
+				util.message('未填加分享图片.');
+			}
+			return result;
+		});
+	});
+});
+</script>
+<script>
+require(['jquery', 'util'], function($, u){
+	$(function(){
+		u.editor($('.richtext')[0]);
+	});
+});
+</script>
+{template 'common/footer'}

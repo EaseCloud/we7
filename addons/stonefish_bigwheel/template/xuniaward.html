@@ -1,0 +1,37 @@
+<form method="post" action="{php echo url('site/entry/addawardsave',array('m' => 'stonefish_bigwheel','rid' => $rid))}" id="form1">
+	<input type="hidden" name="uid" value="{$data['id']}">
+	<div class="table-responsive" style="height:300px;overflow-Y: auto; overflow-X:hidden;">
+	<table class="table" style="min-width:568px;">
+	<tr>
+		<td style="border-top:none;vertical-align:middle;"><strong>用户ID</strong> {$data['fansID']}</td>
+		<td style="border-top:none;vertical-align:middle;"><strong>姓名</strong> {if $data['realname']} {$data['realname']} {else} 未完善 {/if}</td>
+		<td style="border-top:none;vertical-align:middle"><strong>手机</strong> {if $data['mobile']} {$data['mobile']} {else} 未完善 {/if}</td>
+	</tr>
+	{if $award}
+	<tr>
+		<td style="border-top:none;vertical-align:middle;width:80px;"><strong>选择奖品</strong></td>
+		<td style="border-top:none;vertical-align:middle" colspan="2">
+		            <select name="awardid" class="form-control" style="float:left">
+                    	<option value="" selected>请选择奖品</option>
+						{loop $awardlist $awardlistrow}
+						{if $awardlistrow['prizetotal']>$awardlistrow['prizedraw']}<option value="{$awardlistrow['id']}">{$awardlistrow['prizetype']} - {$awardlistrow['prizename']} [剩余 {php echo ($awardlistrow['prizetotal']-$awardlistrow['prizedraw'])} 个奖品]</option>{/if}
+						{/loop}						
+                	</select>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-top:none;vertical-align:middle;width:100%;" colspan="3"><strong>必需选择上面的奖品才能正常生效!</strong></td>
+	</tr>
+	{else}
+	<tr>
+		<td style="border-top:none;vertical-align:middle;width:100%;" colspan="3"><strong>已没有奖品可发了!</strong></td>
+	</tr>
+	{/if}
+	<tr>
+		<td style="border-top:none;vertical-align:middle;" colspan="3"><button class="btn btn-primary"><i class="fa fa-file-text-o"></i> 保存虚拟中奖数据</button></td>
+	</tr>
+	<input name="token" type="hidden" value="{$_W['token']}"/>
+	</table>
+	</div>
+</form>
+

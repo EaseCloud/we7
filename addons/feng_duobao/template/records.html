@@ -1,0 +1,59 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+<!-- 	<li {if $status == ''}class="active"{/if}><a href="{php echo $this->createWebUrl('record');}">全部记录</a></li> -->
+	<li {if ($status == '0' || $status == '')}class="active"{/if}><a href="{php echo $this->createWebUrl('record',array('status' => 0));}">未付款</a></li>
+	<li {if $status == '1'}class="active"{/if}><a href="{php echo $this->createWebUrl('record',array('status' => 1));}">已付款</a></li>
+</ul>
+	<div class="panel panel-default">
+		<div class="panel-heading">交易记录</div>
+		<div class="panel-body">
+			<div class="table-responsive panel-body">
+				<table class="table table-hover" style="min-width: 300px;">
+					<thead class="navbar-inner">
+						<tr>
+							<th class="col-sm-2">订单号</th>
+							<th class="col-sm-1">商品ID</th>
+							<th class="col-sm-1">昵称</th>
+							<th class="col-sm-1">支付方式</th>
+							<th class="col-sm-2">微信订单号</th>
+							<th class="col-sm-1">数量</th>
+							<th class="col-sm-1">总价</th>
+							<th class="col-sm-1">状态</th>
+							<th class="col-sm-2">下单时间</th>
+							<th class="col-sm-2 text-right">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{loop $goodses $goodsid $goods}
+						<tr>
+							<td>{$goods['ordersn']}</td>
+							<td>{$goods['sid']}</td>
+							<td>{$goods['nickname']}</td>
+							<td>{if ($goods['paytype']!=3)}{if ($goods['paytype']==1)}<span class="label label-danger">余额支付{else}{if ($goods['paytype']==2)}<span class="label label-danger">支付宝支付{else}<span class="label label-default">未支付{/if}{/if}{else}<span class="label label-danger">微信支付{/if}</span</td>
+							<td>{$goods['transid']}</td>
+							<td>{$goods['count']} 个</td>
+							<td>{$goods['count']} 元</td>
+							<td>{if ($goods['status']==1)}<span class="label label-info">已支付</span>{else}<span class="label label-default">未支付</span>{/if}</td>
+							<td>{php echo date('Y-m-d H:i:s', $goods['createtime'])}</td>
+							<td class="text-right">
+								<a href="{php echo $this->createWebUrl('showrecords', array('id'=>$goods['id']));}" class="btn btn-success btn-sm" data-original-title="" title="">查看兑换码</a>
+							</td>
+						</tr>
+						{/loop}
+						{if empty($goodses)}
+						<tr>
+							<td colspan="8">
+								没有交易记录
+							</td>
+						</tr>
+						{/if}
+					</tbody>
+				</table>
+				{$pager}
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'common/footer'}

@@ -1,0 +1,24 @@
+<div class="table-responsive" style="height:300px;overflow-Y: auto; overflow-X:hidden;">
+	<table class="table" style="min-width:568px;">
+			<tr>
+				<th style="width:40px;">奖？</th>
+				<th style="width:130px;">奖品</th>
+				<th style="width:100px;">状态</th>
+				<th style="width:150px;">中奖时间</th>
+				<th style="width:150px;">使用时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			{loop $list $row}
+			<tr>
+				<td><img src="{php echo toimage($row['prizepic'])}" width="30"></td>
+				<td>{$row['prizerating']}-{$row['prizename']}</td>
+				<td>{if $row['zhongjiang']==0}<span class="label label-default">未中奖{elseif $row['zhongjiang']==1}<span class="label label-warning">未兑换{else}<span class="label label-success">已兑奖{/if}{if $row['xuni']==0}/真实</span>{else}/虚拟</span>{/if}</td>
+				<td>{php echo date('Y/m/d H:i',$row['zhongjiangtime']);}</td>
+				<td>{if $row['consumetime'] == 0}未使用{else}{php echo date('Y/m/d H:i',$row['consumetime']);}{/if}</td>
+				<td>{if $row['tickettype']==1}<span class="label label-warning">后台兑奖</span>{elseif $row['tickettype']==2}<span class="label label-warning">店员兑奖</span>{elseif $row['tickettype']==3}<span class="label label-warning">商家网店</span>{else}<span class="label label-warning">密码兑奖</span>{/if}</td>
+			</tr>
+			{/loop}
+		</tbody>
+	</table>
+</div>
