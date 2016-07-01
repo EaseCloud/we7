@@ -19,22 +19,7 @@ if ($operation == 'display') {
         if (empty($_GPC['levelname'])) {
             message('抱歉，请输入分类名称！');
         }
-        $data = array(
-            'uniacid' => $_W['uniacid'],
-            'levelname' => $_GPC['levelname'],
-            'commission1' => $_GPC['commission1'],
-            'commission2' => $_GPC['commission2'],
-            'commission3' => $_GPC['commission3'],
-            'commission1_person' => $_GPC['commission1_person'],
-            'commission2_person' => $_GPC['commission2_person'],
-            'commission3_person' => $_GPC['commission3_person'],
-            'level_credit' => $_GPC['level_credit'],
-            'commissionmoney' => $_GPC['commissionmoney'],
-            'ordermoney' => $_GPC['ordermoney'],
-            'ordercount' => intval($_GPC['ordercount']),
-            'downcount' => intval($_GPC['downcount']),
-            );
-
+        $data = array('uniacid' => $_W['uniacid'], 'levelname' => $_GPC['levelname'], 'commission1' => $_GPC['commission1'], 'commission2' => $_GPC['commission2'], 'commission3' => $_GPC['commission3'], 'commissionmoney' => $_GPC['commissionmoney'], 'ordermoney' => $_GPC['ordermoney'], 'ordercount' => intval($_GPC['ordercount']), 'downcount' => intval($_GPC['downcount']),);
         if (!empty($id)) {
             pdo_update('sz_yi_commission_level', $data, array('id' => $id, 'uniacid' => $_W['uniacid']));
             plog('commission.level.edit', "修改分销商等级 ID: {$id}");
@@ -43,7 +28,6 @@ if ($operation == 'display') {
             $id = pdo_insertid();
             plog('commission.level.add', "添加分销商等级 ID: {$id}");
         }
-        
         message('更新等级成功！', $this->createPluginWebUrl('commission/level', array('op' => 'display')), 'success');
     }
 } elseif ($operation == 'delete') {

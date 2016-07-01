@@ -92,28 +92,28 @@
                     </select>
                 </div>
             </div>
-			     <div class="form-group">
+                 <div class="form-group">
                 <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">下级层级</label><div class="col-sm-8 col-lg-9 col-xs-12"><select name='level' class='form-control'>
                         <option value=''>所有下线</option>
                         {if $this->set['level']>=1}<option value='1' {if $_GPC['level']=='1'}selected{/if}>一级下线</option>{/if}
                         {if $this->set['level']>=2}<option value='2' {if $_GPC['level']=='2'}selected{/if}>二级下线</option>{/if}
-		       {if $this->set['level']>=3}<option value='3' {if $_GPC['level']=='3'}selected{/if}>三级下线</option>{/if}
+               {if $this->set['level']>=3}<option value='3' {if $_GPC['level']=='3'}selected{/if}>三级下线</option>{/if}
                     </select>
                 </div>
             </div>
-	 
-			
+     
+            
                     <div class="form-group">
                 <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">状态</label>
           
-				<div class="col-sm-3">
+                <div class="col-sm-3">
                    <select name='isagent' class='form-control'>
                         <option value=''>是否分销商</option>
                         <option value='0' {if $_GPC['isagent']=='0'}selected{/if}>不是</option>
                         <option value='1' {if $_GPC['isagent']=='1'}selected{/if}>是</option>
                     </select>
-			    </div>	  
-				<div class="col-sm-3">
+                </div>      
+                <div class="col-sm-3">
                     <select name='status' class='form-control'>
                         <option value=''>状态</option>
                         <option value='0' {if $_GPC['status']=='0'}selected{/if}>未审核</option>
@@ -161,10 +161,10 @@
                       <td  {if !empty($row['agentid'])}title='ID: {$row['agentid']}'{/if}>
                            {if empty($row['agentid'])}
                            {if $row['isagent']==1}
-				      <label class='label label-primary'>总店</label>
-				      {else}
-				       <label class='label label-default'>暂无</label>
-				      {/if}
+                      <label class='label label-primary'>总店</label>
+                      {else}
+                       <label class='label label-default'>暂无</label>
+                      {/if}
                           {else}
                           <img src='{$row['parentavatar']}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' /> {$row['parentname']}
                           {/if}
@@ -179,41 +179,41 @@
                     
                     <td>{$row['realname']} <br/> {$row['mobile']}</td>
 <td>
-	{if $row['isagent']==1}
-	{if empty($row['levelname'])} 
-	{php echo empty($this->set['levelname'])?'普通等级':$this->set['levelname']}{else}{$row['levelname']}{/if}
-	{else}
-			-
-			{/if}
+    {if $row['isagent']==1}
+    {if empty($row['levelname'])} 
+    {php echo empty($this->set['levelname'])?'普通等级':$this->set['levelname']}{else}{$row['levelname']}{/if}
+    {else}
+            -
+            {/if}
 
 </td>
-                    <td> 	{if $row['isagent']==1}
-						{$row['clickcount']}
-						{else}
-			-
-			{/if}
-					</td>
+                    <td>     {if $row['isagent']==1}
+                        {$row['clickcount']}
+                        {else}
+            -
+            {/if}
+                    </td>
                     <td>
-						{if $row['isagent']==1 && $row['status']==1}
-						{$row['commission_total']}<br/>{$row['commission_pay']}
-					
-						{else}
-			-
-			{/if}
-					</td>
+                        {if $row['isagent']==1 && $row['status']==1}
+                        {$row['commission_total']}<br/>{$row['commission_pay']}
+                    
+                        {else}
+            -
+            {/if}
+                    </td>
                     <td>
-						{if $row['isagent']==1}
+                        {if $row['isagent']==1}
                         总计：{$row['levelcount']} 人
                         {if $level>=1 && $row['level1']>0}<br/>一级：{$row['level1']} 人{/if}
                         {if $level>=2  && $row['level2']>0}<br/> 二级：{$row['level2']} 人{/if}
                         {if $level>=3  && $row['level3']>0}<br/>三级：{$row['level3']} 人{/if}
-					
-						{else}
-			-
-			{/if}
-					</td>
+                    
+                        {else}
+            -
+            {/if}
+                    </td>
                     <td>
-						{if $row['isagent']==1}
+                        {if $row['isagent']==1}
                         {if $row['status']==0}
                                 {if $row['agentblack']==1}
                                   <span class="label label-default" style='color:#fff;background:black'>黑名单</span>
@@ -228,10 +228,10 @@
                         {else}
                         <span class="label label-success">已审核</span>
                         {/if}
-				{else}
-			-
-			{/if}		
-			 
+                {else}
+            -
+            {/if}        
+             
                     </td>
                     <td>注册时间：{php echo date('Y-m-d H:i',$row['createtime'])}<br/>
                               代理时间：{if !empty($row['agenttime'])}{php echo date('Y-m-d H:i',$row['agenttime'])}{/if} 
@@ -250,8 +250,8 @@
                         <div class="btn-group btn-group-sm">
                                 <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="javascript:;">操作 <span class="caret"></span></a>
                                    <ul class="dropdown-menu dropdown-menu-left" role="menu" style='z-index: 99999'>
-                         {ifp 'member.member.view'}<li><a href="{php echo $this->createWebUrl('member',array('op'=>'detail', 'id' => $row['id']));}" title='会员信息'><i class='fa fa-user'></i> 会员信息</a></li>	{/if}
-                                    {ifp 'commission.agent.view'}<li><a href="{php echo $this->createPluginWebUrl('commission/agent/detail',array('id' => $row['id']));}" title='详细信息'><i class='fa fa-edit'></i> 详细信息</a>	</li>	{/if}
+                         {ifp 'member.member.view'}<li><a href="{php echo $this->createWebUrl('member',array('op'=>'detail', 'id' => $row['id']));}" title='会员信息'><i class='fa fa-user'></i> 会员信息</a></li>    {/if}
+                                    {ifp 'commission.agent.view'}<li><a href="{php echo $this->createPluginWebUrl('commission/agent/detail',array('id' => $row['id']));}" title='详细信息'><i class='fa fa-edit'></i> 详细信息</a>    </li>    {/if}
                         {ifp 'commission.agent.order'}<li><a  href="{php echo $this->createWebUrl('order',array('op'=>'display','agentid' => $row['id']));}" title='推广订单'><i class='fa fa-list'></i> 推广订单</a></li>{/if}
                         {ifp 'commission.agent.user'}<li><a  href="{php echo $this->createPluginWebUrl('commission/agent/user',array('id' => $row['id']));}"  title='推广下线'><i class='fa fa-users'></i> 推广下线</a></li>{/if}
                         {ifp 'commission.agent.agentblack'}
