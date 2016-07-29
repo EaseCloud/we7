@@ -1,3 +1,5 @@
+/app
+/api
 # Created by .ignore support plugin (hsz.mobi)
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
@@ -9,6 +11,11 @@
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+/api.php
+/index.php
+/web
+/payment
+/framework
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
@@ -54,3 +61,5 @@ fabric.properties
 /addons/*/data/
 /addons/*/tmp
 D.txt
+
+*.swp

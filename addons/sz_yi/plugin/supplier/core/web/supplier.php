@@ -5,6 +5,7 @@ global $_W, $_GPC;
 $operation = empty($_GPC['op']) ? 'display' : $_GPC['op'];
 if ($operation == 'display') {
     $roleid = pdo_fetchcolumn('select id from ' . tablename('sz_yi_perm_role') . ' where status1=1');
+    $roleid = $roleid ?: 0;
     $where = '';
     if (empty($_GPC['uid'])) {
         $where .= ' and uniacid=' . $_W['uniacid'];
