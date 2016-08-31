@@ -12,6 +12,6 @@ define('SZ_YI_DEBUG', false); //false
 !defined('SZ_YI_PREFIX') && define('SZ_YI_PREFIX', 'sz_yi_');
 
 // 单一二次开发注入点 Alfred@EaseCloud https://www.huangwenchao.com.cn
-require_once 'sdk/index.php';
+require_once SZ_YI_PATH . 'sdk/index.php';
 
 

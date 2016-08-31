@@ -9,14 +9,12 @@
  */
 class EaseCloud {
 
-    const EC_SZ_YI_CACHE = SZ_YI_PATH . "data/cache/";
-
     /**
      * 清理芸众商城缓存
      * @param string $dir
      */
     function yzCleanCache($dir = '') {
-        $dir = $dir ?: self::EC_SZ_YI_CACHE;
+        $dir = $dir ?: SZ_YI_PATH . "data/cache/";
         $cache_dir = opendir($dir);
         while (($file = readdir($cache_dir)) != false) {
             if ($file != '.' && $file != '..') {
